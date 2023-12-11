@@ -13,7 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.firstapp.hootnholler.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,16 +65,18 @@ public class Register_Activity extends AppCompatActivity {
         String password=UserPassword.getText().toString();
         String confirmPassword=UserConfirmPassword.getText().toString();
         RoleSelection= (RadioButton) findViewById(UserRole.getCheckedRadioButtonId());
-        String role=RoleSelection.getText().toString();
+        String role;
 
         //prompt user to key in the information if the column is still empty
         if(TextUtils.isEmpty(fullname)){
             Toast.makeText(Register_Activity.this,"Please insert your fullname...",Toast.LENGTH_SHORT).show();
 
-        }else if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please insert your email...",Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Please insert your email...", Toast.LENGTH_SHORT).show();
 
-
+        }else if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+            
         }else if(TextUtils.isEmpty(password)){
             Toast.makeText(this,"Please insert your password...",Toast.LENGTH_SHORT).show();
 
@@ -83,11 +86,10 @@ public class Register_Activity extends AppCompatActivity {
         }else if(!(password.equals(confirmPassword))) {
             Toast.makeText(this, "Your password do not match with your confirm password...", Toast.LENGTH_SHORT).show();
 
-        }else if (!RoleSelection.isChecked()) {
+        }else if (RoleSelection == null) {
                 Toast.makeText(this, "Please select the your role...", Toast.LENGTH_SHORT).show();
-
         }else{
-
+            role = RoleSelection.getText().toString();
             //loading bar message
             loadingBar.setTitle("Creating New Account...");
             loadingBar.setMessage("Please wait, we are creating your new account...");
@@ -108,7 +110,6 @@ public class Register_Activity extends AppCompatActivity {
                         // Store the user object in the "Users" node of the Firebase Realtime Database
                         FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getUid()).setValue(user);
 
-                        System.out.println(role);
                         if(role.equalsIgnoreCase("student")) {
                             // Start the Setup_Activity
                             Intent mainIntent = new Intent(Register_Activity.this, StudentSetup_Activity.class);
@@ -137,6 +138,15 @@ public class Register_Activity extends AppCompatActivity {
             });
         }
 
+    }
+
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
     }
 
 }

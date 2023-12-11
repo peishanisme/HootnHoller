@@ -24,6 +24,7 @@ public class ForgotPassword_Activity extends AppCompatActivity {
     private EditText editTextPwdResetEmail;
     private FirebaseAuth authProfile;
     private final static String TAG = "ForgotPassword";
+    Register_Activity object=new Register_Activity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,7 @@ public class ForgotPassword_Activity extends AppCompatActivity {
         buttonPwdReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = editTextPwdResetEmail.getText().toString();
-
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(ForgotPassword_Activity.this, "Please enter your registered email", Toast.LENGTH_SHORT).show();
                     editTextPwdResetEmail.setError("Email is required");

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,11 +29,13 @@ public class Login_Activity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private DatabaseReference adminRef;
     private DatabaseReference userRef;
+    Register_Activity object=new Register_Activity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         mAuth = FirebaseAuth.getInstance();
         adminRef = FirebaseDatabase.getInstance().getReference().child("Admin");
@@ -81,6 +82,8 @@ public class Login_Activity extends AppCompatActivity {
         //cannot leave empty space at email and password field
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email...", Toast.LENGTH_SHORT).show();
+        }else if(!object.isValidEmail(email)){
+            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter your password...", Toast.LENGTH_SHORT).show();
         } else {
