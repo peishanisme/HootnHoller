@@ -104,9 +104,9 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
                         list.add(model);
+                        adapter.notifyItemInserted(list.size() - 1);
                     }
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -161,7 +161,7 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
                     categoryName.setError("Repeated category name");
                     Toast.makeText(QuizEducatorCategoryActivity.this, "Category '" + name + "' already exists", Toast.LENGTH_SHORT).show();
                 } else {
-                    uploadImage();
+                    uploadCategory();
                 }
             }
         });
@@ -175,7 +175,7 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
         categoryName.setError(null);
     }
 
-    private void uploadImage() {
+    private void uploadCategory() {
         progressDialog.show();
         StorageReference storageReference = storage.getReference().child("Categories").child(new Date().getTime() + "");
 
@@ -193,7 +193,7 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
                         categoryModel.setCategoryName(categoryName.getText().toString());
                         categoryModel.setCategoryImage(uri.toString());
                         categoryModel.setSetNum(0);
-                        categoryModel.setKey(key);
+                        categoryModel.setCtgKey(key);
 
                         databaseReference.child(key).setValue(categoryModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -228,9 +228,8 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                adapter.notifyItemRemoved(position);
                 list.remove(position);
-                deleteCategoryFromFirebase(selectedCategory);
+                deleteCategoryFromFirebase(selectedCategory, position);
             }
         }).setNegativeButton("No", null);
         builder.show();
@@ -240,15 +239,25 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
     public void onItemClick(int position) {
         CategoryModel model = list.get(position);
         Intent intent = new Intent(QuizEducatorCategoryActivity.this, QuizEducatorSetActivity.class);
-        intent.putExtra("key", model.getKey());
-        intent.putExtra("sets", model.getSetNum());
+        intent.putExtra("key", model.getCtgKey());
+        intent.putExtra("categoryImage", model.getCategoryImage());
 
-        this.startActivity(intent);
+        startActivity(intent);
     }
 
-    private void deleteCategoryFromFirebase(CategoryModel categoryModel) {
-        String key = categoryModel.getKey();
-        database.getReference().child("Categories").child(key).removeValue();
-        adapter.notifyDataSetChanged();
+    private void deleteCategoryFromFirebase(CategoryModel categoryModel, int position) {
+        String key = categoryModel.getCtgKey();
+        database.getReference().child("Categories").child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(QuizEducatorCategoryActivity.this, "Category '" + categoryModel.getCategoryName() + "' is deleted", Toast.LENGTH_SHORT).show();
+                adapter.notifyItemRemoved(position);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(QuizEducatorCategoryActivity.this, "Fail to delete category", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

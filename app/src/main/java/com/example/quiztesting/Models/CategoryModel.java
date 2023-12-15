@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class CategoryModel {
 
-    private String categoryName, categoryImage, key;
+    private String categoryName, categoryImage, ctgKey;
     int setNum;
-    //ArrayList<String> setKey;
+    ArrayList<String> setKey;
 
-    public CategoryModel(String categoryName, String categoryImage, String key, int setNum) {
+    public CategoryModel(String categoryName, String categoryImage, String ctgKey, int setNum) {
         this.categoryName = categoryName;
         this.categoryImage = categoryImage;
-        this.key = key;
+        this.ctgKey = ctgKey;
         this.setNum = setNum;
-        //setKey = new ArrayList<>();
+        setKey = new ArrayList<>();
     }
 
-    public CategoryModel(String categoryName, String categoryImage, String key, int setNum, ArrayList<String> setKey) {
+    public CategoryModel(String categoryName, String categoryImage, String ctgKey, int setNum, ArrayList<String> setKey) {
         this.categoryName = categoryName;
         this.categoryImage = categoryImage;
-        this.key = key;
+        this.ctgKey = ctgKey;
         this.setNum = setNum;
-        //this.setKey = setKey;
+        this.setKey = setKey;
     }
 
     public CategoryModel() {
@@ -44,12 +44,12 @@ public class CategoryModel {
         this.categoryImage = categoryImage;
     }
 
-    public String getKey() {
-        return key;
+    public String getCtgKey() {
+        return ctgKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setCtgKey(String ctgKey) {
+        this.ctgKey = ctgKey;
     }
 
     public int getSetNum() {
@@ -60,7 +60,7 @@ public class CategoryModel {
         this.setNum = setNum;
     }
 
-    /*public ArrayList<String> getSetKey() {
+    public ArrayList<String> getSetKey() {
         return setKey;
     }
 
@@ -70,5 +70,5 @@ public class CategoryModel {
 
     public void addSetKey(String setKey) {
         this.setKey.add(setKey);
-    }*/
+    }
 }

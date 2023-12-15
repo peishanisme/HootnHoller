@@ -2,14 +2,14 @@ package com.example.quiztesting.Models;
 
 public class AnswerModel {
 
-    String optionSelected;
+    String questionKey, optionSelected;
+    boolean correctness;
 
-    public AnswerModel(String optionSelected, boolean correctness) {
+    public AnswerModel(String questionKey, String optionSelected, boolean correctness) {
+        this.questionKey = questionKey;
         this.optionSelected = optionSelected;
         this.correctness = correctness;
     }
-
-    boolean correctness;
 
     public String getOptionSelected() {
         return optionSelected;

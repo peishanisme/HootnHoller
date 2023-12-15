@@ -6,37 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".QuizEducatorAddQuestionActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:background="@color/second_color"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/black"
-        android:text="Science/Set1/Q1"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="10dp"
+        android:text="Question 1"
+        android:textColor="@color/primary_color"
+
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/toolbar" />
+        app:layout_constraintStart_toEndOf="@+id/back"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/back"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
         app:srcCompat="@drawable/back" />
 
@@ -57,11 +47,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:text="Question:"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/correctAnsTV"
@@ -70,7 +60,7 @@
         android:layout_marginTop="50dp"
         android:text="Correct Answer"
         android:textSize="18dp"
-        android:textColor="@color/second_color"
+        android:textColor="@color/primary_color"
         app:layout_constraintStart_toStartOf="@+id/enterQuestion"
         app:layout_constraintTop_toBottomOf="@+id/enterQuestion" />
 
@@ -88,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="A"
             android:textSize="18sp"
-            app:buttonTint="@color/second_color"/>
+            app:buttonTint="@color/primary_color"/>
 
         <RadioButton
             android:id="@+id/B"
@@ -97,7 +87,7 @@
             android:layout_marginTop="10dp"
             android:text="B"
             android:textSize="18sp"
-            app:buttonTint="@color/second_color"/>
+            app:buttonTint="@color/primary_color"/>
 
         <RadioButton
             android:id="@+id/C"
@@ -106,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="C"
             android:textSize="18sp"
-            app:buttonTint="@color/second_color"/>
+            app:buttonTint="@color/primary_color"/>
 
         <RadioButton
             android:id="@+id/D"
@@ -115,7 +105,7 @@
             android:layout_height="wrap_content"
             android:text="D"
             android:textSize="18sp"
-            app:buttonTint="@color/second_color"/>
+            app:buttonTint="@color/primary_color"/>
     </RadioGroup>
 
     <EditText
@@ -175,7 +165,7 @@
         android:id="@+id/uploadBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/second_color"
+        android:backgroundTint="@color/primary_color"
         android:text="Upload"
         android:textSize="20dp"
         android:paddingVertical="15dp"

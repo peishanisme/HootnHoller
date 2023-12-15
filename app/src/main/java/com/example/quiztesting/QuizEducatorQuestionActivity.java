@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -26,9 +28,9 @@ import java.util.ArrayList;
 public class QuizEducatorQuestionActivity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizEducatorQuestionBinding binding;
-    int setNum;
-    String keyCtg, keySet, keyQuestion;
+    String keyCtg, keySet, keyQuestion, imageUrl;
     FirebaseDatabase database;
+    DatabaseReference referenceQuestions;
     QuestionAdapter adapter;
     ArrayList<QuestionModel> list;
 
@@ -43,7 +45,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
         Intent intent = getIntent();
         keyCtg = intent.getStringExtra("key");
         keySet = intent.getStringExtra("keySet");
-        setNum = intent.getIntExtra("currSetNum", -1);
+        imageUrl = intent.getStringExtra("categoryImage");
 
         if (keyCtg == null || keySet == null) {
             Toast.makeText(this, "Missing data", Toast.LENGTH_SHORT).show();
@@ -58,7 +60,8 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
         binding.recyQuestion.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
-        database.getReference().child("Sets").child(keyCtg).child(keySet).addValueEventListener(new ValueEventListener() {
+        referenceQuestions = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Questions");
+        referenceQuestions.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -68,9 +71,6 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                         list.add(model);
                     }
                     adapter.notifyDataSetChanged();
-                    if(setNum == -1) {
-                        setNum = list.size() + 1;
-                    }
                 }
                 /*adapter = new QuestionAdapter(QuizEducatorQuestionActivity.this, list,QuizEducatorQuestionActivity.this);
                 binding.recyQuestion.setAdapter(adapter);*/
@@ -88,7 +88,6 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                 Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorAddQuestionActivity.class);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
-                intent.putExtra("currSetNum", setNum);
                 intent.putExtra("questionNo", list.size() + 1);
                 startActivity(intent);
             }
@@ -99,6 +98,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
             public void onClick(View v) {
                 Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorSetActivity.class);
                 intent.putExtra("key", keyCtg);
+                intent.putExtra("categoryImage", imageUrl);
                 startActivity(intent);
                 finish();
             }
@@ -122,23 +122,22 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
     }
 
     private void deleteQuestionFromFirebase(QuestionModel selectedQuestion, int position) {
-        database.getReference().child("Sets")
-                .child(keyCtg).child(keySet).child(selectedQuestion.getKeyQuestion()).removeValue()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        list.remove(position);
-                        Toast.makeText(QuizEducatorQuestionActivity.this, "Question " + (position + 1) +" is deleted successfully", Toast.LENGTH_SHORT).show();
-                        adapter.notifyItemRemoved(position);
-                        adapter.notifyDataSetChanged();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(QuizEducatorQuestionActivity.this, "Fail to delete", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        referenceQuestions.child(selectedQuestion.getKeyQuestion()).removeValue()
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    list.remove(position);
+                    Toast.makeText(QuizEducatorQuestionActivity.this, "Question " + (position + 1) +" is deleted successfully", Toast.LENGTH_SHORT).show();
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyDataSetChanged();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(QuizEducatorQuestionActivity.this, "Fail to delete", Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     @Override
@@ -148,8 +147,8 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
         intent.putExtra("key", keyCtg);
         intent.putExtra("keySet", keySet);
         intent.putExtra("keyQuestion", model.getKeyQuestion());
-        intent.putExtra("currSetNum", setNum);
         intent.putExtra("questionNo", position + 1);
+        intent.putExtra("categoryImage", imageUrl);
 
         startActivity(intent);
     }

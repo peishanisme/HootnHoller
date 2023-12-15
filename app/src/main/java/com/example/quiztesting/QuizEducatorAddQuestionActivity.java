@@ -23,8 +23,9 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
 
     ActivityQuizEducatorAddQuestionBinding binding;
     FirebaseDatabase database;
+    DatabaseReference referenceQuestions;
     int setNum, questionNo;
-    String keyCtg, keySet, keyQuestion, category;
+    String keyCtg, keySet, keyQuestion, category, imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,52 +37,48 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
         keyCtg = intent.getStringExtra("key");
         keySet = intent.getStringExtra("keySet");
         keyQuestion = intent.getStringExtra("keyQuestion");
-        category = intent.getStringExtra("category");
         questionNo = intent.getIntExtra("questionNo", -1);
-        setNum = intent.getIntExtra("currSetNum", -1);
+        imageUrl = intent.getStringExtra("categoryImage");
 
         database = FirebaseDatabase.getInstance();
+        referenceQuestions = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Questions");
 
         if(questionNo == -1) {
+            Toast.makeText(this, "Missing data", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
         if(keyQuestion != null) {
-            database.getReference().child("Sets").child(keyCtg).child(keySet).child(keyQuestion)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()) {
-                                QuestionModel model = snapshot.getValue(QuestionModel.class);
-                                binding.enterQuestion.setText(model.getQuestion());
-                                binding.enterAnsA.setText(model.getOptionA());
-                                binding.enterAnsB.setText(model.getOptionB());
-                                binding.enterAnsC.setText(model.getOptionC());
-                                binding.enterAnsD.setText(model.getOptionD());
+            referenceQuestions.child(keyQuestion).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        QuestionModel model = snapshot.getValue(QuestionModel.class);
+                        binding.enterQuestion.setText(model.getQuestion());
+                        binding.enterAnsA.setText(model.getOptionA());
+                        binding.enterAnsB.setText(model.getOptionB());
+                        binding.enterAnsC.setText(model.getOptionC());
+                        binding.enterAnsD.setText(model.getOptionD());
 
-                                String[] options = {model.getOptionA(), model.getOptionB(), model.getOptionC(), model.getOptionD()};
-                                for(int i=0; i<options.length; i++) {
-                                    if(model.getCorrectAns().equals(options[i])) {
-                                        binding.RGAnswers.check(binding.RGAnswers.getChildAt(i).getId());
-                                        break;
-                                    }
-                                }
-
-                                binding.uploadBtn.setText("Update");
-
+                        String[] options = {model.getOptionA(), model.getOptionB(), model.getOptionC(), model.getOptionD()};
+                        for(int i=0; i<options.length; i++) {
+                            if(model.getCorrectAns().equals(options[i])) {
+                                binding.RGAnswers.check(binding.RGAnswers.getChildAt(i).getId());
+                                break;
                             }
-
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(QuizEducatorAddQuestionActivity.this, "Question not exist", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        binding.uploadBtn.setText("Update");
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(QuizEducatorAddQuestionActivity.this, "Question not exist", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
-        binding.textView.setText("Set" + setNum + " / Q" + questionNo);
+        binding.textView.setText("Question " + questionNo);
 
         binding.uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,10 +129,9 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 model.setOptionD(optionD);
                 model.setCorrectAns(correctAnswer);
 
-                DatabaseReference questionsRef = database.getReference().child("Sets").child(keyCtg).child(keySet);
                 if(keyQuestion != null) {
                     model.setKeyQuestion(keyQuestion);
-                    questionsRef.child(keyQuestion).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    referenceQuestions.child(keyQuestion).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -148,9 +144,9 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                     });
                 }
                 else {
-                    String questionKey = questionsRef.push().getKey();
+                    String questionKey = referenceQuestions.push().getKey();
                     model.setKeyQuestion(questionKey);
-                    questionsRef.child(questionKey).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    referenceQuestions.child(questionKey).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -166,8 +162,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
-                intent.putExtra("category", category);
-                intent.putExtra("currSetNum", setNum);
+                intent.putExtra("categoryImage", imageUrl);
                 startActivity(intent);
                 finish();
 
@@ -180,8 +175,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
-                intent.putExtra("category", category);
-                intent.putExtra("currSetNum", setNum);
+                intent.putExtra("categoryImage", imageUrl);
                 startActivity(intent);
                 finish();
             }

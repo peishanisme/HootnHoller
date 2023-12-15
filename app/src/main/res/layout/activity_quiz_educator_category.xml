@@ -6,22 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".QuizEducatorCategoryActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/second_color"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/addCategory"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="@+id/categoryTV"
         app:layout_constraintStart_toEndOf="@+id/categoryTV"
@@ -32,13 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
-        android:layout_marginBottom="24dp"
-        android:text="Category"
-        android:textColor="@color/black"
-        android:textSize="32sp"
+        android:layout_marginTop="45dp"
+        android:text="Quiz Category"
+        android:textColor="@color/primary_color"
+        android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Category" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -47,11 +37,12 @@
         android:layout_height="0dp"
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/categoryTV"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

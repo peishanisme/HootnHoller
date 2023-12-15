@@ -23,7 +23,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
     Context context;
     ArrayList<CategoryModel> list;
 
-    public CategoryAdapter(Context context, ArrayList<CategoryModel> list, QuizEducatorCategoryActivity recyViewInterface) {
+    public CategoryAdapter(Context context, ArrayList<CategoryModel> list, RecyViewInterface recyViewInterface) {
         this.context = context;
         this.list = list;
         this.recyViewInterface = recyViewInterface;
@@ -33,6 +33,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_category, parent, false);
+
         return new viewHolder(view);
     }
 

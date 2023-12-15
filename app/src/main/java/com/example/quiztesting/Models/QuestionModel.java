@@ -1,6 +1,11 @@
 package com.example.quiztesting.Models;
 
-public class QuestionModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class QuestionModel implements Parcelable {
 
     private String question, optionA, optionB, optionC, optionD, correctAns;
     private String keyQuestion;
@@ -17,6 +22,28 @@ public class QuestionModel {
 
     public QuestionModel() {
     }
+
+    protected QuestionModel(Parcel in) {
+        question = in.readString();
+        optionA = in.readString();
+        optionB = in.readString();
+        optionC = in.readString();
+        optionD = in.readString();
+        correctAns = in.readString();
+        keyQuestion = in.readString();
+    }
+
+    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
+        @Override
+        public QuestionModel createFromParcel(Parcel in) {
+            return new QuestionModel(in);
+        }
+
+        @Override
+        public QuestionModel[] newArray(int size) {
+            return new QuestionModel[size];
+        }
+    };
 
     public String getQuestion() {
         return question;
@@ -74,4 +101,19 @@ public class QuestionModel {
         this.keyQuestion = keyQuestion;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(question);
+        dest.writeString(optionA);
+        dest.writeString(optionB);
+        dest.writeString(optionC);
+        dest.writeString(optionD);
+        dest.writeString(correctAns);
+        dest.writeString(keyQuestion);
+    }
 }

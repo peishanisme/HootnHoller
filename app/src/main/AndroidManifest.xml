@@ -13,6 +13,27 @@
         android:theme="@style/Theme.QuizTesting"
         tools:targetApi="31">
         <activity
+            android:name=".QuizStudentReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizStudentLeaderboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizStudentDoQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizStudentSetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizStudentCategoryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".QuizEducatorAddQuestionActivity"
             android:exported="false" />
         <activity

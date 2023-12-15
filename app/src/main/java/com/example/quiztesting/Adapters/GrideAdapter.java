@@ -98,7 +98,7 @@ public class GrideAdapter extends BaseAdapter {
             view = convertView;
         }
 
-        ((TextView)view.findViewById(R.id.setNum)).setText(String.valueOf(position+1));
+        ((TextView)view.findViewById(R.id.setName)).setText(String.valueOf(position+1));
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
