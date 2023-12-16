@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuizStudentReviewActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/questionNo"
+        app:layout_constraintEnd_toStartOf="@+id/questionNo"
+        app:layout_constraintTop_toTopOf="@+id/questionNo"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/previous" />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/questionNo"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        app:layout_constraintTop_toTopOf="@+id/questionNo"
+        app:srcCompat="@drawable/next" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_end="0dp"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_end="0dp"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_end="0dp"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="65dp"
+        app:layout_constraintGuide_end="0dp"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <TextView
+        android:id="@+id/questionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="Question"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+    <Button
+        android:id="@+id/answerA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:background="@drawable/btn"
+        app:backgroundTint="@null"
+        android:text="A"
+        android:textSize="16dp"
+        android:textColor="@color/primary_color"
+        app:layout_constraintEnd_toEndOf="@+id/questionTV"
+        app:layout_constraintTop_toBottomOf="@+id/questionTV"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd" />
+
+    <Button
+        android:id="@+id/answerB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp"
+        android:text="i want to pay my debt off "
+        android:textColor="@color/primary_color"
+        android:textSize="16dp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/answerA"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/answerA"
+        app:layout_constraintTop_toBottomOf="@+id/answerA" />
+
+    <Button
+        android:id="@+id/answerC"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:background="@drawable/btn"
+        android:textColor="@color/primary_color"
+        android:textSize="16dp"
+        app:backgroundTint="@null"
+        android:text="C"
+        app:layout_constraintEnd_toEndOf="@+id/answerB"
+        app:layout_constraintStart_toStartOf="@+id/answerB"
+        app:layout_constraintTop_toBottomOf="@+id/answerB" />
+
+    <Button
+        android:id="@+id/answerD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:background="@drawable/btn"
+        android:textColor="@color/primary_color"
+        android:textSize="16dp"
+        app:backgroundTint="@null"
+        android:text="D"
+        app:layout_constraintEnd_toEndOf="@+id/answerC"
+        app:layout_constraintStart_toStartOf="@+id/answerC"
+        app:layout_constraintTop_toBottomOf="@+id/answerC" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/primary_color"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@+id/answerD"
+        app:layout_constraintStart_toStartOf="@+id/answerD" />
+
+    <TextView
+        android:id="@+id/questionNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="1/20"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
