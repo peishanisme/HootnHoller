@@ -45,6 +45,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
         uid = intent.getStringExtra("uid");
         keyCtg = intent.getStringExtra("keyCtg");
         keySetList = intent.getStringArrayListExtra("keySetList");
+        System.out.println(keySetList);
 
         list = new ArrayList<>();
 
@@ -65,7 +66,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                         if (snapshot.exists()) {
                             SetModel model = snapshot.getValue(SetModel.class);
                             list.add(model);
-                            adapter.notifyItemInserted(list.size() - 1);
+                            adapter.notifyItemInserted(list.size());
                         }
                     }
 
@@ -76,31 +77,6 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                 });
             }
         }
-
-            /*referenceSets.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()) {
-                        for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            for(String setKey : keySetList) {
-                                if(dataSnapshot.getKey().equals(setKey)) {
-                                    SetModel model = dataSnapshot.getValue(SetModel.class);
-                                    list.add(model);
-                                    adapter.notifyItemInserted(list.size() - 1);
-                                }
-                            }
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(QuizStudentSetActivity.this, "Error in retrieving set model", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
-
 
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override

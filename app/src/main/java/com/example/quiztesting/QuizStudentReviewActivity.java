@@ -126,10 +126,14 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentReviewActivity.this, QuizStudentSetActivity.class);
+                Intent intent = new Intent(QuizStudentReviewActivity.this, QuizStudentLeaderboardActivity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("keyCtg", keyCtg);
+                intent.putExtra("keySet", keySet);
                 intent.putExtra("keySetList", keySetList);
+                intent.putExtra("setName", setName);
+                intent.putParcelableArrayListExtra("questions", list);
+
                 startActivity(intent);
             }
         });

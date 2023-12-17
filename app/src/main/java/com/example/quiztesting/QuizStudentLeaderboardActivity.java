@@ -168,7 +168,8 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
     public void obtainRanking() {
         ranking = new QuizRanking();
-        referenceSet.child("Ranking").addValueEventListener(new ValueEventListener() {
+        ranking.getCandidates().clear();
+        referenceSet.child("Ranking").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
@@ -227,7 +228,9 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
     public void displayRanking() {
         int position = getPosition(currCandidate.getUid()) + 1;
-        displayRankingText(position, questions.size());
+        displayRankingText(position, ranking.getCandidates().size());
+        System.out.println("Ranking Size: " + ranking.getCandidates().size());
+
         if (ranking.getCandidates().size() >= 1) {
             setName(binding.nameFst, ranking.getCandidates().get(0).getUid());
         }

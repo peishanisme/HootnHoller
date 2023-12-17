@@ -67,6 +67,7 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    list.clear();
                     for (DataSnapshot classKeySnapshot : snapshot.getChildren()) {
                         referenceClassKey.child(classKeySnapshot.getKey()).child("category").addValueEventListener(new ValueEventListener() {
                             @Override
@@ -74,7 +75,6 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                                 if(snapshot1.exists()) {
                                     for(DataSnapshot ctgKeySnapshot : snapshot1.getChildren()) {
                                         CategoryModel model = ctgKeySnapshot.getValue(CategoryModel.class);
-                                        System.out.println("Model read: " + model.getCtgKey());
                                         referenceCtg.child(model.getCtgKey()).addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot2) {
@@ -82,8 +82,7 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                                                     model.setCategoryName(snapshot2.child("categoryName").getValue(String.class));
                                                     model.setCategoryImage(snapshot2.child("categoryImage").getValue(String.class));
                                                     list.add(model);
-                                                    adapter.notifyItemInserted(list.size() - 1);
-                                                    System.out.println("Number category: " + list.size());
+                                                    adapter.notifyItemInserted(list.size());
                                                 }
                                             }
 
@@ -110,104 +109,6 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                 Toast.makeText(QuizStudentCategoryActivity.this, "Error in retrieving class key", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        /*referenceClassKey.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    list.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        String classKey = dataSnapshot.getKey();
-                        referenceClassKey.child(classKey).child("category").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                                        CategoryModel model = dataSnapshot1.getValue(CategoryModel.class);
-                                        if (model.getCtgKey() != null) {
-                                            referenceCtg.child(model.getCtgKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists()) {
-                                                        model.setCategoryImage(snapshot.child("categoryImage").getValue(String.class));
-                                                        model.setCategoryName(snapshot.child("categoryName").getValue(String.class));
-                                                        list.add(model);
-                                                        adapter.notifyItemInserted(list.size() - 1);
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                    Toast.makeText(QuizStudentCategoryActivity.this, "Error retrieving category image and name", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                    }
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(QuizStudentCategoryActivity.this, "Error retrieving category", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-
-                    }
-                }
-            }*/
-
-        /*referenceClassKey.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    list.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        referenceClassKey.child(dataSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                                        CategoryModel model = dataSnapshot1.getValue(CategoryModel.class);
-                                        model.setKey(dataSnapshot1.getKey());
-                                        referenceCtg.child(model.getKey()).addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if (snapshot.exists()) {
-                                                    model.setCategoryImage(snapshot.child("categoryImage").getValue(String.class));
-                                                    model.setCategoryName(snapshot.child("categoryName").getValue(String.class));
-                                                    list.add(model);
-                                                    adapter.notifyItemInserted(list.size() - 1);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-                                                Toast.makeText(QuizStudentCategoryActivity.this, "Error retrieving category image and name", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentCategoryActivity.this, "Error retrieving category model", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
     }
 

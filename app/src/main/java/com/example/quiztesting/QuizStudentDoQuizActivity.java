@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.example.quiztesting.Models.AnswerModel;
 import com.example.quiztesting.Models.QuestionModel;
 import com.example.quiztesting.databinding.ActivityQuizStudentDoQuizBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +60,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         referenceSet = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet);
-        referenceStatus = referenceSet.child("Answers").child(uid).child("Status");
+        referenceStatus = referenceSet.child("Answers").child(uid).child("status");
 
         model = list.get(queIndex);
         options = new Button[]{binding.answerA, binding.answerB, binding.answerC, binding.answerD};
@@ -89,7 +91,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             passToNextQue(index);
         }
 
-        referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).child("optionSelected").addValueEventListener(new ValueEventListener() {
+        referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).child("optionSelected").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
@@ -266,25 +268,21 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastSelectedOption!=null) {
-                    uploadAnswer();
-                }
+                if(lastSelectedOption != null) {
+                    AnswerModel newModel = new AnswerModel(model.getKeyQuestion(), lastSelectedOption.getText().toString(),
+                            (lastSelectedOption.getText().toString().equals(model.getCorrectAns())));
 
-                int i = checkCompletion();
-                if(checkCompletion() == -1) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
-                    builder.setTitle("Confirm Submission");
-                    builder.setMessage("Do you want to submit the current quiz? Once submitted, you won't be able to make any changes to your answers.");
-
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).setValue(answerModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            setCompletionStatus("Completed", i);
+                        public void onComplete(@NonNull Task<Void> task) {
+                            int i = checkCompletion();
+                            if(checkCompletion() == -1) {
+                                askForSubmission();
+                            } else {
+                                setCompletionStatus("In progress", i);
+                            }
                         }
-                    }).setNegativeButton("No", null);
-                    builder.show();
-                } else {
-                    setCompletionStatus("In progress", i);
+                    });
                 }
 
                 Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
@@ -295,6 +293,20 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void askForSubmission() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
+        builder.setTitle("Confirm Submission");
+        builder.setMessage("Do you want to submit the current quiz? Once submitted, you won't be able to make any changes to your answers.");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setCompletionStatus("Completed", 0);
+            }
+        }).setNegativeButton("No", null);
+        builder.show();
     }
 
     private void uploadAnswer() {
@@ -340,7 +352,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    referenceStatus.child("Current progress").setValue(null);
+                    referenceStatus.child("currentProgress").setValue(null);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -355,7 +367,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
     public int checkCompletion() {
         final boolean[] completed = {true};
         final int[] index = {0};
-        referenceSet.child("Answers").child(uid).addValueEventListener(new ValueEventListener() {
+        referenceSet.child("Answers").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean check = false;
