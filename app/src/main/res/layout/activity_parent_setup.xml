@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ParentSetup_Activity"
-    android:background="@color/theme_color">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
