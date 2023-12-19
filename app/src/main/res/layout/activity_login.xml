@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Login_Activity">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button"
+        android:layout_marginTop="23dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +21,6 @@
         android:text="Hoot-n-Holler"
         android:fontFamily="@font/theaugusta"
         android:textSize="50dp"
-        android:layout_marginTop="100dp"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"/>
 
@@ -71,12 +78,13 @@
         android:id="@+id/TV_ForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
+        android:text=" Forgot Password? "
         android:layout_marginStart="200dp"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="italic"
         android:layout_marginTop="15dp"
+
         />
 
     <Button

@@ -2,17 +2,17 @@ package com.firstapp.hootnholler.entity;
 
 public class Student {
 
-    public String school,level,student_class,code;
+    public String school,level,student_class,connection_key;
 
     public Student(){
 
     }
 
-    public Student(String school, String level,String student_class,String code){
+    public Student(String school, String level,String student_class,String connection_key){
         this.school=school;
         this.level=level;
         this.student_class=student_class;
-        this.code=code;
+        this.connection_key=connection_key;
     }
 
     public void setLevel(String level) {
@@ -31,8 +31,8 @@ public class Student {
         return student_class;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setConnection_key(String connection_key) {
+        this.connection_key = connection_key;
     }
 
     public String getLevel() {
@@ -43,7 +43,7 @@ public class Student {
         return school;
     }
 
-    public String getCode() {
-        return code;
+    public String getConnection_key() {
+        return connection_key;
     }
 }

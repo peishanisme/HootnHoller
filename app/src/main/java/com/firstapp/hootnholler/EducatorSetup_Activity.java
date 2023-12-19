@@ -37,6 +37,7 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
     private EditText birthday, phonenumber,school;
     private RadioGroup gender;
     private RadioButton genderSelection;
+    private ImageView back_button;
     private Button SubmitButton,AddSubject;
     LinearLayout layoutList1;
     ArrayList<String> newSubject = new ArrayList<>();
@@ -72,6 +73,7 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
 
 
         // Initialize UI elements and set up event listeners
+        back_button=(ImageView)findViewById(R.id.back_button);
         birthday = (EditText) findViewById(R.id.educator_birthday);
         phonenumber = (EditText) findViewById(R.id.educator_phonenumber);
         gender = (RadioGroup) findViewById(R.id.educator_gender);
@@ -85,6 +87,13 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
 
 
         loadingBar = new ProgressDialog(this);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Handle the click event on the SaveInfoButton
         SubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -104,27 +113,27 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
                 String Phonenumber = phonenumber.getText().toString();
                 String School=school.getText().toString();
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
-                String Gender = genderSelection.getText().toString();
+                String genderEducator;
 
 
-                // Validate the birthday format
-                if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(EducatorSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
-                    return; // Exit the method if the format is invalid
-                }
+
 
                 // Check if any required field is empty, display a toast if true
                 if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) ||TextUtils.isEmpty(School) ||
-                        TextUtils.isEmpty(Gender)) {
+                        gender==null) {
                     Toast.makeText(EducatorSetup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
-                } else {
+                }  // Validate the birthday format
+                else if (!isValidBirthdayFormat(Birthday)) {
+                    Toast.makeText(EducatorSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                    return; // Exit the method if the format is invalid
+                }else {
                     loadingBar.setTitle("Setting up account...");
                     loadingBar.setMessage("Please wait, we are saving your account information...");
                     loadingBar.show();
                     loadingBar.setCanceledOnTouchOutside(true);
 
                     educator = new Educator(School);
-
+                    genderEducator=genderSelection.getText().toString();
                     // Store the user object in the "Users" node of the Firebase Realtime Database
                     FirebaseDatabase.getInstance().getReference().child("Educator").child(FirebaseAuth.getInstance().getUid()).setValue(educator);
                     //Retrieve input from addHobby dynamic view and add into ArrayList. Pass the array list into database for storing
@@ -146,7 +155,7 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
                     // Update the user data in the database and handle the completion
                     user.setBirthday(Birthday);
                     user.setPhone_number(Phonenumber);
-                    user.setGender(Gender);
+                    user.setGender(genderEducator);
                     reference.setValue(user)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

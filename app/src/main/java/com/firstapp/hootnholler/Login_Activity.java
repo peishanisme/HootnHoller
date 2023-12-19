@@ -2,11 +2,16 @@ package com.firstapp.hootnholler;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -26,6 +31,7 @@ public class Login_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button LoginButton;
     private EditText UserEmail, UserPassword;
+    private ImageView back_button;
     private ProgressDialog loadingBar;
     private DatabaseReference adminRef;
     private DatabaseReference userRef;
@@ -41,12 +47,23 @@ public class Login_Activity extends AppCompatActivity {
         adminRef = FirebaseDatabase.getInstance().getReference().child("Admin");
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        back_button=(ImageView)findViewById(R.id.back_button);
         UserEmail = (EditText) findViewById(R.id.input_email);
         UserPassword = (EditText) findViewById(R.id.input_password);
         LoginButton = (Button) findViewById(R.id.login_button);
         TextView forgotPassword = findViewById(R.id.TV_ForgotPassword);
+        forgotPassword.setPaintFlags(forgotPassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         TextView signUp = findViewById(R.id.TV_SignUp);
+        signUp.setPaintFlags(signUp.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         loadingBar = new ProgressDialog(this);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override

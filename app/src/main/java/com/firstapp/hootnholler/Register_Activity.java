@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText UserFullname,UserEmail,UserPassword,UserConfirmPassword;
+    private ImageView back_button;
     private ProgressDialog loadingBar;
     private Button CreateAccountButton;
 
@@ -39,6 +41,7 @@ public class Register_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth= FirebaseAuth.getInstance();
 
+        back_button=(ImageView)findViewById(R.id.back_button);
         UserFullname=(EditText) findViewById(R.id.register_fullname);
         UserEmail=(EditText) findViewById(R.id.register_email);
         UserPassword=(EditText) findViewById(R.id.register_password);
@@ -47,6 +50,13 @@ public class Register_Activity extends AppCompatActivity {
         CreateAccountButton=(Button) findViewById(R.id.register_create_account);
 
         loadingBar=new ProgressDialog(this);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -63,6 +73,7 @@ public class Register_Activity extends AppCompatActivity {
         String fullname=UserFullname.getText().toString();
         String email=UserEmail.getText().toString();
         String password=UserPassword.getText().toString();
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
         String confirmPassword=UserConfirmPassword.getText().toString();
         RoleSelection= (RadioButton) findViewById(UserRole.getCheckedRadioButtonId());
         String role;
@@ -75,13 +86,18 @@ public class Register_Activity extends AppCompatActivity {
             Toast.makeText(this, "Please insert your email...", Toast.LENGTH_SHORT).show();
 
         }else if (!isValidEmail(email)) {
-            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
-            
+            UserEmail.setError("Please enter a valid email.");
+            UserEmail.requestFocus();
+
         }else if(TextUtils.isEmpty(password)){
             Toast.makeText(this,"Please insert your password...",Toast.LENGTH_SHORT).show();
 
-        }else if(TextUtils.isEmpty(confirmPassword)){
-            Toast.makeText(this,"Please insert your password...",Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(confirmPassword)) {
+            Toast.makeText(this, "Please insert your password...", Toast.LENGTH_SHORT).show();
+
+        }else if (!password.matches(passwordPattern)) {
+                UserPassword.setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special characters.");
+                UserPassword.requestFocus();
 
         }else if(!(password.equals(confirmPassword))) {
             Toast.makeText(this, "Your password do not match with your confirm password...", Toast.LENGTH_SHORT).show();

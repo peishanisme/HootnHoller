@@ -37,6 +37,7 @@ public class ParentSetup_Activity extends AppCompatActivity implements View.OnCl
     private EditText birthday, phonenumber;
     private RadioGroup gender;
     private RadioButton genderSelection;
+    private ImageView back_button;
     private Button SubmitButton,AddKey;
     LinearLayout layoutList1;
     ArrayList<String> ConnectionKey = new ArrayList<>();
@@ -74,6 +75,7 @@ public class ParentSetup_Activity extends AppCompatActivity implements View.OnCl
 
 
         // Initialize UI elements and set up event listeners
+        back_button=(ImageView)findViewById(R.id.back_button);
         birthday = (EditText) findViewById(R.id.parent_birthday);
         phonenumber = (EditText) findViewById(R.id.parent_phonenumber);
         gender = (RadioGroup) findViewById(R.id.parent_gender);
@@ -86,6 +88,12 @@ public class ParentSetup_Activity extends AppCompatActivity implements View.OnCl
 
 
         loadingBar = new ProgressDialog(this);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Handle the click event on the SaveInfoButton
         SubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -104,19 +112,19 @@ public class ParentSetup_Activity extends AppCompatActivity implements View.OnCl
                 String Birthday = birthday.getText().toString();
                 String Phonenumber = phonenumber.getText().toString();
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
-                String Gender = genderSelection.getText().toString();
-
-
-                // Validate the birthday format
-                if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(ParentSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
-                    return; // Exit the method if the format is invalid
-                }
+                String genderParent;
 
                 // Check if any required field is empty, display a toast if true
                 if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) ||
-                        TextUtils.isEmpty(Gender)) {
+                        gender==null) {
                     Toast.makeText(ParentSetup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
+
+                    // Validate the birthday format
+                }else if (!isValidBirthdayFormat(Birthday)) {
+                    Toast.makeText(ParentSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                    return; // Exit the method if the format is invalid
+
+
                 } else {
                     loadingBar.setTitle("Setting up account...");
                     loadingBar.setMessage("Please wait, we are saving your account information...");
@@ -141,9 +149,10 @@ public class ParentSetup_Activity extends AppCompatActivity implements View.OnCl
 
                     // Update the user object with the entered information
                     // Update the user data in the database and handle the completion
+                    genderParent=genderSelection.getText().toString();
                     user.setBirthday(Birthday);
                     user.setPhone_number(Phonenumber);
-                    user.setGender(Gender);
+                    user.setGender(genderParent);
                     reference.setValue(user)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

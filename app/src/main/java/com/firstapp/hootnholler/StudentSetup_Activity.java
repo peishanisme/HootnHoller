@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -38,6 +40,7 @@ public class StudentSetup_Activity extends AppCompatActivity {
     private String Level;
     private RadioGroup gender;
     private RadioButton genderSelection;
+    private ImageView back_button;
     private Button SubmitButton;
     private FirebaseAuth mAuth;
     private DatabaseReference reference;
@@ -101,6 +104,7 @@ public class StudentSetup_Activity extends AppCompatActivity {
         level.setAdapter(adapter);
 
         // Initialize UI elements and set up event listeners
+        back_button=(ImageView)findViewById(R.id.back_button);
         birthday = (EditText) findViewById(R.id.student_birthday);
         phonenumber = (EditText) findViewById(R.id.student_phonenumber);
         school = (EditText) findViewById(R.id.student_school);
@@ -108,6 +112,13 @@ public class StudentSetup_Activity extends AppCompatActivity {
         gender = (RadioGroup) findViewById(R.id.student_gender);
         SubmitButton = (Button) findViewById(R.id.SubmitButton);
         loadingBar = new ProgressDialog(this);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Handle the click event on the SaveInfoButton
         SubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -127,36 +138,37 @@ public class StudentSetup_Activity extends AppCompatActivity {
                 String Phonenumber=phonenumber.getText().toString();
                 String School = school.getText().toString();
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
-                String Gender=genderSelection.getText().toString();
                 String Class=student_class.getText().toString();
-                String Code=generateRandomCode();
+                String ConnectionKey=generateRandomCode();
+                String genderStudent;
 
 
-                // Validate the birthday format
-                if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(StudentSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
-                    return; // Exit the method if the format is invalid
-                }
+
 
                 // Check if any required field is empty, display a toast if true
                 if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) || TextUtils.isEmpty(School) || TextUtils.isEmpty(Class) ||
-                        TextUtils.isEmpty(Gender)||TextUtils.isEmpty(Level) ) {
+                        gender==null||TextUtils.isEmpty(Level) ) {
                     Toast.makeText(StudentSetup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
-                } else {
+                } // Validate the birthday format
+                else if (!isValidBirthdayFormat(Birthday)) {
+                    Toast.makeText(StudentSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                    return; // Exit the method if the format is invalid
+                }else {
                     loadingBar.setTitle("Setting up account...");
                     loadingBar.setMessage("Please wait, we are saving your account information...");
                     loadingBar.show();
                     loadingBar.setCanceledOnTouchOutside(true);
 
-                    student = new Student(School, Level,Class,Code);
+                    student = new Student(School, Level,Class,ConnectionKey);
 
                     // Store the user object in the "Users" node of the Firebase Realtime Database
                     FirebaseDatabase.getInstance().getReference().child("Student").child(FirebaseAuth.getInstance().getUid()).setValue(student);
                     // Update the user object with the entered information
                     // Update the user data in the database and handle the completion
+                    genderStudent=genderSelection.getText().toString();
                     user.setBirthday(Birthday);
                     user.setPhone_number(Phonenumber);
-                    user.setGender(Gender);
+                    user.setGender(genderStudent);
                     reference.setValue(user)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
