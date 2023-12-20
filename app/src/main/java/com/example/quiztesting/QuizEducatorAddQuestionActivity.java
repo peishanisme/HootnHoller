@@ -24,8 +24,9 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
     ActivityQuizEducatorAddQuestionBinding binding;
     FirebaseDatabase database;
     DatabaseReference referenceQuestions;
-    int setNum, questionNo;
-    String keyCtg, keySet, keyQuestion, category, imageUrl;
+    int questionNo;
+    String uid, keyCtg, keySet, keyQuestion, imageUrl;
+    boolean blockUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,17 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
+        uid = intent.getStringExtra("uid");
         keyCtg = intent.getStringExtra("key");
         keySet = intent.getStringExtra("keySet");
         keyQuestion = intent.getStringExtra("keyQuestion");
         questionNo = intent.getIntExtra("questionNo", -1);
         imageUrl = intent.getStringExtra("categoryImage");
+        blockUpdate = intent.getBooleanExtra("blockUpdate", false);
+
+        if(blockUpdate) {
+            binding.uploadBtn.setVisibility(View.GONE);
+        }
 
         database = FirebaseDatabase.getInstance();
         referenceQuestions = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Questions");
@@ -79,6 +86,8 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
         }
 
         binding.textView.setText("Question " + questionNo);
+
+
 
         binding.uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +169,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
+                intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
                 intent.putExtra("categoryImage", imageUrl);
@@ -173,6 +183,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
+                intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
                 intent.putExtra("categoryImage", imageUrl);

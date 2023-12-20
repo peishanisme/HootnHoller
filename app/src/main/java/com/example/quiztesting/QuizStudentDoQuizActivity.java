@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +33,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
 
     ActivityQuizStudentDoQuizBinding binding;
     FirebaseDatabase database;
-    DatabaseReference referenceSet, referenceStatus;
+    DatabaseReference referenceSet, referenceStatus, referenceProgress;
     String keyCtg, keySet, uid, setName;
     ArrayList<String> keySetList;
     int queIndex;
@@ -38,8 +41,8 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
     QuestionModel model;
     Button[] options;
     Button lastSelectedOption;
-
     AnswerModel answerModel;
+    Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         referenceSet = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet);
         referenceStatus = referenceSet.child("Answers").child(uid).child("status");
+        referenceProgress = referenceSet.child("Answers").child(uid).child("progress");
 
         model = list.get(queIndex);
         options = new Button[]{binding.answerA, binding.answerB, binding.answerC, binding.answerD};
@@ -86,11 +90,6 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             binding.next.setVisibility(View.GONE);
         }
 
-        int index = checkCompletion();
-        if(index != -1) {
-            passToNextQue(index);
-        }
-
         referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).child("optionSelected").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,7 +98,6 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                     for (Button option : options) {
                         if(optionSelected.equals(option.getText().toString())) {
                             lastSelectedOption = option;
-                            System.out.println(lastSelectedOption.getText().toString());
                             updateButtonColors(lastSelectedOption);
                             break;
                         }
@@ -113,68 +111,10 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             }
         });
 
-        /*final boolean[] completed = {true};
-        final int[] i = {0};
-        referenceSet.child("Answers").child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean check = false;
-                if(snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        for(QuestionModel question : list) {
-                            if(question.getKeyQuestion().equals(dataSnapshot.getKey())) {
-                                check = true;
-                            }
-                        }
-                        if(!check) {
-                            completed[0] = false;
-                            break;
-                        }
-                        i[0]++;
-                    }
-                    if(completed[0]) {
-                        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentReviewActivity.class);
-                        intent.putExtra("uid", uid);
-                        intent.putExtra("keyCtg", keyCtg);
-                        intent.putExtra("keySetList", keySetList);
-                        startActivity(intent);
-                    } else {
-                        referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).child("optionSelected").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    String optionSelected = snapshot.getValue(String.class);
-                                    for (Button option : options) {
-                                        if(optionSelected.equals(option.getText().toString())) {
-                                            lastSelectedOption = option;
-                                            System.out.println(lastSelectedOption.getText().toString());
-                                            updateButtonColors(lastSelectedOption);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to check database to restore answer", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to check completionStatus", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        });*/
-
         binding.previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastSelectedOption!=null) {
+                if(lastSelectedOption != null) {
                     uploadAnswer();
                 }
                 passToNextQue(queIndex - 1);
@@ -184,7 +124,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastSelectedOption!=null) {
+                if(lastSelectedOption != null) {
                     uploadAnswer();
                 }
                 passToNextQue(queIndex + 1);
@@ -233,32 +173,38 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                 }
                 uploadAnswer();
 
-                if(queIndex + 1 == list.size()) {
-                    int index = checkCompletion();
-                    if(index == -1) {
-                        setCompletionStatus("Completed", index);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
-                        builder.setTitle("Confirm Submission");
-                        builder.setMessage("Are you sure you want to submit the current quiz?" + "\nOnce submitted, you won't be able to make any changes to your answers.");
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                setCompletionStatus("Completed", index);
-                                Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentLeaderboardActivity.class);
-                                intent.putExtra("uid", uid);
-                                intent.putExtra("keyCtg", keyCtg);
-                                intent.putExtra("keySet", keySet);
-                                intent.putExtra("keySetList", keySetList);
-                                intent.putExtra("setName", setName);
-                                intent.putParcelableArrayListExtra("questions", list);
-                                startActivity(intent);
+                if (queIndex + 1 == list.size()) {
+                    checkCompletion(new CompletionCheckListener() {
+                        @Override
+                        public void onComplete(int index) {
+                            if (index == -1) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
+                                builder.setTitle("Confirm Submission");
+                                builder.setMessage("Are you sure you want to submit the current quiz?" +
+                                        "\n\nOnce submitted, you won't be able to make any changes to your answers.");
+                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        setCompletionStatus("Completed", index);
+
+                                        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentLeaderboardActivity.class);
+                                        intent.putExtra("uid", uid);
+                                        intent.putExtra("keyCtg", keyCtg);
+                                        intent.putExtra("keySet", keySet);
+                                        intent.putExtra("keySetList", keySetList);
+                                        intent.putExtra("setName", setName);
+                                        intent.putParcelableArrayListExtra("questions", list);
+                                        startActivity(intent);
+                                        dialog.dismiss();
+                                    }
+                                }).setNegativeButton("No", null);
+                                builder.show();
+                            } else {
+                                Toast.makeText(QuizStudentDoQuizActivity.this, "Haven't completed your test", Toast.LENGTH_SHORT).show();
+                                passToNextQue(index);
                             }
-                        }).setNegativeButton("No", null);
-                        builder.show();
-                    } else {
-                        Toast.makeText(QuizStudentDoQuizActivity.this, "Haven't completed your test", Toast.LENGTH_SHORT).show();
-                        passToNextQue(index);
-                    }
+                        }
+                    });
                 } else {
                     passToNextQue(queIndex + 1);
                 }
@@ -268,31 +214,33 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastSelectedOption != null) {
+                if (lastSelectedOption != null) {
                     AnswerModel newModel = new AnswerModel(model.getKeyQuestion(), lastSelectedOption.getText().toString(),
                             (lastSelectedOption.getText().toString().equals(model.getCorrectAns())));
 
-                    referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).setValue(answerModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            int i = checkCompletion();
-                            if(checkCompletion() == -1) {
-                                askForSubmission();
-                            } else {
-                                setCompletionStatus("In progress", i);
-                            }
-                        }
-                    });
+                    referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).setValue(newModel);
                 }
-
-                Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
-                intent.putExtra("uid", uid);
-                intent.putExtra("keyCtg", keyCtg);
-                intent.putExtra("keySetList", keySetList);
-                startActivity(intent);
+                checkCompletion(new CompletionCheckListener() {
+                    @Override
+                    public void onComplete(int index) {
+                        if(index == -1) {
+                            setCompletionStatus("In progress", list.size() - 1);
+                        } else {
+                            setCompletionStatus("In progress", index);
+                            navigateToQuizSetActivity();
+                        }
+                    }
+                });
             }
         });
+    }
 
+    public void navigateToQuizSetActivity() {
+        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
+        intent.putExtra("uid", uid);
+        intent.putExtra("keyCtg", keyCtg);
+        intent.putExtra("keySetList", keySetList);
+        startActivity(intent);
     }
 
     public void askForSubmission() {
@@ -304,17 +252,16 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setCompletionStatus("Completed", 0);
+                dialog.dismiss();
             }
         }).setNegativeButton("No", null);
         builder.show();
+        navigateToQuizSetActivity();
     }
 
     private void uploadAnswer() {
         String option = lastSelectedOption.getText().toString();
-        boolean correctness = false;
-        if(option.equals(model.getCorrectAns())) {
-            correctness = true;
-        }
+        boolean correctness = option.equals(model.getCorrectAns());
         answerModel = new AnswerModel(model.getKeyQuestion(), option, correctness);
         uploadAnswerToFirebase(answerModel);
     }
@@ -345,14 +292,9 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 if(status.equals("In progress")) {
-                    referenceStatus.child("currentProgress").setValue(index).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to upload current progress", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    referenceProgress.setValue(index);
                 } else {
-                    referenceStatus.child("currentProgress").setValue(null);
+                    referenceProgress.setValue(null);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -364,40 +306,52 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
 
     }
 
-    public int checkCompletion() {
-        final boolean[] completed = {true};
-        final int[] index = {0};
-        referenceSet.child("Answers").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean check = false;
-                if(snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        for(QuestionModel question : list) {
-                            if(question.getKeyQuestion().equals(dataSnapshot.getKey())) {
-                                check = true;
+    public void checkCompletion(CompletionCheckListener listener) {
+        final boolean[] foundIncomplete = {false};
+        final int[] firstIncompleteIndex = {-1};
+
+        for (int i = 0; i < list.size(); i++) {
+            final int currentIndex = i;
+            QuestionModel questionModel = list.get(i);
+
+            referenceSet.child("Answers").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!foundIncomplete[0] && snapshot.exists()) {
+                        boolean foundAnswer = false;
+
+                        for (DataSnapshot answerDataSnapshot : snapshot.getChildren()) {
+                            if (answerDataSnapshot.getKey().equals(questionModel.getKeyQuestion())) {
+                                foundAnswer = true;
+                                break;
                             }
                         }
-                        if(!check) {
-                            completed[0] = false;
-                            break;
+
+                        if (!foundAnswer) {
+                            foundIncomplete[0] = true;
+                            firstIncompleteIndex[0] = currentIndex;
+                            listener.onComplete(firstIncompleteIndex[0]);
                         }
-                        index[0]++;
+
+                        if (foundIncomplete[0] && firstIncompleteIndex[0] != -1) {
+                            return;
+                        }
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to check completionStatus", Toast.LENGTH_SHORT).show();
-                return;
+            if (foundIncomplete[0] && firstIncompleteIndex[0] != -1) {
+                break;
             }
-        });
-        if(completed[0]) {
-            return -1;
-        } else {
-            return index[0];
+        }
+
+        if (!foundIncomplete[0]) {
+            listener.onComplete(-1);
         }
     }
 
@@ -410,4 +364,9 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             }
         }
     }
+
+    public interface CompletionCheckListener {
+        void onComplete(int index); // Define the method signature for completion
+    }
+
 }

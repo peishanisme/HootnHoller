@@ -9,11 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.quiztesting.Adapters.CategoryAdapter;
 import com.example.quiztesting.Adapters.SetAdapter;
 import com.example.quiztesting.Models.QuestionModel;
 import com.example.quiztesting.Models.SetModel;
-import com.example.quiztesting.R;
 import com.example.quiztesting.databinding.ActivityQuizStudentSetBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +43,6 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
         uid = intent.getStringExtra("uid");
         keyCtg = intent.getStringExtra("keyCtg");
         keySetList = intent.getStringArrayListExtra("keySetList");
-        System.out.println(keySetList);
 
         list = new ArrayList<>();
 
@@ -58,24 +55,28 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
         database = FirebaseDatabase.getInstance();
         referenceSets = database.getReference().child("Categories").child(keyCtg).child("Sets");
 
-        if(keySetList != null) {
-            for (String setKey : keySetList) {
-                referenceSets.child(setKey).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            SetModel model = snapshot.getValue(SetModel.class);
-                            list.add(model);
-                            adapter.notifyItemInserted(list.size());
-                        }
-                    }
+        list.clear();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(QuizStudentSetActivity.this, "Error in retrieving set model", Toast.LENGTH_SHORT).show();
+        if(keySetList != null) {
+            referenceSets.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SetModel model = snapshot.getValue(SetModel.class);
+                            if (keySetList.contains(model.getSetKey())) {
+                                list.add(model);
+                            }
+                        }
+                        adapter.notifyDataSetChanged(); // Notify adapter of data change
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(QuizStudentSetActivity.this, "Error in retrieving set models", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +102,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
         ArrayList<QuestionModel> questions = new ArrayList<>();
         ArrayList<String> keyQuestionList = new ArrayList<>();
 
-        referenceSets.child(model.getSetKey()).child("Questions").addValueEventListener(new ValueEventListener() {
+        referenceSets.child(model.getSetKey()).child("Questions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
@@ -110,27 +111,37 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                         questions.add(questionModel);
                         keyQuestionList.add(questionModel.getKeyQuestion());
                     }
-                    if(questions.size() == 0) {
-                        Toast.makeText(QuizStudentSetActivity.this, "Your teacher haven't posted any question.", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        referenceSets.child(model.getSetKey()).child("Answers").child(uid).child("Status").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    referenceSets.child(model.getSetKey()).child("Answers").child(uid).child("status").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
                                 String status = snapshot.getValue(String.class);
                                 if(status.equals("In progress")) {
-                                    Integer index = snapshot.child("currentProgress").getValue(Integer.class);
+                                    referenceSets.child(model.getSetKey()).child("Answers").child(uid).child("progress").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(snapshot.exists()) {
+                                                Integer progress = snapshot.getValue(Integer.class);
 
-                                    Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
-                                    intent.putExtra("uid", uid);
-                                    intent.putExtra("setName", model.getSetName());
-                                    intent.putExtra("keyCtg", keyCtg);
-                                    intent.putExtra("keySet", model.getSetKey());
-                                    intent.putExtra("keySetList", keySetList);
-                                    intent.putParcelableArrayListExtra("questions", questions);
-                                    intent.putExtra("queIndex", index);
+                                                Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                                intent.putExtra("uid", uid);
+                                                intent.putExtra("setName", model.getSetName());
+                                                intent.putExtra("keyCtg", keyCtg);
+                                                intent.putExtra("keySet", model.getSetKey());
+                                                intent.putExtra("keySetList", keySetList);
+                                                intent.putParcelableArrayListExtra("questions", questions);
+                                                intent.putExtra("queIndex", progress);
 
-                                    startActivity(intent);
+                                                startActivity(intent);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
 
                                 } else if(status.equals("Completed")) {
                                     Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentLeaderboardActivity.class);
@@ -143,25 +154,39 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                                     intent.putParcelableArrayListExtra("questions", questions);
 
                                     startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                    intent.putExtra("uid", uid);
+                                    intent.putExtra("setName", model.getSetName());
+                                    intent.putExtra("keyCtg", keyCtg);
+                                    intent.putExtra("keySet", model.getSetKey());
+                                    intent.putExtra("keySetList", keySetList);
+                                    intent.putParcelableArrayListExtra("questions", questions);
+
+                                    startActivity(intent);
                                 }
+                            } else {
+                                Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                intent.putExtra("uid", uid);
+                                intent.putExtra("setName", model.getSetName());
+                                intent.putExtra("keyCtg", keyCtg);
+                                intent.putExtra("keySet", model.getSetKey());
+                                intent.putExtra("keySetList", keySetList);
+                                intent.putParcelableArrayListExtra("questions", questions);
+
+                                startActivity(intent);
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(QuizStudentSetActivity.this, "Error in checking previous progress", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        }
 
-                        Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
-                        intent.putExtra("uid", uid);
-                        intent.putExtra("setName", model.getSetName());
-                        intent.putExtra("keyCtg", keyCtg);
-                        intent.putExtra("keySet", model.getSetKey());
-                        intent.putExtra("keySetList", keySetList);
-                        intent.putParcelableArrayListExtra("questions", questions);
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(QuizStudentSetActivity.this, "Error in checking previous progress", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                        startActivity(intent);
-                    }
+                } else {
+                    Toast.makeText(QuizStudentSetActivity.this, "Your teacher haven't posted any question.", Toast.LENGTH_SHORT).show();
                 }
             }
 

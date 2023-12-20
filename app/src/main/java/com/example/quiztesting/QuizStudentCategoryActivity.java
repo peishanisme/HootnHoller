@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.quiztesting.Adapters.CategoryAdapter;
@@ -21,17 +22,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class QuizStudentCategoryActivity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizStudentCategoryBinding binding;
     FirebaseDatabase database;
-    DatabaseReference referenceClassKey, referenceCtg;
+    DatabaseReference referenceClassKey, referenceCtg, referenceStudentQuiz;
     FirebaseAuth auth;
     FirebaseUser user;
     String uid;
     CategoryAdapter adapter;
     ArrayList<CategoryModel> list;
+    HashMap<String, String> hashMapIncomplete;
+    HashMap<String, String> hashMapInProgress;
+    HashMap<String, Integer> hashMapProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,9 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
 
         uid = "ILVlGWiDRbQa9xgYRi5BT2sYEec2";
         list = new ArrayList<>();
+        hashMapIncomplete = new HashMap<>();
+        hashMapInProgress = new HashMap<>();
+        hashMapProgress = new HashMap<>();
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         binding.recyCategory.setLayoutManager(layoutManager);
@@ -69,7 +77,7 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                 if (snapshot.exists()) {
                     list.clear();
                     for (DataSnapshot classKeySnapshot : snapshot.getChildren()) {
-                        referenceClassKey.child(classKeySnapshot.getKey()).child("category").addValueEventListener(new ValueEventListener() {
+                        referenceClassKey.child(classKeySnapshot.getKey()).child("quizCategory").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                 if(snapshot1.exists()) {
@@ -82,6 +90,7 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                                                     model.setCategoryName(snapshot2.child("categoryName").getValue(String.class));
                                                     model.setCategoryImage(snapshot2.child("categoryImage").getValue(String.class));
                                                     list.add(model);
+                                                    identifyCompletionStatus(model.getCtgKey(), model.getSetKey());
                                                     adapter.notifyItemInserted(list.size());
                                                 }
                                             }
@@ -110,6 +119,62 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
             }
         });
 
+        binding.bell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuizStudentCategoryActivity.this, QuizStudentToDoActivity.class);
+                intent.putExtra("incomplete", hashMapIncomplete);
+                intent.putExtra("inProgress", hashMapInProgress);
+                intent.putExtra("progress", hashMapProgress);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void identifyCompletionStatus(String keyCtg, ArrayList<String> setKeyList) {
+        for (String keySet : setKeyList) {
+            database.getReference()
+                    .child("Categories").child(keyCtg)
+                    .child("Sets").child(keySet)
+                    .child("Answers").child(uid)
+                    .child("status").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String status = snapshot.getValue(String.class);
+
+                                if (status.equals("In progress")) {
+                                    database.getReference()
+                                            .child("Categories").child(keyCtg)
+                                            .child("Sets").child(keySet)
+                                            .child("Answers").child(uid).child("progress").addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    Integer progress = snapshot.getValue(Integer.class);
+                                                    hashMapInProgress.put(keySet, keyCtg);
+                                                    hashMapProgress.put(keySet, progress);
+                                                    binding.bell.setImageResource(R.drawable.bellring);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                    // Handle onCancelled
+                                                }
+                                            });
+                                }
+                            } else {
+                                hashMapIncomplete.put(keySet, keyCtg);
+                                binding.bell.setImageResource(R.drawable.bellring);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
     }
 
     @Override
@@ -127,4 +192,5 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
 
         this.startActivity(intent);
     }
+
 }

@@ -25,7 +25,7 @@ public class CategoryModel {
     }
 
     public CategoryModel() {
-        //setKey = new ArrayList<>();
+        setKey = new ArrayList<>();
     }
 
     public String getCategoryName() {
@@ -70,5 +70,9 @@ public class CategoryModel {
 
     public void addSetKey(String setKey) {
         this.setKey.add(setKey);
+    }
+
+    public void removeSetKey(String setKey) {
+        this.setKey.remove(setKey);
     }
 }

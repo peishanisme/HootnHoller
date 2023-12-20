@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -39,10 +38,10 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
     ActivityQuizEducatorSetBinding binding;
     FirebaseDatabase database;
     SetAdapter adapter;
-    String keyCtg, imageUrl;
+    String uid, keyCtg, imageUrl;
     ArrayList<SetModel> list;
     Dialog progressDialog, dialog;
-    DatabaseReference referenceSets, referenceSetNum;
+    DatabaseReference referenceSets, referenceSetNum, referenceStudent;
     CircleImageView image;
     EditText setName;
     Button upload;
@@ -54,6 +53,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
+        uid = intent.getStringExtra("uid");
         keyCtg = intent.getStringExtra("key");
         imageUrl = intent.getStringExtra("categoryImage");
 
@@ -78,8 +78,6 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
             progressDialog.setCanceledOnTouchOutside(true);
         }
 
-
-
         list = new ArrayList<>();
         GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         binding.recySet.setLayoutManager(layoutManager);
@@ -90,6 +88,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         database = FirebaseDatabase.getInstance();
         referenceSets = database.getReference().child("Categories").child(keyCtg).child("Sets");
         referenceSetNum = database.getReference().child("Categories").child(keyCtg).child("setNum");
+        referenceStudent = database.getReference().child("Student");
 
         referenceSets.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -99,8 +98,8 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         SetModel model = dataSnapshot.getValue(SetModel.class);
                         list.add(model);
+                        adapter.notifyItemInserted(list.size());
                     }
-                    adapter.notifyDataSetChanged();
                 }
             }
             @Override
@@ -134,7 +133,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                 } else if(checkDuplicity) {
                     setName.setText("");
                     setName.setError("Repeated category name");
-                    Toast.makeText(QuizEducatorSetActivity.this, "Set '" + name + "' already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizEducatorSetActivity.this, "Set " + name + " already exists", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadSet(name);
                 }
@@ -165,8 +164,8 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                     public void onSuccess(Void unused) {
                         dialog.dismiss();
                         progressDialog.dismiss();
-                        Toast.makeText(QuizEducatorSetActivity.this, "A new set '" + name + "' is created.", Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
+                        Toast.makeText(QuizEducatorSetActivity.this, "A new set " + name + " is created.", Toast.LENGTH_SHORT).show();
+                        adapter.notifyItemInserted(list.size());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -186,15 +185,51 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
     @Override
     public void onItemLongClick(int position) {
         SetModel selectedSet = list.get(position);
+        database.getReference().child("Categories").child(keyCtg).child("postedSet").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> postedSetList = (ArrayList<String>) snapshot.getValue();
+
+                    if(postedSetList != null && postedSetList.contains(selectedSet.getSetKey())) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorSetActivity.this);builder.setTitle("Unable to Cancel Set");
+                        builder.setTitle("Unable to Delete Set");
+                        builder.setMessage("You cannot delete this set as it's currently being shared with students. " +
+                                "\n\nTo delete this set, you must cancel its posting to all classrooms. " +
+                                "\nYou can cancel the posting by long-clicking on the respective classrooms.");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.show();
+                    } else {
+                        confirmDeletionWithoutPosted(selectedSet, position);
+                    }
+                } else {
+                    confirmDeletionWithoutPosted(selectedSet, position);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void confirmDeletionWithoutPosted(SetModel selectedSet, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete '" + selectedSet.getSetName() + "' ?");
+        builder.setMessage("Are you sure you want to delete " + selectedSet.getSetName() + " ?");
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                adapter.notifyItemRemoved(position);
                 list.remove(position);
+                adapter.notifyItemRemoved(position);
                 deleteSetFromFirebase(selectedSet);
             }
         }).setNegativeButton("No", null);
@@ -205,11 +240,10 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         referenceSets.child(selectedSet.getSetKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                list.remove(selectedSet);
                 referenceSetNum.setValue(list.size()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(QuizEducatorSetActivity.this, "Set '" + selectedSet.getSetName() + "' is deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QuizEducatorSetActivity.this, "Set " + selectedSet.getSetName() + " is deleted", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -231,6 +265,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         Intent intent = new Intent(this, QuizEducatorQuestionActivity.class);
         SetModel model = list.get(position);
 
+        intent.putExtra("uid", uid);
         intent.putExtra("key", keyCtg);
         intent.putExtra("keySet", model.getSetKey());
         intent.putExtra("categoryImage", imageUrl);

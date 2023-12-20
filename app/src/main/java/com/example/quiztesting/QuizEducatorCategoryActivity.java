@@ -24,12 +24,17 @@ import android.widget.Toast;
 import com.example.quiztesting.Adapters.CategoryAdapter;
 import com.example.quiztesting.Models.CategoryModel;
 import com.example.quiztesting.databinding.ActivityQuizEducatorCategoryBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,6 +50,7 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
     ActivityQuizEducatorCategoryBinding binding;
     FirebaseDatabase database;
     FirebaseStorage storage;
+    DatabaseReference referenceEducator;
     ImageView addCategory;
     Button uploadCategory;
     Dialog dialog, progressDialog;
@@ -52,8 +58,12 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
     EditText categoryName;
     View fetchImage;
     Uri imageUri;
+    ArrayList<String> quizCategory;
     ArrayList<CategoryModel> list;
     CategoryAdapter adapter;
+    FirebaseAuth auth;
+    FirebaseUser user;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +75,20 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         list = new ArrayList<>();
+        quizCategory = new ArrayList<>();
         addCategory = binding.addCategory;
+
+        /*auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+        } else {
+            Toast.makeText(this, "Error in identifying user", Toast.LENGTH_SHORT).show();
+            finish();
+        }*/
+
+        uid = "educatorID";
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.item_add_category_dialog);
@@ -96,22 +119,50 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
         adapter = new CategoryAdapter(this, list,this);
         binding.recyCategory.setAdapter(adapter);
 
-        database.getReference().child("Categories").addValueEventListener(new ValueEventListener() {
+        referenceEducator = database.getReference().child("Educator").child(uid).child("quizCategory");
+        referenceEducator.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                if(snapshot.exists()) {
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
-                        list.add(model);
-                        adapter.notifyItemInserted(list.size() - 1);
+                if (snapshot.exists()) {
+                    quizCategory = (ArrayList<String>) snapshot.getValue();
+
+                    if (quizCategory != null && !quizCategory.isEmpty()) {
+                        database.getReference().child("Categories").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    list.clear();
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
+
+                                        for (String ctgKey : quizCategory) {
+                                            if (model != null && model.getCtgKey().equals(ctgKey)) {
+                                                list.add(model);
+                                            }
+                                        }
+                                    }
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(QuizEducatorCategoryActivity.this, "Category not exist", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizEducatorCategoryActivity.this, "Category not exist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuizEducatorCategoryActivity.this, "Error in accessing educator's quiz category", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -195,18 +246,29 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
                         categoryModel.setSetNum(0);
                         categoryModel.setCtgKey(key);
 
-                        databaseReference.child(key).setValue(categoryModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.dismiss();
-                                dialog.dismiss();
-                                Toast.makeText(QuizEducatorCategoryActivity.this, "Data uploaded", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
+                        quizCategory.add(key);
+                        referenceEducator.setValue(quizCategory).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                progressDialog.dismiss();
-                                Toast.makeText(QuizEducatorCategoryActivity.this, "Failed to upload data", Toast.LENGTH_SHORT).show();
+                                System.out.println("Fail to update quiz category at educator session");
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                databaseReference.child(key).setValue(categoryModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        progressDialog.dismiss();
+                                        dialog.dismiss();
+                                        Toast.makeText(QuizEducatorCategoryActivity.this, "Data uploaded", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(QuizEducatorCategoryActivity.this, "Failed to upload data", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         });
                     }
@@ -220,25 +282,53 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
     @Override
     public void onItemLongClick(int position) {
         CategoryModel selectedCategory = list.get(position);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete Category '" + selectedCategory.getCategoryName()
-                + "' together with " + selectedCategory.getSetNum() + " set(s)?");
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        database.getReference().child("Categories").child(selectedCategory.getCtgKey()).child("postedSet").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                list.remove(position);
-                deleteCategoryFromFirebase(selectedCategory, position);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorCategoryActivity.this);
+                    builder.setTitle("Unable to Delete " + selectedCategory.getCategoryName());
+                    builder.setMessage("You cannot delete this category as some sets inside it have been shared with students. " +
+                            "\n\nTo delete this category, you need to cancel the posting of these sets. " +
+                            "\nYou can cancel the posting by long-clicking on the respective classroom.");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorCategoryActivity.this);
+                    builder.setTitle("Confirm Deletion");
+                    builder.setMessage("Are you sure you want to delete " + selectedCategory.getCategoryName()
+                            + " together with " + selectedCategory.getSetNum() + " set(s)?");
+
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            list.remove(position);
+                            deleteCategoryFromFirebase(selectedCategory, position);
+                        }
+                    }).setNegativeButton("No", null);
+                    builder.show();
+                }
             }
-        }).setNegativeButton("No", null);
-        builder.show();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
     public void onItemClick(int position) {
         CategoryModel model = list.get(position);
         Intent intent = new Intent(QuizEducatorCategoryActivity.this, QuizEducatorSetActivity.class);
+        intent.putExtra("uid", uid);
         intent.putExtra("key", model.getCtgKey());
         intent.putExtra("categoryImage", model.getCategoryImage());
 
@@ -247,6 +337,10 @@ public class QuizEducatorCategoryActivity extends AppCompatActivity implements R
 
     private void deleteCategoryFromFirebase(CategoryModel categoryModel, int position) {
         String key = categoryModel.getCtgKey();
+
+        quizCategory.remove(position);
+        referenceEducator.setValue(quizCategory);
+
         database.getReference().child("Categories").child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
