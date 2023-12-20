@@ -13,16 +13,22 @@
         android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
         <activity
-            android:name=".EducatorSetup_Activity"
+            android:name=".Parent_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ParentSetup_Activity"
+            android:name=".Educator_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".StudentSetup_Activity"
+            android:name=".Student_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".EmailVerification_Activity"
+            android:name=".Educator_Setup_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Parent_Setup_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Setup_Activity"
             android:exported="false" />
         <activity
             android:name=".ForgotPassword_Activity"
@@ -34,7 +40,7 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Main_Activity"
+            android:name=".Starting_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,7 +19,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.firstapp.hootnholler.entity.Educator;
-import com.firstapp.hootnholler.entity.Student;
 import com.firstapp.hootnholler.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class EducatorSetup_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Educator_Setup_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText birthday, phonenumber,school;
     private RadioGroup gender;
@@ -121,10 +120,10 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
                 // Check if any required field is empty, display a toast if true
                 if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) ||TextUtils.isEmpty(School) ||
                         gender==null) {
-                    Toast.makeText(EducatorSetup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Setup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
                 }  // Validate the birthday format
                 else if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(EducatorSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Setup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
                     return; // Exit the method if the format is invalid
                 }else {
                     loadingBar.setTitle("Setting up account...");
@@ -161,11 +160,11 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(EducatorSetup_Activity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Educator_Setup_Activity.this, "Saved", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                         SendUserToMainActivity();
                                     } else {
-                                        Toast.makeText(EducatorSetup_Activity.this, "Something error", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Educator_Setup_Activity.this, "Something error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -213,7 +212,7 @@ public class EducatorSetup_Activity extends AppCompatActivity implements View.On
 
     //after setting up the account, users will be sent to main activity
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(EducatorSetup_Activity.this, Main_Activity.class);
+        Intent mainIntent = new Intent(Educator_Setup_Activity.this, Starting_Activity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

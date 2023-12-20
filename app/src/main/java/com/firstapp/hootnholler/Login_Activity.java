@@ -33,7 +33,6 @@ public class Login_Activity extends AppCompatActivity {
     private EditText UserEmail, UserPassword;
     private ImageView back_button;
     private ProgressDialog loadingBar;
-    private DatabaseReference adminRef;
     private DatabaseReference userRef;
     Register_Activity object=new Register_Activity();
 
@@ -44,7 +43,6 @@ public class Login_Activity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        adminRef = FirebaseDatabase.getInstance().getReference().child("Admin");
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         back_button=(ImageView)findViewById(R.id.back_button);
@@ -115,7 +113,7 @@ public class Login_Activity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         String userId = mAuth.getCurrentUser().getUid();
-//                        checkStatus(userId);
+                        checkRole(userId);
                     } else {
                         String message = task.getException().getMessage();
                         Toast.makeText(Login_Activity.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
@@ -128,50 +126,43 @@ public class Login_Activity extends AppCompatActivity {
 
 
 
-//    private void checkStatus(String userId) {
-//        adminRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {   //check whether user is an admin
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                boolean isAdmin = snapshot.exists();
-//                if (isAdmin) {
-//                    // User is an admin
-//                    Toast.makeText(Login_Activity.this, "You are logged in as admin", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(Login_Activity.this, Admin_Activity.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    // Check if user exists in "Users" node
-//                    userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            if (snapshot.exists()) {
-//                                // User exists in the "Users" node
-//                                Toast.makeText(Login_Activity.this, "You are logged in successfully", Toast.LENGTH_SHORT).show();
-//
-//                                Intent intent = new Intent(Login_Activity.this, Main_Activity.class);
-//                                startActivity(intent);
-//                                finish();
-//                            } else {
-//                                // User does not exist in the "Users" node
-//                                Toast.makeText(Login_Activity.this, "User not found. Login failed.", Toast.LENGTH_SHORT).show();
-//                                loadingBar.dismiss();
-//                            }
-//                        }
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//                            // Handle error
-//                            loadingBar.dismiss();
-//                        }
-//                    });
-//
-//                }
-//            }
+    private void checkRole(String userId) {
 
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                // Handle error
-//                loadingBar.dismiss();
-//            }
-//        });
-//    }
+            userRef.child(userId).child("role").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String role = dataSnapshot.getValue(String.class);
+
+                        // Redirect based on user role
+                        if ("Student".equals(role)) {
+                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login_Activity.this, Student_MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if ("Educator".equals(role)) {
+                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login_Activity.this, Educator_MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if ("Parent".equals(role)) {
+                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login_Activity.this, Parent_MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    } else {
+//                     User does not exist in the "Users" node
+                        Toast.makeText(Login_Activity.this, "User not found. Login failed.", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors during database operation
+                }
+            });
+        }
+
 }

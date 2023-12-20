@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_navigation"
+    app:startDestination="@id/parent_Home_Fragment">
+
+    <fragment
+        android:id="@+id/parent_Home_Fragment"
+        android:name="com.firstapp.hootnholler.Parent_Home_Fragment"
+        android:label="fragment_parent__home_"
+        tools:layout="@layout/fragment_parent__home_" />
+    <fragment
+        android:id="@+id/parent_Statistic_Fragment"
+        android:name="com.firstapp.hootnholler.Parent_Statistic_Fragment"
+        android:label="fragment_parent__statistic_"
+        tools:layout="@layout/fragment_parent__statistic_" />
+    <fragment
+        android:id="@+id/parent_Chat_Fragment"
+        android:name="com.firstapp.hootnholler.Parent_Chat_Fragment"
+        android:label="fragment_parent__chat_"
+        tools:layout="@layout/fragment_parent__chat_" />
+    <fragment
+        android:id="@+id/parent_Profile_Fragment"
+        android:name="com.firstapp.hootnholler.Parent_Profile_Fragment"
+        android:label="fragment_parent__profile_"
+        tools:layout="@layout/fragment_parent__profile_" />
+</navigation>

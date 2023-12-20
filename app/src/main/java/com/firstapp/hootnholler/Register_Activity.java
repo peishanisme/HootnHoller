@@ -95,9 +95,9 @@ public class Register_Activity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(confirmPassword)) {
             Toast.makeText(this, "Please insert your password...", Toast.LENGTH_SHORT).show();
 
-        }else if (!password.matches(passwordPattern)) {
-                UserPassword.setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special characters.");
-                UserPassword.requestFocus();
+//        }else if (!password.matches(passwordPattern)) {
+//                UserPassword.setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special characters.");
+//                UserPassword.requestFocus();
 
         }else if(!(password.equals(confirmPassword))) {
             Toast.makeText(this, "Your password do not match with your confirm password...", Toast.LENGTH_SHORT).show();
@@ -128,18 +128,18 @@ public class Register_Activity extends AppCompatActivity {
 
                         if(role.equalsIgnoreCase("student")) {
                             // Start the Setup_Activity
-                            Intent mainIntent = new Intent(Register_Activity.this, StudentSetup_Activity.class);
+                            Intent mainIntent = new Intent(Register_Activity.this, Student_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();
                         } else if (role.equalsIgnoreCase("parent")) {
-                            Intent mainIntent = new Intent(Register_Activity.this, ParentSetup_Activity.class);
+                            Intent mainIntent = new Intent(Register_Activity.this, Parent_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();
 
                         }else if (role.equalsIgnoreCase("educator")) {
-                            Intent mainIntent = new Intent(Register_Activity.this, EducatorSetup_Activity.class);
+                            Intent mainIntent = new Intent(Register_Activity.this, Educator_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();}

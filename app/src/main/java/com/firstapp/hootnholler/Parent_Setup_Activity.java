@@ -1,27 +1,25 @@
 package com.firstapp.hootnholler;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.firstapp.hootnholler.entity.Student;
+import com.firstapp.hootnholler.entity.Parent;
 import com.firstapp.hootnholler.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,32 +29,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.util.Random;
+
 import java.util.ArrayList;
 
-public class StudentSetup_Activity extends AppCompatActivity {
+public class Parent_Setup_Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText birthday, phonenumber, school,student_class;
-    private String Level;
+    private EditText birthday, phonenumber;
     private RadioGroup gender;
     private RadioButton genderSelection;
     private ImageView back_button;
-    private Button SubmitButton;
+    private Button SubmitButton,AddKey;
+    LinearLayout layoutList1;
+    ArrayList<String> ConnectionKey = new ArrayList<>();
     private FirebaseAuth mAuth;
     private DatabaseReference reference;
     private ProgressDialog loadingBar;
     String currentUserID;
     private User user;
 
-    private Student student;
-
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final int CODE_LENGTH = 6;
+    private Parent parent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_setup);
+        setContentView(R.layout.activity_parent_setup);
 
         // Initialize Firebase authentication, retrieve the current user ID, and get the database reference
         mAuth = FirebaseAuth.getInstance();
@@ -66,8 +62,8 @@ public class StudentSetup_Activity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    user=snapshot.getValue(User.class);
+                if (snapshot.exists()) {
+                    user = snapshot.getValue(User.class);
                 }
             }
 
@@ -77,42 +73,21 @@ public class StudentSetup_Activity extends AppCompatActivity {
             }
         });
 
-        //spinner
-        Spinner level=findViewById(R.id.student_level);
-        level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Level= adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        ArrayList<String>schoolLevel=new ArrayList<>();
-        schoolLevel.add("Standard 1");
-        schoolLevel.add("Standard 2");
-        schoolLevel.add("Standard 3");
-        schoolLevel.add("Standard 4");
-        schoolLevel.add("Standard 5");
-        schoolLevel.add("Standard 6");
-
-        ArrayAdapter<String>adapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,schoolLevel);
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        level.setAdapter(adapter);
 
         // Initialize UI elements and set up event listeners
         back_button=(ImageView)findViewById(R.id.back_button);
-        birthday = (EditText) findViewById(R.id.student_birthday);
-        phonenumber = (EditText) findViewById(R.id.student_phonenumber);
-        school = (EditText) findViewById(R.id.student_school);
-        student_class=(EditText)findViewById(R.id.student_class);
-        gender = (RadioGroup) findViewById(R.id.student_gender);
+        birthday = (EditText) findViewById(R.id.parent_birthday);
+        phonenumber = (EditText) findViewById(R.id.parent_phonenumber);
+        gender = (RadioGroup) findViewById(R.id.parent_gender);
         SubmitButton = (Button) findViewById(R.id.SubmitButton);
-        loadingBar = new ProgressDialog(this);
 
+        //dynamic view for addHobby
+        layoutList1 = findViewById(R.id.key_layout);
+        AddKey = findViewById(R.id.addKey);
+        AddKey.setOnClickListener(this);
+
+
+        loadingBar = new ProgressDialog(this);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,50 +110,59 @@ public class StudentSetup_Activity extends AppCompatActivity {
 
                 // Retrieve input values from UI elements
                 String Birthday = birthday.getText().toString();
-                String Phonenumber=phonenumber.getText().toString();
-                String School = school.getText().toString();
+                String Phonenumber = phonenumber.getText().toString();
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
-                String Class=student_class.getText().toString();
-                String ConnectionKey=generateRandomCode();
-                String genderStudent;
-
-
-
+                String genderParent;
 
                 // Check if any required field is empty, display a toast if true
-                if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) || TextUtils.isEmpty(School) || TextUtils.isEmpty(Class) ||
-                        gender==null||TextUtils.isEmpty(Level) ) {
-                    Toast.makeText(StudentSetup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
-                } // Validate the birthday format
-                else if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(StudentSetup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(Phonenumber) ||
+                        gender==null) {
+                    Toast.makeText(Parent_Setup_Activity.this, "Please insert your information...", Toast.LENGTH_SHORT).show();
+
+                    // Validate the birthday format
+                }else if (!isValidBirthdayFormat(Birthday)) {
+                    Toast.makeText(Parent_Setup_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
                     return; // Exit the method if the format is invalid
-                }else {
+
+
+                } else {
                     loadingBar.setTitle("Setting up account...");
                     loadingBar.setMessage("Please wait, we are saving your account information...");
                     loadingBar.show();
                     loadingBar.setCanceledOnTouchOutside(true);
 
-                    student = new Student(School, Level,Class,ConnectionKey);
+                    //Retrieve input from addHobby dynamic view and add into ArrayList. Pass the array list into database for storing
+                    ConnectionKey.clear();
+                    for (int i = 1; i < layoutList1.getChildCount(); i++) {
+                        EditText ETKey = (EditText) layoutList1.getChildAt(i).findViewById(R.id.newInput);
+                        if (ETKey != null && ETKey.getText() != null) {
+                            ConnectionKey.add(ETKey.getText().toString());
+                        }
 
-                    // Store the user object in the "Users" node of the Firebase Realtime Database
-                    FirebaseDatabase.getInstance().getReference().child("Student").child(FirebaseAuth.getInstance().getUid()).setValue(student);
+                    }
+
+                    // Store the ConnectionKey in the "Parent" collection under the current user ID
+                    if (!ConnectionKey.isEmpty()) {
+                        DatabaseReference ConnectionKeyReference = FirebaseDatabase.getInstance().getReference().child("Parent");
+                        ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(ConnectionKey);
+                    }
+
                     // Update the user object with the entered information
                     // Update the user data in the database and handle the completion
-                    genderStudent=genderSelection.getText().toString();
+                    genderParent=genderSelection.getText().toString();
                     user.setBirthday(Birthday);
                     user.setPhone_number(Phonenumber);
-                    user.setGender(genderStudent);
+                    user.setGender(genderParent);
                     reference.setValue(user)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(StudentSetup_Activity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Parent_Setup_Activity.this, "Saved", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                         SendUserToMainActivity();
                                     } else {
-                                        Toast.makeText(StudentSetup_Activity.this, "Something error", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Parent_Setup_Activity.this, "Something error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -188,9 +172,45 @@ public class StudentSetup_Activity extends AppCompatActivity {
         });
     }
 
+    @Override
+    //methods to control dynamic view
+    public void onClick(View v) {
+        if (v.getId() == R.id.addKey) {
+            addKeyView();
+
+        }
+    }
+
+
+    private void addKeyView() {
+        final View keyView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
+        final EditText keyEdit = (EditText) keyView.findViewById(R.id.newInput);
+        ImageView removeKey = (ImageView) keyView.findViewById(R.id.remove_button);
+
+        removeKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeKeyView(keyView);
+            }
+        });
+
+        layoutList1.addView(keyView);
+
+        // Only add the key to the list if the user has entered some text
+        String key = keyEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(key)) {
+            ConnectionKey.add(key);
+        }
+    }
+
+
+    public void removeKeyView(View v) {
+        layoutList1.removeView(v);
+    }
+
     //after setting up the account, users will be sent to main activity
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(StudentSetup_Activity.this, Main_Activity.class);
+        Intent mainIntent = new Intent(Parent_Setup_Activity.this, Starting_Activity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
@@ -201,17 +221,4 @@ public class StudentSetup_Activity extends AppCompatActivity {
         String regex = "\\d{2}/\\d{2}/\\d{4}";
         return birthday.matches(regex);
     }
-    //method to generate random code
-    public static String generateRandomCode() {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder(CODE_LENGTH);
-
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            int randomIndex = random.nextInt(CHARACTERS.length());
-            char randomChar = CHARACTERS.charAt(randomIndex);
-            sb.append(randomChar);
-        }
-
-        return sb.toString();
-    }
-    }
+}
