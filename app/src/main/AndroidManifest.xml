@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Classroom"
+        tools:targetApi="31">
+        <activity
+            android:name=".Student_Classroom"
+            android:exported="false" />
+        <activity
+            android:name=".Upload_Popup"
+            android:exported="false" />
+        <activity
+            android:name=".Student_UploadAsgm"
+            android:exported="false" />
+        <activity
+            android:name=".Student_AsgmDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_People"
+            android:exported="false" />
+        <activity
+            android:name=".Student_LearningMaterialsDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_CompletedAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_DueAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_AnnouncementDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_JoinClass"
+            android:exported="false" />
+        <activity
+            android:name=".Student_UpcomingAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_LearningMaterials"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Announcements"
+            android:exported="false" />
+        <activity
+            android:name=".Class6"
+            android:exported="false" />
+        <activity
+            android:name=".Class5"
+            android:exported="false" />
+        <activity
+            android:name=".Class4"
+            android:exported="false" />
+        <activity
+            android:name=".Class3"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Class"
+            android:exported="false" />
+        <activity
+            android:name=".Class1"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
