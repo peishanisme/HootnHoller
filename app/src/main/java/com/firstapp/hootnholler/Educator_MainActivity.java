@@ -32,7 +32,7 @@ public class Educator_MainActivity extends AppCompatActivity {
             }else if (id == R.id.chat) {
                 replaceFragment(new Educator_Chat_Fragment());
             }else if (id == R.id.profile) {
-                replaceFragment(new Educator_Profile_Fragment());}
+                replaceFragment(new Profile_Fragment());}
 
         });
 

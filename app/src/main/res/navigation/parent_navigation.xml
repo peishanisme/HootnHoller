@@ -21,8 +21,8 @@
         android:label="fragment_parent__chat_"
         tools:layout="@layout/fragment_parent__chat_" />
     <fragment
-        android:id="@+id/parent_Profile_Fragment"
-        android:name="com.firstapp.hootnholler.Parent_Profile_Fragment"
-        android:label="fragment_parent__profile_"
-        tools:layout="@layout/fragment_parent__profile_" />
+        android:id="@+id/profile_Fragment2"
+        android:name="com.firstapp.hootnholler.Profile_Fragment"
+        android:label="fragment_profile_"
+        tools:layout="@layout/fragment_profile_" />
 </navigation>

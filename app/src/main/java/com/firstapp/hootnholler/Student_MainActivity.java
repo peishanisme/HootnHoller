@@ -28,7 +28,7 @@ public class Student_MainActivity extends AppCompatActivity {
             }else if (id == R.id.chat) {
                 replaceFragment(new Student_Chat_Fragment());
             }else if (id == R.id.profile) {
-                replaceFragment(new Student_Profile_Fragment());}
+                replaceFragment(new Profile_Fragment());}
 
         });
 

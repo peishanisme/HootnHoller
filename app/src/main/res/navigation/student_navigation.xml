@@ -17,13 +17,13 @@
         tools:layout="@layout/fragment_student__chat_" />
 
     <fragment
-        android:id="@+id/student_Profile_Fragment"
-        android:name="com.firstapp.hootnholler.Student_Profile_Fragment"
-        android:label="fragment_student__profile_"
-        tools:layout="@layout/fragment_student__profile_" />
-    <fragment
         android:id="@+id/student_Quiz_Fragment"
         android:name="com.firstapp.hootnholler.Student_Quiz_Fragment"
         android:label="fragment_student__quiz_"
         tools:layout="@layout/fragment_student__quiz_" />
+    <fragment
+        android:id="@+id/profile_Fragment"
+        android:name="com.firstapp.hootnholler.Profile_Fragment"
+        android:label="fragment_profile_"
+        tools:layout="@layout/fragment_profile_" />
 </navigation>
