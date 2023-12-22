@@ -69,12 +69,6 @@ public class Profile_Fragment extends Fragment {
         EditAccount_layout=view.findViewById(R.id.editAccount);
         Logout_layout=view.findViewById(R.id.logout_layout);
 
-//        recyclerViewSubject=view.findViewById(R.id.educatorSubject_shown);
-//        Educator_Subject=new Educator_Subject(EducatorSubject);
-//        EducatorSubject=new ArrayList<>();
-//        recyclerViewSubject.setAdapter(Educator_Subject);
-//        recyclerViewSubject.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         recyclerViewSubject = view.findViewById(R.id.educatorSubject_shown);
         EducatorSubject = new ArrayList<>();
         Educator_Subject = new Educator_Subject(EducatorSubject);
@@ -102,7 +96,6 @@ public class Profile_Fragment extends Fragment {
                    Gender.setText(snapshot.child("gender").getValue(String.class));
                    Birthday.setText(snapshot.child("birthday").getValue(String.class));
                    PhoneNumber.setText(snapshot.child("phone_number").getValue(String.class));
-                    System.out.println("role"+role);
                    EditAccount_layout.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View view) {
@@ -110,7 +103,6 @@ public class Profile_Fragment extends Fragment {
                            startActivity(intent);
                        }
                    });
-                    System.out.println("role"+role);
                     checkRole(role);
 
                 }

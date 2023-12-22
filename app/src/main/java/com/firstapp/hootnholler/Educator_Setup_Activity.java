@@ -79,7 +79,7 @@ public class Educator_Setup_Activity extends AppCompatActivity implements View.O
         school=(EditText)findViewById(R.id.educator_school);
         SubmitButton = (Button) findViewById(R.id.SubmitButton);
 
-        //dynamic view for addHobby
+        //dynamic view for addSubject
         layoutList1 = findViewById(R.id.subject_layout);
         AddSubject = findViewById(R.id.addSubject);
         AddSubject.setOnClickListener(this);
