@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firstapp.hootnholler.adapter.Educator_Subject;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,11 +23,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Profile_Fragment extends Fragment {
 
     // Declare views
     private TextView Fullname, Role, Gender,Birthday,PhoneNumber,School,Level,Class;
     private View Gender_layout,Birthday_layout,phoneNum_layout,School_layout,Level_layout,Class_layout,Subject_layout,ParentMonitored_layout, ConnectionKey_layout,EditAccount_layout,Logout_layout;
+    ArrayList<String> EducatorSubject;
+    Educator_Subject Educator_Subject;
+    RecyclerView recyclerViewSubject;
+
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid = auth.getCurrentUser().getUid();
     DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users").child(uid);
@@ -59,6 +68,18 @@ public class Profile_Fragment extends Fragment {
         ConnectionKey_layout=view.findViewById(R.id.studentConnectionKey);
         EditAccount_layout=view.findViewById(R.id.editAccount);
         Logout_layout=view.findViewById(R.id.logout_layout);
+
+//        recyclerViewSubject=view.findViewById(R.id.educatorSubject_shown);
+//        Educator_Subject=new Educator_Subject(EducatorSubject);
+//        EducatorSubject=new ArrayList<>();
+//        recyclerViewSubject.setAdapter(Educator_Subject);
+//        recyclerViewSubject.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerViewSubject = view.findViewById(R.id.educatorSubject_shown);
+        EducatorSubject = new ArrayList<>();
+        Educator_Subject = new Educator_Subject(EducatorSubject);
+        recyclerViewSubject.setAdapter(Educator_Subject);
+        recyclerViewSubject.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         // info
@@ -160,10 +181,19 @@ public class Profile_Fragment extends Fragment {
             School_layout.setVisibility(View.VISIBLE);
             Subject_layout.setVisibility(View.VISIBLE);
 
+
             EduRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     School.setText(snapshot.child("school").getValue(String.class));
+                    for (DataSnapshot dataSnapshot : snapshot.child("Subject").getChildren()) {
+                        String subjects = dataSnapshot.getValue(String.class);
+                        EducatorSubject.add(subjects);
+                    }
+                    if (Educator_Subject != null) {
+                        Educator_Subject.notifyDataSetChanged();
+                    }
+
 
                 }
 
