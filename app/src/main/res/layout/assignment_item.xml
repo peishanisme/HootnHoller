@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="117dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/nofill"
+    app:cardCornerRadius="10sp"
+    app:layout_column="1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView3"
+    app:layout_gravity="center_horizontal"
+    app:layout_row="0"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:text="• Ready For Grading"
+        android:textAlignment="textStart"
+        android:textColor="#FF1723"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15sp"
+        android:text="Science Tutorial 5"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="75sp"
+        android:text="Due Tuesday, 7/11/2023, 11.59pm"
+        android:textColor="#FF504F4F"
+        android:textSize="15sp" />
+
+</androidx.cardview.widget.CardView>
