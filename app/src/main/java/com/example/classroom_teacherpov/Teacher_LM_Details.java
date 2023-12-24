@@ -11,14 +11,14 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.EditText;
 
-public class LM_Details extends AppCompatActivity {
+public class Teacher_LM_Details extends AppCompatActivity {
 
     public EditText comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lm_details);
+        setContentView(R.layout.teacher_activity_lm_details);
 
         comment = findViewById(R.id.ETComment);
     }

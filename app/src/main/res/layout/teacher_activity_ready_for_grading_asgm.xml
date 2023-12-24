@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GradedAsgm">
+    tools:context=".Teacher_ReadyForGrading_Asgm">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -66,7 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:text="Past Due"
+        android:text="Ready For Grading"
+        android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -75,29 +76,29 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="190dp"
         android:layout_marginTop="10dp"
-        android:text="Completed"
-        android:textStyle="bold"
+        android:text="Graded"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <View
-        android:id="@+id/underlineCompleted"
+        android:id="@+id/underline"
         android:layout_width="70dp"
         android:layout_height="2dp"
         android:background="#7DC8FE"
         android:foregroundGravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rowCount="2"
-        >
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"
@@ -116,19 +117,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
-                android:layout_marginTop="25sp"
+                android:layout_marginTop="20sp"
                 android:fontFamily="sans-serif-medium"
-                android:text="• Graded"
+                android:text="• Ready For Grading"
                 android:textAlignment="textStart"
-                android:textColor="#3EC73C"
+                android:textColor="#FF1723"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
                 android:layout_gravity="center_vertical"
-                android:text="Science Chapter 3 Quiz"
+                android:layout_marginLeft="15sp"
+                android:text="Science Tutorial 5"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -138,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="75sp"
-                android:text="Due Mon, 11/11/2023, 11.59pm"
+                android:text="Due Tuesday, 7/11/2023, 11.59pm"
                 android:textColor="#FF504F4F"
                 android:textSize="15sp" />
 
@@ -163,17 +164,17 @@
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="20sp"
                 android:fontFamily="sans-serif-medium"
-                android:text="• Graded"
+                android:text="• Ready For Grading"
                 android:textAlignment="textStart"
-                android:textColor="#3EC73C"
+                android:textColor="#FF1723"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
                 android:layout_gravity="center_vertical"
-                android:text="Science Tutorial 2"
+                android:layout_marginLeft="15sp"
+                android:text="Science Exercise 3.5"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />

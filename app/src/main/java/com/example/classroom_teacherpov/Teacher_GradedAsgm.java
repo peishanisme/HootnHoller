@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Announcement extends AppCompatActivity {
+public class Teacher_GradedAsgm extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_announcement);
+        setContentView(R.layout.teacher_activity_graded_asgm);
     }
 }

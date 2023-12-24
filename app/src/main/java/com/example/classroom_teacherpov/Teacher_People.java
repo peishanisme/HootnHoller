@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class UpcomingAsgm extends AppCompatActivity {
+public class Teacher_People extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_asgm);
+        setContentView(R.layout.teacher_activity_people);
     }
 }
