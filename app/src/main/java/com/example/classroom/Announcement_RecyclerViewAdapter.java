@@ -46,7 +46,6 @@ public class Announcement_RecyclerViewAdapter extends RecyclerView.Adapter<Annou
             super(itemView);
             title = itemView.findViewById(R.id.announcement_title);
             dateTime = itemView.findViewById(R.id.dateTime);
-
         }
     }
 }
