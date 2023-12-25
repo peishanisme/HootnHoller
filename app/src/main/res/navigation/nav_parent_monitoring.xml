@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_parent_monitoring"
+    app:startDestination="@id/parent_Home_Fragment2">
+
+    <fragment
+        android:id="@+id/parent_Home_Fragment2"
+        android:name="com.firstapp.hootnholler.Parent_Home_Fragment"
+        android:label="fragment_parent__home_"
+        tools:layout="@layout/fragment_parent__home_" >
+        <action
+            android:id="@+id/action_parent_Home_Fragment2_to_task_status"
+            app:destination="@id/task_status" />
+        <action
+            android:id="@+id/action_parent_Home_Fragment2_to_parent_feedback"
+            app:destination="@id/parent_feedback" />
+        <action
+            android:id="@+id/action_parent_Home_Fragment2_to_qui_score"
+            app:destination="@id/quiz_score" />
+    </fragment>
+    <fragment
+        android:id="@+id/parent_feedback"
+        android:name="com.firstapp.hootnholler.parent_feedback"
+        android:label="fragment_parent_feedback"
+        tools:layout="@layout/fragment_parent_feedback" >
+        <action
+            android:id="@+id/action_parent_feedback_to_parent_Home_Fragment2"
+            app:destination="@id/parent_Home_Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/quiz_score"
+        android:name="com.firstapp.hootnholler.qui_score"
+        android:label="fragment_parent_quiz_score"
+        tools:layout="@layout/fragment_parent_quiz_score" >
+        <action
+            android:id="@+id/action_qui_score_to_parent_Home_Fragment2"
+            app:destination="@id/parent_Home_Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/task_status"
+        android:name="com.firstapp.hootnholler.task_status"
+        android:label="fragment_parent_task_status"
+        tools:layout="@layout/fragment_parent_task_status" >
+        <action
+            android:id="@+id/action_task_status_to_parent_Home_Fragment2"
+            app:destination="@id/parent_Home_Fragment2" />
+    </fragment>
+</navigation>
