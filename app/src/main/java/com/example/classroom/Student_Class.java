@@ -23,6 +23,7 @@ public class Student_Class extends AppCompatActivity implements View.OnClickList
         materials = (CardView) findViewById(R.id.LearningMaterials);
         btnPopUp = (ImageButton) findViewById(R.id.menu);
         backButton = (ImageButton) findViewById(R.id.btnBack);
+        //hahaha
 
         announcement.setOnClickListener(this);
         assignment.setOnClickListener(this);
