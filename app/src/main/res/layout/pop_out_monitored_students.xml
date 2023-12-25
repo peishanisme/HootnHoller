@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/rectangle_4026">
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/dell_fill"
+        android:layout_marginStart="242dp"
+        android:layout_marginTop="5dp"
+        />
+
+
+    <ScrollView
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/monitored_student"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp" />
+    </ScrollView>
+
+
+</LinearLayout>
