@@ -41,7 +41,6 @@
                     android:textSize="50dp" />
         </LinearLayout>
             <TextView
-                android:id="@+id/TV_setup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -51,7 +50,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TV_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -73,7 +71,6 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/TV_phonenumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -95,7 +92,6 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/TV_Gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -139,7 +135,6 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/TV_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -161,7 +156,6 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/TV_Subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"

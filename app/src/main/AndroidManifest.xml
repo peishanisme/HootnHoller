@@ -13,9 +13,6 @@
         android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
         <activity
-            android:name=".Student_ConnectionKey_Activity"
-            android:exported="false" />
-        <activity
             android:name=".EditAccount_Activity"
             android:exported="false" />
         <activity
@@ -44,6 +41,48 @@
             android:exported="false" />
         <activity
             android:name=".Login_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Classroom"
+            android:exported="false" />
+        <activity
+            android:name=".Student_UploadAsgm"
+            android:exported="false" />
+        <activity
+            android:name=".Student_AsgmDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_People"
+            android:exported="false" />
+        <activity
+            android:name=".Student_LearningMaterialsDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_CompletedAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_DueAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_AnnouncementDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Student_JoinClass"
+            android:exported="false" />
+        <activity
+            android:name=".Student_UpcomingAssignment"
+            android:exported="false" />
+        <activity
+            android:name=".Student_LearningMaterials"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Announcements"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Class"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Starting_Activity"

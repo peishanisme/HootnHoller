@@ -33,7 +33,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/TV_setup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create A New Account Now!"
@@ -55,7 +54,6 @@
 <!--        tools:ignore="MissingClass" />-->
 
     <TextView
-        android:id="@+id/fullnameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -77,7 +75,6 @@
         android:backgroundTint="@color/black"/>
 
     <TextView
-        android:id="@+id/emailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -98,7 +95,6 @@
         android:backgroundTint="@color/black"/>
 
     <TextView
-        android:id="@+id/passwordTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -119,7 +115,6 @@
         android:backgroundTint="@color/black"/>
 
     <TextView
-        android:id="@+id/confirmpasswordTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -140,7 +135,6 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/roleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -157,7 +151,6 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/register_student"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -168,7 +161,6 @@
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/register_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -179,7 +171,6 @@
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/register_educator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

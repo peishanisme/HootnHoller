@@ -59,7 +59,6 @@
     android:layout_below="@+id/username_layout">
 
     <TextView
-        android:id="@+id/email_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -90,7 +89,6 @@
                 >
 
                 <TextView
-                    android:id="@+id/phoneNumber_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -119,7 +117,6 @@
                 >
 
                 <TextView
-                    android:id="@+id/school_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="School"

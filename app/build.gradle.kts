@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.firstapp.hootnholler"
+    namespace = "com.example.hootnholler"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.firstapp.hootnholler"
+        applicationId = "com.example.classroom"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -45,6 +45,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.2.0")
     implementation ("androidx.fragment:fragment:1.3.0")
     implementation ("androidx.fragment:fragment-ktx:1.3.0")
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
+    implementation ("com.android.support:cardview-v7:28.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.navigation:navigation-fragment:2.7.6")
     implementation("androidx.navigation:navigation-ui:2.7.6")
     testImplementation("junit:junit:4.13.2")

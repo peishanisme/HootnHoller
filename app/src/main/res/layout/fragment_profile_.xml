@@ -48,13 +48,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/gender_icon"
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/gender_1"
                 android:layout_marginStart="60dp"/>
             <TextView
-                android:id="@+id/gender_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender"
@@ -81,13 +79,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/birthday_icon"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:src="@drawable/birthday_cake_celebration_svgrepo_com_1"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/birthday_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Birthday"
@@ -114,13 +110,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/phoneNum_icon"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/phone_svgrepo_com_1"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/phoneNum_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone Number"
@@ -147,13 +141,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/school_icon"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/school_svgrepo_com__1__1"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/school_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="School"
@@ -180,13 +172,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/studentLevel_icon"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/book_open_svgrepo_com_1"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/studentLevel_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Level"
@@ -213,13 +203,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/studentClass_icon"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/class_management_svgrepo_com"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/studentClass_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Class"
@@ -246,13 +234,11 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/educatorSubject_icon"
                 android:layout_width="30dp"
                 android:layout_height="23dp"
                 android:src="@drawable/book_open_svgrepo_com_1"
                 android:layout_marginStart="55dp"/>
             <TextView
-                android:id="@+id/educatorSubject_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject"
@@ -389,7 +375,6 @@
             android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:id="@+id/logout_icon2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

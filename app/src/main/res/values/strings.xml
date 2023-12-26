@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">HootnHoller</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Classroom</string>
+    <string name="add_submission">Add Submission</string>
+    <string name="posted_on_16_nov_2023_08_10_28_am">Posted on 16 Nov 2023, 08:10:28 am</string>
+    <string name="learning_nmaterials">Learning\nMaterials</string>
+    <string name="chapter_3_human_notes1">Chapter 3 - Human (Notes)</string>
 </resources>
