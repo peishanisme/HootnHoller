@@ -50,6 +50,7 @@ public class Parent_Monitored_Students extends RecyclerView.Adapter<Parent_Monit
         holder.schoolTextView.setText(student.getSchool());
     }
 
+
     @Override
     public int getItemCount() {
         return monitoredStudents.size();
