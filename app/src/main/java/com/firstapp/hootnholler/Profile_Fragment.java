@@ -38,7 +38,7 @@ import java.util.List;
 public class Profile_Fragment extends Fragment {
 
     // Declare view
-    private TextView Fullname, Role, Gender, Birthday, PhoneNumber, School, Level, Class;
+    private TextView Fullname, Role, Gender, Birthday, PhoneNumber, School, Level, Class, EmptyListMessage;
     private View Gender_layout, Birthday_layout, phoneNum_layout, School_layout, Level_layout, Class_layout, Subject_layout, ParentMonitored_layout, ConnectionKey_layout, EditAccount_layout, Logout_layout;
     private RecyclerView monitoredStudentsRecyclerView;
     private Parent_Monitored_Students monitoredStudentsAdapter;
@@ -103,7 +103,6 @@ public class Profile_Fragment extends Fragment {
         ParentMonitored_layout.setVisibility(View.GONE);
         ConnectionKey_layout.setVisibility(View.GONE);
 
-
         UserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,7 +131,6 @@ public class Profile_Fragment extends Fragment {
             }
         });
 
-
         Logout_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,8 +138,6 @@ public class Profile_Fragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
         return view;
     }
 
@@ -152,7 +148,6 @@ public class Profile_Fragment extends Fragment {
             Class_layout.setVisibility(View.VISIBLE);
 
             ConnectionKey_layout.setVisibility(View.VISIBLE);
-
 
             StudentRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -204,8 +199,6 @@ public class Profile_Fragment extends Fragment {
                     if (Educator_Subject != null) {
                         Educator_Subject.notifyDataSetChanged();
                     }
-
-
                 }
 
                 @Override
@@ -220,21 +213,18 @@ public class Profile_Fragment extends Fragment {
         ParentRef.child("MonitoredStudents").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Clear the existing list
-                monitoredStudentsList.clear();
-
                 // Iterate through the monitored students and add them to the list
                 for (DataSnapshot studentUidSnapshot : dataSnapshot.getChildren()) {
                     String studentUid = studentUidSnapshot.getValue(String.class);
-
                     // Fetch student details using studentUid
-                    DatabaseReference studentReference = FirebaseDatabase.getInstance().getReference("Students").child(studentUid);
+                    DatabaseReference studentReference = FirebaseDatabase.getInstance().getReference("Student").child(studentUid);
                     studentReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot studentDataSnapshot) {
                             // Deserialize the student data
                             Student student = studentDataSnapshot.getValue(Student.class);
                             if (student != null) {
+                                student.studentUID = studentUid;
                                 monitoredStudentsList.add(student);
                                 monitoredStudentsAdapter.notifyDataSetChanged();
                             }
@@ -242,11 +232,10 @@ public class Profile_Fragment extends Fragment {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            // Handle errors
+                            // Handle
                         }
                     });
                 }
-
                 // Show a dialog or fragment with the list of monitored students
                 showMonitoredStudentsDialog();
             }
@@ -301,13 +290,20 @@ public class Profile_Fragment extends Fragment {
     private void showMonitoredStudentsDialog() {
         mdialog = new Dialog(getActivity());
         mdialog.setContentView(R.layout.pop_out_monitored_students);
-
-        // Set up RecyclerView in the dialog
+        // Set up element in the pop out window (monitored_students)
+        TextView emptyListMessage = mdialog.findViewById(R.id.emptyListMessage);
         RecyclerView monitoredStudentsRecyclerView = mdialog.findViewById(R.id.monitored_student);
-        monitoredStudentsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        monitoredStudentsRecyclerView.setAdapter(monitoredStudentsAdapter);
-
-        // Set up close button
+        if(monitoredStudentsList.isEmpty()){
+            emptyListMessage.setVisibility(View.VISIBLE);
+            monitoredStudentsRecyclerView.setVisibility(View.GONE);
+        }
+        else{
+            emptyListMessage.setVisibility(View.GONE);
+            monitoredStudentsRecyclerView.setVisibility(View.VISIBLE);
+            monitoredStudentsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            monitoredStudentsRecyclerView.setAdapter(monitoredStudentsAdapter);
+        }
+        monitoredStudentsList.clear();
         ImageView close_button = mdialog.findViewById(R.id.close);
         close_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,7 +311,6 @@ public class Profile_Fragment extends Fragment {
                 mdialog.dismiss();
             }
         });
-
         // Show the dialog
         mdialog.show();
     }
