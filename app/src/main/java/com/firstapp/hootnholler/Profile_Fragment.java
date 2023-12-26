@@ -37,7 +37,7 @@ import java.util.List;
 
 public class Profile_Fragment extends Fragment {
 
-    // Declare views
+    // Declare view
     private TextView Fullname, Role, Gender, Birthday, PhoneNumber, School, Level, Class;
     private View Gender_layout, Birthday_layout, phoneNum_layout, School_layout, Level_layout, Class_layout, Subject_layout, ParentMonitored_layout, ConnectionKey_layout, EditAccount_layout, Logout_layout;
     private RecyclerView monitoredStudentsRecyclerView;
