@@ -1,4 +1,4 @@
-package com.firstapp.hootnholler;
+package com.firstapp.hootnholler.adapter;
 
 public class Classroom_ArrayAdapter {
     String title, session, daytime, educatorName;

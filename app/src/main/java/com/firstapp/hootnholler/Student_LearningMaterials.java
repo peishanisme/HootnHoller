@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.firstapp.hootnholler.adapter.LM_ArrayAdapter;
+import com.firstapp.hootnholler.adapter.LM_RecyclerViewAdapter;
+
 import java.util.ArrayList;
 
 public class Student_LearningMaterials extends AppCompatActivity {

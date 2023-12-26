@@ -1,64 +1,105 @@
 package com.firstapp.hootnholler;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Student_Classroom_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.firstapp.hootnholler.adapter.Classroom_ArrayAdapter;
+import com.firstapp.hootnholler.adapter.Classroom_RecyclerViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 public class Student_Classroom_Fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Student_Classroom_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Student_Classroom_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Student_Classroom_Fragment newInstance(String param1, String param2) {
-        Student_Classroom_Fragment fragment = new Student_Classroom_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    FloatingActionButton joinClass;
+    RecyclerView recyclerView;
+    ArrayList<Classroom_ArrayAdapter> arrayList = new ArrayList<>();
+    RecyclerView.LayoutManager layoutManager;
+    Classroom_RecyclerViewAdapter recyclerViewAdapter;
+    DatabaseReference classroom,student;
+    FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    String uid=mAuth.getUid().toString();
+    EditText classCode;
+    Button JoinClass;
+    View close_button;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student__classroom_, container, false);
+        View view= inflater.inflate(R.layout.fragment_student__classroom_, container, false);
+
+        joinClass=view.findViewById(R.id.joinClass);
+        recyclerView=view.findViewById(R.id.classList);
+        layoutManager = new GridLayoutManager(getActivity(),2);
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList.add(new Classroom_ArrayAdapter("Title","Session", "Day & Time", "Educator Name"));
+        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), arrayList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        joinClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                joinClassPopOutWindow();
+            }
+        });
+
+        return view;
     }
+
+    private void joinClassPopOutWindow() {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            View dialogView = getLayoutInflater().inflate(R.layout.pop_up_student_join_class, null);
+            builder.setView(dialogView);
+
+            classroom= FirebaseDatabase.getInstance().getReference("Classroom");
+            student=FirebaseDatabase.getInstance().getReference("Student");
+
+            JoinClass = dialogView.findViewById(R.id.JoinClass);
+            classCode = dialogView.findViewById(R.id.classCode);
+            close_button = dialogView.findViewById(R.id.close);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            close_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            JoinClass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String ClassCode = classCode.getText().toString();
+                    // Update the classroom reference without overwriting existing data
+                    DatabaseReference classroomReference = classroom.child(ClassCode).child("StudentsJoined").child(uid);
+                    classroomReference.setValue(true);
+
+                    // Update the student reference without overwriting existing data
+                    DatabaseReference studentReference = student.child(uid).child("JoinedClass").child(ClassCode);
+                    studentReference.setValue(true);
+
+
+
+
+                    dialog.dismiss();
+                }
+            });
+        }
+
 }

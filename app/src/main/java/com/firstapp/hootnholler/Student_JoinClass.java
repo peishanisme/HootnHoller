@@ -13,7 +13,7 @@ public class Student_JoinClass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_join_class);
+        setContentView(R.layout.pop_up_student_join_class);
 
         backButton = (ImageButton) findViewById(R.id.btnBack);
         backButton.setOnClickListener(new View.OnClickListener() {

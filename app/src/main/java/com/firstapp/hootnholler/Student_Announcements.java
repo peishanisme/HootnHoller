@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.firstapp.hootnholler.adapter.Announcement_ArrayAdapter;
+import com.firstapp.hootnholler.adapter.Announcement_RecyclerViewAdapter;
+
 import java.util.ArrayList;
 
 public class Student_Announcements extends AppCompatActivity implements View.OnClickListener {

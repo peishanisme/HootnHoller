@@ -29,5 +29,5 @@
         android:id="@+id/DestJoinClass"
         android:name="com.firstapp.hootnholler.Student_JoinClass"
         android:label="activity_join_class"
-        tools:layout="@layout/activity_student_join_class" />
+        tools:layout="@layout/pop_up_student_join_class" />
 </navigation>
