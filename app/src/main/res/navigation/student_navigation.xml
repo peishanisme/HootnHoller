@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_navigation"
+    app:startDestination="@id/student_Classroom_Fragment">
+
+    <fragment
+        android:id="@+id/student_Classroom_Fragment"
+        android:name="com.firstapp.hootnholler.Student_Classroom_Fragment"
+        android:label="fragment_student__classroom_"
+        tools:layout="@layout/fragment_student__classroom_" />
+    <fragment
+        android:id="@+id/student_Chat_Fragment"
+        android:name="com.firstapp.hootnholler.Student_Chat_Fragment"
+        android:label="fragment_student__chat_"
+        tools:layout="@layout/fragment_student__chat_" />
+
+    <fragment
+        android:id="@+id/student_Quiz_Fragment"
+        android:name="com.firstapp.hootnholler.Student_Quiz_Fragment"
+        android:label="fragment_student__quiz_"
+        tools:layout="@layout/fragment_student__quiz_" />
+    <fragment
+        android:id="@+id/profile_Fragment"
+        android:name="com.firstapp.hootnholler.Profile_Fragment"
+        android:label="fragment_profile_"
+        tools:layout="@layout/fragment_profile_" />
+</navigation>

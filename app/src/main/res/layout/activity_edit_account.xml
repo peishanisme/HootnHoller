@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".EditAccount_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_button"
+                android:layout_marginTop="23dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/theaugusta"
+                android:text="Hoot-n-Holler"
+                android:textColor="@color/black"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TV_editAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Your Information Now!"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/TV_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="30dp"
+            android:text="Full name:"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:ems="13"
+            android:hint="Ali bin Ahmad"
+            android:inputType="textEmailAddress"
+            android:padding="13dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"/>
+
+        <TextView
+            android:id="@+id/TV_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="20dp"
+            android:text="Birthday:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/black"
+            android:ems="13"
+            android:hint="DD/MM/YYYY"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/TV_phonenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="20dp"
+            android:text="Phone number:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/phonenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/black"
+            android:ems="13"
+            android:hint="0126005164"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/TV_Gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="20dp"
+            android:text="Gender:"
+            android:textColor="@color/black" />
+
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black">
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingHorizontal="40dp"
+                android:text="Male"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingHorizontal="40dp"
+                android:text="Female"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/school_layout"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/TV_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="School:"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/black"
+                android:ems="13"
+                android:hint="SK Bandar Kinrara 4"
+                android:inputType="textImeMultiLine"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/student_level_layout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/TV_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <Spinner
+            android:id="@+id/student_level"
+            android:layout_width="215dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/student_class_layout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/TV_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/student_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/black"
+            android:ems="13"
+            android:hint="3 Champion"
+            android:inputType="textImeMultiLine"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/parent_connectionkey_layout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/TV_connectionKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardian Connection Key:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+
+
+        <LinearLayout
+            android:id="@+id/key_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Add Connection Key"
+                android:backgroundTint="@color/button_colour"
+                android:textColor="@color/white"
+
+                />
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/educator_subject_layout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/TV_Subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Subject:"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+
+
+        <LinearLayout
+            android:id="@+id/subject_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/addSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Add Subject"
+                android:backgroundTint="@color/button_colour"
+                android:textColor="@color/white"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/SubmitButton"
+            android:layout_width="130dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/button_colour"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:layout_marginBottom="40dp"/>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

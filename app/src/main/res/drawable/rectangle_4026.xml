@@ -1,0 +1,21 @@
+<!--<vector xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:width="338dp"-->
+<!--    android:height="167dp"-->
+<!--    android:viewportWidth="338"-->
+<!--    android:viewportHeight="167">-->
+<!--  <path-->
+<!--      android:pathData="M12,0L322,0A10,10 0,0 1,332 10L332,149A10,10 0,0 1,322 159L12,159A10,10 0,0 1,2 149L2,10A10,10 0,0 1,12 0z"-->
+<!--      android:fillColor="#CCE6F5"/>-->
+<!--</vector>-->
+<!-- rectangle_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item>
+    <shape android:shape="rectangle">
+      <!-- You can customize the background color, corner radius, or other attributes here -->
+      <solid android:color="#CCE6F5"/>
+      <corners android:radius="8dp"/>
+    </shape>
+  </item>
+
+</layer-list>

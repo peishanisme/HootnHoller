@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Classroom_TeacherPOV"
+rootProject.name = "HootnHoller"
 include(":app")
- 

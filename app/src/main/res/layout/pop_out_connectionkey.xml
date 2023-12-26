@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/rectangle_4026">
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/dell_fill"
+        android:layout_marginStart="242dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/connectionkey_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Connection Key is"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/connectionkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123456"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textSize="28dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:id="@+id/copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_content_copy_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copy"
+            android:textColor="@color/black"
+            android:textSize="19sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

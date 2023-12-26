@@ -10,8 +10,38 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Classroom_TeacherPOV"
+        android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
+        <activity
+            android:name=".EditAccount_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Parent_MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Educator_MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Educator_Setup_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Parent_Setup_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Setup_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPassword_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Register_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Login_Activity"
+            android:exported="false" />
         <activity
             android:name=".Teacher_Classroom"
             android:exported="false" />
@@ -53,6 +83,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Starting_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
