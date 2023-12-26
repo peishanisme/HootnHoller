@@ -1,4 +1,4 @@
-package com.firstapp.hootnholler;
+package com.firstapp.hootnholler.adapter;
 
 public class Asgm_RecyclerViewAdapter {
 }
