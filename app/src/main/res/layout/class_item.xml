@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/c2"
+    android:id="@+id/Class"
     android:layout_width="170dp"
     android:layout_margin="10dp"
     app:cardBackgroundColor="#EBF4B3"
@@ -9,7 +9,7 @@
     android:layout_height="200dp">
 
     <TextView
-        android:id="@+id/classroomTitle"
+        android:id="@+id/ClassTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
@@ -21,7 +21,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/session"
+        android:id="@+id/CLassSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
@@ -31,7 +31,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/dayTime"
+        android:id="@+id/ClassDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"

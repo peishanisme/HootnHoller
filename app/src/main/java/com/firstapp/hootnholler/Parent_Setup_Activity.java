@@ -131,12 +131,13 @@ public class Parent_Setup_Activity extends AppCompatActivity implements View.OnC
                     loadingBar.show();
                     loadingBar.setCanceledOnTouchOutside(true);
 
-                    //Retrieve input from addHobby dynamic view and add into ArrayList. Pass the array list into database for storing
+                    //Retrieve input from Connection Key dynamic view and add into ArrayList. Pass the array list into database for storing
                     ConnectionKey.clear();
                     for (int i = 1; i < layoutList1.getChildCount(); i++) {
                         EditText ETKey = (EditText) layoutList1.getChildAt(i).findViewById(R.id.newInput);
                         if (ETKey != null && ETKey.getText() != null) {
                             ConnectionKey.add(ETKey.getText().toString());
+
                         }
 
                     }
