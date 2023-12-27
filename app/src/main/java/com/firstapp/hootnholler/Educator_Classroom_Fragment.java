@@ -62,15 +62,20 @@ public class Educator_Classroom_Fragment extends Fragment {
             classroom = FirebaseDatabase.getInstance().getReference("Classroom");
 
             // Query the classrooms where classOwner is the UID of the current user
-            classroom.orderByChild("ClassOwner").equalTo(uid)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
+            classroom.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             classroomList.clear();
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Classroom classroom = snapshot.getValue(Classroom.class);
-                                if (classroom != null) {
-                                    classroomList.add(classroom);
+                                if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
+
+                                    Classroom classroom = snapshot.getValue(Classroom.class);
+                                    classroom.classCode= snapshot.getKey();
+
+                                    if (classroom != null) {
+                                        classroomList.add(classroom);
+                                    }
+
                                 }
                             }
                             recyclerViewAdapter.notifyDataSetChanged();
