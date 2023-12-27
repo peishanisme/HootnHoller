@@ -39,9 +39,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
-    android:layout_marginStart="10dp"
     android:text="You may get your class code from your teacher"
-    android:textSize="20dp"/>
+    android:textSize="20dp"
+    android:textColor="#888888"
+    android:layout_gravity="center_horizontal"/>
 
 
         <EditText
