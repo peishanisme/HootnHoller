@@ -13,9 +13,6 @@
         android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
         <activity
-            android:name=".Student_ConnectionKey_Activity"
-            android:exported="false" />
-        <activity
             android:name=".EditAccount_Activity"
             android:exported="false" />
         <activity
@@ -44,6 +41,48 @@
             android:exported="false" />
         <activity
             android:name=".Login_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Classroom"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_CreateClass"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_ClassCode"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Graded_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_LM_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_LearningMaterials"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_People"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_GradedAsgm"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_ReadyForGrading_Asgm"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_UpcomingAsgm"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Announcement_Details"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Announcement"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Class"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Starting_Activity"
