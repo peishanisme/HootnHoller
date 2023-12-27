@@ -1,5 +1,6 @@
 package com.firstapp.hootnholler;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +38,8 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the TaskStatusFragment
-                Navigation.findNavController(v).navigate(R.id.action_parent_Home_Fragment2_to_task_status);
+                Intent intent=new Intent(getActivity(), TaskStatus_Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -45,7 +47,8 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the QuizScoreFragment
-                Navigation.findNavController(v).navigate(R.id.action_parent_Home_Fragment2_to_qui_score);
+                Intent intent=new Intent(getActivity(), Quiz_Score_Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -53,7 +56,8 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the FeedbackFragment
-                Navigation.findNavController(v).navigate(R.id.action_parent_Home_Fragment2_to_parent_feedback);
+                Intent intent=new Intent(getActivity(), Feedback_Activity.class);
+                startActivity(intent);
             }
         });
 

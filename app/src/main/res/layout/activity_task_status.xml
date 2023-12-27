@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".task_status"
+    tools:context=".TaskStatus_Activity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -50,20 +50,19 @@
             tools:layout_editor_absoluteY="587dp"
             android:id="@+id/Number_Task_Assigned"
             android:padding="20dp"
-            android:layout_marginLeft="13dp"
+            android:layout_marginLeft="12dp"
             >
 
             <TextView
+                android:id="@+id/Number_Of_Task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="23sp"
+                android:layout_gravity="center"
+                android:padding="8dp"
                 android:text="10"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_gravity="center"
-                android:id="@+id/Number_Of_Task"
-                />
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,7 +86,7 @@
             tools:layout_editor_absoluteY="587dp"
             android:id="@+id/Completed_Task"
             android:padding="20dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
 
             >
 
@@ -97,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:text="0"
+                android:text="10"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
@@ -105,7 +104,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Incomplete"
+                android:text="Completed"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:paddingTop="0dp"
@@ -116,39 +115,37 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Late"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:orientation="vertical"
+            android:padding="20dp"
             tools:layout_editor_absoluteX="-1dp"
             tools:layout_editor_absoluteY="587dp"
-            android:id="@+id/Late"
-            android:padding="20dp"
-            android:layout_marginLeft="38dp"
 
             >
 
             <TextView
+                android:id="@+id/Number_Incomplete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="23sp"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:layout_marginRight="3dp"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_gravity="center"
-                android:id="@+id/Number_Late"
-                />
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Late"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:paddingTop="0dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="2dp"
-                />
+                android:paddingTop="0dp"
+                android:text="Incomplete "
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
