@@ -4,22 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_Class">
+    tools:context=".Teacher_Class"
+    android:background="@color/white">
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/bottomNavigationView"-->
-<!--        android:background="#7DC8FE"-->
-<!--        android:elevation="8dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:menu="@menu/bottom_nav"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:itemIconSize="28dp">-->
-
-<!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +21,7 @@
                 android:layout_marginLeft="10dp">
 
                 <ImageView
+                    android:id="@+id/back_button"
                     android:layout_width="25sp"
                     android:layout_height="83sp"
                     android:src="@drawable/ic_back"/>
@@ -62,7 +50,7 @@
             android:layout_marginRight="10sp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/c1"
+                android:id="@+id/classDetails"
                 android:layout_width="100dp"
                 android:layout_height="140dp"
                 android:layout_marginLeft="5sp"
@@ -84,6 +72,7 @@
                     android:layout_marginRight="8dp"/>
 
                 <TextView
+                    android:id="@+id/className"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
@@ -95,24 +84,27 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/classSession"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
-                    android:layout_marginTop="40sp"
+                    android:layout_marginTop="50dp"
                     android:text="Session 2023/2024"
                     android:textColor="#504F4F"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/classDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
-                    android:layout_marginTop="60sp"
+                    android:layout_marginTop="70sp"
                     android:text="Tues 8:00-10:00am"
                     android:textColor="#FF504F4F"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/studentOfClass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
