@@ -2,7 +2,7 @@ package com.firstapp.hootnholler.entity;
 
 public class Student {
 
-    public String school,level,student_class,connection_key;
+    public String studentUID,school,level,student_class,connection_key;
 
     public Student(){
 
