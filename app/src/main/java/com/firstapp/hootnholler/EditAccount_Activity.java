@@ -5,6 +5,7 @@ import static com.firstapp.hootnholler.Student_Setup_Activity.isValidBirthdayFor
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.SyncFailedException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 
 public class EditAccount_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +45,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
     String student_level, role, Gender;
     ArrayList<String> schoolLevel;
     ArrayList<String> ConnectionKey = new ArrayList<>();
+    ArrayList<String> InvalidConnectionKey = new ArrayList<>();
     ArrayList<String> Subject = new ArrayList<>();
     DatabaseReference UserRef, StudentRef, ParentRef, EduRef;
 
@@ -180,8 +184,39 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
             // Store the ConnectionKey in the "Parent" collection under the current user ID
             if (!ConnectionKey.isEmpty()) {
                 DatabaseReference ConnectionKeyReference = FirebaseDatabase.getInstance().getReference().child("Parent");
-                ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(ConnectionKey);
+                DatabaseReference StudentReference = FirebaseDatabase.getInstance().getReference().child("Student");
+                HashMap<String, String> connectionKey = new HashMap<>();
+                StudentReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        OuterLoop:
+                        for (int i = 0; i < ConnectionKey.size(); i++) {
+                            for (DataSnapshot keySnapshot : snapshot.getChildren()) {
+                                String studentUID = keySnapshot.getKey();
+                                String key = keySnapshot.child("connection_key").getValue(String.class);
+                                if(key != null) {
+                                    if (key.equals(ConnectionKey.get(i))) {
+                                        connectionKey.put(ConnectionKey.get(i), studentUID);
+                                        continue OuterLoop;
+                                    }
+                                }
+                            }
+                            InvalidConnectionKey.add(ConnectionKey.get(i));
+                        }
+                        ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(connectionKey);
+                        if(!InvalidConnectionKey.isEmpty()){
+                            String InvalidConnectionKeyList = "";
+                            for (String key: InvalidConnectionKey){
+                                InvalidConnectionKeyList += (key + "\n");
+                            }
+                            Toast.makeText(EditAccount_Activity.this, "Invalid Connection Key: \n" + InvalidConnectionKeyList, Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             } else {
                 String School = school.getText().toString();
                 if (TextUtils.isEmpty(School)) {
@@ -235,7 +270,21 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
     }
 
     public void uploadSuccess(){
-        finish();
+        if(role.equalsIgnoreCase("student")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Student_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
+        else if(role.equalsIgnoreCase("educator")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Educator_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
+        else if(role.equalsIgnoreCase("parent")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Parent_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
     }
 
     private void checkRole(String role, String currentUserID) {
@@ -275,7 +324,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                         if (connectionKeysDatabase.exists()) {
                             // Iterate through connection keys and create editable input fields
                             for (DataSnapshot keySnapshot : connectionKeysDatabase.getChildren()) {
-                                String connectionKey = keySnapshot.getValue(String.class);
+                                String connectionKey = keySnapshot.getKey();
                                 addEditableKeyView(connectionKey);
 
 

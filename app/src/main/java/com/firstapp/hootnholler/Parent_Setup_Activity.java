@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Parent_Setup_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,6 +49,8 @@ public class Parent_Setup_Activity extends AppCompatActivity implements View.OnC
     private User user;
 
     private Parent parent;
+
+    ArrayList<String> InvalidConnectionKey = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +148,39 @@ public class Parent_Setup_Activity extends AppCompatActivity implements View.OnC
                     if (!ConnectionKey.isEmpty()) {
                         DatabaseReference ConnectionKeyReference = FirebaseDatabase.getInstance().getReference().child("Parent");
                         ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(ConnectionKey);
+                        DatabaseReference StudentReference = FirebaseDatabase.getInstance().getReference().child("Student");
+                        HashMap<String, String> connectionKey = new HashMap<>();
+                        StudentReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                OuterLoop:
+                                for (int i = 0; i < ConnectionKey.size(); i++) {
+                                    for (DataSnapshot keySnapshot : snapshot.getChildren()) {
+                                        String studentUID = keySnapshot.getKey();
+                                        String key = keySnapshot.child("connection_key").getValue(String.class);
+                                        if(key != null) {
+                                            if (key.equals(ConnectionKey.get(i))) {
+                                                connectionKey.put(ConnectionKey.get(i), studentUID);
+                                                continue OuterLoop;
+                                            }
+                                        }
+                                    }
+                                    InvalidConnectionKey.add(ConnectionKey.get(i));
+                                }
+                                ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(connectionKey);
+                                if(!InvalidConnectionKey.isEmpty()){
+                                    String InvalidConnectionKeyList = "";
+                                    for (String key: InvalidConnectionKey){
+                                        InvalidConnectionKeyList += (key + "\n");
+                                    }
+                                    Toast.makeText(Parent_Setup_Activity.this, "Invalid Connection Key: \n" + InvalidConnectionKeyList, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
                     }
 
                     // Update the user object with the entered information

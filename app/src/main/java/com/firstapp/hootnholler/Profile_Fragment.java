@@ -210,7 +210,7 @@ public class Profile_Fragment extends Fragment {
     }
 
     private void fetchMonitoredStudentsAndDisplay() {
-        ParentRef.child("MonitoredStudents").addListenerForSingleValueEvent(new ValueEventListener() {
+        ParentRef.child("ConnectionKey").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Iterate through the monitored students and add them to the list
