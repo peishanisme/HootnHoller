@@ -49,7 +49,6 @@ public class Educator_Classroom_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_educator__classroom_, container, false);
-//cpmment
         createClass=view.findViewById(R.id.createClass);
         recyclerView=view.findViewById(R.id.classList);
         layoutManager=new GridLayoutManager(getActivity(),2);
