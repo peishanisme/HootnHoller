@@ -1,324 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Parent_Home_Fragment"
     android:padding="20dp"
-    >
+    tools:context=".Parent_Home_Fragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Select a name"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="#9A6BFF"
-        app:boxCornerRadiusBottomEnd="30sp"
-        app:boxCornerRadiusBottomStart="30sp"
-        app:boxCornerRadiusTopEnd="30sp"
-        app:boxCornerRadiusTopStart="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/dropdown_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            app:boxCollapsedPaddingTop="10dp" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/john2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
-        app:shapeAppearanceOverlay="@style/circular"
-        app:strokeColor="#7486D4"
-        app:strokeWidth="1dp" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="John Tiew"
-        android:textColor="#0E194D"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/classAt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:text="3 Champion"
-        android:textColor="#0E194D"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/blue_rectangle"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classAt">
-
-        <TextView
-            android:id="@+id/weeklyAvgTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Weekly Average Performance"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/weeklyAvg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingBottom="10dp"
-            android:text="70%"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/atRiskTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Academic Status"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:textColor="@color/black"
-        />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/green_rectangle"
-        android:orientation="horizontal"
-        android:paddingLeft="14dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atRiskTitle">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/black_rectangle"
-            android:src="@drawable/warning"
-            />
-
-        <TextView
-            android:id="@+id/atRisk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:text="Not an at-risk student"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            tools:layout_editor_absoluteX="24dp"
-            tools:layout_editor_absoluteY="614dp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/activityTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Activities"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <LinearLayout
-        android:id="@+id/activity_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityTitle"
-
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="-1dp"
-            tools:layout_editor_absoluteY="587dp"
-            android:id="@+id/TaskStatusBtn"
-            >
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select a name"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="#9A6BFF"
+                app:boxCornerRadiusBottomEnd="30sp"
+                app:boxCornerRadiusBottomStart="30sp"
+                app:boxCornerRadiusTopEnd="30sp"
+                app:boxCornerRadiusTopStart="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/dropdown_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    app:boxCollapsedPaddingTop="10dp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="36dp"
+                android:src="@drawable/john2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+                app:shapeAppearanceOverlay="@style/circular"
+                app:strokeColor="#7486D4"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="John Tiew"
+                android:textColor="#0E194D"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/classAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="3 Champion"
+                android:textColor="#0E194D"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <LinearLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/blue_circle"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/blue_rectangle"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/classAt">
+
+                <TextView
+                    android:id="@+id/weeklyAvgTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Weekly Average Performance"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/weeklyAvg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="70%"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/atRiskTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Academic Status"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/green_rectangle"
+                android:orientation="horizontal"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/atRiskTitle">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/black_rectangle"
+                    android:src="@drawable/warning" />
+
+                <TextView
+                    android:id="@+id/atRisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="Not an at-risk student"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:layout_editor_absoluteX="24dp"
+                    tools:layout_editor_absoluteY="614dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/activityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Activities"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <LinearLayout
+                android:id="@+id/activity_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/activityTitle"
 
                 >
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/dark_blue"
-                    android:src="@drawable/check_circle_black_24dp" />
+                <LinearLayout
+                    android:id="@+id/TaskStatusBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp">
 
+                    <LinearLayout
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/blue_circle"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activityTitle"
+
+                        >
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/dark_blue"
+                            android:src="@drawable/check_circle_black_24dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/TaskStatusMonitoringTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="2dp"
+                        android:text="Task Status"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/QuizBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp">
+
+                    <LinearLayout
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/blue_circle"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/quiz_black_24dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/QuizScoreMonitoringTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="2dp"
+                        android:text="Quiz Score"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/FeedbackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp">
+
+                    <LinearLayout
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/blue_circle"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activityTitle"
+
+                        >
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/baseline_mode_comment_24" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/FeedbackMonitoringTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingTop="2dp"
+                        android:text="Feedback"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/TaskStatusMonitoringTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Task Status"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:paddingTop="2dp"
-                android:layout_gravity="center"
-                />
-
         </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="-1dp"
-            tools:layout_editor_absoluteY="587dp"
-            android:layout_marginLeft="65dp"
-            android:id="@+id/QuizBtn"
-            >
-
-            <LinearLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/blue_circle"
-                android:orientation="vertical"
-                android:padding="20dp"
-                >
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/quiz_black_24dp"/>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/QuizScoreMonitoringTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quiz Score"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:paddingTop="2dp"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/FeedbackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="-1dp"
-            tools:layout_editor_absoluteY="587dp"
-            android:layout_marginLeft="65dp">
-
-            <LinearLayout
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/blue_circle"
-                android:orientation="vertical"
-                android:padding="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activityTitle"
-
-                >
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/baseline_mode_comment_24" />
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/FeedbackMonitoringTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Feedback"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:paddingTop="2dp"
-                />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

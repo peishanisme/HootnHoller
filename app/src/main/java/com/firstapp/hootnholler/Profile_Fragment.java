@@ -138,8 +138,6 @@ public class Profile_Fragment extends Fragment {
             ConnectionKey_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), Student_ConnectionKey_Activity.class);
-                    startActivity(intent);
                 }
             });
 
