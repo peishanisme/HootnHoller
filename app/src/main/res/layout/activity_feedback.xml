@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".parent_feedback"
+    tools:context=".Feedback_Activity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -96,6 +96,7 @@
                 android:layout_marginTop="5dp"
                 >
                 <TextView
+                    android:id="@+id/educator_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lee Kok Xiang"
@@ -107,9 +108,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Science"
+                    android:text="Science 3 Champion"
                     android:textColor="@color/black"
                     android:textSize="13sp"
+                    android:id="@+id/classroom"
                     />
             </LinearLayout>
         </LinearLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    android:background="@drawable/upload_feedback_dialog"
+    android:background="@drawable/upload_feedback_dialog_background"
     app:cardCornerRadius="16dp"
     >
 
