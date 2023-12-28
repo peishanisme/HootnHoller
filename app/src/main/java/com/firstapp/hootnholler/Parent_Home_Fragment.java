@@ -21,6 +21,7 @@ public class Parent_Home_Fragment extends Fragment {
 
     private View TaskStatusBtn, QuizScoreBtn, FeedbackBtn;
     private FragmentParentHomeBinding binding;
+    private String UID = "Lw5nz7FCBda5vbGzfLr2esLLmk72";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +40,7 @@ public class Parent_Home_Fragment extends Fragment {
             public void onClick(View v) {
                 // Navigate to the TaskStatusFragment
                 Intent intent=new Intent(getActivity(), TaskStatus_Activity.class);
+                intent.putExtra("Student_UID", UID);
                 startActivity(intent);
             }
         });
