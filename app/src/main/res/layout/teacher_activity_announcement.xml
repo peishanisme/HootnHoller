@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_Announcement">
+    tools:context=".Teacher_Announcement"
+    android:background="@color/white">
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/bottomNavigationView"-->
-<!--        android:background="#7DC8FE"-->
-<!--        android:elevation="8dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:menu="@menu/educator_bottom_nav_menu"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:itemIconSize="28dp">-->
-
-<!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
 
     <LinearLayout
@@ -57,9 +44,11 @@
         >
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/AnnouncementWindow"
             android:layout_width="351dp"
             android:layout_height="94dp"
             android:layout_marginTop="100dp"
+            android:background="@color/white"
             app:cardCornerRadius="10sp"
             app:layout_column="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,10 +63,10 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
-                app:srcCompat="@drawable/ic_educator" />
+                app:srcCompat="@drawable/group_6960" />
 
-            <EditText
-                android:id="@+id/editTextText"
+            <TextView
+                android:id="@+id/TextAnnouncement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
@@ -113,4 +102,4 @@
 
     </androidx.gridlayout.widget.GridLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
