@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.quiztesting.Adapters.CategoryAdapter;
 import com.example.quiztesting.Models.CategoryModel;
+import com.example.quiztesting.Models.HashMapParcelable;
 import com.example.quiztesting.databinding.ActivityQuizStudentCategoryBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,7 +57,7 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
             finish();
         }*/
 
-        uid = "ILVlGWiDRbQa9xgYRi5BT2sYEec2";
+        uid = "ZFth74CAiQhpcrhEvA80sCNM3052";
         list = new ArrayList<>();
         hashMapIncomplete = new HashMap<>();
         hashMapInProgress = new HashMap<>();
@@ -89,9 +90,11 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                                                 if(snapshot2.exists()) {
                                                     model.setCategoryName(snapshot2.child("categoryName").getValue(String.class));
                                                     model.setCategoryImage(snapshot2.child("categoryImage").getValue(String.class));
-                                                    list.add(model);
-                                                    identifyCompletionStatus(model.getCtgKey(), model.getSetKey());
-                                                    adapter.notifyItemInserted(list.size());
+                                                    if(!list.contains(model)) {
+                                                        list.add(model);
+                                                        identifyCompletionStatus(model.getCtgKey(), model.getSetKey());
+                                                        adapter.notifyItemInserted(list.size());
+                                                    }
                                                 }
                                             }
 
@@ -122,10 +125,16 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
         binding.bell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HashMapParcelable inProgress = new HashMapParcelable();
+                inProgress.setHashMap(hashMapInProgress);
+                inProgress.setHashMapProgress(hashMapProgress);
+
+                HashMapParcelable incomplete = new HashMapParcelable();
+                incomplete.setHashMap(hashMapIncomplete);
+
                 Intent intent = new Intent(QuizStudentCategoryActivity.this, QuizStudentToDoActivity.class);
-                intent.putExtra("incomplete", hashMapIncomplete);
-                intent.putExtra("inProgress", hashMapInProgress);
-                intent.putExtra("progress", hashMapProgress);
+                intent.putExtra("incomplete", incomplete);
+                intent.putExtra("inProgress", inProgress);
                 startActivity(intent);
             }
         });

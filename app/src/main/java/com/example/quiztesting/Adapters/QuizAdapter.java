@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
+/*
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
 
     private final RecyViewInterface recyViewInterface;
@@ -95,5 +95,5 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
                 }
             });
         }
-    }
-}
+    }*/
+//}
