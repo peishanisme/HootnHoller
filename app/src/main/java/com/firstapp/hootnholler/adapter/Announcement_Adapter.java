@@ -116,8 +116,6 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
                 dialog.dismiss();
             }
         });
-
-        // Show the dialog
         dialog.show();
     }
 
