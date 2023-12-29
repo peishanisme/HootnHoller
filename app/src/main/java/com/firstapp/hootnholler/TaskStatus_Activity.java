@@ -140,6 +140,7 @@ public class TaskStatus_Activity extends AppCompatActivity {
                                     for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
                                         if(submissionSnapShot.getKey().equals(StudentUid)){
                                             TaskStatus = checkTaskStatus(assignment, true);
+                                            break;
                                         }
                                         else{
                                             TaskStatus = checkTaskStatus(assignment, false);
@@ -149,6 +150,15 @@ public class TaskStatus_Activity extends AppCompatActivity {
                                     assignment.setClassCode(classCode);
                                     Assignment.add(assignment);
                                     numOfTask[0]++;
+                                    if(TaskStatus == 0){
+                                        TotalCompleted++;
+                                    }
+                                    else if(TaskStatus == 1){
+                                        TotalInProgress++;
+                                    }
+                                    else{
+                                        TotalIncompleted++;
+                                    }
                                 }
                             }
                             if(Student_Assignment_Adapter != null){
@@ -194,22 +204,18 @@ public class TaskStatus_Activity extends AppCompatActivity {
         // if due
         if(dueDate.before(currentDate)){
             if(isSubmit){
-                this.TotalCompleted++;
                 return 0;
             }
             else{
-                this.TotalIncompleted++;
                 return 2;
             }
         }
         // if not due
         else if(dueDate.after(currentDate)){
             if(isSubmit){
-                this.TotalCompleted++;
                 return 0;
             }
             else{
-                this.TotalInProgress++;
                 return 1;
             }
         }
