@@ -19,6 +19,20 @@
         app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/allCompletedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="30dp"
+        android:text="You're up-to-date!\nNo pending tasks to tackle."
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/back"
         android:layout_width="70dp"
@@ -34,50 +48,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <TextView
-        android:id="@+id/tvIncomplete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:text="Incomplete"
-        android:textColor="#0E194D"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyIncomplete"
+        android:id="@+id/recyQuizCtgToDo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIncomplete" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:paddingHorizontal="10dp" />
 
-    <TextView
-        android:id="@+id/tvInProgress"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="In Progress"
-        android:layout_marginTop="50dp"
-        android:textColor="#0E194D"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvIncomplete"
-        app:layout_constraintTop_toBottomOf="@+id/recyIncomplete" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyInProgress"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInProgress" />
-
-
+        app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

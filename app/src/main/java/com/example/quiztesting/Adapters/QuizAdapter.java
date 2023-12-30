@@ -12,12 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.quiztesting.Models.QuizModel;
 import com.example.quiztesting.R;
 import com.example.quiztesting.RecyViewInterface;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-/*
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
 
     private final RecyViewInterface recyViewInterface;
@@ -33,26 +30,17 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_quiz, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_quiz_set, parent, false);
         return new viewHolder(view, recyViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         QuizModel model = list.get(position);
-
         holder.title.setText(model.getTitle());
-        if(model.isCompleted()) {
-            holder.status.setText("Completed");
-        }
-        else {
-            holder.status.setText("Incomplete");
-        }
+        holder.status.setText(model.getStatus());
+        holder.dueDate.setText(model.getDueDate());
 
-        Picasso.get()
-                .load(model.getImage())
-                .placeholder(R.drawable.loading)
-                .into(holder.image);
     }
 
     @Override
@@ -62,12 +50,15 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
 
     public static class viewHolder extends RecyclerView.ViewHolder {
 
-        TextView title = itemView.findViewById(R.id.quizTitle);
-        TextView status = itemView.findViewById(R.id.quizStatus);
-        CircleImageView image = itemView.findViewById(R.id.quizImage);
+        TextView title;
+        TextView status;
+        TextView dueDate;
         public viewHolder(@NonNull View itemView, RecyViewInterface recyViewInterface) {
             super(itemView);
 
+            title = itemView.findViewById(R.id.setQuizTitle);
+            status = itemView.findViewById(R.id.setQuizStatus);
+            dueDate = itemView.findViewById(R.id.setQuizDueDate);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,19 +72,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
                 }
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if(recyViewInterface != null) {
-                        int pos = getBindingAdapterPosition();
-
-                        if(pos != RecyclerView.NO_POSITION) {
-                            recyViewInterface.onItemLongClick(pos);
-                        }
-                    }
-                    return true;
-                }
-            });
         }
-    }*/
-//}
+    }
+}

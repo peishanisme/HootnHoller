@@ -4,34 +4,15 @@ import java.util.ArrayList;
 
 public class QuizModel {
 
-    ArrayList<QuestionModel> list;
-    String title, image;
-    boolean completionStatus;
-
-    public QuizModel(ArrayList<QuestionModel> list, String title, String image, boolean completionStatus) {
-        this.list = list;
-        this.title = title;
-        this.image = image;
-        this.completionStatus = completionStatus;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+    String title, dueDate, status;
 
     public QuizModel() {
     }
 
-    public ArrayList<QuestionModel> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<QuestionModel> list) {
-        this.list = list;
+    public QuizModel(String title, String dueDate, String status) {
+        this.title = title;
+        this.dueDate = dueDate;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -42,11 +23,19 @@ public class QuizModel {
         this.title = title;
     }
 
-    public boolean isCompleted() {
-        return completionStatus;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setCompletionStatus(boolean completionStatus) {
-        this.completionStatus = completionStatus;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

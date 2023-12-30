@@ -34,7 +34,7 @@
         android:id="@+id/recyCategory"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
