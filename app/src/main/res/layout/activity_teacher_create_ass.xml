@@ -41,6 +41,7 @@
         android:layout_marginTop="20dp"
         android:background="#E8E7E7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -132,7 +133,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
     <EditText
-        android:id="@+id/dueDate"
+        android:id="@+id/dueDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_no_underline"
@@ -141,11 +142,54 @@
         app:layout_constraintStart_toEndOf="@+id/editText3" />
 
     <View
-        android:layout_width="200dp"
+        android:id="@+id/view7"
+        android:layout_width="170dp"
         android:layout_height="1dp"
         android:background="#B8B8B8"
         app:layout_constraintBottom_toBottomOf="@+id/editText3"
         app:layout_constraintStart_toEndOf="@+id/editText3" />
+
+    <ImageButton
+        android:id="@+id/btnCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/view7" />
+
+    <TextView
+        android:id="@+id/showDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="show date"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintStart_toStartOf="@+id/view7" />
+
+    <TextView
+        android:id="@+id/showTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="show time"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/showDate" />
+
+    <TextView
+        android:id="@+id/addTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Add Time"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/showDate"
+        app:layout_constraintStart_toEndOf="@+id/btnCalendar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
