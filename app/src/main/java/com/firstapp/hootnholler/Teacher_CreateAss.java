@@ -2,8 +2,12 @@ package com.firstapp.hootnholler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,7 +33,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
     DatabaseReference assDatabase;
 
     TextView showDueDate,showDueTime, addTime;
-    ImageButton buttonCalendar;
+    ImageButton buttonCalendar, backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,15 @@ public class Teacher_CreateAss extends AppCompatActivity {
         showDueTime = (TextView)findViewById(R.id.showTime);
         buttonCalendar = (ImageButton)findViewById(R.id.btnCalendar);
         addTime = (TextView)findViewById(R.id.addTime);
+        backButton = (ImageButton)findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_CreateAss.this, Teacher_UpcomingAsgm.class);
+                startActivity(intent);
+            }
+        });
 
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,5 +181,24 @@ public class Teacher_CreateAss extends AppCompatActivity {
         dateDialog.show();
     }
 
+    int requestCode = 1;
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        Context context = getApplicationContext();
+        if (requestCode == requestCode && resultCode == Activity.RESULT_OK){
+            if (data == null){
+                return;
+            }
+            Uri uri = data.getData();
+            Toast.makeText(context, uri.getPath(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void openFilePicker(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        startActivityForResult(intent,requestCode);
+    }
 
 }

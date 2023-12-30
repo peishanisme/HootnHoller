@@ -32,10 +32,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="25sp"
             android:layout_height="83sp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -96,7 +98,7 @@
 
 
     <Button
-        android:id="@+id/createasgm"
+        android:id="@+id/createAsgm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
