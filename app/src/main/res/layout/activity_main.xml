@@ -310,8 +310,10 @@
                     android:layout_marginBottom="5sp"
                     app:cardBackgroundColor="#B3F4F4"
                     app:cardCornerRadius="10sp"
+                    app:layout_column="0"
                     app:layout_columnWeight="1"
                     app:layout_gravity="fill"
+                    app:layout_row="0"
                     app:layout_rowWeight="1">
 
                     <TextView

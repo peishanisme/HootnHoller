@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Teacher_CreateFeedback"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/teacher_feedback_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_button"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/teacher_feedback_back_button"
+            android:text="Upload Feedback"
+            android:textColor="#5269CD"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/teacher_feedback_form_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textColor="#0E194D"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/feedback_student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alvin"
+                android:textColor="#0E194D"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/positive_feedback_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Positive Feedback"
+                android:backgroundTint="#CDFB9F"
+                android:drawableLeft="@drawable/positive_feedback_icon"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/negative_feedback_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Negative Feedback"
+                android:backgroundTint="#EEB88C"
+                android:drawableLeft="@drawable/negative_feedback_icon"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:textSize="10sp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/feedback_msg_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="Give a feedback here..."
+                android:paddingBottom="200dp"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/upload_feedback_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload"
+                android:backgroundTint="#5D71C9"
+                android:paddingHorizontal="50dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                android:id="@+id/cancel_feedback_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textColor="#909090"
+                android:backgroundTint="#E3E5EE"
+                android:paddingHorizontal="50dp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

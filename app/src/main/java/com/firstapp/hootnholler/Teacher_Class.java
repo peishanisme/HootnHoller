@@ -30,7 +30,7 @@ public class Teacher_Class extends AppCompatActivity {
     String currentClassCode;
     DatabaseReference classroom;
     TextView className, classSession, classDescription, numberofStudents;
-    CardView classDetails, announcement, taskAssignment, learningMaterials;
+    CardView classDetails, announcement, taskAssignment, learningMaterials, feedback;
     ImageView backButton, overflowMenu;
 
     @Override
@@ -49,6 +49,7 @@ public class Teacher_Class extends AppCompatActivity {
         announcement = findViewById(R.id.announcement);
         taskAssignment = findViewById(R.id.TasksAssignment);
         learningMaterials = findViewById(R.id.LearningMaterials);
+        feedback = findViewById(R.id.Feedback);
         backButton = findViewById(R.id.back_button);
         overflowMenu = findViewById(R.id.overflow);
 
@@ -105,6 +106,7 @@ public class Teacher_Class extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_Class.this, Teacher_UpcomingAsgm.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });
@@ -113,6 +115,15 @@ public class Teacher_Class extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_Class.this, Teacher_LearningMaterials.class);
+                startActivity(intent);
+            }
+        });
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Teacher_Class.this, Teacher_FeedbackStudentList.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });
