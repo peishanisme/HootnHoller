@@ -104,7 +104,13 @@ public class QuizStudentCategoryActivity extends AppCompatActivity implements Re
                                                 if(categorySnapshot.exists()) {
                                                     model.setCategoryName(categorySnapshot.child("categoryName").getValue(String.class));
                                                     model.setCategoryImage(categorySnapshot.child("categoryImage").getValue(String.class));
-                                                    if(!list.contains(model)) {
+                                                    boolean checkRepetition = false;
+                                                    for(CategoryModel categoryModel : list) {
+                                                        if(categoryModel.getCtgKey().equals(model.getCtgKey())) {
+                                                            checkRepetition = true;
+                                                        }
+                                                    }
+                                                    if(!checkRepetition) {
                                                         list.add(model);
                                                         postedQuizModels.add(postedQuizModel);
                                                         identifyToDoTask(model.getCtgKey(), model.getSetKey());

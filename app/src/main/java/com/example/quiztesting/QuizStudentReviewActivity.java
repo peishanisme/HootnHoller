@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.quiztesting.Models.QuestionModel;
+import com.example.quiztesting.Models.TaskStatus;
+import com.example.quiztesting.Models.TaskToDo;
 import com.example.quiztesting.databinding.ActivityQuizStudentReviewBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +34,6 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
     QuestionModel model;
     int queIndex;
     Button[] options;
-    Button lastSelectedOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
                 intent.putExtra("keySetList", keySetList);
                 intent.putExtra("setName", setName);
                 intent.putParcelableArrayListExtra("questions", list);
+                intent.putExtra("uid", uid);
 
                 startActivity(intent);
             }
@@ -149,6 +151,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
                     intent.putExtra("keySetList", keySetList);
                     intent.putExtra("setName", setName);
                     intent.putParcelableArrayListExtra("questions", list);
+                    intent.putExtra("uid", uid);
 
                     startActivity(intent);
                 } else {
@@ -167,6 +170,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
         intent.putParcelableArrayListExtra("questions", list);
         intent.putStringArrayListExtra("keySetList", keySetList);
         intent.putExtra("setName", setName);
+        intent.putExtra("uid", uid);
         startActivity(intent);
     }
 

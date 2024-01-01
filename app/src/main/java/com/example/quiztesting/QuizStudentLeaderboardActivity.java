@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.quiztesting.Models.QuestionModel;
 import com.example.quiztesting.Models.QuizCandidate;
 import com.example.quiztesting.Models.QuizRanking;
+import com.example.quiztesting.Models.TaskStatus;
+import com.example.quiztesting.Models.TaskToDo;
 import com.example.quiztesting.databinding.ActivityQuizStudentLeaderboardBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,11 +36,9 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
     String uid, keyCtg, keySet, setName;
     ArrayList<String> keySetList, keyQuestionList;
     int score;
-    ArrayList<Integer> scoreList;
     QuizRanking ranking;
     QuizCandidate currCandidate;
     ArrayList<QuestionModel> questions;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,10 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         referenceSet = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet);
         referenceAns = referenceSet.child("Answers").child(uid);
+
+        if(keySetList == null) {
+            keySetList = new ArrayList<>();
+        }
 
         referenceAns.child("score").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -124,11 +128,17 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentSetActivity.class);
-                intent.putExtra("uid", uid);
-                intent.putExtra("keyCtg", keyCtg);
-                intent.putExtra("keySetList", keySetList);
-                startActivity(intent);
+                if (keySetList.isEmpty()) {
+                    Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentCategoryActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentSetActivity.class);
+                    intent.putExtra("uid", uid);
+                    intent.putExtra("keyCtg", keyCtg);
+                    intent.putExtra("keySetList", keySetList);
+                    startActivity(intent);
+                }
+
             }
         });
 

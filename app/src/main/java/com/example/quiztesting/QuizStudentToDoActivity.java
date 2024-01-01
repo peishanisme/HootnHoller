@@ -56,7 +56,7 @@ public class QuizStudentToDoActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyQuizCtgToDo.setLayoutManager(layoutManager);
 
-        ctgAdapter = new QuizCategoryAdapter(this, ctgList);
+        ctgAdapter = new QuizCategoryAdapter(this, ctgList, uid);
         binding.recyQuizCtgToDo.setAdapter(ctgAdapter);
 
         if(taskToDo.getQuizToDo().isEmpty()) {
@@ -105,6 +105,8 @@ public class QuizStudentToDoActivity extends AppCompatActivity {
                                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                                         String formattedDate = sdf.format(date);
 
+                                        quizModel.setCtgKey(ctgKey);
+                                        quizModel.setSetKey(setKey);
                                         quizModel.setDueDate(formattedDate);
                                         quizModel.setStatus(status);
                                         database.getReference().child("Categories").child(ctgKey).child("Sets").child(setKey).child("setName").addValueEventListener(new ValueEventListener() {
@@ -112,7 +114,28 @@ public class QuizStudentToDoActivity extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if(snapshot.exists()) {
                                                     quizModel.setTitle(snapshot.getValue(String.class));
-                                                    ctgAdapter.addQuizModel(quizModel, ctgKey);
+                                                    if(quizModel.getStatus().equals("In progress")) {
+                                                        database.getReference().child("Categories").child(ctgKey).child("Sets").child(setKey)
+                                                                .child("Answers").child(uid).child("progress").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        if(snapshot.exists()) {
+                                                                            Integer snapshotValue = snapshot.getValue(Integer.class);
+                                                                            if(snapshotValue != null) {
+                                                                                quizModel.setProgress(snapshotValue);
+                                                                                ctgAdapter.addQuizModel(quizModel, ctgKey);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
+                                                    } else {
+                                                        ctgAdapter.addQuizModel(quizModel, ctgKey);
+                                                    }
                                                 }
                                             }
 

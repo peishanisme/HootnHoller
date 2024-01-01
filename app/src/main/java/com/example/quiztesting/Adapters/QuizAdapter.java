@@ -1,6 +1,7 @@
 package com.example.quiztesting.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quiztesting.Models.QuizModel;
 import com.example.quiztesting.R;
-import com.example.quiztesting.RecyViewInterface;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
 
-    private final RecyViewInterface recyViewInterface;
+    private final RecyQuizInterface recyViewInterface;
     Context context;
     ArrayList<QuizModel> list;
 
-    public QuizAdapter(RecyViewInterface recyViewInterface, Context context, ArrayList<QuizModel> list) {
+    public QuizAdapter(RecyQuizInterface recyViewInterface, Context context, ArrayList<QuizModel> list) {
         this.recyViewInterface = recyViewInterface;
         this.context = context;
         this.list = list;
@@ -37,6 +41,24 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         QuizModel model = list.get(position);
+
+        Date currentDate = new Date(); // Current date and time
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try {
+            Date dateToCompare = sdf.parse(model.getDueDate()); // Parsing the string date to a Date object
+
+            // Comparing dates
+            if (currentDate.compareTo(dateToCompare) > 0) {
+                holder.dueDate.setTextColor(Color.RED);
+            } else {
+                holder.dueDate.setTextColor(Color.BLACK);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         holder.title.setText(model.getTitle());
         holder.status.setText(model.getStatus());
         holder.dueDate.setText(model.getDueDate());
@@ -48,12 +70,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
         return list.size();
     }
 
-    public static class viewHolder extends RecyclerView.ViewHolder {
+    public class viewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         TextView status;
         TextView dueDate;
-        public viewHolder(@NonNull View itemView, RecyViewInterface recyViewInterface) {
+        public viewHolder(@NonNull View itemView, RecyQuizInterface recyViewInterface) {
             super(itemView);
 
             title = itemView.findViewById(R.id.setQuizTitle);
@@ -64,9 +86,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.viewHolder> {
                 public void onClick(View v) {
                     if(recyViewInterface != null) {
                         int pos = getBindingAdapterPosition();
+                        String ctgKey = list.get(pos).getCtgKey();
 
-                        if(pos != RecyclerView.NO_POSITION) {
-                            recyViewInterface.onItemClick(pos);
+                        if(pos != RecyclerView.NO_POSITION && ctgKey != null) {
+                            recyViewInterface.onItemClick(pos, ctgKey);
                         }
                     }
                 }

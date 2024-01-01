@@ -4,15 +4,34 @@ import java.util.ArrayList;
 
 public class QuizModel {
 
-    String title, dueDate, status;
+    String title, dueDate, status, setKey, ctgKey;
+    int progress;
 
     public QuizModel() {
     }
 
-    public QuizModel(String title, String dueDate, String status) {
-        this.title = title;
-        this.dueDate = dueDate;
-        this.status = status;
+    public String getSetKey() {
+        return setKey;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public void setSetKey(String setKey) {
+        this.setKey = setKey;
+    }
+
+    public String getCtgKey() {
+        return ctgKey;
+    }
+
+    public void setCtgKey(String ctgKey) {
+        this.ctgKey = ctgKey;
     }
 
     public String getTitle() {

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.quiztesting.Models.AnswerModel;
 import com.example.quiztesting.Models.QuestionModel;
+import com.example.quiztesting.Models.TaskStatus;
+import com.example.quiztesting.Models.TaskToDo;
 import com.example.quiztesting.databinding.ActivityQuizStudentDoQuizBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +44,6 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
     Button[] options;
     Button lastSelectedOption;
     AnswerModel answerModel;
-    Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,10 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         referenceSet = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet);
         referenceStatus = referenceSet.child("Answers").child(uid).child("status");
         referenceProgress = referenceSet.child("Answers").child(uid).child("progress");
+
+        if(keySetList == null) {
+            keySetList = new ArrayList<>();
+        }
 
         model = list.get(queIndex);
         options = new Button[]{binding.answerA, binding.answerB, binding.answerC, binding.answerD};
@@ -236,11 +241,17 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
     }
 
     public void navigateToQuizSetActivity() {
-        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
-        intent.putExtra("uid", uid);
-        intent.putExtra("keyCtg", keyCtg);
-        intent.putExtra("keySetList", keySetList);
-        startActivity(intent);
+        if(keySetList.isEmpty()) {
+            Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentCategoryActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
+            intent.putExtra("uid", uid);
+            intent.putExtra("keyCtg", keyCtg);
+            intent.putExtra("keySetList", keySetList);
+            startActivity(intent);
+        }
+
     }
 
     public void askForSubmission() {
