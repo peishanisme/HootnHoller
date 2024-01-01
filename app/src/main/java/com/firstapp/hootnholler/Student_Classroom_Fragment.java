@@ -15,11 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firstapp.hootnholler.adapter.Classroom_ArrayAdapter;
 import com.firstapp.hootnholler.adapter.Classroom_RecyclerViewAdapter;
+import com.firstapp.hootnholler.entity.Classroom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,12 +31,16 @@ import java.util.ArrayList;
 public class Student_Classroom_Fragment extends Fragment {
     FloatingActionButton joinClass;
     RecyclerView recyclerView;
-    ArrayList<Classroom_ArrayAdapter> arrayList = new ArrayList<>();
+    ArrayList<Classroom> classroomList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager;
     Classroom_RecyclerViewAdapter recyclerViewAdapter;
-    DatabaseReference classroom, student;
+    FirebaseAuth auth= FirebaseAuth.getInstance();
+    private FirebaseUser currentUser=auth.getCurrentUser();
+
+    String uid=currentUser.getUid().toString();
+    DatabaseReference classroom, studentClass,student;
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String uid = mAuth.getUid().toString();
     EditText classCode;
     Button JoinClass;
     View close_button;
@@ -51,9 +55,50 @@ public class Student_Classroom_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.classList);
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        arrayList.add(new Classroom_ArrayAdapter("Title", "Session", "Day & Time", "Educator Name"));
-        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), arrayList);
+
+        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), classroomList);
         recyclerView.setAdapter(recyclerViewAdapter);
+
+        if (currentUser != null) {
+            studentClass = FirebaseDatabase.getInstance().getReference("Student").child(uid).child("JoinedClass");
+            classroom=FirebaseDatabase.getInstance().getReference("Classroom");
+
+            // Query the classrooms where classOwner is the UID of the current user
+            studentClass.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    classroomList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.exists()){
+                            String classCode= snapshot.getKey();
+                            classroom.child(classCode).addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Classroom classroom=snapshot.getValue(Classroom.class);
+                                    classroomList.add(classroom);
+                                    recyclerViewAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            }
+
+                        }
+                    }
+
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                }
+            });
+        }
 
         joinClass.setOnClickListener(new View.OnClickListener() {
             @Override

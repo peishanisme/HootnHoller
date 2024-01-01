@@ -49,9 +49,6 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Student_Classroom"
-            android:exported="false" />
-        <activity
             android:name=".Student_UploadAsgm"
             android:exported="false" />
         <activity
@@ -73,9 +70,6 @@
             android:name=".Student_AnnouncementDetails"
             android:exported="false" />
         <activity
-            android:name=".Student_JoinClass"
-            android:exported="false" />
-        <activity
             android:name=".Student_UpcomingAssignment"
             android:exported="false" />
         <activity
@@ -87,9 +81,7 @@
         <activity
             android:name=".Student_Class"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Starting_Activity"
             android:exported="true">
