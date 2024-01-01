@@ -54,7 +54,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_create_ass);
 
         //dueDate = (EditText) findViewById(R.id.dueDatePicker);
-        Button btnAssign = (Button)findViewById(R.id.btnAssign);
         showDueDate = (TextView)findViewById(R.id.showDate);
         showDueTime = (TextView)findViewById(R.id.showTime);
         buttonCalendar = (ImageButton)findViewById(R.id.btnCalendar);

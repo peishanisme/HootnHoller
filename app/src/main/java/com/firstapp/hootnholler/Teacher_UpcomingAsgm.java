@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 
 public class Teacher_UpcomingAsgm extends AppCompatActivity {
 
-    ImageButton backButton;
     Button createAsgm;
     ImageButton back;
     String currentClassCode;

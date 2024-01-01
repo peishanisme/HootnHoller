@@ -61,15 +61,6 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Classroom"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_CreateClass"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_ClassCode"
-            android:exported="false" />
-        <activity
             android:name=".Teacher_Graded_Details"
             android:exported="false" />
         <activity
@@ -89,9 +80,6 @@
             android:exported="false" />
         <activity
             android:name=".Teacher_UpcomingAsgm"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_Announcement_Details"
             android:exported="false" />
         <activity
             android:name=".Teacher_Announcement"
