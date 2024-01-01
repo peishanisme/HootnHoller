@@ -105,6 +105,7 @@ public class Teacher_Class extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_Class.this, Teacher_UpcomingAsgm.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });

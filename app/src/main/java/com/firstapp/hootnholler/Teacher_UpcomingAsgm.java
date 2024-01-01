@@ -13,6 +13,7 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
     ImageButton backButton;
     Button createAsgm;
     ImageButton back;
+    String currentClassCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +23,13 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
         createAsgm = (Button)findViewById(R.id.createAsgm);
         back = (ImageButton)findViewById(R.id.backButton);
 
+        currentClassCode = getIntent().getStringExtra("classCode");
+
         createAsgm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_UpcomingAsgm.this, Teacher_CreateAss.class);
+                intent.putExtra("classCode",currentClassCode);
                 startActivity(intent);
             }
         });

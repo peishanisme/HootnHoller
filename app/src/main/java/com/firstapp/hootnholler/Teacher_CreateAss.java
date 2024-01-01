@@ -1,9 +1,11 @@
 package com.firstapp.hootnholler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +20,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,25 +38,33 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Teacher_CreateAss extends AppCompatActivity {
-    EditText dueDate;
+    EditText dueDate, pdfName;
     Calendar myCalendar;
     DatabaseReference assDatabase;
-
+    DatabaseReference uploadReference;
+    StorageReference storageReference;
+    Button btnAssign;
+    String currentClassCode, assId;
     TextView showDueDate,showDueTime, addTime;
-    ImageButton buttonCalendar, backButton;
+    ImageButton buttonCalendar, backButton, btnAttachFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_create_ass);
 
-        dueDate = (EditText) findViewById(R.id.dueDatePicker);
+        //dueDate = (EditText) findViewById(R.id.dueDatePicker);
         Button btnAssign = (Button)findViewById(R.id.btnAssign);
         showDueDate = (TextView)findViewById(R.id.showDate);
         showDueTime = (TextView)findViewById(R.id.showTime);
         buttonCalendar = (ImageButton)findViewById(R.id.btnCalendar);
         addTime = (TextView)findViewById(R.id.addTime);
         backButton = (ImageButton)findViewById(R.id.backButton);
+        btnAssign = (Button)findViewById(R.id.btnAssign);
+        pdfName = (EditText)findViewById(R.id.pdfName);
+        btnAttachFile = (ImageButton)findViewById(R.id.btnAttachFile);
+
+        currentClassCode = getIntent().getStringExtra("classCode");
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +88,13 @@ public class Teacher_CreateAss extends AppCompatActivity {
             }
         });
 
+        btnAttachFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFiles();
+            }
+        });
+
 
         /*DatePickerDialog.OnDateSetListener dueDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -89,14 +114,18 @@ public class Teacher_CreateAss extends AppCompatActivity {
         btnAssign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assDatabase = FirebaseDatabase.getInstance().getReference("Assignment");
+                assDatabase = FirebaseDatabase.getInstance().getReference()
+                        .child("Classroom")
+                        .child(currentClassCode)
+                        .child("Assignment");
 
                 EditText addAssTitle = (EditText) findViewById(R.id.assTitle);
                 EditText addDescription = (EditText) findViewById(R.id.assDescription);
-                EditText addDueDate = (EditText) findViewById(R.id.dueDatePicker);
+                //EditText addDueDate = (EditText) findViewById(R.id.dueDatePicker);
+                long timestamp = System.currentTimeMillis();
 
-                // Generate a unique key for your data
-                String assId = assDatabase.push().getKey();
+                // Generate a unique key for assignment
+                assId = assDatabase.push().getKey();
 
                 // Perform a null check before using the key
                 if (assId != null) {
@@ -132,12 +161,28 @@ public class Teacher_CreateAss extends AppCompatActivity {
                     assRef.child("description").setValue(AssDescription);
                     assRef.child("dueDate").setValue(dueTimeStamp);
                     assRef.child("openDate");
-                    assRef.child("uploadTime");
+                    assRef.child("uploadTime").setValue(timestamp);
                     assRef.child("attachment");
                 }
             }
         });
-    }
+
+        //PDF Database
+        storageReference = FirebaseStorage.getInstance().getReference();
+        uploadReference = FirebaseDatabase.getInstance().getReference()
+                .child("Classroom")
+                .child(currentClassCode)
+                .child("Assignment")
+                .child(assId)
+                .child("Attachment");
+
+        // Generate a unique key for attachment
+        /*String attachmentKey = uploadReference.push().getKey();
+
+        if (attachmentKey != null) {
+            DatabaseReference uploadId = uploadReference.child(attachmentKey);
+            uploadId.child("url").setValue();
+    }*/
 
     /*private void updateLabel() {
         String myFormat = "MM/dd/yy EEEE";
@@ -157,6 +202,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         };
 
     }*/
+    }
 
     private void openTimeDialog() {
         TimePickerDialog timeDialog = new TimePickerDialog(this,new TimePickerDialog.OnTimeSetListener() {
@@ -181,24 +227,48 @@ public class Teacher_CreateAss extends AppCompatActivity {
         dateDialog.show();
     }
 
-    int requestCode = 1;
+    private void selectFiles() {
+        Intent intent = new Intent();
+        intent.setType("application/pdf");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select PDF Files"),1);
+    }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        Context context = getApplicationContext();
-        if (requestCode == requestCode && resultCode == Activity.RESULT_OK){
-            if (data == null){
-                return;
-            }
-            Uri uri = data.getData();
-            Toast.makeText(context, uri.getPath(),Toast.LENGTH_SHORT).show();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null) {
+            UploadFiles(data.getData());
         }
     }
 
-    public void openFilePicker(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        startActivityForResult(intent,requestCode);
-    }
+    private void UploadFiles(Uri data) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
 
+        StorageReference reference = storageReference.child("Uploads/"+System.currentTimeMillis()+".pdf");
+        reference.putFile(data)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while(!uriTask.isComplete());
+                        Uri url = uriTask.getResult();
+
+                        pdfClass pdfClass = new pdfClass(pdfName.getText().toString(),url.toString());
+                        uploadReference.child(uploadReference.push().getKey()).setValue(pdfClass);
+
+                        Toast.makeText(Teacher_CreateAss.this, "File Uploaded!", Toast.LENGTH_SHORT).show();
+
+                        progressDialog.dismiss();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progress = (100.0 * snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                        progressDialog.setMessage("Uploaded: " + (int)progress + "%");
+                    }
+                });
+    }
 }

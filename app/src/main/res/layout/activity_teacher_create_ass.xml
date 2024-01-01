@@ -79,8 +79,7 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_attach_file"
         app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
-        android:onClick="openFilePicker"/>
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <EditText
         android:id="@+id/assTitle"
@@ -136,13 +135,15 @@
         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
     <EditText
-        android:id="@+id/dueDatePicker"
+        android:id="@+id/pdfName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_no_underline"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
-        app:layout_constraintStart_toEndOf="@+id/editText3" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
     <View
         android:id="@+id/view7"
@@ -166,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="show date"
+        android:text="date"
         android:textColor="#A1A1A1"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
@@ -176,8 +177,8 @@
         android:id="@+id/showTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="show time"
+        android:layout_marginStart="30dp"
+        android:text="time"
         android:textColor="#A1A1A1"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
