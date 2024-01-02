@@ -64,7 +64,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
         btnAttachFile = (ImageButton)findViewById(R.id.btnAttachFile);
 
         currentClassCode = getIntent().getStringExtra("classCode");
-        System.out.println("hahahah00 "+currentClassCode);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

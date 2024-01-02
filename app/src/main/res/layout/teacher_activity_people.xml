@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/ButtonBack"
             android:layout_width="25sp"
             android:layout_height="98dp"
             android:background="@android:color/transparent"
@@ -81,7 +81,7 @@
                 tools:layout_editor_absoluteY="196dp" />
 
             <TextView
-                android:id="@+id/TVTeacher"
+                android:id="@+id/TeacherName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -127,6 +127,7 @@
     android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/StudentListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
