@@ -115,6 +115,7 @@ public class Teacher_Class extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_Class.this, Teacher_LearningMaterials.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });
@@ -147,6 +148,9 @@ public class Teacher_Class extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.viewPeople) {
+        Intent intent=new Intent(Teacher_Class.this, Teacher_People.class);
+        intent.putExtra("currentClassCode",currentClassCode);
+        startActivity(intent);
 
         } else if (id == R.id.viewClassCode) {
             String classCode = currentClassCode;
