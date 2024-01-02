@@ -13,6 +13,7 @@ import com.firstapp.hootnholler.databinding.ActivityParentMainBinding;
 public class Parent_MainActivity extends AppCompatActivity {
 
     ActivityParentMainBinding binding;
+    public static String studentUID;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -26,7 +27,7 @@ public class Parent_MainActivity extends AppCompatActivity {
             if (id==R.id.home) {
                 replaceFragment(new Parent_Home_Fragment());}
             else if (id == R.id.statistic) {
-                replaceFragment(new Parent_Statistic_Fragment());
+                replaceFragment(new Parent_Statistic_Fragment(studentUID));
             }else if (id == R.id.chat) {
                 replaceFragment(new Parent_Chat_Fragment());
             }else if (id == R.id.profile) {
@@ -45,5 +46,4 @@ public class Parent_MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
-
 }

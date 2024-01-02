@@ -2,63 +2,201 @@ package com.firstapp.hootnholler;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Parent_Statistic_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.firstapp.hootnholler.adapter.Student_Classroom_List;
+import com.firstapp.hootnholler.entity.Classroom;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 public class Parent_Statistic_Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TextView AvgPerformance, AvgAtRisk, AvgPositive, AvgNegative;
+    private String studentUID;
+    private DatabaseReference Database = FirebaseDatabase.getInstance().getReference();
+    private Calendar calendar;
+    private double WeeklyAverageQuizScore, WeeklyAverageAssignmentScore, WeeklyAveragePerformanceScore;
+    private Spinner classroomSpinner;
+    private Student_Classroom_List adapter;
+    private ArrayList<Classroom> classroomList;
+    private Classroom selectedClassroom;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public Parent_Statistic_Fragment(String studentUID) {
+        this.studentUID = studentUID;
+    }
 
     public Parent_Statistic_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Parent_Statistic_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Parent_Statistic_Fragment newInstance(String param1, String param2) {
-        Parent_Statistic_Fragment fragment = new Parent_Statistic_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_parent__statistic_, container, false);
+        View view = inflater.inflate(R.layout.fragment_parent__statistic_, container, false);
+        classroomSpinner = view.findViewById(R.id.classroom_list);
+        AvgPerformance = view.findViewById(R.id.avgPerformance);
+        AvgAtRisk = view.findViewById(R.id.avgAtRisk);
+        AvgPositive = view.findViewById(R.id.avg_positive);
+        AvgNegative = view.findViewById(R.id.avg_negative);
+
+        classroomList = new ArrayList<>();
+        adapter = new Student_Classroom_List(getActivity(), android.R.layout.simple_spinner_item, classroomList);
+        classroomSpinner.setAdapter(adapter);
+        getClassroom();
+        this.classroomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedClassroom = classroomList.get(i);
+                getWeeklyAveragePerformance();
+                getAtRiskAndFeedback();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        return view;
+    }
+
+    public void getClassroom(){
+        classroomList.clear();
+        this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot joinedClassSnapshot : snapshot.child("Student").child(studentUID).child("JoinedClass").getChildren()) {
+                    Classroom classroom = snapshot.child("Classroom").child(joinedClassSnapshot.getKey()).getValue(Classroom.class);
+                    classroom.classCode = joinedClassSnapshot.getKey();
+                    classroomList.add(classroom);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getWeeklyAveragePerformance() {
+        WeeklyAverageAssignmentScore = 0;
+        WeeklyAverageQuizScore = 0;
+        WeeklyAveragePerformanceScore = 0;
+        this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> setKey = new ArrayList<>();
+                double totalSetNum = 0, totalTask = 0, totalCompleted = 0, totalMarkSet = 0;
+
+                for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(selectedClassroom.getClassCode()).child("Assignment").getChildren()) {
+                    totalTask++;
+                    for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
+                        if (submissionSnapShot.getKey().equals(studentUID)) {
+                            totalCompleted++;
+                            break;
+                        }
+                    }
+                }
+
+                if(totalTask != 0){
+                    WeeklyAverageAssignmentScore = totalCompleted / totalTask * 100;
+                }
+
+                // loop subject (quiz score)
+
+                for (DataSnapshot subjectSnapshot : snapshot.child("Student").child(studentUID).child("quiz").child(selectedClassroom.getClassCode()).getChildren()) {
+                    setKey.clear();
+                    for(DataSnapshot setSubjectSnapshot : subjectSnapshot.child("setKeyInfo").getChildren()){
+                        setKey.add(setSubjectSnapshot.getKey());
+                    }
+                    for (DataSnapshot setSnapshot : snapshot.child("Categories").child(subjectSnapshot.getKey()).child("Sets").getChildren()) {
+                        if(!setKey.contains(setSnapshot.getKey())){
+                            continue;
+                        }
+                        for (DataSnapshot rankingSnapshot : setSnapshot.child("Ranking").getChildren()) {
+                            if (rankingSnapshot.child("uid").getValue(String.class).equals(studentUID)) {
+                                totalMarkSet += rankingSnapshot.child("score").getValue(Double.class);
+                                break;
+                            }
+                        }
+                        totalSetNum ++;
+                    }
+                }
+
+                if(totalSetNum != 0){
+                    WeeklyAverageQuizScore = totalMarkSet / totalSetNum;
+                }
+                WeeklyAveragePerformanceScore = WeeklyAverageAssignmentScore * 0.40 + WeeklyAverageQuizScore * 0.60;
+                AvgPerformance.setText(decimalFormat.format(WeeklyAveragePerformanceScore) + "%");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getAtRiskAndFeedback(){
+        this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int numAtRisk = 0, numPositive = 0, numNegative = 0;
+                for(DataSnapshot riskSnapshot : snapshot.child("Feedback")
+                        .child(selectedClassroom.getClassCode())
+                        .child(studentUID)
+                        .child("at-risk status")
+                        .getChildren()){
+                    if(riskSnapshot.exists()){
+                        numAtRisk += riskSnapshot.getValue(Integer.class);
+                    }
+                }
+                AvgAtRisk.setText(String.valueOf(numAtRisk));
+
+                // feedback
+                for(DataSnapshot feedbackSnapshot : snapshot.child("Feedback")
+                        .child(selectedClassroom.getClassCode())
+                        .child(studentUID)
+                        .getChildren()){
+                    if(!feedbackSnapshot.getKey().equals("at-risk status")){
+                        if(feedbackSnapshot.child("positive").getValue(Boolean.class) == null){
+                            continue;
+                        }
+                        if(feedbackSnapshot.child("positive").getValue(Boolean.class)){
+                            numPositive ++;
+                        }
+                        else if(!feedbackSnapshot.child("positive").getValue(Boolean.class)){
+                            numNegative ++;
+                        }
+                    }
+                }
+                AvgPositive.setText(String.valueOf(numPositive));
+                AvgNegative.setText(String.valueOf(numNegative));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

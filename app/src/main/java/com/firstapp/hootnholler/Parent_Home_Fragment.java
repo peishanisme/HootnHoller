@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.firstapp.hootnholler.adapter.Monitored_Student_List;
 import com.firstapp.hootnholler.databinding.FragmentParentHomeBinding;
 import com.firstapp.hootnholler.entity.Assignment;
+import com.firstapp.hootnholler.entity.Quiz;
 import com.firstapp.hootnholler.entity.Student;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,18 +30,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 
 public class Parent_Home_Fragment extends Fragment {
 
+    private LinearLayout RiskStatusLayout;
     private View TaskStatusBtn, QuizScoreBtn, FeedbackBtn;
-    private TextView StudentName, StudentClass, WeeklyAvgPerformance;
+    private TextView StudentName, StudentClass, WeeklyAvgPerformance, RiskStatus;
     private FragmentParentHomeBinding binding;
-    private String studentUID;
     private Spinner Student_List;
     private ArrayList<Student> MonitoredStudentList;
     private DatabaseReference ParentRef = FirebaseDatabase.getInstance().getReference("Parent");
@@ -47,11 +54,12 @@ public class Parent_Home_Fragment extends Fragment {
     private DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users");
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String UserUID = mAuth.getUid();
+    public String studentUID;
     private Monitored_Student_List monitoredStudentAdapter;
-    private DatabaseReference ClassroomRef = FirebaseDatabase.getInstance().getReference("Classroom");
-    private DatabaseReference QuizRef = FirebaseDatabase.getInstance().getReference("Categories");
-    private int WeekFromToday, TotalTask = 0, TotalCompleted = 0, TotalIncompleted = 0, TotalInProgress = 0;
-    private double WeeklyAveragePerformance;
+    private DatabaseReference Database = FirebaseDatabase.getInstance().getReference();
+    private double WeeklyAverageQuizScore, WeeklyAverageAssignmentScore, WeeklyAveragePerformanceScore;
+    private Calendar calendar;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,10 +75,12 @@ public class Parent_Home_Fragment extends Fragment {
         StudentName = binding.homeMonitoredStudentName;
         StudentClass = binding.homeMonitoredStudentClass;
         WeeklyAvgPerformance = binding.weeklyAvg;
+        RiskStatusLayout = binding.riskStatusLayout;
+        RiskStatus = binding.atRisk;
+
         MonitoredStudentList = new ArrayList<>();
         monitoredStudentAdapter = new Monitored_Student_List(getActivity(), MonitoredStudentList);
         getStudentUIDList();
-        //getWeeklyAveragePerformance();
 
         Student_List.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -170,83 +180,74 @@ public class Parent_Home_Fragment extends Fragment {
         StudentName.setText(student.getUserName());
         StudentClass.setText(student.getStudent_class());
         studentUID = student.getUserUID();
+        Parent_MainActivity.studentUID = studentUID;
+        getWeeklyAveragePerformance();
     }
 
-    public void getWeeklyAveragePerformance(){
-        this.StudentRef.child("classroom").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getWeeklyAveragePerformance() {
+        WeeklyAverageAssignmentScore = 0;
+        WeeklyAverageQuizScore = 0;
+        WeeklyAveragePerformanceScore = 0;
+        this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // loop classroom
-                for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
-                    String classCode = dataSnapShot.getKey();
-                    Double AveragePerformanceForClass = 0.0;
-
-                    for (DataSnapshot quizCategorySnapshot : dataSnapShot.child("quizCategory").getChildren()) {
-                        String quizKey = quizCategorySnapshot.getKey();
-                        Double AverageMarkForSet = 0.0;
-                        QuizRef.child(quizKey).child("Sets").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for(DataSnapshot SetSnapShot : snapshot.getChildren()){
-                                    // loop ranking in the sets
-                                    for(DataSnapshot RankingSnapShot: SetSnapShot.child("Ranking").getChildren()){
-                                        if(RankingSnapShot.exists()){
-                                            if(RankingSnapShot.child("uid").getValue(String.class).equals(studentUID)){
-                                                RankingSnapShot.child("score").getValue(Integer.class);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-
-                    ClassroomRef.child(classCode).child("Assignment").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot classRoomSnapshot) {
-                            for (DataSnapshot assignmentSnapShot: classRoomSnapshot.getChildren()) {
-                                int TaskStatus = 0;
-                                Assignment assignment = assignmentSnapShot.getValue(Assignment.class);
-                                // iterate submission inside the assignment
-                                for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
-                                    if(submissionSnapShot.getKey().equals(studentUID)){
-                                        TaskStatus = checkTaskStatus(assignment, true);
+                ArrayList <String> setKey = new ArrayList<>();
+                double totalSetNum = 0, totalTask = 0, totalCompleted = 0, totalMarkSet = 0;
+                // loop clsssroom (assignment score)
+                for (DataSnapshot classSnapshot : snapshot.child("Student").child(studentUID).child("JoinedClass").getChildren()) {
+                    // if classroom exists
+                    if (classSnapshot.getValue(Boolean.class) == true) {
+                        for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(classSnapshot.getKey()).child("Assignment").getChildren()) {
+                            long timeStamp = assignmentSnapshot.child("dueDate").getValue(Long.class);
+                            if(isThisWeek(new Date(timeStamp))){
+                                totalTask++;
+                                for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
+                                    if (submissionSnapShot.getKey().equals(studentUID)) {
+                                        totalCompleted++;
                                         break;
                                     }
-                                    else{
-                                        TaskStatus = checkTaskStatus(assignment, false);
-                                    }
-                                }
-                                TotalTask++;
-                                if(TaskStatus == 0){
-                                    TotalCompleted++;
-                                }
-                                else if(TaskStatus == 1){
-                                    TotalInProgress++;
-                                }
-                                else{
-                                    TotalIncompleted++;
                                 }
                             }
-
-                            // now calculate the total average percentage
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-
-
+                    }
                 }
+
+                if(totalTask != 0){
+                    WeeklyAverageAssignmentScore = totalCompleted / totalTask * 100;
+                }
+
+                // loop subject (quiz score)
+                for (DataSnapshot quizSnapshot : snapshot.child("Student").child(studentUID).child("quiz").getChildren()) {
+                    // get classCode
+                    for (DataSnapshot subjectSnapshot : quizSnapshot.getChildren()) {
+                        setKey.clear();
+                        for(DataSnapshot setSubjectSnapshot : subjectSnapshot.child("setKeyInfo").getChildren()){
+                            if(isThisWeek(new Date(setSubjectSnapshot.child("dueDate").getValue(Long.class)))){
+                                setKey.add(setSubjectSnapshot.getKey());
+                            }
+                        }
+                        for (DataSnapshot setSnapshot : snapshot.child("Categories").child(subjectSnapshot.getKey()).child("Sets").getChildren()) {
+                            if(!setKey.contains(setSnapshot.getKey())){
+                                continue;
+                            }
+                            for (DataSnapshot rankingSnapshot : setSnapshot.child("Ranking").getChildren()) {
+                                if (rankingSnapshot.child("uid").getValue(String.class).equals(studentUID)) {
+                                    totalMarkSet += rankingSnapshot.child("score").getValue(Double.class);
+                                    break;
+                                }
+                            }
+                            totalSetNum ++;
+                        }
+                    }
+                }
+
+                if(totalSetNum != 0){
+                    WeeklyAverageQuizScore = totalMarkSet / totalSetNum;
+                }
+
+                WeeklyAveragePerformanceScore = WeeklyAverageAssignmentScore * 0.40 + WeeklyAverageQuizScore * 0.60;
+                WeeklyAvgPerformance.setText(decimalFormat.format(WeeklyAveragePerformanceScore) + "%");
+                calculateRiskLevelStudent(WeeklyAveragePerformanceScore);
             }
 
             @Override
@@ -256,29 +257,29 @@ public class Parent_Home_Fragment extends Fragment {
         });
     }
 
-    public int checkTaskStatus(Assignment assignment, boolean isSubmit){
-        Date dueDate = new Date(assignment.getDueDate());
-        Date currentDate = new Date();
-
-        // if due
-        if(dueDate.before(currentDate)){
-            if(isSubmit){
-                return 0;
-            }
-            else{
-                return 2;
-            }
+    public boolean isThisWeek(Date date){
+        calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        while(calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+            calendar.add(Calendar.DAY_OF_WEEK, -1);
         }
-        // if not due
-        else if(dueDate.after(currentDate)){
-            if(isSubmit){
-                return 0;
-            }
-            else{
-                return 1;
-            }
+        Date firstDayOfWeek = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_WEEK, 6);
+        Date lastDayOfWeek = calendar.getTime();
+        if(!date.before(firstDayOfWeek) && !date.after(lastDayOfWeek)){
+            return true;
         }
+        return false;
+    }
 
-        return -1;
+    public void calculateRiskLevelStudent(double WeeklyAveragePerformanceScore){
+        if(WeeklyAveragePerformanceScore >= 50){
+            RiskStatusLayout.setBackgroundResource(R.drawable.green_rectangle);
+            RiskStatus.setText("Not an at-risk student");
+        }
+        else{
+            RiskStatusLayout.setBackgroundResource(R.drawable.red_reactangle);
+            RiskStatus.setText("Is an at-risk student");
+        }
     }
 }

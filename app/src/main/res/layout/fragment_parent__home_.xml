@@ -119,7 +119,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/riskStatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
