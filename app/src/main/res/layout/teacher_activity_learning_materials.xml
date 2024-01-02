@@ -30,10 +30,12 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/btnBack"
             android:layout_width="25sp"
             android:layout_height="98dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -151,7 +153,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnPostResources"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
