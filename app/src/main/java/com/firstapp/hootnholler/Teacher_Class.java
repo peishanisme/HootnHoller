@@ -149,7 +149,7 @@ public class Teacher_Class extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.viewPeople) {
         Intent intent=new Intent(Teacher_Class.this, Teacher_People.class);
-        intent.putExtra("currentClassCode",currentClassCode);
+        intent.putExtra("classCode",currentClassCode);
         startActivity(intent);
 
         } else if (id == R.id.viewClassCode) {
