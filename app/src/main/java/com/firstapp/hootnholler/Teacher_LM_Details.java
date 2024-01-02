@@ -55,7 +55,7 @@ public class Teacher_LM_Details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Teacher_LM_Details.this, Teacher_LearningMaterials.class);
-                currentClassCode = getIntent().getStringExtra("classCode");
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });
