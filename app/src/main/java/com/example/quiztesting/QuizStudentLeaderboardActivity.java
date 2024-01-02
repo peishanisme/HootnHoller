@@ -32,7 +32,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
     ActivityQuizStudentLeaderboardBinding binding;
     FirebaseDatabase database;
-    DatabaseReference referenceSet, referenceAns;
+    DatabaseReference referenceSet, referenceAns, referencePercentage;
     String uid, keyCtg, keySet, setName;
     ArrayList<String> keySetList, keyQuestionList;
     int score;
@@ -57,6 +57,8 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         referenceSet = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet);
         referenceAns = referenceSet.child("Answers").child(uid);
+        referencePercentage = referenceAns.child("percentage");
+
 
         if(keySetList == null) {
             keySetList = new ArrayList<>();
@@ -95,6 +97,8 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
                                         }).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+                                                double scorePercent = ((double) (score) / questions.size()) * 100;
+                                                referencePercentage.setValue((int)scorePercent);
                                                 currCandidate = new QuizCandidate(uid, score);
                                                 obtainRanking();
                                             }
