@@ -71,8 +71,6 @@ public class Teacher_Upload_LM extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void selectPDF() {
