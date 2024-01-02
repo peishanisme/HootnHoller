@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Teacher_LearningMaterials"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="25sp"
+            android:layout_height="83sp"
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingTop="20sp"
+            android:text="Learning Materials"
+            android:textColor="#5269CD"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="#E8E7E7"
+        android:paddingVertical="20dp"
+        >
+
+        <EditText
+            android:id="@+id/LMTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="13"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:hint="Title"
+            android:textColorHint="#898888"
+            android:inputType="textMultiLine"/>
+
+        <EditText
+            android:id="@+id/LMDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:ems="13"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textColorHint="#898888"
+            android:inputType="textMultiLine"/>
+    </LinearLayout>
+
+        <View
+            android:layout_width="320dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#CCCCCC" />
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#CDCDCD"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/LMFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ems="13"
+            android:hint="Select a file"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:inputType="textMultiLine"
+            android:textColorHint="#898888"/>
+
+        <ImageView
+            android:id="@+id/addFile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/ic_attach_file"
+            ></ImageView>
+
+        <Button
+            android:id="@+id/uploadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:backgroundTint="@color/button_colour"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+</LinearLayout>

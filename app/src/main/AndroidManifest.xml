@@ -28,6 +28,9 @@
             android:name=".Teacher_CreateFeedback"
             android:exported="false" />
         <activity
+            android:name=".Teacher_Upload_LM"
+            android:exported="false" />
+        <activity
             android:name=".Teacher_EditAss"
             android:exported="false" />
         <activity

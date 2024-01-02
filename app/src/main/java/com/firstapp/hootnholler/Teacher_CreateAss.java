@@ -64,6 +64,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         btnAttachFile = (ImageButton)findViewById(R.id.btnAttachFile);
 
         currentClassCode = getIntent().getStringExtra("classCode");
+        System.out.println("hahahah00 "+currentClassCode);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +114,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         btnAssign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assDatabase = FirebaseDatabase.getInstance().getReference()
-                        .child("Classroom")
+                assDatabase = FirebaseDatabase.getInstance().getReference("Classroom")
                         .child(currentClassCode)
                         .child("Assignment");
 
@@ -162,20 +162,16 @@ public class Teacher_CreateAss extends AppCompatActivity {
                     assRef.child("openDate");
                     assRef.child("uploadTime").setValue(timestamp);
                     assRef.child("attachment");
-                }
-            }
-        });
 
-        //PDF Database
-        storageReference = FirebaseStorage.getInstance().getReference();
-        uploadReference = FirebaseDatabase.getInstance().getReference()
-                .child("Classroom")
-                .child(currentClassCode)
-                .child("Assignment")
-                .child(assId)
-                .child("Attachment");
+                    //PDF Database
+                    storageReference = FirebaseStorage.getInstance().getReference();
+                    uploadReference = FirebaseDatabase.getInstance().getReference("Classroom")
+                            .child(currentClassCode)
+                            .child("Assignment")
+                            .child(assId)
+                            .child("Attachment");
 
-        // Generate a unique key for attachment
+                    // Generate a unique key for attachment
         /*String attachmentKey = uploadReference.push().getKey();
 
         if (attachmentKey != null) {
@@ -201,6 +197,11 @@ public class Teacher_CreateAss extends AppCompatActivity {
         };
 
     }*/
+                }
+            }
+        });
+
+
     }
 
     private void openTimeDialog() {
