@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -108,13 +109,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
         });
     }
 
-
-    private long getCurrentDateInTimestamp(){
-        return Calendar.getInstance().getTimeInMillis();
-    }
-
-    // Concatenate date and time strings to create a DateTime string
-
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -151,8 +145,19 @@ public class Teacher_CreateAss extends AppCompatActivity {
             btnAssign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UploadFiles(data.getData());
+                    if (TextUtils.isEmpty(assTitle.getText().toString())) {
+                        Toast.makeText(Teacher_CreateAss.this, "Please set assignment title", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    } else if (TextUtils.isEmpty(showDueDate.getText().toString()) || TextUtils.isEmpty(showDueTime.getText().toString())) {
+                        Toast.makeText(Teacher_CreateAss.this, "Please set due date and time", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else{
+                        UploadFiles(data.getData());
+                    }
                 }
+
             });
         }
     }
@@ -184,6 +189,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
 
                         Toast.makeText(Teacher_CreateAss.this, "File Uploaded!", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
+                        finish();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -245,6 +251,17 @@ public class Teacher_CreateAss extends AppCompatActivity {
                 // Handle the ParseException (invalid date format)
                 return -1; // Return an error value
             }
+        }
+
+        public static String convertTimestampToDateTime(long timestamp){
+            try{
+                Date currentDate = (new Date(timestamp));
+                SimpleDateFormat sfd = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss", Locale.getDefault());
+                return sfd.format(currentDate);
+            } catch(Exception e){
+                return "date";
+            }
+
         }
 
     private void updateDueTimestamp() {
