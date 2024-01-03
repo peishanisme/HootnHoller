@@ -45,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
 
         Picasso.get()
                 .load(model.getCategoryImage())
-                .placeholder(R.drawable.loading)
+                .placeholder(R.drawable.loading  )
                 .into(holder.binding.categoryImages);
     }
 
