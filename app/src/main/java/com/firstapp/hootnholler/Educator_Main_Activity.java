@@ -24,10 +24,7 @@ public class Educator_Main_Activity extends AppCompatActivity {
         String fragmentToLoad = getIntent().getStringExtra("FRAGMENT_TO_LOAD");
 
         if (fragmentToLoad != null && fragmentToLoad.equals("educator_Quiz_Fragment")) {
-            // Load the Educator_Quiz_Fragment here using FragmentManager
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new Educator_Quiz_Fragment())
-                    .commit();
+            replaceFragment(new Educator_Quiz_Fragment());
         }
 
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {
