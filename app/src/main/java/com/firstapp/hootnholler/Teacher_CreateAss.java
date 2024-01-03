@@ -44,11 +44,10 @@ import java.util.Locale;
 
 public class Teacher_CreateAss extends AppCompatActivity {
     EditText dueDate, pdfName, assTitle, assDescription;
-    Calendar myCalendar;
     DatabaseReference assDatabase;
     StorageReference storageReference;
     Button btnAssign;
-    String currentClassCode, assId;
+    String currentClassCode;
     TextView showDueDate,showDueTime, addTime;
     ImageButton buttonCalendar, backButton, btnAttachFile;
     long dueTimestamp;
@@ -166,6 +165,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("File Uploading...");
         progressDialog.show();
+
 
         final String timestamp = String.valueOf(System.currentTimeMillis());
         StorageReference reference = storageReference.child("Uploads/"+timestamp+".pdf");
