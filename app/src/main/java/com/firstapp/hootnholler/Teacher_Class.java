@@ -80,10 +80,15 @@ public class Teacher_Class extends AppCompatActivity {
                     String ClassName = snapshot.child("className").getValue(String.class);
                     String ClassDescription = snapshot.child("classDescription").getValue(String.class);
                     String ClassSessiom = snapshot.child("classSession").getValue(String.class);
+                    long studentNum=snapshot.child("StudentsJoined").getChildrenCount();
+
+
+
 
                     className.setText(ClassName);
                     classDescription.setText(ClassDescription);
                     classSession.setText(ClassSessiom);
+                    numberofStudents.setText(String.valueOf(studentNum)+" students");
                 }
             }
 

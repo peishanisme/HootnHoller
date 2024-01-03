@@ -122,6 +122,7 @@ public class Teacher_CreateFeedback extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(Teacher_CreateFeedback.this, "Feedback uploaded successfully.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Teacher_CreateFeedback.this, Teacher_FeedbackStudentList.class);
+                            intent.putExtra("classCode",currentClassCode);
                             startActivity(intent);
                         }
                         else{

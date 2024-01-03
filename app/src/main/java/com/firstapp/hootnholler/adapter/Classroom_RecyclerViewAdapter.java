@@ -15,6 +15,11 @@ import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.Teacher_Class;
 import com.firstapp.hootnholler.entity.Classroom;
 import com.firstapp.hootnholler.entity.Student;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -22,6 +27,7 @@ public class Classroom_RecyclerViewAdapter extends RecyclerView.Adapter<Classroo
 
     private List<Classroom> classroomList;
     private Context context;
+    DatabaseReference classroomRef;
 
     public Classroom_RecyclerViewAdapter(Context context, List<Classroom> classroomList) {
         this.context = context;
@@ -41,6 +47,22 @@ public class Classroom_RecyclerViewAdapter extends RecyclerView.Adapter<Classroo
         holder.className.setText(classroom.getClassName());
         holder.classSession.setText(classroom.getClassSession());
         holder.classDescription.setText(classroom.getClassDescription());
+        classroomRef= FirebaseDatabase.getInstance().getReference("Classroom").child(classroom.getClassCode());
+        classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    long studentNum=snapshot.child("StudentsJoined").getChildrenCount();
+                    holder.numStudents.setText(String.valueOf(studentNum)+" students");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +95,7 @@ public class Classroom_RecyclerViewAdapter extends RecyclerView.Adapter<Classroo
             classSession = itemView.findViewById(R.id.CLassSession);
             classDescription = itemView.findViewById(R.id.ClassDescription);
             card=itemView.findViewById(R.id.Class);
-//            numStudents = itemView.findViewById(R.id.numStu);
+            numStudents = itemView.findViewById(R.id.numStu);
         }
 
 
