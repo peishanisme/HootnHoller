@@ -26,7 +26,7 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
 
     Button createAsgm;
     ImageButton back;
-    TextView noUpcomingAss;
+    TextView noUpcomingAss, rfg, graded;
     String currentClassCode;
     RecyclerView recyclerView;
     DatabaseReference database;
@@ -41,6 +41,8 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
         createAsgm = (Button)findViewById(R.id.createAsgm);
         back = (ImageButton)findViewById(R.id.backButton);
         noUpcomingAss = (TextView) findViewById(R.id.noUpcomingAss);
+        rfg = (TextView) findViewById(R.id.RFG);
+        graded = (TextView) findViewById(R.id.graded);
 
         currentClassCode = getIntent().getStringExtra("classCode");
 
@@ -98,6 +100,22 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Teacher_UpcomingAsgm.this, Teacher_Class.class);
+                startActivity(intent);
+            }
+        });
+
+        rfg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_UpcomingAsgm.this, Teacher_ReadyForGrading_Asgm.class);
+                startActivity(intent);
+            }
+        });
+
+        graded.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_UpcomingAsgm.this, Teacher_GradedAsgm.class);
                 startActivity(intent);
             }
         });
