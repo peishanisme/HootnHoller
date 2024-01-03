@@ -70,16 +70,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         assTitle = (EditText) findViewById(R.id.assTitle);
         assDescription = (EditText) findViewById(R.id.assDescription);
         btnAttachFile = (ImageButton) findViewById(R.id.btnAttachFile);
-
-        date=showDueDate.getText().toString();
-        time=showDueTime.getText().toString();
-        String dueDateTimeString = showDueDate + " " + showDueTime;
-        System.out.println("HahHH "+ dueDateTimeString);
-        dueTimestamp=convertDateTimeToTimestamp(dueDateTimeString);
-        System.out.println("timestamp: "+dueTimestamp);
-
-
-
+        
         storageReference = FirebaseStorage.getInstance().getReference();
         assDatabase = FirebaseDatabase.getInstance().getReference("Classroom")
                 .child(currentClassCode)
@@ -117,59 +108,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
         });
     }
 
-
-                //long timestamp = System.currentTimeMillis();
-
-                    // Concatenate date and time strings to create a DateTime string
-                    //String dueDateTimeString = dueDateString + " " + dueTimeString;
-
-                    // Convert the DateTime string to a Date object
-                    /*SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-                    Date dueDate;
-                    try {
-                        dueDate = dateFormat.parse(dueDateTimeString);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        return;
-                    }*/
-
-                    // Convert the Date object to a Timestamp
-                    //Timestamp dueTimeStamp = new Timestamp(dueDate);
-
-                    // Convert the Date object to a Firebase Timestamp
-                    //com.google.firebase.Timestamp dueTimeStamp = new com.google.firebase.Timestamp(dueDate);
-
-                    //long dueTimeStamp = getCurrentDateInTimestamp();
-
-                    // Generate a unique key for attachment
-        /*String attachmentKey = uploadReference.push().getKey();
-
-        if (attachmentKey != null) {
-            DatabaseReference uploadId = uploadReference.child(attachmentKey);
-            uploadId.child("url").setValue();
-    }*/
-
-    /*private void updateLabel() {
-        String myFormat = "MM/dd/yy EEEE";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
-        dueDate.setText((dateFormat.format(myCalendar.getTime())));
-    }
-
-    private long getCurrentDateInTimestamp(){
-        return Calendar.getInstance().getTimeInMillis();
-    }
-
-    private String[] longIntoString(long milliseconds){
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        return new String[]{
-            dateFormat.format(milliseconds),timeFormat.format(milliseconds)
-        };
-
-    }*/
-                /*}
-            }
-        });*/
 
     private long getCurrentDateInTimestamp(){
         return Calendar.getInstance().getTimeInMillis();
@@ -271,6 +209,8 @@ public class Teacher_CreateAss extends AppCompatActivity {
                 public void onTimeSet(TimePicker timePicker, int hours, int minutes) {
                     int seconds = 0;
                     showDueTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hours, minutes));
+
+                    updateDueTimestamp();
                 }
             },15,00,true);
 
@@ -282,26 +222,33 @@ public class Teacher_CreateAss extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 showDueDate.setText(String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year));
+
+                updateDueTimestamp();
             }
         },2024,0,15);
 
         dateDialog.show();
     }
 
-    public static long convertDateTimeToTimestamp(String inputDateTime) {
-        try {
-            // Define the format of your input date and time
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+        public static long convertDateTimeToTimestamp(String inputDateTime) {
+            try {
+                // Define the format of your input date and time
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
 
-            // Parse the input date and time string to get a Date object
-            Date date = sdf.parse(inputDateTime);
+                // Parse the input date and time string to get a Date object
+                Date date = sdf.parse(inputDateTime);
 
-            // Convert the Date object to a timestamp
-            return date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            // Handle the ParseException (invalid date format)
-            return -1; // Return an error value
+                // Convert the Date object to a timestamp
+                return date.getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
+                // Handle the ParseException (invalid date format)
+                return -1; // Return an error value
+            }
         }
+
+    private void updateDueTimestamp() {
+        String dueDateTimeString = showDueDate.getText().toString() + " " + showDueTime.getText().toString();
+        dueTimestamp = convertDateTimeToTimestamp(dueDateTimeString);
     }
 }
