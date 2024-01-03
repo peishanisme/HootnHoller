@@ -1,9 +1,10 @@
 package com.firstapp.hootnholler.entity;
 
 public class Assignment {
-    private String timestamp;
     private String title;
     private String description;
+    private String uploadDate;
+    private String dueDate;
     private String fileName;
     private String fileUri;
     private String assKey;
@@ -11,20 +12,13 @@ public class Assignment {
     public Assignment() {
     }
 
-    public Assignment(String timestamp, String title, String description, String fileName, String fileUri) {
-        this.timestamp = timestamp;
+    public Assignment(String title, String description, String uploadDate, String dueDate, String fileName, String fileUri) {
         this.title = title;
         this.description = description;
+        this.uploadDate = uploadDate;
+        this.dueDate = dueDate;
         this.fileName = fileName;
         this.fileUri = fileUri;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getTitle() {
@@ -41,6 +35,22 @@ public class Assignment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public String getFileName() {
@@ -67,3 +77,4 @@ public class Assignment {
         this.assKey = assKey;
     }
 }
+

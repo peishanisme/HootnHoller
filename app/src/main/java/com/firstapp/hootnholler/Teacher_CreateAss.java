@@ -50,7 +50,9 @@ public class Teacher_CreateAss extends AppCompatActivity {
     String currentClassCode, assId;
     TextView showDueDate,showDueTime, addTime;
     ImageButton buttonCalendar, backButton, btnAttachFile;
+    long dueTimestamp;
 
+    String date,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,13 +71,20 @@ public class Teacher_CreateAss extends AppCompatActivity {
         assDescription = (EditText) findViewById(R.id.assDescription);
         btnAttachFile = (ImageButton) findViewById(R.id.btnAttachFile);
 
+        date=showDueDate.getText().toString();
+        time=showDueTime.getText().toString();
+        String dueDateTimeString = showDueDate + " " + showDueTime;
+        System.out.println("HahHH "+ dueDateTimeString);
+        dueTimestamp=convertDateTimeToTimestamp(dueDateTimeString);
+        System.out.println("timestamp: "+dueTimestamp);
+
+
+
         storageReference = FirebaseStorage.getInstance().getReference();
         assDatabase = FirebaseDatabase.getInstance().getReference("Classroom")
                 .child(currentClassCode)
                 .child("Assignment");
 
-
-        System.out.println("hahahah00 " + currentClassCode);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,9 +141,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
 
                     //long dueTimeStamp = getCurrentDateInTimestamp();
 
-
-
-
                     // Generate a unique key for attachment
         /*String attachmentKey = uploadReference.push().getKey();
 
@@ -165,7 +171,11 @@ public class Teacher_CreateAss extends AppCompatActivity {
             }
         });*/
 
+    private long getCurrentDateInTimestamp(){
+        return Calendar.getInstance().getTimeInMillis();
+    }
 
+    // Concatenate date and time strings to create a DateTime string
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -225,9 +235,10 @@ public class Teacher_CreateAss extends AppCompatActivity {
                         Uri url = uriTask.getResult();
 
                         Assignment assClass = new Assignment(
-                                timestamp,
                                 assTitle.getText().toString(),
                                 assDescription.getText().toString(),
+                                timestamp,
+                                Long.toString(dueTimestamp),
                                 pdfName.getText().toString(),
                                 url.toString()
                         );
@@ -275,5 +286,22 @@ public class Teacher_CreateAss extends AppCompatActivity {
         },2024,0,15);
 
         dateDialog.show();
+    }
+
+    public static long convertDateTimeToTimestamp(String inputDateTime) {
+        try {
+            // Define the format of your input date and time
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+
+            // Parse the input date and time string to get a Date object
+            Date date = sdf.parse(inputDateTime);
+
+            // Convert the Date object to a timestamp
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle the ParseException (invalid date format)
+            return -1; // Return an error value
+        }
     }
 }
