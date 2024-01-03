@@ -47,8 +47,15 @@ public class TaskStatus_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_status);
         Bundle data = getIntent().getExtras();
-        StudentUid = data.get("Student_UID").toString();
+//        if (data != null) {
+//            StudentUid = data.getString("Student_UID");
+//            if (StudentUid != null) {
+//                StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
+//            }
+//        }
+        StudentUid = data.getString("Student_UID");
         StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
+
         DateRange = findViewById(R.id.dateRange);
         MoveForwardWeekBtn = findViewById(R.id.moveForwardWeekBtn);
         MoveBackwardWeekBtn = findViewById(R.id.moveBackwardWeekBtn);
@@ -83,11 +90,11 @@ public class TaskStatus_Activity extends AppCompatActivity {
         });
     }
 
-    public void formDate(int selectedWeekFromToday){
+    public void formDate(int selectedWeekFromToday) {
         calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DAY_OF_WEEK, -7 * selectedWeekFromToday);
-        while(calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             calendar.add(Calendar.DAY_OF_WEEK, -1);
         }
         firstDayOfWeek = calendar.getTime();
@@ -97,21 +104,21 @@ public class TaskStatus_Activity extends AppCompatActivity {
         notifyWeekChange();
     }
 
-    public void notifyWeekChange(){
-       checkWeek();
-       loadTaskData();
+
+    public void notifyWeekChange() {
+        checkWeek();
+        loadTaskData();
     }
 
-    public void checkWeek(){
-        if(WeekFromToday == 0){
+    public void checkWeek() {
+        if (WeekFromToday == 0) {
             MoveForwardWeekBtn.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             MoveForwardWeekBtn.setVisibility(View.VISIBLE);
         }
     }
 
-    public void loadTaskData(){
+    public void loadTaskData() {
         // initialise all data
         TotalTask = 0;
         TotalIncompleted = 0;
@@ -129,20 +136,19 @@ public class TaskStatus_Activity extends AppCompatActivity {
                     ClassroomRef.child(classCode).child("Assignment").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot classRoomSnapshot) {
-                            for (DataSnapshot assignmentSnapShot: classRoomSnapshot.getChildren()) {
+                            for (DataSnapshot assignmentSnapShot : classRoomSnapshot.getChildren()) {
                                 int TaskStatus = 0;
                                 Assignment assignment = assignmentSnapShot.getValue(Assignment.class);
-                                if(isBetween(new Date(assignment.getOpenDate())
-                                        ,new Date(assignment.getDueDate()),
-                                        firstDayOfWeek, lastDayOfWeek)){
+                                if (isBetween(new Date(assignment.getOpenDate())
+                                        , new Date(assignment.getDueDate()),
+                                        firstDayOfWeek, lastDayOfWeek)) {
 
                                     // iterate submission inside the assignment
-                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
-                                        if(submissionSnapShot.getKey().equals(StudentUid)){
+                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()) {
+                                        if (submissionSnapShot.getKey().equals(StudentUid)) {
                                             TaskStatus = checkTaskStatus(assignment, true);
                                             break;
-                                        }
-                                        else{
+                                        } else {
                                             TaskStatus = checkTaskStatus(assignment, false);
                                         }
                                     }
@@ -150,18 +156,16 @@ public class TaskStatus_Activity extends AppCompatActivity {
                                     assignment.setClassCode(classCode);
                                     Assignment.add(assignment);
                                     numOfTask[0]++;
-                                    if(TaskStatus == 0){
+                                    if (TaskStatus == 0) {
                                         TotalCompleted++;
-                                    }
-                                    else if(TaskStatus == 1){
+                                    } else if (TaskStatus == 1) {
                                         TotalInProgress++;
-                                    }
-                                    else{
+                                    } else {
                                         TotalIncompleted++;
                                     }
                                 }
                             }
-                            if(Student_Assignment_Adapter != null){
+                            if (Student_Assignment_Adapter != null) {
                                 Student_Assignment_Adapter.notifyDataSetChanged();
                             }
 
@@ -187,9 +191,9 @@ public class TaskStatus_Activity extends AppCompatActivity {
         });
     }
 
-    public static boolean isBetween(Date openDate, Date dueDate, Date startDate, Date endDate){
-        if(openDate.before(new Date())){
-            if(dueDate.after(startDate) && dueDate.before(endDate)){
+    public static boolean isBetween(Date openDate, Date dueDate, Date startDate, Date endDate) {
+        if (openDate.before(new Date())) {
+            if (dueDate.after(startDate) && dueDate.before(endDate)) {
                 return true;
             }
             return false;
@@ -197,25 +201,23 @@ public class TaskStatus_Activity extends AppCompatActivity {
         return false;
     }
 
-    public int checkTaskStatus(Assignment assignment, boolean isSubmit){
+    public int checkTaskStatus(Assignment assignment, boolean isSubmit) {
         Date dueDate = new Date(assignment.getDueDate());
         Date currentDate = new Date();
 
         // if due
-        if(dueDate.before(currentDate)){
-            if(isSubmit){
+        if (dueDate.before(currentDate)) {
+            if (isSubmit) {
                 return 0;
-            }
-            else{
+            } else {
                 return 2;
             }
         }
         // if not due
-        else if(dueDate.after(currentDate)){
-            if(isSubmit){
+        else if (dueDate.after(currentDate)) {
+            if (isSubmit) {
                 return 0;
-            }
-            else{
+            } else {
                 return 1;
             }
         }

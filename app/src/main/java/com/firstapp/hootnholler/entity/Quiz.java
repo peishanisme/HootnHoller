@@ -1,42 +1,54 @@
 package com.firstapp.hootnholler.entity;
 
+import java.util.ArrayList;
+
 public class Quiz {
-    private String subject,set;
-    private double score;
-
-    private long dueDate, openDate, uploadDate, quizStatus;
-
+    private String subject, setName, categoryKey, categoryImage, setKey;
+    private int score;
+    private long dueDate, postedTime, quizStatus;
 
 
-    public Quiz(String subject, String set, long dueDate, long openDate, long uploadDate, long quizStatus,double score) {
-        this.subject = subject;
-        this.set = set;
-        this.dueDate = dueDate;
-        this.openDate = openDate;
-        this.uploadDate = uploadDate;
-        this.quizStatus = quizStatus;
-        this.score = score;
+    public Quiz() {
     }
 
+    public String getCategoryKey() {
+        return categoryKey;
+    }
+
+    public String getCategoryImage() {
+        return categoryImage;
+    }
+
+    public String getSetKey() {
+        return setKey;
+    }
+
+    public void setSetKey(String setKey) {
+        this.setKey = setKey;
+    }
+
+    public void setCategoryImage(String categoryImage) {
+        this.categoryImage = categoryImage;
+    }
+
+    public void setCategoryKey(String categoryKey) {
+        this.categoryKey = categoryKey;
+    }
 
     public String getSubject() {
         return subject;
     }
 
-    public String getSet() {
-        return set;
+    public String getSetName() {
+        return setName;
     }
 
     public long getDueDate() {
         return dueDate;
     }
 
-    public long getOpenDate() {
-        return openDate;
-    }
-
-    public long getUploadDate() {
-        return uploadDate;
+    public long getPostedTime() {
+        return postedTime;
     }
 
     public long getQuizStatus() {
@@ -47,31 +59,28 @@ public class Quiz {
         this.subject = subject;
     }
 
-    public void setSet(String set) {
-        this.set = set;
+    public void setSetName(String setName) {
+        this.setName = setName;
     }
 
     public void setDueDate(long dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setOpenDate(long openDate) {
-        this.openDate = openDate;
+    public void setPostedTime(long postedtime) {
+        this.postedTime = postedTime;
     }
 
-    public void setUploadDate(long uploadDate) {
-        this.uploadDate = uploadDate;
-    }
 
     public void setQuizStatus(long quizStatus) {
         this.quizStatus = quizStatus;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }
