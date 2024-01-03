@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Teacher_People">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="25sp"
+            android:layout_height="98dp"
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingTop="25sp"
+            android:text="People"
+            android:textColor="#5269CD"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/TeacherRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Teacher"
+            android:textColor="#909F69"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="125dp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineteacher"
+        android:layout_width="360dp"
+        android:layout_height="1sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#909F69"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="181dp" />
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/user8"
+            android:layout_width="51dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/user8"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <TextView
+            android:id="@+id/TVTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="Sir Lee Kok Xiang - Educator"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/StudentRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Student"
+            android:textColor="#909F69"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/linestudent"
+        android:layout_width="360dp"
+        android:layout_height="1sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#909F69"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="181dp"/>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+
+        <ImageView
+            android:id="@+id/user1"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="@+id/TeacherRole"
+            app:layout_constraintTop_toBottomOf="@+id/linestudent"
+            app:srcCompat="@drawable/user1" />
+
+        <TextView
+            android:id="@+id/stu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Ailiana Binti Farhan"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+
+        <ImageView
+            android:id="@+id/user2"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="@+id/user1"
+            app:layout_constraintTop_toBottomOf="@+id/user1"
+            app:srcCompat="@drawable/user2" />
+
+        <TextView
+            android:id="@+id/stu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Benny Wong "
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/user3"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user3" />
+
+        <TextView
+            android:id="@+id/stu3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bernice Lee Xin Tian"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/user4"
+            android:layout_width="53dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user4" />
+
+        <TextView
+            android:id="@+id/stu4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cynthia Tan Ling Er"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/user5"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user5" />
+
+        <TextView
+            android:id="@+id/stu5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Damia Fatihah"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/user6"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user6" />
+
+        <TextView
+            android:id="@+id/stu6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Foo Li Xiang"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+
+        <ImageView
+            android:id="@+id/user7"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user7" />
+
+        <TextView
+            android:id="@+id/stu7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="George Kong Zi Yang"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_gravity="bottom"
+        android:background="#7DC8FE"
+        android:elevation="8dp"
+        app:itemIconSize="28dp"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile_Fragment"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/group_6960"
+            />
+
+        <TextView
+            android:id="@+id/fullname_shown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wendy Tham"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:textColor="#474A57"/>
+
+        <TextView
+            android:id="@+id/role_shown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Student)"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#474A57"/>
+
+        <LinearLayout
+            android:id="@+id/gender_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/gender_icon"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/gender_1"
+                android:layout_marginStart="60dp"/>
+            <TextView
+                android:id="@+id/gender_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:layout_marginStart="20dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/gender_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:layout_marginStart="80dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/birthday_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/birthday_icon"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:src="@drawable/birthday_cake_celebration_svgrepo_com_1"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/birthday_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Birthday"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/birthday_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11/11/2003"
+                android:layout_marginStart="70dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phoneNum_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/phoneNum_icon"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/phone_svgrepo_com_1"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/phoneNum_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/phoneNum_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="012-8465791"
+                android:layout_marginStart="25dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/school_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/school_icon"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/school_svgrepo_com__1__1"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/school_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="School"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/school_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SK Kinrara 5"
+                android:layout_marginStart="80dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/studentLevel_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/studentLevel_icon"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/book_open_svgrepo_com_1"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/studentLevel_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/studentLevel_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Standard 4"
+                android:layout_marginStart="92dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/studentClass_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/studentClass_icon"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/class_management_svgrepo_com"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/studentClass_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/studentClass_shown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4 Ceria"
+                android:layout_marginStart="90dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/educatorSubject_layout"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/educatorSubject_icon"
+                android:layout_width="30dp"
+                android:layout_height="23dp"
+                android:src="@drawable/book_open_svgrepo_com_1"
+                android:layout_marginStart="55dp"/>
+            <TextView
+                android:id="@+id/educatorSubject_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+                android:layout_marginStart="15dp"
+                android:textSize="16dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/educatorSubject_shown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rectangle_4026"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:id="@+id/parentMonitored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/user_scan"
+                    android:layout_marginStart="40dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monitored Students"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand_right_light"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/studentConnectionKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vector"
+                    android:layout_marginStart="40dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connection Key"
+                    android:layout_marginStart="20dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand_right_light"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="3dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/editAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_fill"
+                    android:layout_marginStart="40dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Account"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/expand_right_light"
+                    android:layout_marginStart="83dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="3dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logout_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/logout_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/sign_out_circle"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log out"
+                android:textColor="#281696"
+                android:layout_marginStart="10dp"
+                android:textSize="18sp"
+                android:layout_marginBottom="60dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

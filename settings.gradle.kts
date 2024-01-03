@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "QuizTesting"
+rootProject.name = "HootnHoller"
 include(":app")
- 
