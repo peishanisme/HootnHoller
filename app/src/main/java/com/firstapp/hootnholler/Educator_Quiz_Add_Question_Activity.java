@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
+public class Educator_Quiz_Add_Question_Activity extends AppCompatActivity {
 
     ActivityQuizEducatorAddQuestionBinding binding;
     FirebaseDatabase database;
@@ -80,7 +80,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(QuizEducatorAddQuestionActivity.this, "Question not exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Add_Question_Activity.this, "Question not exist", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -94,14 +94,14 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String questionText = binding.enterQuestion.getText().toString().trim();
                 if (questionText.isEmpty()) {
-                    Toast.makeText(QuizEducatorAddQuestionActivity.this, "Please enter the question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Add_Question_Activity.this, "Please enter the question", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 int checkedRadioButtonId = binding.RGAnswers.getCheckedRadioButtonId();
 
                 if (checkedRadioButtonId == -1) {
-                    Toast.makeText(QuizEducatorAddQuestionActivity.this, "Please mark the correct option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Add_Question_Activity.this, "Please mark the correct option", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -121,7 +121,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                 if (selectedEditText != null) {
                     correctAnswer = selectedEditText.getText().toString().trim();
                 } else {
-                    Toast.makeText(QuizEducatorAddQuestionActivity.this, "Please mark the correct option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Add_Question_Activity.this, "Please mark the correct option", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -168,7 +168,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
                     });
                 }
 
-                Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Add_Question_Activity.this, Educator_Quiz_Question_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
@@ -182,7 +182,7 @@ public class QuizEducatorAddQuestionActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizEducatorAddQuestionActivity.this, QuizEducatorQuestionActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Add_Question_Activity.this, Educator_Quiz_Question_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);

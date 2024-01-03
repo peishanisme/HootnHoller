@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.Models.QuestionModel;
 import com.firstapp.hootnholler.Models.QuizModel;
-import com.firstapp.hootnholler.QuizStudentDoQuizActivity;
+import com.firstapp.hootnholler.Student_Quiz_Do_Quiz_Activity;
 import com.firstapp.hootnholler.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -121,7 +121,7 @@ public class QuizCategoryAdapter extends RecyclerView.Adapter<QuizCategoryAdapte
                                     if (snapshot.exists()) {
                                         String setName = snapshot.getValue(String.class);
                                         if (quizModel.getStatus().equals("In progress")) {
-                                            Intent intent = new Intent(context, QuizStudentDoQuizActivity.class);
+                                            Intent intent = new Intent(context, Student_Quiz_Do_Quiz_Activity.class);
                                             intent.putExtra("uid", uid);
                                             intent.putExtra("setName", setName);
                                             intent.putExtra("keyCtg", ctgKey);
@@ -130,7 +130,7 @@ public class QuizCategoryAdapter extends RecyclerView.Adapter<QuizCategoryAdapte
                                             intent.putExtra("queIndex", quizModel.getProgress());
                                             context.startActivity(intent);
                                         } else {
-                                            Intent intent = new Intent(context, QuizStudentDoQuizActivity.class);
+                                            Intent intent = new Intent(context, Student_Quiz_Do_Quiz_Activity.class);
                                             intent.putExtra("uid", uid);
                                             intent.putExtra("setName", setName);
                                             intent.putExtra("keyCtg", ctgKey);

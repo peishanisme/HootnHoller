@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.firstapp.hootnholler.Models.CategoryModel;
 import com.firstapp.hootnholler.adapter.CategoryAdapter;
-import com.firstapp.hootnholler.databinding.ActivityQuizEducatorCategoryBinding;
 import com.firstapp.hootnholler.databinding.FragmentEducatorQuizBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,7 +67,6 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
     String uid;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
 
@@ -94,6 +92,8 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
         referenceEducator.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
+                if (isAdded() && snapshot.exists()) {
                     quizCategory = (ArrayList<String>) snapshot.getValue();
 
                     if (quizCategory != null && !quizCategory.isEmpty()) {
@@ -166,22 +166,25 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                                         for (String ctgKey : quizCategory) {
                                             if (model != null && model.getCtgKey().equals(ctgKey)) {
                                                 list.add(model);
+                                                adapter.notifyItemInserted(list.size());
                                             }
                                         }
                                     }
 
-                                    requireActivity().runOnUiThread(new Runnable() {
+                                    /*requireActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             adapter.notifyDataSetChanged();
                                         }
-                                    });
+                                    });*/
                                 }
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getContext(), "Category not exist", Toast.LENGTH_SHORT).show();
+                                if(isAdded()) {
+                                    Toast.makeText(getContext(), "Category not exist", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }
@@ -356,7 +359,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
     @Override
     public void onItemClick(int position) {
         CategoryModel model = list.get(position);
-        Intent intent = new Intent(getContext(), QuizEducatorSetActivity.class);
+        Intent intent = new Intent(getContext(), Educator_Quiz_Set_Activity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("key", model.getCtgKey());
         intent.putExtra("categoryImage", model.getCategoryImage());

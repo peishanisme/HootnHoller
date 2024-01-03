@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizEducatorReviewActivity extends AppCompatActivity implements RecyViewInterface {
+public class Educator_Quiz_Review_Activity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizEducatorReviewBinding binding;
     String uid, keyCtg, keySet, imageUrl, keyClassroom;
@@ -132,7 +132,7 @@ public class QuizEducatorReviewActivity extends AppCompatActivity implements Rec
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizEducatorReviewActivity.this, QuizEducatorPostActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Review_Activity.this, Educator_Quiz_Post_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);

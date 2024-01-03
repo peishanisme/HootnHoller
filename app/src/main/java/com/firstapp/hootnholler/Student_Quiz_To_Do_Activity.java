@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class QuizStudentToDoActivity extends AppCompatActivity {
+public class Student_Quiz_To_Do_Activity extends AppCompatActivity {
 
     ActivityQuizStudentToDoBinding binding;
     FirebaseDatabase database;
@@ -76,7 +76,8 @@ public class QuizStudentToDoActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentToDoActivity.this, QuizStudentCategoryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
                 startActivity(intent);
             }
         });

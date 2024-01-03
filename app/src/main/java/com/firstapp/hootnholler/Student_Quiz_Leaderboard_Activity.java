@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizStudentLeaderboardActivity extends AppCompatActivity {
+public class Student_Quiz_Leaderboard_Activity extends AppCompatActivity {
 
     ActivityQuizStudentLeaderboardBinding binding;
     FirebaseDatabase database;
@@ -88,7 +88,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
                                         referenceAns.child("score").setValue(score).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in writing score", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in writing score", Toast.LENGTH_SHORT).show();
                                             }
                                         }).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -109,7 +109,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in calculating score", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in calculating score", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -119,7 +119,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in retrieving score", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in retrieving score", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -129,10 +129,11 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (keySetList.isEmpty()) {
-                    Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentCategoryActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
+                    intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentSetActivity.class);
+                    Intent intent = new Intent(Student_Quiz_Leaderboard_Activity.this, Student_Quiz_Set_Activity.class);
                     intent.putExtra("uid", uid);
                     intent.putExtra("keyCtg", keyCtg);
                     intent.putExtra("keySetList", keySetList);
@@ -145,7 +146,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
         binding.review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentLeaderboardActivity.this, QuizStudentReviewActivity.class);
+                Intent intent = new Intent(Student_Quiz_Leaderboard_Activity.this, Student_Quiz_Review_Activity.class);
 
                 intent.putExtra("uid", uid);
                 intent.putExtra("setName", setName);
@@ -166,7 +167,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
         referenceSet.child("Ranking").setValue(ranking.getCandidates()).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in writing ranking", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in writing ranking", Toast.LENGTH_SHORT).show();
             }
         }).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -212,7 +213,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in retrieving ranking", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in retrieving ranking", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -270,7 +271,7 @@ public class QuizStudentLeaderboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentLeaderboardActivity.this, "Error in accessing top 3 students' names", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Leaderboard_Activity.this, "Error in accessing top 3 students' names", Toast.LENGTH_SHORT).show();
             }
         });
     }

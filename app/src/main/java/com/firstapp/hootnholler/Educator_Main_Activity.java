@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import com.firstapp.hootnholler.databinding.ActivityEducatorMainBinding;
 
-public class Educator_MainActivity extends AppCompatActivity {
+public class Educator_Main_Activity extends AppCompatActivity {
 
     ActivityEducatorMainBinding binding;
 
@@ -20,6 +20,15 @@ public class Educator_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityEducatorMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        String fragmentToLoad = getIntent().getStringExtra("FRAGMENT_TO_LOAD");
+
+        if (fragmentToLoad != null && fragmentToLoad.equals("educator_Quiz_Fragment")) {
+            // Load the Educator_Quiz_Fragment here using FragmentManager
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new Educator_Quiz_Fragment())
+                    .commit();
+        }
 
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {
             int id = item.getItemId();

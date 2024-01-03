@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".QuizStudentDoQuizActivity">
+        tools:context=".Student_Quiz_Do_Quiz_Activity">
 
         <ImageView
             android:id="@+id/back"

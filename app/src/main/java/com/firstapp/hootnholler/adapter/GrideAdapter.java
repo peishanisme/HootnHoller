@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.firstapp.hootnholler.QuizEducatorQuestionActivity;
+import com.firstapp.hootnholler.Educator_Quiz_Question_Activity;
 import com.firstapp.hootnholler.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -103,7 +103,7 @@ public class GrideAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, QuizEducatorQuestionActivity.class);
+                Intent intent = new Intent(context, Educator_Quiz_Question_Activity.class);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", list.get(position));
                 intent.putExtra("currSetNum", (position + 1));

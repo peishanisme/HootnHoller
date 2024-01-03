@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizStudentDoQuizActivity extends AppCompatActivity {
+public class Student_Quiz_Do_Quiz_Activity extends AppCompatActivity {
 
     ActivityQuizStudentDoQuizBinding binding;
     FirebaseDatabase database;
@@ -105,7 +105,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to check database to restore answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Do_Quiz_Activity.this, "Fail to check database to restore answer", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -166,7 +166,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(lastSelectedOption == null) {
-                    Toast.makeText(QuizStudentDoQuizActivity.this, "Please select your answer.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Student_Quiz_Do_Quiz_Activity.this, "Please select your answer.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 uploadAnswer();
@@ -176,7 +176,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(int index) {
                             if (index == -1) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Student_Quiz_Do_Quiz_Activity.this);
                                 builder.setTitle("Confirm Submission");
                                 builder.setMessage("Are you sure you want to submit the current quiz?" +
                                         "\n\nOnce submitted, you won't be able to make any changes to your answers.");
@@ -185,7 +185,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         setCompletionStatus("Completed", index);
 
-                                        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentLeaderboardActivity.class);
+                                        Intent intent = new Intent(Student_Quiz_Do_Quiz_Activity.this, Student_Quiz_Leaderboard_Activity.class);
                                         intent.putExtra("uid", uid);
                                         intent.putExtra("keyCtg", keyCtg);
                                         intent.putExtra("keySet", keySet);
@@ -198,7 +198,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
                                 }).setNegativeButton("No", null);
                                 builder.show();
                             } else {
-                                Toast.makeText(QuizStudentDoQuizActivity.this, "Haven't completed your test", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Student_Quiz_Do_Quiz_Activity.this, "Haven't completed your test", Toast.LENGTH_SHORT).show();
                                 passToNextQue(index);
                             }
                         }
@@ -235,10 +235,11 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
 
     public void navigateToQuizSetActivity() {
         if(keySetList.isEmpty()) {
-            Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentCategoryActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
+            intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
             startActivity(intent);
         } else {
-            Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentSetActivity.class);
+            Intent intent = new Intent(Student_Quiz_Do_Quiz_Activity.this, Student_Quiz_Set_Activity.class);
             intent.putExtra("uid", uid);
             intent.putExtra("keyCtg", keyCtg);
             intent.putExtra("keySetList", keySetList);
@@ -248,7 +249,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
     }
 
     public void askForSubmission() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(QuizStudentDoQuizActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Student_Quiz_Do_Quiz_Activity.this);
         builder.setTitle("Confirm Submission");
         builder.setMessage("Do you want to submit the current quiz? Once submitted, you won't be able to make any changes to your answers.");
 
@@ -274,13 +275,13 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         referenceSet.child("Answers").child(uid).child(model.getKeyQuestion()).setValue(answerModel).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to save answer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Do_Quiz_Activity.this, "Fail to save answer", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void passToNextQue(int index) {
-        Intent intent = new Intent(QuizStudentDoQuizActivity.this, QuizStudentDoQuizActivity.class);
+        Intent intent = new Intent(Student_Quiz_Do_Quiz_Activity.this, Student_Quiz_Do_Quiz_Activity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("setName", setName);
         intent.putExtra("keyCtg", keyCtg);
@@ -304,7 +305,7 @@ public class QuizStudentDoQuizActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(QuizStudentDoQuizActivity.this, "Fail to upload current completion status", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Do_Quiz_Activity.this, "Fail to upload current completion status", Toast.LENGTH_SHORT).show();
             }
         });
 

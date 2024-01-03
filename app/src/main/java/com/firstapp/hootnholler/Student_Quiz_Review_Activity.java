@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizStudentReviewActivity extends AppCompatActivity {
+public class Student_Quiz_Review_Activity extends AppCompatActivity {
 
     ActivityQuizStudentReviewBinding binding;
     FirebaseDatabase database;
@@ -102,7 +102,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentReviewActivity.this, "Error in checking correctness", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Review_Activity.this, "Error in checking correctness", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -123,7 +123,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentReviewActivity.this, QuizStudentLeaderboardActivity.class);
+                Intent intent = new Intent(Student_Quiz_Review_Activity.this, Student_Quiz_Leaderboard_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("keyCtg", keyCtg);
                 intent.putExtra("keySet", keySet);
@@ -140,7 +140,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(queIndex + 1 == list.size()) {
-                    Intent intent = new Intent(QuizStudentReviewActivity.this, QuizStudentLeaderboardActivity.class);
+                    Intent intent = new Intent(Student_Quiz_Review_Activity.this, Student_Quiz_Leaderboard_Activity.class);
                     intent.putExtra("uid", uid);
                     intent.putExtra("keyCtg", keyCtg);
                     intent.putExtra("keySet", keySet);
@@ -158,7 +158,7 @@ public class QuizStudentReviewActivity extends AppCompatActivity {
     }
 
     private void passToNextQue(int index) {
-        Intent intent = new Intent(QuizStudentReviewActivity.this, QuizStudentReviewActivity.class);
+        Intent intent = new Intent(Student_Quiz_Review_Activity.this, Student_Quiz_Review_Activity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("keyCtg", keyCtg);
         intent.putExtra("keySet", keySet);

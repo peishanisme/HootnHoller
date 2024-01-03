@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class QuizEducatorSetActivity extends AppCompatActivity implements RecyViewInterface {
+public class Educator_Quiz_Set_Activity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizEducatorSetBinding binding;
     FirebaseDatabase database;
@@ -103,7 +103,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizEducatorSetActivity.this, "Fail to access.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Educator_Quiz_Set_Activity.this, "Fail to access.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -132,7 +132,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                 } else if(checkDuplicity) {
                     setName.setText("");
                     setName.setError("Repeated category name");
-                    Toast.makeText(QuizEducatorSetActivity.this, "Set " + name + " already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Set_Activity.this, "Set " + name + " already exists", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadSet(name);
                 }
@@ -142,10 +142,9 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizEducatorSetActivity.this, Educator_Quiz_Fragment.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "educator_Quiz_Fragment"); // Pass the fragment tag or ID here
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -164,20 +163,20 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                     public void onSuccess(Void unused) {
                         dialog.dismiss();
                         progressDialog.dismiss();
-                        Toast.makeText(QuizEducatorSetActivity.this, "A new set " + name + " is created.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Set_Activity.this, "A new set " + name + " is created.", Toast.LENGTH_SHORT).show();
                         adapter.notifyItemInserted(list.size());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(QuizEducatorSetActivity.this, "Fail to upload set", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Set_Activity.this, "Fail to upload set", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(QuizEducatorSetActivity.this, "Fail to upload set", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Educator_Quiz_Set_Activity.this, "Fail to upload set", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -192,7 +191,7 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                     ArrayList<String> postedSetList = (ArrayList<String>) snapshot.getValue();
 
                     if(postedSetList != null && postedSetList.contains(selectedSet.getSetKey())) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorSetActivity.this);builder.setTitle("Unable to Cancel Set");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Set_Activity.this);builder.setTitle("Unable to Cancel Set");
                         builder.setTitle("Unable to Delete Set");
                         builder.setMessage("You cannot delete this set as it's currently being shared with students. " +
                                 "\n\nTo delete this set, you must cancel its posting to all classrooms. " +
@@ -243,26 +242,26 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
                 referenceSetNum.setValue(list.size()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(QuizEducatorSetActivity.this, "Set " + selectedSet.getSetName() + " is deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Set_Activity.this, "Set " + selectedSet.getSetName() + " is deleted", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(QuizEducatorSetActivity.this, "Fail to delete set", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Set_Activity.this, "Fail to delete set", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(QuizEducatorSetActivity.this, "Fail to delete set", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Educator_Quiz_Set_Activity.this, "Fail to delete set", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, QuizEducatorQuestionActivity.class);
+        Intent intent = new Intent(this, Educator_Quiz_Question_Activity.class);
         SetModel model = list.get(position);
 
         intent.putExtra("uid", uid);
@@ -271,15 +270,6 @@ public class QuizEducatorSetActivity extends AppCompatActivity implements RecyVi
         intent.putExtra("categoryImage", imageUrl);
 
         this.startActivity(intent);
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(QuizEducatorSetActivity.this, Educator_Quiz_Fragment.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-        super.onBackPressed();
     }
 
 }

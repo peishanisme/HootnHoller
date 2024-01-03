@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class QuizEducatorPostActivity extends AppCompatActivity implements RecyViewInterface {
+public class Educator_Quiz_Post_Activity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizEducatorPostBinding binding;
     FirebaseDatabase database;
@@ -136,7 +136,7 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(QuizEducatorPostActivity.this, "Fail to access classroom name", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Educator_Quiz_Post_Activity.this, "Fail to access classroom name", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -145,14 +145,14 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizEducatorPostActivity.this, "Fail to access classroom ID", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Educator_Quiz_Post_Activity.this, "Fail to access classroom ID", Toast.LENGTH_SHORT).show();
             }
         });
 
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizEducatorPostActivity.this, QuizEducatorQuestionActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Post_Activity.this, Educator_Quiz_Question_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
@@ -175,9 +175,9 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
                     ArrayList<String> postedClassroom = (ArrayList<String>) snapshot.getValue();
 
                     if(postedClassroom != null && !postedClassroom.contains(classroomKey)) {
-                        Toast.makeText(QuizEducatorPostActivity.this, "You haven't posted the quiz to this classroom.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Post_Activity.this, "You haven't posted the quiz to this classroom.", Toast.LENGTH_SHORT).show();
                     } else if(postedClassroom != null && postedClassroom.contains(classroomKey)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorPostActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Post_Activity.this);
                         builder.setTitle("Confirm Deletion of Posted Quiz From Students");
                         builder.setMessage("Are you sure you want to delete this quiz from students, including their answers and ranking?");
 
@@ -219,7 +219,7 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
                         builder.show();
                     }
                 } else {
-                    Toast.makeText(QuizEducatorPostActivity.this, "You haven't posted the quiz to this classroom.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Post_Activity.this, "You haven't posted the quiz to this classroom.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -391,7 +391,7 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
                     postedClassroom[0] = (ArrayList<String>) snapshot.getValue();
 
                     if(postedClassroom[0] != null && postedClassroom[0].contains(classroomKey)) {
-                        Intent intent = new Intent(QuizEducatorPostActivity.this, QuizEducatorReviewActivity.class);
+                        Intent intent = new Intent(Educator_Quiz_Post_Activity.this, Educator_Quiz_Review_Activity.class);
                         intent.putExtra("classroomKey", classroomKey);
                         intent.putExtra("uid", uid);
                         intent.putExtra("key", keyCtg);
@@ -436,7 +436,7 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
                                 int month = currentDate.get(Calendar.MONTH);
                                 int day = currentDate.get(Calendar.DAY_OF_MONTH);
 
-                                DatePickerDialog datePickerDialog = new DatePickerDialog(QuizEducatorPostActivity.this,
+                                DatePickerDialog datePickerDialog = new DatePickerDialog(Educator_Quiz_Post_Activity.this,
                                         new DatePickerDialog.OnDateSetListener() {
                                             @Override
                                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -480,10 +480,10 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
                         });
 
                     } else {
-                        Toast.makeText(QuizEducatorPostActivity.this, "You have 0 student in this classroom, please add student first.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Quiz_Post_Activity.this, "You have 0 student in this classroom, please add student first.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(QuizEducatorPostActivity.this, "You have 0 student in this classroom, please add student first.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Post_Activity.this, "You have 0 student in this classroom, please add student first.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -531,8 +531,8 @@ public class QuizEducatorPostActivity extends AppCompatActivity implements RecyV
     }
 
     public void noticePostQuiz(int position) {
-        Toast.makeText(QuizEducatorPostActivity.this, "Quiz is posted successfully.", Toast.LENGTH_LONG).show();
-        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorPostActivity.this);
+        Toast.makeText(Educator_Quiz_Post_Activity.this, "Quiz is posted successfully.", Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Post_Activity.this);
         builder.setTitle("Notice");
         builder.setMessage("Currently, modifications or deletions of questions in this set are not allowed as it has already been shared with students. " +
                 "\n\nTo delete this particular set or its parent category, you need to cancel all the posting of quiz to classroom(s). " +

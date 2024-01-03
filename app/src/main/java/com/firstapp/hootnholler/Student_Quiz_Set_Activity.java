@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizStudentSetActivity extends AppCompatActivity implements RecyViewInterface {
+public class Student_Quiz_Set_Activity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizStudentSetBinding binding;
     FirebaseDatabase database;
@@ -74,7 +74,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(QuizStudentSetActivity.this, "Error in retrieving set models", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Student_Quiz_Set_Activity.this, "Error in retrieving set models", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -82,10 +82,9 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizStudentSetActivity.this, Educator_Quiz_Fragment.class);
-
+                Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -123,7 +122,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                                             if(snapshot.exists()) {
                                                 Integer progress = snapshot.getValue(Integer.class);
 
-                                                Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                                Intent intent = new Intent(Student_Quiz_Set_Activity.this, Student_Quiz_Do_Quiz_Activity.class);
                                                 intent.putExtra("uid", uid);
                                                 intent.putExtra("setName", model.getSetName());
                                                 intent.putExtra("keyCtg", keyCtg);
@@ -144,7 +143,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
 
 
                                 } else if(status.equals("Completed")) {
-                                    Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentLeaderboardActivity.class);
+                                    Intent intent = new Intent(Student_Quiz_Set_Activity.this, Student_Quiz_Leaderboard_Activity.class);
                                     intent.putExtra("uid", uid);
                                     intent.putExtra("keyCtg", keyCtg);
                                     intent.putExtra("keySet", model.getSetKey());
@@ -155,7 +154,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
 
                                     startActivity(intent);
                                 } else {
-                                    Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                    Intent intent = new Intent(Student_Quiz_Set_Activity.this, Student_Quiz_Do_Quiz_Activity.class);
                                     intent.putExtra("uid", uid);
                                     intent.putExtra("setName", model.getSetName());
                                     intent.putExtra("keyCtg", keyCtg);
@@ -166,7 +165,7 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
                                     startActivity(intent);
                                 }
                             } else {
-                                Intent intent = new Intent(QuizStudentSetActivity.this, QuizStudentDoQuizActivity.class);
+                                Intent intent = new Intent(Student_Quiz_Set_Activity.this, Student_Quiz_Do_Quiz_Activity.class);
                                 intent.putExtra("uid", uid);
                                 intent.putExtra("setName", model.getSetName());
                                 intent.putExtra("keyCtg", keyCtg);
@@ -181,18 +180,18 @@ public class QuizStudentSetActivity extends AppCompatActivity implements RecyVie
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(QuizStudentSetActivity.this, "Error in checking previous progress", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Student_Quiz_Set_Activity.this, "Error in checking previous progress", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 } else {
-                    Toast.makeText(QuizStudentSetActivity.this, "Your teacher haven't posted any question.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Student_Quiz_Set_Activity.this, "Your teacher haven't posted any question.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizStudentSetActivity.this, "Error in retrieving question model", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Student_Quiz_Set_Activity.this, "Error in retrieving question model", Toast.LENGTH_SHORT).show();
             }
         });
 

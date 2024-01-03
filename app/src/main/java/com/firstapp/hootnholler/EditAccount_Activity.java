@@ -19,7 +19,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.firstapp.hootnholler.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,10 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.CompletableFuture;
 
 public class EditAccount_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -276,7 +273,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
             startActivity(mainIntent);
         }
         else if(role.equalsIgnoreCase("educator")){
-            Intent mainIntent = new Intent(EditAccount_Activity.this, Educator_MainActivity.class);
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Educator_Main_Activity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mainIntent);
         }

@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class QuizEducatorQuestionActivity extends AppCompatActivity implements RecyViewInterface {
+public class Educator_Quiz_Question_Activity extends AppCompatActivity implements RecyViewInterface {
 
     ActivityQuizEducatorQuestionBinding binding;
     String uid, keyCtg, keySet, keyQuestion, imageUrl;
@@ -78,7 +78,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(QuizEducatorQuestionActivity.this, "Set not exist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Educator_Quiz_Question_Activity.this, "Set not exist", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,7 +92,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                             ArrayList<String> postedSet = (ArrayList<String>) snapshot.getValue();
 
                             if(postedSet != null && postedSet.contains(keySet)) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorQuestionActivity.this);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Question_Activity.this);
                                 builder.setTitle("Unable to Add Question");
                                 builder.setMessage("You cannot add question in this set because it's already been posted to students. " +
                                         "\n\nTo modify this set, you need to cancel the posting to students. " +
@@ -105,7 +105,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                                 });
                                 builder.show();
                             } else {
-                                Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorAddQuestionActivity.class);
+                                Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
                                 intent.putExtra("uid", uid);
                                 intent.putExtra("key", keyCtg);
                                 intent.putExtra("keySet", keySet);
@@ -114,7 +114,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                                 startActivity(intent);
                             }
                         } else {
-                            Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorAddQuestionActivity.class);
+                            Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
                             intent.putExtra("uid", uid);
                             intent.putExtra("key", keyCtg);
                             intent.putExtra("keySet", keySet);
@@ -135,7 +135,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorSetActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Set_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("categoryImage", imageUrl);
@@ -149,11 +149,11 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
             @Override
             public void onClick(View v) {
                 if(list.size() == 0) {
-                    Toast.makeText(QuizEducatorQuestionActivity.this, "You haven't added any question to this set.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Question_Activity.this, "You haven't added any question to this set.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorPostActivity.class);
+                Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Post_Activity.class);
                 intent.putExtra("uid", uid);
                 intent.putExtra("key", keyCtg);
                 intent.putExtra("keySet", keySet);
@@ -173,7 +173,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                     ArrayList<String> postedSet = (ArrayList<String>) snapshot.getValue();
 
                     if(postedSet != null && postedSet.contains(keySet)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorQuestionActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Question_Activity.this);
                         builder.setTitle("Unable to Delete Question");
                         builder.setMessage("You cannot delete questions in this set because it's already been posted to students. " +
                                 "\n\nTo modify or delete questions, you need to cancel the posting of this set to students. " +
@@ -186,7 +186,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                         });
                         builder.show();
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorQuestionActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Question_Activity.this);
                         builder.setTitle("Confirm Deletion");
                         builder.setMessage("Are you sure you want to delete Question " + (position + 1) + "?");
 
@@ -199,7 +199,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                         builder.show();
                     }
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(QuizEducatorQuestionActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Educator_Quiz_Question_Activity.this);
                     builder.setTitle("Confirm Deletion");
                     builder.setMessage("Are you sure you want to delete Question " + (position + 1) + "?");
 
@@ -228,13 +228,13 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
                 public void onSuccess(Void aVoid) {
                     list.remove(position);
                     adapter.notifyItemRemoved(position);
-                    Toast.makeText(QuizEducatorQuestionActivity.this, "Question " + (position + 1) +" is deleted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Question_Activity.this, "Question " + (position + 1) +" is deleted successfully", Toast.LENGTH_SHORT).show();
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(QuizEducatorQuestionActivity.this, "Fail to delete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Quiz_Question_Activity.this, "Fail to delete", Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -249,7 +249,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
 
                     if(postedSet != null && postedSet.contains(keySet)) {
                         QuestionModel model = list.get(position);
-                        Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorAddQuestionActivity.class);
+                        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
                         intent.putExtra("uid", uid);
                         intent.putExtra("key", keyCtg);
                         intent.putExtra("keySet", keySet);
@@ -277,7 +277,7 @@ public class QuizEducatorQuestionActivity extends AppCompatActivity implements R
 
     private void proceedWithIntent(int position) {
         QuestionModel model = list.get(position);
-        Intent intent = new Intent(QuizEducatorQuestionActivity.this, QuizEducatorAddQuestionActivity.class);
+        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("key", keyCtg);
         intent.putExtra("keySet", keySet);
