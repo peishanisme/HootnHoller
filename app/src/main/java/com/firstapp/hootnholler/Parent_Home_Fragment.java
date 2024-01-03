@@ -198,6 +198,9 @@ public class Parent_Home_Fragment extends Fragment {
                     // if classroom exists
                     if (classSnapshot.getValue(Boolean.class) == true) {
                         for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(classSnapshot.getKey()).child("Assignment").getChildren()) {
+                            if(!assignmentSnapshot.child("dueDate").exists()){
+                                continue;
+                            }
                             long timeStamp = assignmentSnapshot.child("dueDate").getValue(Long.class);
                             if(isThisWeek(new Date(timeStamp))){
                                 totalTask++;
