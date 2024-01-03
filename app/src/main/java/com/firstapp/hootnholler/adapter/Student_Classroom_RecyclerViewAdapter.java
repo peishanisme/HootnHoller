@@ -22,13 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class Classroom_RecyclerViewAdapter extends RecyclerView.Adapter<Classroom_RecyclerViewAdapter.MyViewHolder> {
+public class Student_Classroom_RecyclerViewAdapter extends RecyclerView.Adapter<Student_Classroom_RecyclerViewAdapter.MyViewHolder> {
 
     private List<Classroom> classroomList;
     private Context context;
     private DatabaseReference user;
 
-    public Classroom_RecyclerViewAdapter(Context context, List<Classroom> classroomList) {
+    public Student_Classroom_RecyclerViewAdapter(Context context, List<Classroom> classroomList) {
         this.context = context;
         this.classroomList = classroomList;
     }

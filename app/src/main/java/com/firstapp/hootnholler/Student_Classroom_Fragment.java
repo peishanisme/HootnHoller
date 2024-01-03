@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firstapp.hootnholler.adapter.Classroom_RecyclerViewAdapter;
+import com.firstapp.hootnholler.adapter.Student_Classroom_RecyclerViewAdapter;
 import com.firstapp.hootnholler.entity.Classroom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +33,7 @@ public class Student_Classroom_Fragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<Classroom> classroomList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager;
-    Classroom_RecyclerViewAdapter recyclerViewAdapter;
+    Student_Classroom_RecyclerViewAdapter recyclerViewAdapter;
     FirebaseAuth auth= FirebaseAuth.getInstance();
     private FirebaseUser currentUser=auth.getCurrentUser();
 
@@ -56,7 +56,7 @@ public class Student_Classroom_Fragment extends Fragment {
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), classroomList);
+        recyclerViewAdapter = new Student_Classroom_RecyclerViewAdapter(getActivity(), classroomList);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         if (currentUser != null) {
