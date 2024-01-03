@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.entity.Assignment;
 import com.firstapp.hootnholler.entity.Quiz;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,9 +22,9 @@ public class Student_Quiz extends RecyclerView.Adapter<Student_Quiz.MyViewHolder
     Context context;
 
 
-    public Student_Quiz(Context context,ArrayList<Quiz> quizList) {
+    public Student_Quiz(ArrayList<Quiz> quizList) {
         this.quizList = quizList;
-        this.context=context;
+
     }
 
     @NonNull
@@ -38,41 +38,17 @@ public class Student_Quiz extends RecyclerView.Adapter<Student_Quiz.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Quiz quiz = quizList.get(position);
         holder.subject.setText(quiz.getSubject());
-        holder.setNum.setText(quiz.getSet());
+        holder.setNum.setText(quiz.getSetName());
 
-        double num = quiz.getScore();
-        String formattedScore = calculatedScore(num);
-        holder.score.setText(formattedScore);
+        holder.scorePercentage.setText(quiz.getScore());
 
-        //set subject image
-        if(quiz.getSubject()=="bm"){
-            holder.quizSubjectImage.setImageResource(R.drawable.bm_subject);
-        }
-        else if (quiz.getSubject() == "science"){
-            holder.quizSubjectImage.setImageResource((R.drawable.science_subject));
-        }
-        else if (quiz.getSubject() == "math"){
-            holder.quizSubjectImage.setImageResource((R.drawable.mathematics_subject));
-        }
-        else if (quiz.getSubject() == "eng"){
-            holder.quizSubjectImage.setImageResource((R.drawable.eng_subject));
-        }
-        else if (quiz.getSubject() == "moral"){
-            holder.quizSubjectImage.setImageResource((R.drawable.moral_subject));
-        }
-        else if (quiz.getSubject() == "geo"){
-            holder.quizSubjectImage.setImageResource((R.drawable.geo_subject));
-        }
-
+        Picasso.get()
+                .load(quiz.getCategoryImage())
+                .placeholder(R.drawable.loading)
+                .into(holder.quizSubjectImage);
 
     }
 
-    //calculate final score of quiz
-    private String calculatedScore(double num) {
-        double percentage = (num / 20) * 100;
-        // Format the percentage to show two decimal places
-        return String.format("%.2f%%", percentage);
-    }
 
     @Override
     public int getItemCount() {
@@ -81,14 +57,14 @@ public class Student_Quiz extends RecyclerView.Adapter<Student_Quiz.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView subject,setNum,score;
+        TextView subject,setNum,scorePercentage;
         ImageView quizSubjectImage;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             subject = itemView.findViewById(R.id.subject);
             setNum = itemView.findViewById(R.id.setNum);
-            score = itemView.findViewById(R.id.score);
+            scorePercentage = itemView.findViewById(R.id.score);
             quizSubjectImage = (ImageView) itemView.findViewById(R.id.quiz_image);
         }
     }

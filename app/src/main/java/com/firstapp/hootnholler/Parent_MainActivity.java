@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import com.firstapp.hootnholler.databinding.ActivityParentMainBinding;
 
@@ -33,7 +34,6 @@ public class Parent_MainActivity extends AppCompatActivity {
                 replaceFragment(new Profile_Fragment());}
 
         });
-
 
     }
 
