@@ -7,21 +7,6 @@
     tools:context=".Student_Class"
     android:background="@color/white">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottomNavigationView"
-        android:background="#7DC8FE"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/student_bottom_nav_menu"
-        app:itemIconSize="32dp"
-        app:labelVisibilityMode="unlabeled">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">

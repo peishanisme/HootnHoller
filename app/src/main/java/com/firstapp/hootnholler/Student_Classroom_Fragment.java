@@ -38,12 +38,13 @@ public class Student_Classroom_Fragment extends Fragment {
     private FirebaseUser currentUser=auth.getCurrentUser();
 
     String uid=currentUser.getUid().toString();
-    DatabaseReference classroom, studentClass,student;
+    DatabaseReference classroomRef, studentClass,student, database;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    EditText classCode;
     Button JoinClass;
+    EditText classCode;
     View close_button;
+    String classcode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,41 +62,26 @@ public class Student_Classroom_Fragment extends Fragment {
 
         if (currentUser != null) {
             studentClass = FirebaseDatabase.getInstance().getReference("Student").child(uid).child("JoinedClass");
-            classroom=FirebaseDatabase.getInstance().getReference("Classroom");
-
+            classroomRef=FirebaseDatabase.getInstance().getReference("Classroom");
+            database = FirebaseDatabase.getInstance().getReference();
             // Query the classrooms where classOwner is the UID of the current user
-            studentClass.addListenerForSingleValueEvent(new ValueEventListener() {
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
                     classroomList.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.exists()){
-                            String classCode= snapshot.getKey();
-                            classroom.child(classCode).addListenerForSingleValueEvent(new ValueEventListener() {
-
-
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Classroom classroom=snapshot.getValue(Classroom.class);
-                                    classroomList.add(classroom);
-                                    recyclerViewAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                            }
-
+                    for (DataSnapshot classCodeSnapshot:snapshot.child("Student").child(uid).child("JoinedClass").getChildren()) {
+                        if(classCodeSnapshot.exists()){
+                            classcode = classCodeSnapshot.getKey();
+                            Classroom classroom = snapshot.child("Classroom").child(classcode).getValue(Classroom.class);
+                            classroomList.add(classroom);
+                            recyclerViewAdapter.notifyDataSetChanged();
                         }
                     }
-
-
+                }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle error
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }
@@ -116,8 +102,9 @@ public class Student_Classroom_Fragment extends Fragment {
         View dialogView = getLayoutInflater().inflate(R.layout.pop_up_student_join_class, null);
         builder.setView(dialogView);
 
-        classroom = FirebaseDatabase.getInstance().getReference("Classroom");
+        classroomRef = FirebaseDatabase.getInstance().getReference("Classroom");
         student = FirebaseDatabase.getInstance().getReference("Student");
+        database = FirebaseDatabase.getInstance().getReference();
 
         JoinClass = dialogView.findViewById(R.id.JoinClass);
         classCode = dialogView.findViewById(R.id.classCode);
@@ -137,12 +124,12 @@ public class Student_Classroom_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String ClassCode = classCode.getText().toString();
-                DatabaseReference classCodeReference = classroom.child(ClassCode);
+                DatabaseReference classCodeReference = classroomRef.child(ClassCode);
                 classCodeReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            DatabaseReference classroomReference=classroom.child(ClassCode).child("StudentsJoined").child(uid);
+                            DatabaseReference classroomReference=classroomRef.child(ClassCode).child("StudentsJoined").child(uid);
                             classroomReference.setValue(true);
                             DatabaseReference studentReference=student.child(uid).child("JoinedClass").child(ClassCode);
                             studentReference.setValue(true);

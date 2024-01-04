@@ -40,7 +40,7 @@ public class Student_CompletedAssignment extends AppCompatActivity {
         due.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Student_CompletedAssignment.this, Student_DueAssignment.class);
+                Intent intent = new Intent(Student_CompletedAssignment.this, Student_Assignment.class);
                 startActivity(intent);
             }
         });
