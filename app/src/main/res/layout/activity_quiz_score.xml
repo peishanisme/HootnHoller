@@ -1,201 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    tools:context=".Quiz_Score_Activity" >
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".Quiz_Score_Activity" >
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/BackwardWeekBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/baseline_arrow_back_ios_24" />
+
+                <TextView
+                    android:id="@+id/date_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="12 Nov 2023 - 18 Nov 2023"
+                    android:textColor="#0E194D"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ForwardWeekBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layoutDirection="rtl"
+                    android:src="@drawable/baseline_arrow_back_ios_24" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="20dp"
+                android:background="@drawable/purple_rectangle"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="center">
 
                 <LinearLayout
+                    android:id="@+id/Number_Task_Assigned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="60dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/BackwardWeekBtn"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/baseline_arrow_back_ios_24" />
+                    android:layout_marginLeft="9dp"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp">
 
                     <TextView
-                        android:id="@+id/date_range"
+                        android:id="@+id/Number_Of_Quiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="12 Nov 2023 - 18 Nov 2023"
-                        android:textColor="#0E194D"
-                        android:textSize="16sp" />
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/ForwardWeekBtn"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layoutDirection="rtl"
-                        android:src="@drawable/baseline_arrow_back_ios_24" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:paddingTop="0dp"
+                        android:text="Quizzes"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/Completed_Task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_Completed_Quiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:paddingTop="0dp"
+                        android:text="Completed"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/Incomplete"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/purple_rectangle"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:gravity="center">
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="587dp"
 
-                    <LinearLayout
-                        android:id="@+id/Number_Task_Assigned"
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_Incomplete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:layout_editor_absoluteY="587dp">
+                        android:layout_gravity="center"
+                        android:layout_marginRight="3dp"
+                        android:padding="8dp"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/Number_Of_Quiz"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="8dp"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="23sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:paddingTop="0dp"
-                            android:text="Quizzes"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/Completed_Task"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:layout_editor_absoluteY="587dp"
-
-                        >
-
-                        <TextView
-                            android:id="@+id/Number_Completed_Quiz"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="8dp"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="23sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:paddingTop="0dp"
-                            android:text="Completed"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/Incomplete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:layout_editor_absoluteY="587dp"
-
-                        >
-
-                        <TextView
-                            android:id="@+id/Number_Incomplete"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="3dp"
-                            android:padding="8dp"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="23sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:paddingTop="0dp"
-                            android:text="Incomplete"
-                            android:textColor="@color/black"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:paddingTop="0dp"
+                        android:text="Incomplete"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Quizzes"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/quizzes_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
-        </ScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="20dp"
+                android:text="Quizzes"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/quizzes_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,17 +100,6 @@ public class Quiz_Score_Activity extends AppCompatActivity {
                 formDate(WeekFromToday);
                 quizRecyclerView.clear();
                 Student_Quiz_Adapter.notifyDataSetChanged();
-            }
-        });
-
-        binding.back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getApplicationContext(), Parent_MainActivity.class);
-                intent.putExtra("FRAGMENT_TO_LOAD", "home_Fragment"); // Pass the fragment tag or ID here
-                startActivity(intent);
-
             }
         });
     }
@@ -325,9 +316,16 @@ public class Quiz_Score_Activity extends AppCompatActivity {
     }
 
     private void updateUiElements() {
-        NumOfQuiz.setText(String.valueOf(TotalQuiz));
-        NumOfCompletedQuiz.setText(String.valueOf(TotalCompleted));
-        NumOfIncompletedQuiz.setText(String.valueOf(TotalIncompleted));
+        setText(NumOfQuiz, TotalQuiz);
+        setText(NumOfCompletedQuiz, TotalCompleted);
+        setText(NumOfIncompletedQuiz, TotalIncompleted);
     }
 
+    private void setText(TextView textView, int num) {
+        if(num==0) {
+            textView.setText("-");
+        } else {
+            textView.setText(String.valueOf(num));
+        }
+    }
 }
