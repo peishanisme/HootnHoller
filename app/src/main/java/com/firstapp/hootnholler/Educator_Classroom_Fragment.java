@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.firstapp.hootnholler.adapter.Classroom_RecyclerViewAdapter;
 import com.firstapp.hootnholler.entity.Classroom;
+import com.firstapp.hootnholler.entity.Conversation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ValueEventListener;
@@ -36,6 +37,7 @@ public class Educator_Classroom_Fragment extends Fragment {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 5;
     DatabaseReference classroom;
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth auth= FirebaseAuth.getInstance();
     private FirebaseUser currentUser=auth.getCurrentUser();
     String uid=currentUser.getUid().toString();
@@ -43,7 +45,7 @@ public class Educator_Classroom_Fragment extends Fragment {
     View close_button;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    private List<Classroom> classroomList = new ArrayList<>(); // Your list of classrooms
+    private List<Classroom>  classroomList = new ArrayList<>(); // Your list of classrooms
     private Classroom_RecyclerViewAdapter recyclerViewAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,13 +130,26 @@ public class Educator_Classroom_Fragment extends Fragment {
                 // Generate class code
                 String classCode = generateRandomClassCode();
 
+                // automatically create grp chat with student and parents
+                DatabaseReference grpChatWifStudentDatabaseRef = database.child("Conversation").child("GroupChat").push();
+                grpChatWifStudentDatabaseRef.child("Name").setValue(ClassName + " [Collaborative Classroom]");
+                String grpChatWifStudentKey = grpChatWifStudentDatabaseRef.getKey();
+
+                DatabaseReference grpChatWifParentDatabaseRef = database.child("Conversation").child("GroupChat").push();
+                grpChatWifParentDatabaseRef.child("Name").setValue(ClassName + " [Parent-Teacher Forum]");
+                String grpChatWifParentKey = grpChatWifParentDatabaseRef.getKey();
+
                 // Use class code as the key to save data in the Firebase Realtime Database
                 DatabaseReference classReference = classroom.child(classCode);
-                classReference.child("ClassName").setValue(ClassName);
-                classReference.child("ClassSession").setValue(ClassSession);
-                classReference.child("ClassDescription").setValue(ClassDescription);
-                classReference.child("ClassOwner").setValue(uid);
+                classReference.child("className").setValue(ClassName);
+                classReference.child("classSession").setValue(ClassSession);
+                classReference.child("classDescription").setValue(ClassDescription);
+                classReference.child("classOwner").setValue(uid);
+                classReference.child("groupChat").child("student").setValue(grpChatWifStudentKey);
+                classReference.child("groupChat").child("parent").setValue(grpChatWifParentKey);
 
+                database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifStudentKey).setValue(true);
+                database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifParentKey).setValue(true);
 
                 dialog.dismiss();
             }
