@@ -90,7 +90,7 @@
         android:text="Edit Assignment"
         android:textSize="14dp"
         app:layout_column="1"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/file"

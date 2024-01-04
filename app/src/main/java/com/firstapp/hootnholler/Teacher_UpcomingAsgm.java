@@ -28,8 +28,8 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
     ImageButton back;
     TextView noUpcomingAss, rfg, graded;
     String currentClassCode;
-    RecyclerView recyclerView;
-    DatabaseReference database;
+    RecyclerView assList;
+    DatabaseReference assRef;
     Asgm_ArrayAdapter asgm_ArrayAdapter;
     ArrayList <Assignment> asgmList;
 
@@ -37,30 +37,27 @@ public class Teacher_UpcomingAsgm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_activity_upcoming_asgm);
+        currentClassCode = getIntent().getStringExtra("classCode");
 
         createAsgm = (Button)findViewById(R.id.createAsgm);
         back = (ImageButton)findViewById(R.id.backButton);
         noUpcomingAss = (TextView) findViewById(R.id.noUpcomingAss);
         rfg = (TextView) findViewById(R.id.RFG);
         graded = (TextView) findViewById(R.id.graded);
+        assList = findViewById(R.id.upcomingList);
 
-        currentClassCode = getIntent().getStringExtra("classCode");
-
-        recyclerView = findViewById(R.id.upcomingList);
-        database = FirebaseDatabase.getInstance().getReference("Classroom")
-                        .child(currentClassCode)
-                        .child("Assignment")
-        ;
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        assList.setLayoutManager(layoutManager);
         asgmList = new ArrayList<>();
-        asgm_ArrayAdapter = new Asgm_ArrayAdapter(this, asgmList);
-        recyclerView.setAdapter(asgm_ArrayAdapter);
+        asgm_ArrayAdapter = new Asgm_ArrayAdapter(this, asgmList, currentClassCode);
+        assList.setAdapter(asgm_ArrayAdapter);
+
+        assRef = FirebaseDatabase.getInstance().getReference("Classroom")
+                        .child(currentClassCode)
+                        .child("Assignment");
 
 
-        database.addValueEventListener(new ValueEventListener() {
+        assRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){

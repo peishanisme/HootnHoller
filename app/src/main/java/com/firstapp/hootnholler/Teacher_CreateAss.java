@@ -239,7 +239,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         public static long convertDateTimeToTimestamp(String inputDateTime) {
             try {
                 // Define the format of your input date and time
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MM yyyy, HH:mm:ss a", java.util.Locale.getDefault());
 
                 // Parse the input date and time string to get a Date object
                 Date date = sdf.parse(inputDateTime);
@@ -256,7 +256,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         public static String convertTimestampToDateTime(long timestamp){
             try{
                 Date currentDate = (new Date(timestamp));
-                SimpleDateFormat sfd = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat sfd = new SimpleDateFormat("EEE, dd MM yyyy, HH:mm:ss a", Locale.getDefault());
                 return sfd.format(currentDate);
             } catch(Exception e){
                 return "date";
