@@ -17,8 +17,8 @@ import com.firstapp.hootnholler.Teacher_CreateAss;
 import com.firstapp.hootnholler.entity.Assignment;
 
 public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.MyViewHolder>{
-    Context context;
-    ArrayList<Assignment> asgmList;
+    private Context context;
+    private ArrayList<Assignment> asgmList;
 
     public Asgm_ArrayAdapter(Context context, ArrayList<Assignment> asgmList) {
         this.context = context;

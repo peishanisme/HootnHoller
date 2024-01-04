@@ -85,15 +85,15 @@
         android:id="@+id/createAsgm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:background="#5D71C9"
         android:backgroundTint="#5D71C9"
         android:text="Edit Assignment"
         android:textSize="14dp"
         app:layout_column="1"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/file"
         app:layout_gravity="center_horizontal"
         app:layout_row="0" />
 
@@ -107,17 +107,6 @@
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/RFG" />
-
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="Submission Status"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/dueDate"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
     <TextView
         android:id="@+id/openDate"
@@ -140,60 +129,57 @@
         app:layout_constraintStart_toStartOf="@+id/openDate"
         app:layout_constraintTop_toBottomOf="@+id/openDate" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="341dp"
-        android:layout_height="85dp"
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="Description"
+        android:textColor="#545353"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/dueDate"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/file"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status">
+        app:layout_constraintTop_toBottomOf="@+id/description">
 
-        <TableRow android:background="#E4E5E6">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="15dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:padding="10dp"
-                android:text="Submission Status"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:padding="10dp"
-                android:text="Attempt"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-        </TableRow>
-
-        <TableRow android:background="#CCCCCC">
+            <ImageView
+                android:id="@+id/pdfIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/pdf_svgrepo_com" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/assFileName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:padding="10dp"
-                android:text="Time Remaining"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toRightOf="@id/pdfIcon"
+                android:text="Chapter 3 - Human"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:padding="10dp"
-                android:text="time left"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-        </TableRow>
-    </TableLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
