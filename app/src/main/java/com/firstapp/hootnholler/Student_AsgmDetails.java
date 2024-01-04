@@ -34,10 +34,6 @@ public class Student_AsgmDetails extends AppCompatActivity {
         fileName=findViewById(R.id.fileName);
         submissionStatus=findViewById(R.id.submissionStatus);
         timeRemaining=findViewById(R.id.timeLeft);
-        uploadFileName=findViewById(R.id.uploadFileName);
-        uploadFile=findViewById(R.id.addFile);
-        submitLayout=findViewById(R.id.submitLayout);
-        uploadButton=findViewById(R.id.uploadButton);
         addSubmisssionButton =findViewById(R.id.btnAddSubmission);
 
         assId=getIntent().getStringExtra("assID");
@@ -58,8 +54,6 @@ public class Student_AsgmDetails extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                Intent intent = new Intent(Student_AsgmDetails.this, Student_UpcomingAssignment.class);
-                startActivity(intent);
             }
         });
     }
