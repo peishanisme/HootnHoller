@@ -183,20 +183,30 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
 
             // Store the ConnectionKey in the "Parent" collection under the current user ID
             if (!ConnectionKey.isEmpty()) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference ConnectionKeyReference = FirebaseDatabase.getInstance().getReference().child("Parent");
-                DatabaseReference StudentReference = FirebaseDatabase.getInstance().getReference().child("Student");
+                DatabaseReference UserReference = FirebaseDatabase.getInstance().getReference().child("Users");
                 HashMap<String, String> connectionKey = new HashMap<>();
-                StudentReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         OuterLoop:
                         for (int i = 0; i < ConnectionKey.size(); i++) {
-                            for (DataSnapshot keySnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot keySnapshot : snapshot.child("Student").getChildren()) {
                                 String studentUID = keySnapshot.getKey();
                                 String key = keySnapshot.child("connection_key").getValue(String.class);
                                 if(key != null) {
                                     if (key.equals(ConnectionKey.get(i))) {
                                         connectionKey.put(ConnectionKey.get(i), studentUID);
+                                        for (DataSnapshot classroomSnapshot : snapshot.child("Student").child(studentUID).child("JoinedClass").getChildren()) {
+                                            if(classroomSnapshot.getValue(Boolean.class)){
+                                                String classCode = classroomSnapshot.getKey();
+                                                String groupChatKey = snapshot.child("Classroom").child(classCode).child("groupChat").child("parent").getValue(String.class);
+                                                if(groupChatKey != null){
+                                                    UserReference.child(currentUserID).child("joinedGrpChatKey").child(groupChatKey).setValue(true);
+                                                }
+                                            }
+                                        }
                                         continue OuterLoop;
                                     }
                                 }
