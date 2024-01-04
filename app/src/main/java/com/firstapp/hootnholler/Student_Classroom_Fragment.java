@@ -73,6 +73,7 @@ public class Student_Classroom_Fragment extends Fragment {
                         if(classCodeSnapshot.exists()){
                             classcode = classCodeSnapshot.getKey();
                             Classroom classroom = snapshot.child("Classroom").child(classcode).getValue(Classroom.class);
+                            classroom.setClassCode(classcode);
                             classroomList.add(classroom);
                             recyclerViewAdapter.notifyDataSetChanged();
                         }

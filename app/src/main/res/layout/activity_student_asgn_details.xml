@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Student_AsgmDetails">
+    tools:context=".Student_AsgmDetails"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -235,9 +236,53 @@
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
-                <TextView
-                    android:id="@+id/fileSubmission"
+                <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="8">
+
+                    <TextView
+                        android:id="@+id/fileSubmission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Tuto5 by lalala"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/timeSubmission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="2023/03/02 12pm"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+
+            </TableRow>
+
+            <TableRow android:background="#EAEAEA"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Submission Comment"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/submissionComment"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="8"
@@ -247,8 +292,6 @@
                     android:textSize="15dp" />
 
             </TableRow>
-
-
         </TableLayout>
         <Button
             android:id="@+id/btnAddSubmission"
@@ -264,9 +307,99 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
+        <LinearLayout
+            android:id="@+id/submitLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="#E8E7E7"
+                android:orientation="vertical"
+                android:paddingVertical="20dp">
+
+                <EditText
+                    android:id="@+id/submissionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="13"
+                    android:hint="Select a file"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textColorHint="#898888" />
+
+                <ImageView
+                    android:id="@+id/addFile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_attach_file"></ImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="#CDCDCD"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/Comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="13"
+                    android:hint="Leave a comment (optional)"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textColorHint="#898888" />
+
 
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+                <Button
+                    android:id="@+id/uploadFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/button_colour"
+                    android:text="Upload"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <Button
+                    android:id="@+id/cancelUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/button_colour"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="20dp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 

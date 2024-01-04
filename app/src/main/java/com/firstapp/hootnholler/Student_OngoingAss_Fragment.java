@@ -43,9 +43,7 @@ public class Student_OngoingAss_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.ongoingAssList);
         noAss = view.findViewById(R.id.TVnoAss);
 
-        database = FirebaseDatabase.getInstance().getReference("Classroom")
-                .child(currentClassCode)
-                .child("Assignment");
+        database = FirebaseDatabase.getInstance().getReference();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // Use getActivity() instead of this
@@ -53,7 +51,7 @@ public class Student_OngoingAss_Fragment extends Fragment {
         asgmList = new ArrayList<>();
         Student_Ass_Adapter = new Student_Ass_Adapter(getActivity(), asgmList,currentClassCode); // Use getActivity() instead of this
         recyclerView.setAdapter(Student_Ass_Adapter);
-        database.addValueEventListener(new ValueEventListener() {
+        database.child("Classroom").child(currentClassCode).child("Assignment").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -62,6 +60,8 @@ public class Student_OngoingAss_Fragment extends Fragment {
                     if (asgm != null) {
                         asgmList.add(asgm);
                     }
+                    System.out.println("test");
+                    System.out.println(asgm.getTitle());
                 }
                 if (asgmList.isEmpty()) {
                     noAss.setVisibility(View.VISIBLE);

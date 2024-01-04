@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class Student_Ass_Adapter extends RecyclerView.Adapter {
+public class Student_Ass_Adapter extends RecyclerView.Adapter<Student_Ass_Adapter.MyViewHolder> {
     Context context;
     ArrayList<Assignment> asgmList;
     String currentClassCode;
@@ -38,14 +38,9 @@ public class Student_Ass_Adapter extends RecyclerView.Adapter {
         return new MyViewHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Assignment asgm = asgmList.get(position);
+        holder.dueMsg.setVisibility(View.GONE);
         holder.asgmTitle.setText(asgm.getTitle());
 
         if (asgm.getDueDate() != null) {
@@ -76,13 +71,14 @@ public class Student_Ass_Adapter extends RecyclerView.Adapter {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView asgmTitle,asgmDueDate;
+        TextView asgmTitle,asgmDueDate,dueMsg;
         CardView card;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             asgmTitle = itemView.findViewById(R.id.asgmTitle);
             asgmDueDate = itemView.findViewById(R.id.dateTime);
+            dueMsg=itemView.findViewById(R.id.dueMsg);
             card=itemView.findViewById(R.id.card);
         }
     }
