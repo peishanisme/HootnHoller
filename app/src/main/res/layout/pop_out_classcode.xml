@@ -37,7 +37,7 @@
         android:id="@+id/classCode_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Students can join the class\n with this code..."
+        android:text="Students can join the class\n with this code:"
         android:textColor="#545353"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"

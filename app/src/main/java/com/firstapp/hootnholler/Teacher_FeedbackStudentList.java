@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Feedback_Student_List_Adapter;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 
 public class Teacher_FeedbackStudentList extends AppCompatActivity {
     private String currentClassCode;
+    private ImageButton back;
     private TextView classroomName, numOfStudents;
     private DatabaseReference ClassroomRef = FirebaseDatabase.getInstance().getReference("Classroom");
     private DatabaseReference StudentRef = FirebaseDatabase.getInstance().getReference("Student");
@@ -40,6 +44,16 @@ public class Teacher_FeedbackStudentList extends AppCompatActivity {
         StudentRecycledView.setAdapter(FeedbackStudentListAdapter);
         StudentRecycledView.setLayoutManager(new LinearLayoutManager(this));
         getClassroomDetails();
+
+        back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Teacher_FeedbackStudentList.this, Teacher_Class.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getClassroomDetails(){

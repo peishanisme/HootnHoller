@@ -21,11 +21,12 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/back_button"
+            <ImageButton
+                android:id="@+id/back"
                 android:layout_width="25sp"
                 android:layout_height="98dp"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_back"
+                android:background="@android:color/transparent"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,7 +43,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/materialList"
-            android:layout_width="match_parent"
+            android:layout_width="371dp"
+            android:layout_marginStart="20dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp">
 

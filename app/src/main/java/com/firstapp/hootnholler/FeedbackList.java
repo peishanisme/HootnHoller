@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.TeacherStudentFeedbackPager_Adapter;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class FeedbackList extends AppCompatActivity {
 
     private TabLayout tabLayout;
+    private ImageButton back;
     private ViewPager2 container;
     private TextView studentName;
     private FloatingActionButton createFeedback;
@@ -43,6 +45,7 @@ public class FeedbackList extends AppCompatActivity {
         pageAdapter = new TeacherStudentFeedbackPager_Adapter(this, currentClassCode, studentUID);
         container.setAdapter(pageAdapter);
         createFeedback = findViewById(R.id.createFeedback);
+        back = findViewById(R.id.back);
         getStudentDetails();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -75,6 +78,14 @@ public class FeedbackList extends AppCompatActivity {
                 Intent intent = new Intent(FeedbackList.this, Teacher_CreateFeedback.class);
                 intent.putExtra("studentUID", studentUID);
                 intent.putExtra("classCode", currentClassCode);
+                startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FeedbackList.this, Teacher_FeedbackStudentList.class);
                 startActivity(intent);
             }
         });

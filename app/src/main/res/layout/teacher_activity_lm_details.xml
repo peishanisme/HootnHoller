@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -25,12 +24,12 @@
             android:background="@android:color/transparent"/>
 
         <TextView
-            android:layout_width="376dp"
-            android:layout_height="124dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingLeft="10sp"
             android:paddingTop="25sp"
-            android:text="Learning\nMaterials"
+            android:text="Learning Materials"
             android:textColor="#5269CD"
             android:textSize="32sp"
             android:textStyle="bold" />

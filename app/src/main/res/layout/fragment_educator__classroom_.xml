@@ -12,8 +12,8 @@
         android:id="@+id/createClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="555dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginTop="670dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_add"
@@ -51,8 +51,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/classList"
-                android:layout_width="match_parent"
+                android:layout_width="390dp"
                 android:layout_height="813dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:scrollbars="vertical"
                 />
 

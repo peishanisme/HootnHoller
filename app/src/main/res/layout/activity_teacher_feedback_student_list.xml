@@ -7,13 +7,14 @@
     android:orientation="vertical"
     tools:context=".Teacher_FeedbackStudentList">
 
+
     <LinearLayout
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        >
+        android:layout_gravity="center_horizontal">
+
 
         <TextView
             android:id="@+id/feedback_classroom_name"
@@ -37,11 +38,21 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-55dp"
+        android:background="@android:color/transparent"
+        android:paddingLeft="10dp"
+        android:src="@drawable/ic_back" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:paddingHorizontal="30dp">
 
         <TextView
@@ -50,6 +61,7 @@
             android:text="Students"
             android:textSize="16sp"
             android:textStyle="bold"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feedback_student_list"
@@ -60,5 +72,6 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
+
 
 </LinearLayout>

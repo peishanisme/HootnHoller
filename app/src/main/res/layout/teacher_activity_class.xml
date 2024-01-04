@@ -23,11 +23,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp">
 
-                <ImageView
-                    android:id="@+id/back_button"
+                <ImageButton
+                    android:id="@+id/back"
                     android:layout_width="25sp"
                     android:layout_height="83sp"
-                    android:src="@drawable/ic_back"/>
+                    android:src="@drawable/ic_back"
+                    android:background="@android:color/transparent"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,7 +147,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30sp"
                         android:gravity="center_vertical"
-                        android:text="Announcements"
+                        android:text="Announcement"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -209,7 +210,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30sp"
                         android:gravity="center_vertical"
-                        android:text="Learning \nMaterials"
+                        android:text="Learning \nMaterial"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -240,7 +241,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30sp"
                         android:gravity="center_vertical"
-                        android:text="Feedbacks"
+                        android:text="Feedback"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 

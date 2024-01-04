@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class Teacher_Announcement extends AppCompatActivity {
     String currentClassCode;
     CardView announcement;
+    ImageButton back;
     Dialog mdialog;
     private RecyclerView announcementList;
     private Announcement_Adapter announcementAdapter;
@@ -38,6 +41,7 @@ public class Teacher_Announcement extends AppCompatActivity {
         setContentView(R.layout.teacher_activity_announcement);
         currentClassCode = getIntent().getStringExtra("classCode");
         announcement = findViewById(R.id.AnnouncementWindow);
+        back = findViewById(R.id.back);
 
         // Initialize UI elements
         announcementList = findViewById(R.id.announcementList);
@@ -88,6 +92,14 @@ public class Teacher_Announcement extends AppCompatActivity {
             public void onClick(View view) {
                 // Display the pop-up window
                 showAnnouncementPopup();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_Announcement.this, Teacher_Class.class);
+                startActivity(intent);
             }
         });
     }

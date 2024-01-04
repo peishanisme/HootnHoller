@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Announcement_Adapter;
@@ -27,6 +28,7 @@ import java.util.List;
 public class Teacher_LearningMaterials extends AppCompatActivity {
     TextView noAss;
     Button postButton;
+    ImageButton back;
     String currentClassCode;
     private List<Learning_Materials> lmList;
     private LMAdapter LMAdapter;
@@ -43,6 +45,7 @@ public class Teacher_LearningMaterials extends AppCompatActivity {
         noAss=findViewById(R.id.noAss);
         LMList=findViewById(R.id.materialList);
         postButton=findViewById(R.id.postbutton);
+        back = findViewById(R.id.back);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -83,8 +86,6 @@ public class Teacher_LearningMaterials extends AppCompatActivity {
         });
 
 
-
-
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +95,13 @@ public class Teacher_LearningMaterials extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_LearningMaterials.this, Teacher_Class.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

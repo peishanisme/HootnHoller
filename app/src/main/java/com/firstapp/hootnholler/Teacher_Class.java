@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ public class Teacher_Class extends AppCompatActivity {
     DatabaseReference classroom;
     TextView className, classSession, classDescription, numberofStudents;
     CardView classDetails, announcement, taskAssignment, learningMaterials, feedback;
-    ImageView backButton, overflowMenu;
+    ImageView overflowMenu;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class Teacher_Class extends AppCompatActivity {
         taskAssignment = findViewById(R.id.TasksAssignment);
         learningMaterials = findViewById(R.id.LearningMaterials);
         feedback = findViewById(R.id.Feedback);
-        backButton = findViewById(R.id.back_button);
+        back = findViewById(R.id.back);
         overflowMenu = findViewById(R.id.overflow);
 
         overflowMenu.setOnClickListener(new View.OnClickListener() {
@@ -134,10 +136,11 @@ public class Teacher_Class extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onClick(View v) {
+                Intent intent = new Intent(Teacher_Class.this, Educator_Classroom_Fragment.class);
+                startActivity(intent);
             }
         });
     }

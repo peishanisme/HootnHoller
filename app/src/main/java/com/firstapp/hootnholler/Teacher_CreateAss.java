@@ -52,7 +52,6 @@ public class Teacher_CreateAss extends AppCompatActivity {
     ImageButton buttonCalendar, backButton, btnAttachFile;
     long dueTimestamp;
 
-    String date,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
