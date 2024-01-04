@@ -3,20 +3,17 @@ package com.firstapp.hootnholler;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,21 +27,43 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student_Chat_Fragment extends Fragment {
+public class MainChatActivity extends AppCompatActivity {
+
+    private LinearLayout educatorLayout;
+    private LinearLayout parentLayout;
+    private LinearLayout studentLayout;
 
     private RecyclerView mainChatRecyclerView;
-    private Button searchContactButton;
+    private SearchView searchView;
     private Chat_UserAdapter userAdapter;
     private DatabaseReference usersRef;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_student__chat_, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_parent__chat_);
+
+//        educatorLayout = findViewById(R.id.EducatorLayout);
+//        parentLayout = findViewById(R.id.ParentLayout);
+//        studentLayout = findViewById(R.id.StudentLayout);
+//
+//        educatorLayout.setVisibility(View.GONE);
+//        parentLayout.setVisibility(View.GONE);
+//        studentLayout.setVisibility(View.GONE);
+
+        String roleType = "educator"; // Replace this with the actual role type
+
+        if (roleType.equalsIgnoreCase("educator")) {
+            educatorLayout.setVisibility(View.VISIBLE);
+        } else if (roleType.equalsIgnoreCase("parent")) {
+            parentLayout.setVisibility(View.VISIBLE);
+        } else if (roleType.equalsIgnoreCase("student")) {
+            studentLayout.setVisibility(View.VISIBLE);
+        }
 
         // Initialize RecyclerView and user list
-        mainChatRecyclerView = view.findViewById(R.id.mainChatRecyclerView);
-        mainChatRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mainChatRecyclerView = findViewById(R.id.mainChatRecyclerView);
+        mainChatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<ChatUser> userList = new ArrayList<>();
         userAdapter = new Chat_UserAdapter(userList);
         mainChatRecyclerView.setAdapter(userAdapter);
@@ -56,27 +75,14 @@ public class Student_Chat_Fragment extends Fragment {
         // Retrieve user data from Firebase
         retrieveUserData();
 
-        // Initialize the button and set click listener
-        searchContactButton = view.findViewById(R.id.search_contact_butt);
-        searchContactButton.setOnClickListener(new View.OnClickListener() {
+        // Handle item click events if needed
+        userAdapter.setOnItemClickListener(new Chat_UserAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                // Open the SearchContact activity when the button is clicked
-                Log.d("SearchContact", "Search button clicked!");
-                Intent intent = new Intent(getActivity(), SearchContact.class);
-                startActivity(intent);
+            public void onItemClick(int position) {
+                // Handle item click
+                Toast.makeText(MainChatActivity.this, "Item clicked at position " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Handle item click events if need
-        userAdapter.setOnItemClickListener(position -> {
-            // Handle item click
-            Toast.makeText(getActivity(), "Item clicked at position " + position, Toast.LENGTH_SHORT).show();
-        });
-
-        setHasOptionsMenu(true);
-
-        return view;
     }
 
     private void retrieveUserData() {
@@ -96,19 +102,20 @@ public class Student_Chat_Fragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
-                Toast.makeText(getActivity(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainChatActivity.this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.student_bottom_nav_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.parent_bottom_nav_menu, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(getActivity().SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.searchView).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().getComponentName()));
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.searchView).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         // Set the query listener for search functionality
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -125,13 +132,15 @@ public class Student_Chat_Fragment extends Fragment {
                 return true;
             }
         });
+
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.searchView) {
             // Open the activity_search_contact when the search icon is clicked
-            Intent intent = new Intent(getActivity(), SearchContact.class);
+            Intent intent = new Intent(this, SearchContact.class);
             startActivity(intent);
             return true;
         }

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:orientation="vertical"
+tools:context=".AddGroupChatMember">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/rl1">
+
+    <ImageView
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:src="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/newgrouptitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="78dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_toRightOf="@id/backbutton"
+        android:gravity="center"
+        android:text="New Group"
+        android:textColor="#5D71C9"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="320dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/search_view_bg"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toBottomOf="@+id/rl1"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Search contact" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rl2">
+    <Button
+        android:id="@+id/selectedGroupButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/msg_butt"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:text="@string/groupName"
+        android:textAllCaps="false"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/proceedbutton"
+        android:layout_width="45.5dp"
+        android:layout_height="45.5dp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_alignParentEnd="true"
+        app:cardBackgroundColor="#5D71C9"
+
+        app:cardCornerRadius="32.5dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/baseline_arrow_forward_24" />
+
+    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/classNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#C4CD88"
+        android:textStyle="bold"
+        android:text="@string/className"
+        android:layout_marginTop="10dp" />
+
+    <View
+        android:id="@+id/TitleLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#C4CD88"
+        app:layout_constraintTop_toBottomOf="@+id/contactTitle"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rl3">
+        <Button
+            android:id="@+id/all_students"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/msg_butt"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:text="All Students"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/all_guardians"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/msg_butt"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toRightOf="@id/all_students"
+            android:text="All Guardians"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/contactTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#C4CD88"
+        android:textStyle="bold"
+        android:text="Contacts"
+        android:layout_marginTop="10dp" />
+
+    <View
+        android:id="@+id/TitleLine2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#C4CD88"
+        app:layout_constraintTop_toBottomOf="@+id/contactTitle"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupContactRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"/>
+</LinearLayout>
+

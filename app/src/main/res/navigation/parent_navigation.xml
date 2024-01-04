@@ -19,7 +19,10 @@
         android:id="@+id/parent_Chat_Fragment"
         android:name="com.firstapp.hootnholler.Parent_Chat_Fragment"
         android:label="fragment_parent__chat_"
-        tools:layout="@layout/fragment_parent__chat_" />
+        tools:layout="@layout/fragment_parent__chat_"/>
+    <action
+        android:id="@+id/action_parent_Chat_Fragment_to_MainChatActivity"
+        app:destination="@id/MainChatActivity" />
     <fragment
         android:id="@+id/profile_Fragment2"
         android:name="com.firstapp.hootnholler.Profile_Fragment"

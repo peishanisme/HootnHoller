@@ -4,12 +4,12 @@ public class Parent {
 
     private String connectionKey;
 
-    public Parent(){
+    public Parent() {
 
     }
 
-    public Parent(String code){
-        this.connectionKey=connectionKey;
+    public Parent(String code) {
+        this.connectionKey = code;
     }
 
     public String getConnectionKey() {
@@ -17,6 +17,7 @@ public class Parent {
     }
 
     public void setConnectionKey(String code) {
-        this.connectionKey = connectionKey;
+        this.connectionKey = code;
     }
 }
+

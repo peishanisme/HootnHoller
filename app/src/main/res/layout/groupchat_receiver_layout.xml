@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_marginTop="@dimen/_8sdp"
+android:padding="4dp">
+
+<ImageView
+    android:id="@+id/profileImage"
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:scaleType="centerCrop"
+    app:layout_constraintBottom_toBottomOf="@id/msgReceiver"
+    app:layout_constraintStart_toStartOf="parent"
+    android:src="@drawable/profile_circle_svgrepo_com" />
+
+
+
+<TextView
+    android:id="@+id/receivername"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:textColor="#A0A0A0"
+    android:textSize="@dimen/_8ssp"
+    app:layout_constraintEnd_toStartOf="@id/msgReceiver"
+    app:layout_constraintBaseline_toTopOf="@id/msgReceiver" />
+
+<TextView
+    android:id="@+id/msgReceiver"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginLeft="4dp"
+    android:background="@drawable/receiver_shape"
+    android:paddingStart="@dimen/_12sdp"
+    android:paddingTop="@dimen/_8sdp"
+    android:paddingEnd="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_8sdp"
+    app:layout_constraintWidth_max="wrap"
+    android:textColor="@color/black"
+    android:textSize="13sp"
+    app:layout_constraintStart_toEndOf="@id/profileImage"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintWidth_percent="0.75" />
+
+<TextView
+    android:id="@+id/textDateTime"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:textColor="#A0A0A0"
+    android:textSize="@dimen/_8ssp"
+    app:layout_constraintEnd_toStartOf="@id/msgReceiver"
+    app:layout_constraintTop_toBottomOf="@id/msgReceiver" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

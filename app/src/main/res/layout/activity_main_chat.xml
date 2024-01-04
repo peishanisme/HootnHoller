@@ -1,10 +1,10 @@
-<!-- res/layout/fragment_parent_chat.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Parent_Chat_Fragment">
+    tools:context=".MainChatActivity">
 
     <TextView
         android:id="@+id/ConnectionTitle"
@@ -21,21 +21,23 @@
         android:textColor="#5D71C9"
         android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/search_contact_butt"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Search contact"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="320dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/search_view_bg"
-        android:textAllCaps="false"
+        app:queryBackground="@android:color/transparent"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ConnectionTitle"
-        app:layout_constraintVertical_bias="0.013"/>
-
-
+        app:layout_constraintVertical_bias="0.013"
+        app:queryHint="Search contact" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainChatRecyclerView"
@@ -48,8 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_contact_butt" />
-
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

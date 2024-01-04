@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Student_Chat_Fragment">
+
+<TextView
+    android:id="@+id/ConnectionTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Connection"
+    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.15"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.067"
+    android:textColor="#5D71C9"
+    android:textStyle="bold"/>
+
+<Button
+    android:id="@+id/search_contact_butt"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:text="Search contact"
+    android:background="@drawable/search_view_bg"
+    android:textAllCaps="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.15"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/ConnectionTitle"
+    app:layout_constraintVertical_bias="0.013"/>
+
+
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/mainChatRecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Student_Chat_Fragment">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:layout_marginTop="20dp"
+    android:gravity="center"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/search_contact_butt" />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Student Chat" />
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
