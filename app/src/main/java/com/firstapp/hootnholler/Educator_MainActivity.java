@@ -27,8 +27,7 @@ public class Educator_MainActivity extends AppCompatActivity {
                 replaceFragment(new Educator_Classroom_Fragment());}
             else if (id == R.id.quiz) {
                 replaceFragment(new Educator_Quiz_Fragment());
-            }else if (id == R.id.monitoring) {
-                replaceFragment(new Educator_Monitoring_Fragment());
+
             }else if (id == R.id.chat) {
                 replaceFragment(new Educator_Chat_Fragment());
             }else if (id == R.id.profile) {

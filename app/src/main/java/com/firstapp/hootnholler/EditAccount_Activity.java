@@ -5,11 +5,10 @@ import static com.firstapp.hootnholler.Student_Setup_Activity.isValidBirthdayFor
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,25 +27,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.SyncFailedException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 
 public class EditAccount_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView back_button;
-    EditText fullname,birthday,phonenumber,school,student_class;
-    LinearLayout layoutList1,layoutList2;
-    View school_layout,studentLevel_layout,studentClass_layout,parentConnectionkey_layout,eduSubject_layout;
-    Button submit,addSubject,addConnectionKey;
+    EditText fullname, birthday, phonenumber, school, student_class;
+    LinearLayout layoutList1, layoutList2;
+    View school_layout, studentLevel_layout, studentClass_layout, parentConnectionkey_layout, eduSubject_layout;
+    Button submit, addSubject, addConnectionKey;
     Spinner level;
     RadioGroup gender;
-    RadioButton genderSelection,female,male;
-    String student_level,role,Gender;
+    RadioButton genderSelection, female, male;
+    String student_level, role, Gender;
     ArrayList<String> schoolLevel;
     ArrayList<String> ConnectionKey = new ArrayList<>();
+    ArrayList<String> InvalidConnectionKey = new ArrayList<>();
     ArrayList<String> Subject = new ArrayList<>();
-    DatabaseReference UserRef,StudentRef,ParentRef,EduRef;
-
-
+    DatabaseReference UserRef, StudentRef, ParentRef, EduRef;
 
 
     @Override
@@ -69,7 +70,6 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
 
         //radio button
         gender = (RadioGroup) findViewById(R.id.gender);
-        genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
 
@@ -133,6 +133,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                 String Fullname = fullname.getText().toString();
                 String Birthday = birthday.getText().toString();
                 String PhoneNumber = phonenumber.getText().toString();
+                genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
 
                 if (TextUtils.isEmpty(Fullname) || TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(PhoneNumber)) {
                     Toast.makeText(EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
@@ -145,13 +146,12 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                     return;
                 }
 
-                // Update user information
                 Gender = genderSelection.getText().toString();
                 UserRef.child("fullname").setValue(Fullname);
                 UserRef.child("birthday").setValue(Birthday);
                 UserRef.child("phone_number").setValue(PhoneNumber);
                 UserRef.child("gender").setValue(Gender);
-                updateRoleData(role,currentUserID);
+                updateRoleData(role, currentUserID);
 
 
             }
@@ -160,17 +160,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
 
     private void updateRoleData(String role, String currentUserID) {
         if (role.equalsIgnoreCase("student")) {
-            level.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    student_level = adapterView.getItemAtPosition(i).toString();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
+            student_level = level.getSelectedItem().toString();
             String School = school.getText().toString();
             String Class = student_class.getText().toString();
             if (TextUtils.isEmpty(student_level) || TextUtils.isEmpty(School) || TextUtils.isEmpty(Class)) {
@@ -194,8 +184,39 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
             // Store the ConnectionKey in the "Parent" collection under the current user ID
             if (!ConnectionKey.isEmpty()) {
                 DatabaseReference ConnectionKeyReference = FirebaseDatabase.getInstance().getReference().child("Parent");
-                ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(ConnectionKey);
+                DatabaseReference StudentReference = FirebaseDatabase.getInstance().getReference().child("Student");
+                HashMap<String, String> connectionKey = new HashMap<>();
+                StudentReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        OuterLoop:
+                        for (int i = 0; i < ConnectionKey.size(); i++) {
+                            for (DataSnapshot keySnapshot : snapshot.getChildren()) {
+                                String studentUID = keySnapshot.getKey();
+                                String key = keySnapshot.child("connection_key").getValue(String.class);
+                                if(key != null) {
+                                    if (key.equals(ConnectionKey.get(i))) {
+                                        connectionKey.put(ConnectionKey.get(i), studentUID);
+                                        continue OuterLoop;
+                                    }
+                                }
+                            }
+                            InvalidConnectionKey.add(ConnectionKey.get(i));
+                        }
+                        ConnectionKeyReference.child(currentUserID).child("ConnectionKey").setValue(connectionKey);
+                        if(!InvalidConnectionKey.isEmpty()){
+                            String InvalidConnectionKeyList = "";
+                            for (String key: InvalidConnectionKey){
+                                InvalidConnectionKeyList += (key + "\n");
+                            }
+                            Toast.makeText(EditAccount_Activity.this, "Invalid Connection Key: \n" + InvalidConnectionKeyList, Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             } else {
                 String School = school.getText().toString();
                 if (TextUtils.isEmpty(School)) {
@@ -219,6 +240,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                 }
             }
         }
+        uploadSuccess();
     }
 
     private void loadUserData(String currentUserID) {
@@ -247,170 +269,184 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void checkRole(String role,String currentUserID) {
-                if (role.equalsIgnoreCase("student")) {
-                    school_layout.setVisibility(View.VISIBLE);
-                    studentLevel_layout.setVisibility(View.VISIBLE);
-                    studentClass_layout.setVisibility(View.VISIBLE);
-                    StudentRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                school.setText(snapshot.child("school").getValue(String.class));
-                                student_class.setText(snapshot.child("student_class").getValue(String.class));
-                                // Get the student level from the database
-                                String studentLevelFromDatabase = snapshot.child("level").getValue(String.class);
-                                int position = schoolLevel.indexOf(studentLevelFromDatabase);
-                                level.setSelection(position);
+    public void uploadSuccess(){
+        if(role.equalsIgnoreCase("student")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Student_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
+        else if(role.equalsIgnoreCase("educator")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Educator_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
+        else if(role.equalsIgnoreCase("parent")){
+            Intent mainIntent = new Intent(EditAccount_Activity.this, Parent_MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
+    }
 
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-                    //update latest info to
-                } else if (role.equalsIgnoreCase("parent")) {
-                    parentConnectionkey_layout.setVisibility(View.VISIBLE);
-
-                    ParentRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                // Get connection keys data from the database
-                                DataSnapshot connectionKeysDatabase = snapshot.child("ConnectionKey");
-                                if (connectionKeysDatabase.exists()) {
-                                    // Iterate through connection keys and create editable input fields
-                                    for (DataSnapshot keySnapshot : connectionKeysDatabase.getChildren()) {
-                                        String connectionKey = keySnapshot.getValue(String.class);
-                                        addEditableKeyView(connectionKey);
-
-
-                                    }
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-                } else {
-                    school_layout.setVisibility(View.VISIBLE);
-                    eduSubject_layout.setVisibility(View.VISIBLE);
-
-                    EduRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                school.setText(snapshot.child("school").getValue(String.class));
-                                DataSnapshot subjectsDatabase = snapshot.child("Subject");
-                                if (subjectsDatabase.exists()) {
-                                    for (DataSnapshot subjectSnapshot : subjectsDatabase.getChildren()) {
-                                        String subject = subjectSnapshot.getValue(String.class);
-                                        addEditableSubjectView(subject);
-                                    }
-                                }
-                            }
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
+    private void checkRole(String role, String currentUserID) {
+        if (role.equalsIgnoreCase("student")) {
+            school_layout.setVisibility(View.VISIBLE);
+            studentLevel_layout.setVisibility(View.VISIBLE);
+            studentClass_layout.setVisibility(View.VISIBLE);
+            StudentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        school.setText(snapshot.child("school").getValue(String.class));
+                        student_class.setText(snapshot.child("student_class").getValue(String.class));
+                        // Get the student level from the database
+                        String studentLevelFromDatabase = snapshot.child("level").getValue(String.class);
+                        int position = schoolLevel.indexOf(studentLevelFromDatabase);
+                        level.setSelection(position);
                     }
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            //update latest info to
+        } else if (role.equalsIgnoreCase("parent")) {
+            parentConnectionkey_layout.setVisibility(View.VISIBLE);
+
+            ParentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Get connection keys data from the database
+                        DataSnapshot connectionKeysDatabase = snapshot.child("ConnectionKey");
+                        if (connectionKeysDatabase.exists()) {
+                            // Iterate through connection keys and create editable input fields
+                            for (DataSnapshot keySnapshot : connectionKeysDatabase.getChildren()) {
+                                String connectionKey = keySnapshot.getKey();
+                                addEditableKeyView(connectionKey);
+
+
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        } else {
+            school_layout.setVisibility(View.VISIBLE);
+            eduSubject_layout.setVisibility(View.VISIBLE);
+
+            EduRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        school.setText(snapshot.child("school").getValue(String.class));
+                        DataSnapshot subjectsDatabase = snapshot.child("Subject");
+                        if (subjectsDatabase.exists()) {
+                            for (DataSnapshot subjectSnapshot : subjectsDatabase.getChildren()) {
+                                String subject = subjectSnapshot.getValue(String.class);
+                                addEditableSubjectView(subject);
+                            }
+                        }
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.addKey) {
+            addKeyView();
+
+        } else if (v.getId() == R.id.addSubject) {
+            addSubjectView();
+        }
+    }
+
+    private void addSubjectView() {
+        final View subjectView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
+        final EditText subjectEdit = (EditText) subjectView.findViewById(R.id.newInput);
+        ImageView removeSubject = (ImageView) subjectView.findViewById(R.id.remove_button);
+
+        removeSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.addKey) {
-                    addKeyView();
-
-                } else if (v.getId() == R.id.addSubject) {
-                    addSubjectView();
-                }
+                removeView(subjectView);
             }
+        });
 
-            private void addSubjectView() {
-                final View subjectView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
-                final EditText subjectEdit = (EditText) subjectView.findViewById(R.id.newInput);
-                ImageView removeSubject = (ImageView) subjectView.findViewById(R.id.remove_button);
+        layoutList1.addView(subjectView);
 
-                removeSubject.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        removeView(subjectView);
-                    }
-                });
+        // Only add the key to the list if the user has entered some text
+        String key = subjectEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(key)) {
+            Subject.add(key);
+        }
+    }
 
-                layoutList1.addView(subjectView);
+    private void addKeyView() {
+        final View keyView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
+        final EditText keyEdit = (EditText) keyView.findViewById(R.id.newInput);
+        ImageView removeKey = (ImageView) keyView.findViewById(R.id.remove_button);
 
-                // Only add the key to the list if the user has entered some text
-                String key = subjectEdit.getText().toString().trim();
-                if (!TextUtils.isEmpty(key)) {
-                    Subject.add(key);
-                }
+        removeKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(keyView);
             }
+        });
 
-            private void addKeyView() {
-                final View keyView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
-                final EditText keyEdit = (EditText) keyView.findViewById(R.id.newInput);
-                ImageView removeKey = (ImageView) keyView.findViewById(R.id.remove_button);
+        layoutList1.addView(keyView);
 
-                removeKey.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        removeView(keyView);
-                    }
-                });
+        // Only add the key to the list if the user has entered some text
+        String key = keyEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(key)) {
+            ConnectionKey.add(key);
+        }
+    }
 
-                layoutList1.addView(keyView);
+    private void addEditableKeyView(String connectionKey) {
+        View keyView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
+        EditText keyEdit = keyView.findViewById(R.id.newInput);
+        ImageView removeKey = keyView.findViewById(R.id.remove_button);
 
-                // Only add the key to the list if the user has entered some text
-                String key = keyEdit.getText().toString().trim();
-                if (!TextUtils.isEmpty(key)) {
-                    ConnectionKey.add(key);
-                }
-            }
+        // Set the connection key as the initial text in the editable input field
+        keyEdit.setText(connectionKey);
 
-            private void addEditableKeyView(String connectionKey) {
-                View keyView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
-                EditText keyEdit = keyView.findViewById(R.id.newInput);
-                ImageView removeKey = keyView.findViewById(R.id.remove_button);
+        removeKey.setOnClickListener(v -> removeView(keyView));
 
-                // Set the connection key as the initial text in the editable input field
-                keyEdit.setText(connectionKey);
+        layoutList1.addView(keyView);
+    }
 
-                removeKey.setOnClickListener(v -> removeView(keyView));
-
-                layoutList1.addView(keyView);
-            }
-
-            public void removeView(View v) {
-                layoutList1.removeView(v);
-            }
+    public void removeView(View v) {
+        layoutList1.removeView(v);
+    }
 
 
-            private void addEditableSubjectView(String subject) {
-                View subjectView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
-                EditText subjectEdit = subjectView.findViewById(R.id.newInput);
-                ImageView removeSubject = subjectView.findViewById(R.id.remove_button);
+    private void addEditableSubjectView(String subject) {
+        View subjectView = getLayoutInflater().inflate(R.layout.dynamic_view, null, false);
+        EditText subjectEdit = subjectView.findViewById(R.id.newInput);
+        ImageView removeSubject = subjectView.findViewById(R.id.remove_button);
 
-                subjectEdit.setText(subject);
+        subjectEdit.setText(subject);
 
-                removeSubject.setOnClickListener(v -> removeView(subjectView));
+        removeSubject.setOnClickListener(v -> removeView(subjectView));
 
-                layoutList2.addView(subjectView);
-            }
-
-
-
+        layoutList2.addView(subjectView);
+    }
 }

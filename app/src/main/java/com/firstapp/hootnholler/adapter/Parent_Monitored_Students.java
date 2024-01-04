@@ -13,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.entity.Student;
 import com.firstapp.hootnholler.entity.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -38,17 +43,28 @@ public class Parent_Monitored_Students extends RecyclerView.Adapter<Parent_Monit
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind data to views
         Student student = monitoredStudents.get(position);
-
         // Check if user is not null before accessing properties
-        if (user != null) {
-            holder.fullnameTextView.setText(user.getFullname());
-            holder.emailTextView.setText(user.getEmail());
-            holder.phoneNumberTextView.setText(user.getPhone_number());
-        }
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users").child(student.studentUID);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+                if (user != null) {
+                    holder.fullnameTextView.setText(user.getFullname());
+                    holder.emailTextView.setText(user.getEmail());
+                    holder.phoneNumberTextView.setText(user.getPhone_number());
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         holder.connectionKeyTextView.setText("(" + student.getConnection_key() + ")");
         holder.schoolTextView.setText(student.getSchool());
     }
+
 
     @Override
     public int getItemCount() {

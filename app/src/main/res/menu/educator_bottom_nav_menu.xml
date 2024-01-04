@@ -12,10 +12,6 @@
         android:icon="@drawable/quiz"/>
 
     <item
-        android:id="@+id/monitoring"
-        android:title="Monitoring"
-        android:icon="@drawable/monitoring"/>
-    <item
         android:id="@+id/chat"
         android:title="Chat"
         android:icon="@drawable/chat"/>
