@@ -127,31 +127,40 @@ public class Educator_Classroom_Fragment extends Fragment {
                 String ClassSession = addClassSession.getText().toString();
                 String ClassDescription = addClassDescription.getText().toString();
 
-                // Generate class code
-                String classCode = generateRandomClassCode();
+                if (ClassName.isEmpty() || ClassSession.isEmpty()) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Error")
+                            .setMessage("Class title and session are required")
+                            .setPositiveButton(android.R.string.ok, null)
+                            .show();
+                } else {
 
-                // automatically create grp chat with student and parents
-                DatabaseReference grpChatWifStudentDatabaseRef = database.child("Conversation").child("GroupChat").push();
-                grpChatWifStudentDatabaseRef.child("Name").setValue(ClassName + " [Collaborative Classroom]");
-                String grpChatWifStudentKey = grpChatWifStudentDatabaseRef.getKey();
+                    // Generate class code
+                    String classCode = generateRandomClassCode();
 
-                DatabaseReference grpChatWifParentDatabaseRef = database.child("Conversation").child("GroupChat").push();
-                grpChatWifParentDatabaseRef.child("Name").setValue(ClassName + " [Parent-Teacher Forum]");
-                String grpChatWifParentKey = grpChatWifParentDatabaseRef.getKey();
+                    // automatically create grp chat with student and parents
+                    DatabaseReference grpChatWifStudentDatabaseRef = database.child("Conversation").child("GroupChat").push();
+                    grpChatWifStudentDatabaseRef.child("Name").setValue(ClassName + " [Collaborative Classroom]");
+                    String grpChatWifStudentKey = grpChatWifStudentDatabaseRef.getKey();
 
-                // Use class code as the key to save data in the Firebase Realtime Database
-                DatabaseReference classReference = classroom.child(classCode);
-                classReference.child("className").setValue(ClassName);
-                classReference.child("classSession").setValue(ClassSession);
-                classReference.child("classDescription").setValue(ClassDescription);
-                classReference.child("classOwner").setValue(uid);
-                classReference.child("groupChat").child("student").setValue(grpChatWifStudentKey);
-                classReference.child("groupChat").child("parent").setValue(grpChatWifParentKey);
+                    DatabaseReference grpChatWifParentDatabaseRef = database.child("Conversation").child("GroupChat").push();
+                    grpChatWifParentDatabaseRef.child("Name").setValue(ClassName + " [Parent-Teacher Forum]");
+                    String grpChatWifParentKey = grpChatWifParentDatabaseRef.getKey();
 
-                database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifStudentKey).setValue(true);
-                database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifParentKey).setValue(true);
+                    // Use class code as the key to save data in the Firebase Realtime Database
+                    DatabaseReference classReference = classroom.child(classCode);
+                    classReference.child("className").setValue(ClassName);
+                    classReference.child("classSession").setValue(ClassSession);
+                    classReference.child("classDescription").setValue(ClassDescription);
+                    classReference.child("classOwner").setValue(uid);
+                    classReference.child("groupChat").child("student").setValue(grpChatWifStudentKey);
+                    classReference.child("groupChat").child("parent").setValue(grpChatWifParentKey);
 
-                dialog.dismiss();
+                    database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifStudentKey).setValue(true);
+                    database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifParentKey).setValue(true);
+
+                    dialog.dismiss();
+                }
             }
         });
     }
