@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/quizScoreActivity"
+        android:icon="@drawable/quiz"
+        android:title="Quiz"/>
+
+    <item
+        android:id="@+id/monitoring"
+        android:icon="@drawable/monitoring"
+        android:title="Monitoring"/>
+
+<!--    <item-->
+<!--        android:id="@+id/communication"-->
+<!--        android:icon="@drawable/communication"-->
+<!--        android:title="Communication"/>-->
+
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
+
+</menu>

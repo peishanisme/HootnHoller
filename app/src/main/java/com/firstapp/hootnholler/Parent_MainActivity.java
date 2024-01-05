@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import com.firstapp.hootnholler.databinding.ActivityParentMainBinding;
 
@@ -22,6 +23,12 @@ public class Parent_MainActivity extends AppCompatActivity {
         binding=ActivityParentMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String fragmentToLoad = getIntent().getStringExtra("FRAGMENT_TO_LOAD");
+
+        if (fragmentToLoad != null && fragmentToLoad.equals("home_Fragment")) {
+            replaceFragment(new Parent_Home_Fragment());
+        }
+
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {
             int id = item.getItemId();
             if (id==R.id.home) {
@@ -34,7 +41,6 @@ public class Parent_MainActivity extends AppCompatActivity {
                 replaceFragment(new Profile_Fragment());}
 
         });
-
 
     }
 

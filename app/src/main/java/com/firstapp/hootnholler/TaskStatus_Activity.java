@@ -47,7 +47,13 @@ public class TaskStatus_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_status);
         Bundle data = getIntent().getExtras();
-        StudentUid = data.get("Student_UID").toString();
+//        if (data != null) {
+//            StudentUid = data.getString("Student_UID");
+//            if (StudentUid != null) {
+//                StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
+//            }
+//        }
+        StudentUid = data.getString("Student_UID");
         StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
         DateRange = findViewById(R.id.dateRange);
         MoveForwardWeekBtn = findViewById(R.id.moveForwardWeekBtn);

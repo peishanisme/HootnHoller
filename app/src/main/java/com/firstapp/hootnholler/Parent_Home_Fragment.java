@@ -111,6 +111,7 @@ public class Parent_Home_Fragment extends Fragment {
             public void onClick(View v) {
                 // Navigate to the QuizScoreFragment
                 Intent intent=new Intent(getActivity(), Quiz_Score_Activity.class);
+                intent.putExtra("Student_UID", studentUID);
                 startActivity(intent);
             }
         });
