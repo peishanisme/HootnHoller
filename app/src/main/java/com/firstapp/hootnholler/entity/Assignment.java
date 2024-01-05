@@ -8,6 +8,8 @@ public class Assignment {
     private String fileName;
     private String fileUri;
     private String assKey;
+    private String classCode;
+    private int taskStatus;
 
     public Assignment() {
     }
@@ -75,5 +77,21 @@ public class Assignment {
 
     public void setAssKey(String assKey) {
         this.assKey = assKey;
+    }
+
+    public String getClassCode() {
+        return classCode;
+    }
+
+    public void setClassCode(String classCode) {
+        this.classCode = classCode;
+    }
+
+    public int getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(int taskStatus) {
+        this.taskStatus = taskStatus;
     }
 }

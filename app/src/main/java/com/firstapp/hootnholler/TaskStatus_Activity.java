@@ -132,7 +132,7 @@ public class TaskStatus_Activity extends AppCompatActivity {
                             for (DataSnapshot assignmentSnapShot: classRoomSnapshot.getChildren()) {
                                 int TaskStatus = 0;
                                 Assignment assignment = assignmentSnapShot.getValue(Assignment.class);
-                                if(isBetween(new Date(assignment.getOpenDate())
+                                if(isBetween(new Date(assignment.getUploadDate())
                                         ,new Date(assignment.getDueDate()),
                                         firstDayOfWeek, lastDayOfWeek)){
 
@@ -187,8 +187,8 @@ public class TaskStatus_Activity extends AppCompatActivity {
         });
     }
 
-    public static boolean isBetween(Date openDate, Date dueDate, Date startDate, Date endDate){
-        if(openDate.before(new Date())){
+    public static boolean isBetween(Date uploadDate, Date dueDate, Date startDate, Date endDate){
+        if(uploadDate.before(new Date())){
             if(dueDate.after(startDate) && dueDate.before(endDate)){
                 return true;
             }
