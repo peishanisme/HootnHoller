@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student_Classroom_Fragment">
+    android:background="@color/white"
+    tools:context=".Student_Classroom_Fragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Student Classroom" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/joinClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginTop="670dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#7DC8FE"
+        >
 
-</FrameLayout>
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="410dp"
+        android:layout_height="813dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingLeft="20sp"
+                android:paddingTop="20sp"
+                android:text="Classroom"
+                android:textColor="#5269CD"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/classList"
+                android:layout_width="390dp"
+                android:layout_height="813dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="12dp"
+                android:scrollbars="vertical"
+                />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/classroom_nav"
+    app:startDestination="@id/DestAnnouncements">
+
+    <activity
+        android:id="@+id/DestAnnouncements"
+        android:name="com.firstapp.hootnholler.Student_Announcements"
+        android:label="activity_announcements"
+        tools:layout="@layout/activity_student_announcements" />
+    <activity
+        android:id="@+id/DestScience"
+        android:name="com.firstapp.hootnholler.Student_Class"
+        android:label="activity_class2"
+        tools:layout="@layout/activity_student_class" />
+    <activity
+        android:id="@+id/DestHome"
+        android:name="com.firstapp.hootnholler.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/DestAssignment"
+        android:name="com.firstapp.hootnholler.Student_UpcomingAssignment"
+        android:label="activity_tasks_assignment"
+        tools:layout="@layout/activity_student_asgm_upcoming" />
+    <activity
+        android:id="@+id/DestJoinClass"
+        android:name="com.firstapp.hootnholler.Student_JoinClass"
+        android:label="activity_join_class"
+        tools:layout="@layout/pop_up_student_join_class" />
+</navigation>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Student_AsgmDetails"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="90sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="25sp"
+                android:layout_height="83sp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingTop="20sp"
+                android:text="Assignment"
+                android:textColor="#5269CD"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/assTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Science Tutorial 6"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/openTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Opened: 6 November 2023, 12:00PM"
+            android:textColor="#545353"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/dueTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="Due: 13 November 2023, 11:59PM"
+            android:textColor="#545353"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/textView20"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Dear students, this is the notes for tmr’s lesson. Kindly go through before class tmr."
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/file"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp">
+
+                <ImageView
+                    android:id="@+id/pdfIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/pdf_svgrepo_com" />
+
+                <TextView
+                    android:id="@+id/fileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_toRightOf="@id/pdfIcon"
+                    android:text="Chapter 3 - Human"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Submission Status"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="#D9D9D9"
+            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+            <TableRow android:background="#EAEAEA"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Submission Status"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/submissionStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="8"
+                    android:text="No attempt"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+            </TableRow>
+            <TableRow android:background="#C5C4C4"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Grading  Status"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/gradingStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="8"
+                    android:text="Not graded"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+            </TableRow>
+
+            <TableRow android:background="#EAEAEA"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Time Remaining"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/timeLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="8"
+                    android:text="1 day 17 hours left"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+            </TableRow>
+            <TableRow android:background="#C5C4C4"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="File Submission"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="8">
+
+                    <TextView
+                        android:id="@+id/fileSubmission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Tuto5 by lalala"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/timeSubmission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="2023/03/02 12pm"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+
+            </TableRow>
+
+            <TableRow android:background="#EAEAEA"
+                android:paddingVertical="7dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Submission Comment"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/submissionComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="8"
+                    android:text="--"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+            </TableRow>
+        </TableLayout>
+        <Button
+            android:id="@+id/btnAddSubmission"
+            android:layout_width="166dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/button_colour"
+            android:text="@string/add_submission"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+        <LinearLayout
+            android:id="@+id/submitLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="#E8E7E7"
+                android:orientation="vertical"
+                android:paddingVertical="20dp">
+
+                <EditText
+                    android:id="@+id/submissionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="13"
+                    android:hint="Select a file"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textColorHint="#898888" />
+
+                <ImageView
+                    android:id="@+id/addFile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_attach_file"></ImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="#CDCDCD"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/Comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="13"
+                    android:hint="Leave a comment (optional)"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textColorHint="#898888" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+                <Button
+                    android:id="@+id/uploadFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/button_colour"
+                    android:text="Upload"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <Button
+                    android:id="@+id/cancelUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/button_colour"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="20dp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

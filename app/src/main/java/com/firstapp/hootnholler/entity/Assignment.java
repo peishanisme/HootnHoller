@@ -1,21 +1,24 @@
 package com.firstapp.hootnholler.entity;
 
 public class Assignment {
+    private String title;
+    private String description;
+    private String uploadDate;
+    private String dueDate;
+    private String fileName;
+    private String fileUri;
+    private String assKey;
 
-    private String title, description, classCode;
-
-    private long dueDate, openDate, uploadDate, taskStatus;
-
-    public Assignment(){
-
+    public Assignment() {
     }
 
-    public Assignment(String title, String description, long dueDate, long openDate, long uploadDate) {
+    public Assignment(String title, String description, String uploadDate, String dueDate, String fileName, String fileUri) {
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
-        this.openDate = openDate;
         this.uploadDate = uploadDate;
+        this.dueDate = dueDate;
+        this.fileName = fileName;
+        this.fileUri = fileUri;
     }
 
     public String getTitle() {
@@ -34,43 +37,43 @@ public class Assignment {
         this.description = description;
     }
 
-    public long getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(long dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public long getOpenDate() {
-        return openDate;
-    }
-
-    public void setOpenDate(long openDate) {
-        this.openDate = openDate;
-    }
-
-    public long getUploadDate() {
+    public String getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(long uploadDate) {
+    public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
     }
 
-    public String getClassCode() {
-        return classCode;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public long getTaskStatus() {
-        return taskStatus;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setTaskStatus(long taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileUri() {
+        return fileUri;
+    }
+
+    public void setFileUri(String fileUri) {
+        this.fileUri = fileUri;
+    }
+
+    public String getAssKey() {
+        return assKey;
+    }
+
+    public void setAssKey(String assKey) {
+        this.assKey = assKey;
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="320dp"
+    android:layout_height="117dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:background="@drawable/nofill"
+    app:cardCornerRadius="10sp">
+
+    <TextView
+        android:id="@+id/dueMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:text="• Due 7 days ago"
+        android:textAlignment="textStart"
+        android:textColor="#FF1723"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/asgmTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15sp"
+        android:text="Science Tutorial 5"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="75sp"
+        android:text="Due Tuesday, 7/11/2023, 11.59pm"
+        android:textColor="#FF504F4F"
+        android:textSize="15sp" />
+
+</androidx.cardview.widget.CardView>

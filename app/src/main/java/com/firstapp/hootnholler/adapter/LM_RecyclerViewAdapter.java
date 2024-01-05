@@ -13,20 +13,20 @@ import com.firstapp.hootnholler.R;
 
 import java.util.ArrayList;
 
-public class Announcement_RecyclerViewAdapter extends RecyclerView.Adapter<Announcement_RecyclerViewAdapter.Viewholder> {
+public class LM_RecyclerViewAdapter extends RecyclerView.Adapter<LM_RecyclerViewAdapter.Viewholder> {
     Context context;
-    ArrayList<Announcement_ArrayAdapter> arrayList = new ArrayList<>();
+    ArrayList<LM_ArrayAdapter> arrayList = new ArrayList<>();
 
-    public Announcement_RecyclerViewAdapter(Context context, ArrayList<Announcement_ArrayAdapter> arrayList){
-        this.arrayList = arrayList;
+    public LM_RecyclerViewAdapter(Context context, ArrayList<LM_ArrayAdapter> arrayList) {
         this.context = context;
+        this.arrayList = arrayList;
     }
 
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.announcement_item,parent,false);
-        Viewholder viewholder = new Viewholder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.lm_item,parent,false);
+        LM_RecyclerViewAdapter.Viewholder viewholder = new LM_RecyclerViewAdapter.Viewholder(view);
         return viewholder;
     }
 
@@ -45,7 +45,7 @@ public class Announcement_RecyclerViewAdapter extends RecyclerView.Adapter<Annou
         TextView title, dateTime;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.announcement_title);
+            title = itemView.findViewById(R.id.lm_title);
             dateTime = itemView.findViewById(R.id.dateTime);
         }
     }

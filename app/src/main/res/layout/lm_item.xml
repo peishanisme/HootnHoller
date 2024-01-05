@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lm1"
-    android:layout_width="368dp"
-    android:layout_height="108dp"
+    android:layout_width="330dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:paddingVertical="30dp"
     android:layout_marginLeft="10dp"
     app:cardBackgroundColor="#265CB7EA"
     app:cardCornerRadius="10sp"
@@ -17,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Chapter 3 - Human Notes"
+        android:text="@string/chapter_3_human_notes1"
         android:textColor="#000000"
         android:textSize="20sp" />
 
@@ -29,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginTop="58sp"
-        android:text="Posted on 16 Nov 2023, 08:10:28 am"
+        android:layout_marginBottom="20dp"
+        android:text="@string/posted_on_16_nov_2023_08_10_28_am"
         android:textSize="14sp" />
 
 </androidx.cardview.widget.CardView>
