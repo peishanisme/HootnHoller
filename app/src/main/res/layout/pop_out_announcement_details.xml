@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/rectangle_4026">
+
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_gravity="center"
+            android:paddingLeft="26dp"
+            android:text="Announcement"
+            android:textColor="#5269CD"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="35dp"
+            android:src="@drawable/dell_fill" />
+    </LinearLayout>
+
+   <LinearLayout
+       android:id="@+id/announcementContent"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@id/title"
+       android:paddingHorizontal="20dp"
+       >
+
+    <TextView
+        android:id="@+id/annTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Deepavali on Week 5:\nAsynchronous Class"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/annTime"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:text="Posted on 12 Nov 2023, 17:10:23 pm"
+           android:textColor="#545353"
+           />
+
+
+    <TextView
+        android:id="@+id/annContent"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Dear students, we will not be having class next week due to Deepavali holidays. Kindly read and understand Chapter 5 - Plants on your own. I will explain again after next week.\n\nHappy holidays to all!"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="30dp"/>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginBottom="10dp"
+           android:layout_gravity="end"
+           >
+
+           <Button
+               android:id="@+id/editButton"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Edit"
+               android:backgroundTint="@color/button_colour"
+               android:textColor="@color/white"/>
+
+           <Button
+               android:id="@+id/deleteButton"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Delete"
+               android:layout_marginLeft="10dp"
+               android:backgroundTint="@color/button_colour"
+               android:textColor="@color/white"/>
+       </LinearLayout>
+
+   </LinearLayout>
+
+
+
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/boldButton"-->
+<!--            android:layout_width="12dp"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            app:srcCompat="@drawable/ic_bold"-->
+<!--            android:layout_below="@+id/editTextText2"-->
+<!--            android:layout_marginTop="-15dp"-->
+<!--            android:layout_marginEnd="20dp"/>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/italicButton"-->
+<!--            android:layout_width="14dp"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            app:srcCompat="@drawable/ic_italic"-->
+<!--            android:layout_below="@+id/editTextText2"-->
+<!--            android:layout_toRightOf="@+id/boldButton"-->
+<!--            android:layout_marginTop="-15dp"/>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/underlineButton"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginBottom="6dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            app:srcCompat="@drawable/ic_underline"-->
+<!--            android:layout_below="@+id/editTextText2"-->
+<!--            android:layout_toRightOf="@+id/italicButton"-->
+<!--            android:layout_marginTop="-15dp"/>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/sendButton"-->
+<!--            android:layout_width="17dp"-->
+<!--            android:layout_height="18dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginBottom="7dp"-->
+<!--            app:srcCompat="@drawable/ic_send"-->
+<!--            android:layout_below="@+id/editTextText2"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toRightOf="@id/editTextText2"/>-->
+
+<!--    </RelativeLayout>-->
+
+
+
+
+</RelativeLayout>

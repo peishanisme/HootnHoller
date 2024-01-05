@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -39,6 +42,24 @@
             android:name=".TaskStatus_Activity"
             android:exported="false" />
         <activity
+            android:name=".Teacher_Assignment"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_PostLM"
+            android:exported="false" />
+        <activity
+            android:name=".FeedbackList"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_FeedbackStudentList"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_CreateFeedback"
+            android:exported="false" />
+        <activity
+            android:name=".Teacher_Upload_LM"
+            android:exported="false" />
+        <activity
             android:name=".EditAccount_Activity"
             android:exported="false" />
         <activity
@@ -69,10 +90,7 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Teacher_ClassCode"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_Graded_Details"
+            android:name=".Teacher_Ass_StudentList"
             android:exported="false" />
         <activity
             android:name=".Teacher_LM_Details"
@@ -81,7 +99,7 @@
             android:name=".Teacher_LearningMaterials"
             android:exported="false" />
         <activity
-            android:name=".Teacher_People"
+            android:name=".Teacher_ViewPeople"
             android:exported="false" />
         <activity
             android:name=".Teacher_GradedAsgm"
@@ -91,9 +109,6 @@
             android:exported="false" />
         <activity
             android:name=".Teacher_UpcomingAsgm"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_Announcement_Details"
             android:exported="false" />
         <activity
             android:name=".Teacher_Announcement"

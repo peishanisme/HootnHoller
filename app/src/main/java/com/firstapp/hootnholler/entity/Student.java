@@ -2,7 +2,7 @@ package com.firstapp.hootnholler.entity;
 
 public class Student {
 
-    public String userName,studentUID,school,level,student_class,connection_key,userUID,profile_URL;
+    public String userName,studentUID,school,level,student_class,connection_key,userUID;
 
     public Student(){
 
@@ -46,21 +46,6 @@ public class Student {
     public String getConnection_key() {
         return connection_key;
     }
-    public String getUserUID() {
-        return userUID;
-    }
-
-    public void setUserUID(String userUID) {
-        this.userUID = userUID;
-    }
-
-    public String getProfile_URL() {
-        return profile_URL;
-    }
-
-    public void setProfile_URL(String profile_URL) {
-        this.profile_URL = profile_URL;
-    }
 
     public String getUserName() {
         return userName;
@@ -69,4 +54,20 @@ public class Student {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
+    }
+
+//    public String getProfileURL() {
+//        return profileURL;
+//    }
+//
+//    public void setProfileURL(String profileURL) {
+//        this.profileURL = profileURL;
+//    }
 }

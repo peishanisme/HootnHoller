@@ -16,10 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/backButton"
             android:layout_width="25sp"
             android:layout_height="83sp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -36,100 +38,162 @@
 
     <View
         android:id="@+id/view3"
-        android:layout_width="319dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="40dp"
-        android:background="#F3F2F2"
+        android:layout_width="370dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="20dp"
+        android:background="#E8E7E7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <View
-        android:id="@+id/view5"
-        android:layout_width="319dp"
-        android:layout_height="100dp"
-        android:background="#E2E2E2"
+        android:id="@+id/view4"
+        android:layout_width="370dp"
+        android:layout_height="120dp"
+        android:background="#CDCDCD"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-    <EditText
-        android:id="@+id/editText"
+    <Button
+        android:id="@+id/btnAssign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittext_no_underline"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="16dp"
-        android:hint="Assignment Title"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#5D71C9"
+        android:text="Assign"
         android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        android:onClick="buttonAssign"/>
+
+    <ImageButton
+        android:id="@+id/btnAttachFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_attach_file"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    <EditText
+        android:id="@+id/assTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="16dp"
+        android:background="@drawable/edittext_no_underline"
+        android:hint="Assignment Title"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <View
-        android:id="@+id/view8"
-        android:layout_width="260dp"
+        android:id="@+id/view5"
+        android:layout_width="280dp"
         android:layout_height="1dp"
-        android:background="#BCBCBC"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        android:layout_marginTop="3dp"
+        android:background="#B8B8B8"
+        app:layout_constraintStart_toStartOf="@+id/assTitle"
+        app:layout_constraintTop_toBottomOf="@+id/assTitle" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/assDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:textSize="16dp"
         android:background="@drawable/edittext_no_underline"
         android:hint="Description (optional)"
-        android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/view8" />
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
     <View
-        android:id="@+id/view9"
-        android:layout_width="260dp"
+        android:id="@+id/view6"
+        android:layout_width="280dp"
         android:layout_height="1dp"
-        android:background="#BCBCBC"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        android:layout_marginTop="3dp"
+        android:background="#B8B8B8"
+        app:layout_constraintStart_toStartOf="@+id/assDescription"
+        app:layout_constraintTop_toBottomOf="@+id/assDescription" />
 
-    <EditText
+    <TextView
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/edittext_no_underline"
-        android:hint="Due Date"
+        android:hint="Due Date: "
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/view9" />
+        app:layout_constraintStart_toStartOf="@+id/assDescription"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-    <View
-        android:layout_width="260dp"
-        android:layout_height="1dp"
-        android:background="#BCBCBC"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
+    <EditText
+        android:id="@+id/pdfName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_no_underline"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="#5D71C9"
-        android:text="Assign"
-        app:layout_constraintBottom_toBottomOf="@+id/view5"
-        app:layout_constraintEnd_toEndOf="@+id/view5" />
+    <View
+        android:id="@+id/view7"
+        android:layout_width="170dp"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        app:layout_constraintBottom_toBottomOf="@+id/editText3"
+        app:layout_constraintStart_toEndOf="@+id/editText3" />
 
     <ImageButton
+        android:id="@+id/btnCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_attach_file"
-        app:layout_constraintBottom_toBottomOf="@+id/view3"
-        app:layout_constraintStart_toStartOf="@+id/view3" />
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/view7" />
+
+    <TextView
+        android:id="@+id/showDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="dd/mm/yyyy"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintStart_toStartOf="@+id/view7" />
+
+    <TextView
+        android:id="@+id/showTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="HH:MM"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/showDate" />
+
+    <TextView
+        android:id="@+id/addTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Add Time"
+        android:textColor="#A1A1A1"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/showDate"
+        app:layout_constraintStart_toEndOf="@+id/btnCalendar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

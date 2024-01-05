@@ -4,27 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_Class">
+    tools:context=".Teacher_Class"
+    android:background="@color/white">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottomNavigationView"
-        android:background="#7DC8FE"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav"
-        app:labelVisibilityMode="labeled"
-        app:itemIconSize="28dp">
+        android:layout_height="match_parent">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,10 +23,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/back"
                     android:layout_width="25sp"
                     android:layout_height="83sp"
-                    android:src="@drawable/ic_back"/>
+                    android:src="@drawable/ic_back"
+                    android:background="@android:color/transparent"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -52,178 +44,213 @@
             </LinearLayout>
 
 
-        <androidx.gridlayout.widget.GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            app:rowCount="4"
-            app:columnCount="1"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/c1"
-                android:layout_width="100dp"
-                android:layout_height="140dp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="0sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="10sp"
-                app:cardBackgroundColor="#EBF4B3"
-                app:cardCornerRadius="10sp"
-                app:layout_columnWeight="1"
-                app:layout_gravity="fill"
-                app:layout_rowWeight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_overflow"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="15sp"
-                    android:text="4 Harapan"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="40sp"
-                    android:text="Session 2023/2024"
-                    android:textColor="#504F4F"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="60sp"
-                    android:text="Tues 8:00-10:00am"
-                    android:textColor="#FF504F4F"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15sp"
-                    android:layout_marginTop="110sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="30 students"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/announcement"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="5sp"
-                app:cardBackgroundColor="#B3F4DD"
-                app:cardCornerRadius="10sp"
-                app:layout_columnWeight="1"
-                app:layout_gravity="fill"
-                app:layout_rowWeight="1"
-                app:cardElevation="10dp"
-                >
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/announcement"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30sp"
-                    android:gravity="center_vertical"
-                    android:text="Announcements"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/TasksAssignment"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="20sp"
-                app:cardBackgroundColor="#B3F4DD"
-                app:cardCornerRadius="10sp"
-                app:layout_columnWeight="1"
-                app:layout_gravity="fill"
-                app:layout_rowWeight="1"
-                app:cardElevation="10dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/tasksassignment"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30sp"
-                    android:gravity="center_vertical"
-                    android:text="Tasks \nAssignment"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/LearningMaterials"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="5sp"
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginBottom="10sp"
-                app:cardBackgroundColor="#B3F4DD"
-                app:cardCornerRadius="10sp"
-                app:layout_columnWeight="1"
-                app:layout_gravity="fill"
-                app:layout_rowWeight="1"
-                app:cardElevation="10dp">
+                app:rowCount="4"
+                app:columnCount="1"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/learningmaterials"
-                    android:scaleType="centerCrop"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/classDetails"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="0sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="10sp"
+                    app:cardBackgroundColor="#EBF4B3"
+                    app:cardCornerRadius="10sp"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_rowWeight="1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30sp"
-                    android:gravity="center_vertical"
-                    android:text="Learning \nMaterials"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    <ImageView
+                        android:id="@+id/overflow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_overflow"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="8dp"/>
 
-            </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/className"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:layout_marginTop="15sp"
+                        android:text="4 Harapan"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-        </androidx.gridlayout.widget.GridLayout>
+                    <TextView
+                        android:id="@+id/classSession"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:layout_marginTop="50dp"
+                        android:text="Session 2023/2024"
+                        android:textColor="#504F4F"
+                        android:textSize="15sp" />
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/classDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:layout_marginTop="70sp"
+                        android:text="Tues 8:00-10:00am"
+                        android:textColor="#FF504F4F"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/studentOfClass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:layout_marginTop="110sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="30 students"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/announcement"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="10sp"
+                    app:cardBackgroundColor="#B3F4DD"
+                    app:cardCornerRadius="10sp"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_rowWeight="1"
+                    app:cardElevation="10dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/announcement"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30sp"
+                        android:gravity="center_vertical"
+                        android:text="Announcement"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/TasksAssignment"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="10sp"
+                    app:cardBackgroundColor="#B3F4DD"
+                    app:cardCornerRadius="10sp"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_rowWeight="1"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/tasksassignment"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30sp"
+                        android:gravity="center_vertical"
+                        android:text="Tasks \nAssignment"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="normal" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LearningMaterials"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="10sp"
+                    app:cardBackgroundColor="#B3F4DD"
+                    app:cardCornerRadius="10sp"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_rowWeight="1"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/learningmaterials"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30sp"
+                        android:gravity="center_vertical"
+                        android:text="Learning \nMaterial"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Feedback"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="10sp"
+                    app:cardBackgroundColor="#B3F4DD"
+                    app:cardCornerRadius="10sp"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_rowWeight="1"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/feedback"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30sp"
+                        android:gravity="center_vertical"
+                        android:text="Feedback"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
