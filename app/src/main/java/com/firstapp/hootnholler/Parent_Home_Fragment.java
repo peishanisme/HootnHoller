@@ -149,7 +149,7 @@ public class Parent_Home_Fragment extends Fragment {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot userSnapShot) {
                                     student.setUserName(userSnapShot.child("fullname").getValue(String.class));
-                                    student.setProfile_URL("");
+//                                    student.setProfile_URL("");
                                     MonitoredStudentList.add(student);
                                     Student_List.setAdapter(monitoredStudentAdapter);
                                 }

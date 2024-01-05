@@ -41,7 +41,7 @@ public class Student_LearningMaterials extends AppCompatActivity {
             }
         });
 
-        resource1 = (CardView) findViewById(R.id.lm1);
+//        resource1 = (CardView) findViewById(R.id.lm1);
         resource1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

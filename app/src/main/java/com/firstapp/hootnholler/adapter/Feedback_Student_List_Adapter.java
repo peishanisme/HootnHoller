@@ -54,7 +54,7 @@ public class Feedback_Student_List_Adapter extends RecyclerView.Adapter<Feedback
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 student.setUserName(snapshot.child("fullname").getValue(String.class));
-                student.setProfileURL("");
+//                student.setProfileURL("");
                 holder.StudentName.setText(student.getUserName());
                 holder.StudentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
