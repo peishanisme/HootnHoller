@@ -1,0 +1,84 @@
+package com.firstapp.hootnholler;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.firstapp.hootnholler.adapter.Conversation_ArrayAdapter;
+import com.firstapp.hootnholler.entity.Conversation;
+import com.firstapp.hootnholler.entity.Message;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class ChatFragment extends Fragment {
+
+    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    private RecyclerView conversationList;
+    private Conversation_ArrayAdapter adapter;
+    private ArrayList<Conversation> conversations;
+    private String userUID;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    public ChatFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        conversationList = view.findViewById(R.id.conversationlist);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        conversationList.setLayoutManager(layoutManager);
+        conversations = new ArrayList<>();
+        adapter = new Conversation_ArrayAdapter(getActivity(), conversations);
+        conversationList.setAdapter(adapter);
+        userUID = mAuth.getUid();
+        getConversation();
+        return view;
+    }
+
+    public void getConversation(){
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // loop joined chat
+                conversations.clear();
+                for (DataSnapshot grpChatKeySnapshot : snapshot.child("Users").child(userUID).child("joinedGrpChatKey").getChildren()) {
+                    if(grpChatKeySnapshot.getValue(Boolean.class)){
+                        String grpChatKey = grpChatKeySnapshot.getKey();
+                        if(grpChatKey != null){
+                            DataSnapshot conversationSnapshot = snapshot.child("Conversation")
+                                    .child("GroupChat").child(grpChatKey);
+                            Conversation conversation = conversationSnapshot.getValue(Conversation.class);
+                            if(conversation != null){
+                                conversation.setConversationID(grpChatKey);
+                                conversations.add(conversation);
+                            }
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+}
