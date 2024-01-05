@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".QuizEducatorAddQuestionActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginStart="10dp"
+            android:text="Question 1"
+            android:textColor="@color/primary_color"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/back" />
+
+        <EditText
+            android:id="@+id/enterQuestion"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Enter Question"
+            android:inputType="textMultiLine"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/enterQestionTV"
+            app:layout_constraintTop_toBottomOf="@+id/enterQestionTV" />
+
+        <TextView
+            android:id="@+id/enterQestionTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="Question:"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/correctAnsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Correct Answer"
+            android:textSize="18dp"
+            android:textColor="@color/primary_color"
+            app:layout_constraintStart_toStartOf="@+id/enterQuestion"
+            app:layout_constraintTop_toBottomOf="@+id/enterQuestion" />
+
+        <RadioGroup
+            android:id="@+id/RGAnswers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/correctAnsTV"
+            app:layout_constraintTop_toBottomOf="@+id/correctAnsTV">
+
+            <RadioButton
+                android:id="@+id/A"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:textSize="18sp"
+                app:buttonTint="@color/primary_color"/>
+
+            <RadioButton
+                android:id="@+id/B"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="B"
+                android:textSize="18sp"
+                app:buttonTint="@color/primary_color"/>
+
+            <RadioButton
+                android:id="@+id/C"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textSize="18sp"
+                app:buttonTint="@color/primary_color"/>
+
+            <RadioButton
+                android:id="@+id/D"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textSize="18sp"
+                app:buttonTint="@color/primary_color"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/enterAnsA"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Enter option A"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/RGAnswers"
+            app:layout_constraintTop_toBottomOf="@+id/correctAnsTV" />
+
+        <EditText
+            android:id="@+id/enterAnsB"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Enter option B"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/enterAnsA"
+            app:layout_constraintStart_toStartOf="@+id/enterAnsA"
+            app:layout_constraintTop_toBottomOf="@+id/enterAnsA" />
+
+        <EditText
+            android:id="@+id/enterAnsC"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Enter option C"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/enterAnsB"
+            app:layout_constraintStart_toStartOf="@+id/enterAnsB"
+            app:layout_constraintTop_toBottomOf="@+id/enterAnsB" />
+
+        <EditText
+            android:id="@+id/enterAnsD"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Enter option D"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/enterAnsC"
+            app:layout_constraintStart_toStartOf="@+id/enterAnsC"
+            app:layout_constraintTop_toBottomOf="@+id/enterAnsC" />
+
+
+        <Button
+            android:id="@+id/uploadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            android:text="Upload"
+            android:textSize="20dp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterAnsD" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

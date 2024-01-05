@@ -19,6 +19,12 @@ public class Student_MainActivity extends AppCompatActivity {
         binding=ActivityStudentMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String fragmentToLoad = getIntent().getStringExtra("FRAGMENT_TO_LOAD");
+
+        if (fragmentToLoad != null && fragmentToLoad.equals("student_Quiz_Fragment")) {
+            replaceFragment(new Student_Quiz_Fragment());
+        }
+
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {
             int id = item.getItemId();
             if (id==R.id.home) {

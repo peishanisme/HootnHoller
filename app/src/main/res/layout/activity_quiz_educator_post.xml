@@ -4,45 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Educator_Quiz_Fragment">
+    tools:context=".Educator_Quiz_Post_Activity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="10dp"
+        android:text="Select Classroom"
+        android:textColor="@color/primary_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/back"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/addCategory"
+        android:id="@+id/back"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="10dp"
-        android:src="@drawable/add"
-        app:layout_constraintBottom_toBottomOf="@+id/categoryTV"
-        app:layout_constraintStart_toEndOf="@+id/categoryTV"
-        app:layout_constraintTop_toTopOf="@+id/categoryTV" />
-
-    <TextView
-        android:id="@+id/categoryTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="45dp"
-        android:text="Quiz Category"
-        android:textColor="@color/primary_color"
-        android:textSize="26sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Category" />
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:srcCompat="@drawable/back" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyCategory"
+        android:id="@+id/recyClass"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="30dp"
-        android:layout_marginTop="30dp"
+        android:paddingVertical="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryTV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

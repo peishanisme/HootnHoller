@@ -3,11 +3,8 @@ package com.firstapp.hootnholler;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,7 +114,9 @@ public class Login_Activity extends AppCompatActivity {
                     } else {
                         String message = task.getException().getMessage();
                         Toast.makeText(Login_Activity.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
+                        if (!isFinishing()) {
+                            loadingBar.dismiss();
+                        }
                     }
                 }
             });
@@ -142,7 +141,7 @@ public class Login_Activity extends AppCompatActivity {
                             finish();
                         } else if ("Educator".equals(role)) {
                             Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login_Activity.this, Educator_MainActivity.class);
+                            Intent intent = new Intent(Login_Activity.this, Educator_Main_Activity.class);
                             startActivity(intent);
                             finish();
                         } else if ("Parent".equals(role)) {
@@ -164,5 +163,15 @@ public class Login_Activity extends AppCompatActivity {
                 }
             });
         }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Dismiss the loadingBar if it's showing
+        if (loadingBar != null && loadingBar.isShowing()) {
+            loadingBar.dismiss();
+        }
+    }
+
 
 }

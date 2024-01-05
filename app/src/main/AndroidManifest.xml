@@ -34,7 +34,7 @@
             android:name=".Parent_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Educator_MainActivity"
+            android:name=".Educator_Main_Activity"
             android:exported="false" />
         <activity
             android:name=".Student_MainActivity"
@@ -56,12 +56,6 @@
             android:exported="false" />
         <activity
             android:name=".Login_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_Classroom"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_CreateClass"
             android:exported="false" />
         <activity
             android:name=".Teacher_ClassCode"
@@ -98,6 +92,36 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Educator_Quiz_Review_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Educator_Quiz_Post_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Quiz_To_Do_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Quiz_Review_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Quiz_Leaderboard_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Quiz_Do_Quiz_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Student_Quiz_Set_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizStudentCategoryActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Educator_Quiz_Question_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Educator_Quiz_Set_Activity"
             android:exported="false" />
         <activity
             android:name=".Starting_Activity"

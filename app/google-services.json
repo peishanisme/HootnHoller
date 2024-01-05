@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "560804676500",
+    "firebase_url": "https://hoot-n-holler-default-rtdb.firebaseio.com",
     "project_id": "hoot-n-holler",
     "storage_bucket": "hoot-n-holler.appspot.com"
   },
