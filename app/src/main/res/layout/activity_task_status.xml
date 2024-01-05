@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TaskStatus_Activity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="60dp"
+                android:layout_gravity="center"
+                >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/baseline_arrow_back_ios_24"
+                    android:id="@+id/moveBackwardWeekBtn"
+                    />
+
+                <TextView
+                    android:id="@+id/dateRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="12 Nov 2023 - 18 Nov 2023"
+                    android:textColor="#0E194D"
+                    android:textSize="16sp"
+                    />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/baseline_arrow_back_ios_24"
+                    android:id="@+id/moveForwardWeekBtn"
+                    android:layoutDirection="rtl"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:background="@drawable/blue_rectangle"
+                >
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/Number_Task_Assigned"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_Of_Task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tasks"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/Completed_Task"
+                    android:layout_weight="1"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_Completed_Task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completed"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/In_Progress"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_In_Progress_Task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="In Progress"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Late"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/Number_Incomplete_Task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Incomplete "
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Tasks"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="23dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/assignment_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="23dp"/>
+
+            </ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

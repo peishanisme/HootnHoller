@@ -16,6 +16,18 @@
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".Educator_Feedback_View_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Feedback_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Quiz_Score_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".TaskStatus_Activity"
+            android:exported="false" />
+        <activity
             android:name=".EditAccount_Activity"
             android:exported="false" />
         <activity
