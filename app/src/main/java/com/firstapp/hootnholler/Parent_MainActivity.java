@@ -28,7 +28,7 @@ public class Parent_MainActivity extends AppCompatActivity {
             else if (id == R.id.statistic) {
                 replaceFragment(new Parent_Statistic_Fragment());
             }else if (id == R.id.chat) {
-                replaceFragment(new Parent_Chat_Fragment());
+                replaceFragment(new ChatFragment());
             }else if (id == R.id.profile) {
                 replaceFragment(new Profile_Fragment());}
 
