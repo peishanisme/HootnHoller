@@ -39,11 +39,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="124dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingLeft="10sp"
             android:paddingTop="25sp"
-            android:text="Learning\nMaterials"
+            android:text="Learning Materials"
             android:textColor="#5269CD"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -55,7 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
         android:text="Chapter 3 - Human (Notes)"
         android:textColor="#000000"
@@ -79,7 +78,7 @@
         android:id="@+id/textView14"
         android:layout_width="315dp"
         android:layout_height="44dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Dear students, this is the notes for tmr’s lesson. Kindly go through before class tmr."
         android:textColor="#000000"
         android:textSize="15sp"
@@ -125,113 +124,6 @@
         android:textColor="#545353"
         app:layout_constraintStart_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-    <TextView
-        android:id="@+id/comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Class Comments"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <ImageView
-        android:id="@+id/studenticon"
-        android:layout_width="40dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@+id/comment"
-        app:layout_constraintTop_toBottomOf="@+id/comment"
-        app:srcCompat="@drawable/ic_student" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="285dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintStart_toEndOf="@+id/studenticon"
-        app:layout_constraintTop_toTopOf="@+id/studenticon" />
-
-    <EditText
-        android:id="@+id/ETComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_no_underline"
-        android:hint="Post your comments here...."
-        android:textColor="#545353"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
-
-    <ImageButton
-        android:id="@+id/btnBold"
-        android:layout_width="12dp"
-        android:layout_height="16dp"
-        android:layout_marginBottom="5dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/ETComment"
-        app:srcCompat="@drawable/ic_bold"
-        android:onClick="buttonBold"/>
-
-    <ImageButton
-        android:id="@+id/btnItalic"
-        android:layout_width="14dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBold"
-        app:layout_constraintStart_toEndOf="@+id/btnBold"
-        app:srcCompat="@drawable/ic_italic"
-        android:onClick="buttonItalics"/>
-
-    <ImageButton
-        android:id="@+id/btnUnderline"
-        android:layout_width="15dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnItalic"
-        app:layout_constraintStart_toEndOf="@+id/btnItalic"
-        app:srcCompat="@drawable/ic_underline"
-        android:onClick="buttonUnderline"/>
-
-    <ImageButton
-        android:id="@+id/btnUpload"
-        android:layout_width="15dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnUnderline"
-        app:layout_constraintStart_toEndOf="@+id/btnUnderline"
-        app:srcCompat="@drawable/ic_upload" />
-
-    <ImageButton
-        android:id="@+id/btnLink"
-        android:layout_width="20dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnUpload"
-        app:layout_constraintStart_toEndOf="@+id/btnUpload"
-        app:srcCompat="@drawable/ic_link" />
-
-    <ImageButton
-        android:id="@+id/btnSend"
-        android:layout_width="18dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintStart_toEndOf="@+id/view2"
-        app:srcCompat="@drawable/ic_send" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
