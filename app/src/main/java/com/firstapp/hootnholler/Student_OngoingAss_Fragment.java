@@ -24,63 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-//public class Student_OngoingAss_Fragment extends Fragment {
-//    Student_Ass_Adapter Student_Ass_Adapter;
-//    ArrayList<Assignment> asgmList;
-//    RecyclerView recyclerView;
-//    String currentClassCode;
-//    DatabaseReference database;
-//    TextView noAss;
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        View view = inflater.inflate(R.layout.fragment_student__ongoing_ass_, container, false);
-//        Bundle arguments = getArguments();
-//        if (arguments != null) {
-//            currentClassCode = arguments.getString("classCode");
-//        }
-//
-//        recyclerView = view.findViewById(R.id.ongoingAssList);
-//        noAss = view.findViewById(R.id.TVnoAss);
-//
-//        database = FirebaseDatabase.getInstance().getReference();
-//
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // Use getActivity() instead of this
-//
-//        asgmList = new ArrayList<>();
-//        Student_Ass_Adapter = new Student_Ass_Adapter(getActivity(), asgmList,currentClassCode); // Use getActivity() instead of this
-//        recyclerView.setAdapter(Student_Ass_Adapter);
-//        database.child("Classroom").child(currentClassCode).child("Assignment").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    Assignment asgm = dataSnapshot.getValue(Assignment.class);
-//                    asgm.setAssKey(dataSnapshot.getKey());
-//                    if (asgm != null) {
-//                        asgmList.add(asgm);
-//                    }
-//                }
-//                if (asgmList.isEmpty()) {
-//                    noAss.setVisibility(View.VISIBLE);
-//                } else {
-//                    noAss.setVisibility(View.GONE);
-//                }
-//
-//                Student_Ass_Adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        return view;
-//    }
 public class Student_OngoingAss_Fragment extends Fragment {
     Student_Ass_Adapter studentAssAdapter;
     ArrayList<Assignment> asgmList;
