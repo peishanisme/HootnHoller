@@ -35,11 +35,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="124dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:paddingLeft="10sp"
             android:paddingTop="25sp"
-            android:text="@string/learning_nmaterials"
+            android:text="Learning Materials"
             android:textColor="#5269CD"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -48,8 +48,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lm_list"
-        android:layout_width="409dp"
-        android:layout_height="697dp"
+        android:layout_width="390dp"
+        android:layout_height="566dp"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent" />
