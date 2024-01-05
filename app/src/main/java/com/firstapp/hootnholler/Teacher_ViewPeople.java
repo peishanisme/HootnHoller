@@ -8,28 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.firstapp.hootnholler.adapter.Announcement_Adapter;
 import com.firstapp.hootnholler.adapter.People_RecyclerViewAdapter;
-import com.firstapp.hootnholler.entity.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class Teacher_People extends AppCompatActivity {
+public class Teacher_ViewPeople extends AppCompatActivity {
     TextView EducatorName;
     private String currentClassCode;
     private DatabaseReference ClassroomRef,User;
-
     private ArrayList<String> StudentList = new ArrayList<>();
     private RecyclerView People_RecyclerView;
     private People_RecyclerViewAdapter PeopleAdapter;
@@ -47,7 +41,7 @@ public class Teacher_People extends AppCompatActivity {
         back=findViewById(R.id.ButtonBack);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         People_RecyclerView.setLayoutManager(layoutManager);
-        PeopleAdapter = new People_RecyclerViewAdapter(Teacher_People.this,StudentList,currentClassCode);
+        PeopleAdapter = new People_RecyclerViewAdapter(Teacher_ViewPeople.this,StudentList,currentClassCode);
         People_RecyclerView.setAdapter(PeopleAdapter);
 
 
@@ -57,7 +51,7 @@ public class Teacher_People extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_People.this, Teacher_Class.class);
+                Intent intent = new Intent(Teacher_ViewPeople.this, Teacher_Class.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }

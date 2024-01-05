@@ -79,7 +79,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_CreateAss.this, Teacher_UpcomingAsgm.class);
+                Intent intent = new Intent(Teacher_CreateAss.this, Teacher_Assignment.class);
                 startActivity(intent);
             }
         });
@@ -238,7 +238,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         public static long convertDateTimeToTimestamp(String inputDateTime) {
             try {
                 // Define the format of your input date and time
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MM yyyy, HH:mm:ss a", java.util.Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MM-yyyy, HH:mm:ss a", java.util.Locale.getDefault());
 
                 // Parse the input date and time string to get a Date object
                 Date date = sdf.parse(inputDateTime);

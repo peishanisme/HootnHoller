@@ -56,6 +56,7 @@ public class People_RecyclerViewAdapter extends RecyclerView.Adapter<People_Recy
     @Override
     public void onBindViewHolder(@NonNull People_RecyclerViewAdapter.ViewHolder holder, int position) {
         String studentUID = StudentList.get(position);
+        holder.condition.setVisibility(View.GONE);
         int randomIndex = new Random().nextInt(drawableResources.length);
         int randomDrawableId = drawableResources[randomIndex];
         holder.image.setImageResource(randomDrawableId);
@@ -80,13 +81,14 @@ public class People_RecyclerViewAdapter extends RecyclerView.Adapter<People_Recy
             }
 
             public static class ViewHolder extends RecyclerView.ViewHolder {
-                private TextView StudentName;
+                private TextView StudentName,condition;
                 private ImageView image;
 
                 public ViewHolder(@NonNull View itemView) {
                     super(itemView);
                     StudentName=itemView.findViewById(R.id.name);
                     image=itemView.findViewById(R.id.image);
+                    condition=itemView.findViewById(R.id.condition);
                 }
             }
         }

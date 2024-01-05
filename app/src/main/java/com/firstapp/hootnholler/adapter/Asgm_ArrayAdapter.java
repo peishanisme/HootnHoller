@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
+import com.firstapp.hootnholler.Teacher_Ass_StudentList;
 import com.firstapp.hootnholler.Teacher_CreateAss;
 import com.firstapp.hootnholler.Teacher_EditAss;
 import com.firstapp.hootnholler.Teacher_LM_Details;
@@ -24,14 +25,15 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
     private ArrayList<Assignment> asgmList;
     private Context context;
     private String currentClassCode;
+    private String key;
 
-    public Asgm_ArrayAdapter() {
-    }
 
-    public Asgm_ArrayAdapter(Context context, ArrayList<Assignment> asgmList,String currentClassCode) {
+
+    public Asgm_ArrayAdapter(Context context, ArrayList<Assignment> asgmList,String currentClassCode,String key) {
         this.context = context;
         this.asgmList = asgmList;
         this.currentClassCode = currentClassCode;
+        this.key=key;
     }
 
     @NonNull
@@ -46,6 +48,7 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
         Assignment asgm = asgmList.get(position);
         //holder.bind(asgm);
         //holder.label.setText("• Ready For Grading");
+        holder.label.setVisibility(View.GONE);
         holder.asgmTitle.setText(asgm.getTitle());
         // Check if dueDate is not null before parsing
         if (asgm.getDueDate() != null) {
@@ -61,16 +64,30 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
             holder.asgmDueDate.setText("No Due Date");
         }
 
-        holder.card.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(context, Teacher_EditAss.class);
+        if(key=="1"){
+            holder.card.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+//                Intent intent=new Intent(context, Teacher_EditAss.class);
+//                intent.putExtra("assKey",asgm.getAssKey());
+//                intent.putExtra("classCode", currentClassCode);
+//                context.startActivity(intent);
+                }
+            });
+        }else {
+            holder.card.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                Intent intent=new Intent(context, Teacher_Ass_StudentList.class);
                 intent.putExtra("assKey",asgm.getAssKey());
                 intent.putExtra("classCode", currentClassCode);
+                intent.putExtra("key",key);
                 context.startActivity(intent);
-            }
+        }
         });
+        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -83,7 +100,7 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //label = itemView.findViewById(R.id.RFGlabel);
+            label = itemView.findViewById(R.id.RFGlabel);
             asgmTitle = itemView.findViewById(R.id.asgmTitle);
             asgmOpenDate = itemView.findViewById(R.id.openDate);
             asgmDueDate = itemView.findViewById(R.id.asgmDueDate);
@@ -91,45 +108,6 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
             card = itemView.findViewById(R.id.card);
         }
 
-//        public void bind(Assignment asgm) {
-//            asgmTitle.setText(asgm.getTitle());
-////            if (asgm.getUploadDate() != null) {
-////                try {
-////                    long openDateTimestamp = Long.parseLong(asgm.getUploadDate());
-////                    asgmOpenDate.setText("Due " + LMAdapter.convertTimestampToDateTime(openDateTimestamp));
-////                } catch (NumberFormatException e) {
-////                    e.printStackTrace();
-////                    // Handle the exception or log the error
-////                }
-////            } else {
-////                // Handle the case where dueDate is null
-////                asgmDueDate.setText("No Open Date");
-////            }
-//            long openDateTimestamp = Long.parseLong(asgm.getUploadDate());
-//            asgmOpenDate.setText("Opened: " + LMAdapter.convertTimestampToDateTime(openDateTimestamp));
-//            if (asgm.getDueDate() != null) {
-//                try {
-//                    long dueDateTimestamp = Long.parseLong(asgm.getDueDate());
-//                    asgmDueDate.setText("Due " + LMAdapter.convertTimestampToDateTime(dueDateTimestamp));
-//                } catch (NumberFormatException e) {
-//                    e.printStackTrace();
-//                    // Handle the exception or log the error
-//                }
-//            } else {
-//                // Handle the case where dueDate is null
-//                asgmDueDate.setText("No Due Date");
-//            }
-//            if (asgm.getDescription() != null) {
-//                assDescription.setText(asgm.getDescription());
-//            }else {
-//                assDescription.setText("null");
-//            }
-//            card.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-//        }
+
     }
 }

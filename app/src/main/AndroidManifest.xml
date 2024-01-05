@@ -16,6 +16,9 @@
         android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
         <activity
+            android:name=".Teacher_Assignment"
+            android:exported="false" />
+        <activity
             android:name=".Teacher_PostLM"
             android:exported="false" />
         <activity
@@ -67,7 +70,7 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Graded_Details"
+            android:name=".Teacher_Ass_StudentList"
             android:exported="false" />
         <activity
             android:name=".Teacher_LM_Details"
@@ -76,7 +79,7 @@
             android:name=".Teacher_LearningMaterials"
             android:exported="false" />
         <activity
-            android:name=".Teacher_People"
+            android:name=".Teacher_ViewPeople"
             android:exported="false" />
         <activity
             android:name=".Teacher_GradedAsgm"

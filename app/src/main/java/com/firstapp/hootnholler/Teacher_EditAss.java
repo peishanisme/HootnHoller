@@ -50,7 +50,7 @@ public class Teacher_EditAss extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_EditAss.this, Teacher_UpcomingAsgm.class);
+                Intent intent = new Intent(Teacher_EditAss.this, Teacher_Assignment.class);
                 startActivity(intent);
             }
         });

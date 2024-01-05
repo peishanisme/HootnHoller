@@ -84,9 +84,6 @@ public class Teacher_Class extends AppCompatActivity {
                     String ClassSessiom = snapshot.child("classSession").getValue(String.class);
                     long studentNum=snapshot.child("StudentsJoined").getChildrenCount();
 
-
-
-
                     className.setText(ClassName);
                     classDescription.setText(ClassDescription);
                     classSession.setText(ClassSessiom);
@@ -112,7 +109,7 @@ public class Teacher_Class extends AppCompatActivity {
         taskAssignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_Class.this, Teacher_UpcomingAsgm.class);
+                Intent intent = new Intent(Teacher_Class.this, Teacher_Assignment.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -156,7 +153,7 @@ public class Teacher_Class extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.viewPeople) {
-        Intent intent=new Intent(Teacher_Class.this, Teacher_People.class);
+        Intent intent=new Intent(Teacher_Class.this, Teacher_ViewPeople.class);
         intent.putExtra("classCode",currentClassCode);
         startActivity(intent);
 
