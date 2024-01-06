@@ -167,7 +167,7 @@ public class Educator_Ass_RFG_Fragment extends Fragment {
     TextView noAss;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid = auth.getUid();
-    final String key="2";
+    final String key = "2";
     long numOfStudent;
 
     @Override
@@ -185,13 +185,13 @@ public class Educator_Ass_RFG_Fragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new Asgm_ArrayAdapter(getActivity(), asgmList, currentClassCode,key);
+        adapter = new Asgm_ArrayAdapter(getActivity(), asgmList, currentClassCode, key);
         recyclerView.setAdapter(adapter);
 
         database.child("Classroom").child(currentClassCode).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                numOfStudent=snapshot.child("StudentsJoined").getChildrenCount();
+                numOfStudent = snapshot.child("StudentsJoined").getChildrenCount();
             }
 
             @Override
@@ -228,40 +228,50 @@ public class Educator_Ass_RFG_Fragment extends Fragment {
     private boolean isReadyForGrading(DataSnapshot dataSnapshot) {
         DataSnapshot submissionSnapshot = dataSnapshot.child("Submission");
 
-        if (submissionSnapshot.exists()) {
-            int submittedStudentsCount = (int) submissionSnapshot.getChildrenCount();
-            int joinedStudentsCount = (int) numOfStudent; // Using the previously obtained count
+        Assignment assignment = dataSnapshot.getValue(Assignment.class);
+        if (assignment != null) {
+            long currentTimeMillis = System.currentTimeMillis();
+            long dueTimeMillis = Long.parseLong(assignment.getDueDate());
 
-            if (submittedStudentsCount > 0 && submittedStudentsCount == joinedStudentsCount) {
-                for (DataSnapshot studentSnapshot : submissionSnapshot.getChildren()) {
-                    boolean isScored = studentSnapshot.child("score").exists();
-
-                    if (!isScored) {
-                        // If at least one student has not been scored, the assignment is ready for grading
-                        return true;
-                    }
-                }
-            } else {
-                // If not all students have submitted, the assignment is ready for grading
-                return true;
+            if (dueTimeMillis <= currentTimeMillis) {
+                return false; // Assignment is already due, not ready for grading
             }
-        }
 
-        // No student without a "score" key found, not ready for grading
-        return false;
+            if (submissionSnapshot.exists()) {
+                int submittedStudentsCount = (int) submissionSnapshot.getChildrenCount();
+                int joinedStudentsCount = (int) numOfStudent; // Using the previously obtained count
+
+                if (submittedStudentsCount > 0 && submittedStudentsCount == joinedStudentsCount) {
+                    for (DataSnapshot studentSnapshot : submissionSnapshot.getChildren()) {
+                        boolean isScored = studentSnapshot.child("score").exists();
+
+                        if (!isScored) {
+                            // If at least one student has not been scored, the assignment is ready for grading
+                            return true;
+                        }
+                    }
+                } else {
+                    // If not all students have submitted, the assignment is ready for grading
+                    return true;
+                }
+            }
+
+            // No student without a "score" key found, not ready for grading
+
+        }return false;
     }
 
 
+        private void updateUI() {
+            if (asgmList.isEmpty()) {
+                noAss.setVisibility(View.VISIBLE);
+            } else {
+                noAss.setVisibility(View.GONE);
+            }
 
-    private void updateUI() {
-        if (asgmList.isEmpty()) {
-            noAss.setVisibility(View.VISIBLE);
-        } else {
-            noAss.setVisibility(View.GONE);
+            adapter.notifyDataSetChanged();
         }
 
-        adapter.notifyDataSetChanged();
-    }
 }
 
 

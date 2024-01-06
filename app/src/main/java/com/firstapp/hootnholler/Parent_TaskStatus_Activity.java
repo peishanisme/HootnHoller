@@ -62,7 +62,6 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
         NumOfTask = findViewById(R.id.Number_Of_Task);
         NumOfCompletedTask = findViewById(R.id.Number_Completed_Task);
         NumOfIncompletedTask = findViewById(R.id.Number_Incomplete_Task);
-        NumOfInProgressTask = findViewById(R.id.Number_In_Progress_Task);
         Assignment = new ArrayList<>();
         Submissions = new ArrayList<>();
         Student_Assignment_Adapter = new Student_Assignment(Assignment);
