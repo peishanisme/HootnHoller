@@ -54,7 +54,9 @@
             android:text="Ongoing"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:focusableInTouchMode="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

@@ -29,7 +29,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
-public class Teacher_Upload_LM extends AppCompatActivity {
+public class Educator_Upload_LM extends AppCompatActivity {
     private String currentClassCode,timestamp;
     Button uploadButton;
     ImageView addFileButton,back_button;
@@ -57,7 +57,7 @@ public class Teacher_Upload_LM extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Teacher_Upload_LM.this, Teacher_LearningMaterials.class);
+                Intent intent=new Intent(Educator_Upload_LM.this, Educator_LearningMaterials.class);
                 startActivity(intent);
             }
         });
@@ -149,7 +149,7 @@ public class Teacher_Upload_LM extends AppCompatActivity {
                         );
 
                         databaseReference.child(databaseReference.push().getKey()).setValue(learningMaterials);// push the value into the realtime database
-                        Toast.makeText(Teacher_Upload_LM.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_Upload_LM.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                         finish();
 

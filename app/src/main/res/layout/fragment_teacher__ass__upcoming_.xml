@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_Ass_Upcoming_Fragment">
+    tools:context=".Educator_Ass_Upcoming_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
@@ -20,5 +20,14 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/createAss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Assignment"
+        android:backgroundTint="@color/button_colour"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="40dp"/>
 
 </FrameLayout>

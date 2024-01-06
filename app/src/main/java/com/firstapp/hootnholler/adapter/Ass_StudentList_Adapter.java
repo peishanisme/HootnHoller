@@ -1,6 +1,7 @@
 package com.firstapp.hootnholler.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
+import com.firstapp.hootnholler.Student_AsgmDetails;
 import com.firstapp.hootnholler.entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,9 +74,7 @@ public class Ass_StudentList_Adapter extends RecyclerView.Adapter<Ass_StudentLis
             if(key.equals("2")){
                 submissionRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        System.out.println("snapshot.getKey()");
-                        System.out.println(snapshot.getKey());
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {;
                         if (snapshot.exists()) {
                             if (snapshot.child("score").exists()){
                                 holder.image.setVisibility(View.GONE);
@@ -117,6 +117,17 @@ public class Ass_StudentList_Adapter extends RecyclerView.Adapter<Ass_StudentLis
                 });
             }
         }
+
+        holder.peopleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Student_AsgmDetails.class);
+                intent.putExtra("classCode", currentClassCode);
+                intent.putExtra("assID", assID);
+                intent.putExtra("studentUID", studentUID);
+                context.startActivity(intent);
+            }
+        });
 
 
         UserRef.child(studentUID).addListenerForSingleValueEvent(new ValueEventListener() {

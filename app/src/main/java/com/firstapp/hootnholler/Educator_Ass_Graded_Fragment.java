@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class Teacher_Ass_Graded_Fragment extends Fragment {
+public class Educator_Ass_Graded_Fragment extends Fragment {
         Asgm_ArrayAdapter Adapter;
         ArrayList<Assignment> asgmList = new ArrayList<>();
         RecyclerView recyclerView;

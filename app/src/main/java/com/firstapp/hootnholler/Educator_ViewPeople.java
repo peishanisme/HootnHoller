@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Teacher_ViewPeople extends AppCompatActivity {
+public class Educator_ViewPeople extends AppCompatActivity {
     TextView EducatorName;
     private String currentClassCode;
     private DatabaseReference ClassroomRef,User;
@@ -41,7 +41,7 @@ public class Teacher_ViewPeople extends AppCompatActivity {
         back=findViewById(R.id.ButtonBack);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         People_RecyclerView.setLayoutManager(layoutManager);
-        PeopleAdapter = new People_RecyclerViewAdapter(Teacher_ViewPeople.this,StudentList,currentClassCode);
+        PeopleAdapter = new People_RecyclerViewAdapter(Educator_ViewPeople.this,StudentList,currentClassCode);
         People_RecyclerView.setAdapter(PeopleAdapter);
 
 
@@ -51,7 +51,7 @@ public class Teacher_ViewPeople extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_ViewPeople.this, Teacher_Class.class);
+                Intent intent = new Intent(Educator_ViewPeople.this, Educator_Class.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }

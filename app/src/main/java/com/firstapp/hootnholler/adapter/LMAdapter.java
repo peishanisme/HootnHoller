@@ -1,27 +1,19 @@
 package com.firstapp.hootnholler.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.Teacher_LM_Details;
-import com.firstapp.hootnholler.entity.Announcement;
+import com.firstapp.hootnholler.Educator_LM_Details;
 import com.firstapp.hootnholler.entity.Learning_Materials;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,7 +47,7 @@ public class LMAdapter extends RecyclerView.Adapter<LMAdapter.ViewHolder>{
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, Teacher_LM_Details.class);
+                Intent intent=new Intent(context, Educator_LM_Details.class);
                 intent.putExtra("LMid",LMItem.getLMid());
                 intent.putExtra("classCode", currentClassCode);
                 context.startActivity(intent);

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.adapter.Classroom_RecyclerViewAdapter;
 import com.firstapp.hootnholler.adapter.Student_Classroom_RecyclerViewAdapter;
 import com.firstapp.hootnholler.entity.Classroom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,20 +28,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Student_Classroom_Fragment extends Fragment {
     FloatingActionButton joinClass;
     RecyclerView recyclerView;
     ArrayList<Classroom> classroomList = new ArrayList<>();
     RecyclerView.LayoutManager layoutManager;
-    Student_Classroom_RecyclerViewAdapter recyclerViewAdapter;
+    Classroom_RecyclerViewAdapter recyclerViewAdapter;
     FirebaseAuth auth= FirebaseAuth.getInstance();
     private FirebaseUser currentUser=auth.getCurrentUser();
 
     String uid=currentUser.getUid().toString();
     DatabaseReference classroomRef, studentClass, student, user, database;
 
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     Button JoinClass;
     EditText classCode;
     View close_button;
@@ -57,7 +59,8 @@ public class Student_Classroom_Fragment extends Fragment {
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerViewAdapter = new Student_Classroom_RecyclerViewAdapter(getActivity(), classroomList);
+        List<String> colorCodes = Arrays.asList("#B3F4DD", "#F4E2B3", "#F4B3EA", "#FDCFD2", "#D8F4B3", "#EBF4B3", "#EECFFD", "#B3F4F4", "#C0B3F4", "#A0C1FF");
+        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), classroomList,colorCodes,uid);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         if (currentUser != null) {

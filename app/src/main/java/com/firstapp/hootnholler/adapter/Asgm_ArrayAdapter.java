@@ -1,7 +1,5 @@
 package com.firstapp.hootnholler.adapter;
 
-import static com.firstapp.hootnholler.adapter.LMAdapter.convertTimestampToDateTime;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,10 +13,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.Teacher_Ass_StudentList;
-import com.firstapp.hootnholler.Teacher_CreateAss;
-import com.firstapp.hootnholler.Teacher_EditAss;
-import com.firstapp.hootnholler.Teacher_LM_Details;
+import com.firstapp.hootnholler.Educator_Ass_StudentList;
+import com.firstapp.hootnholler.Educator_CreateAss;
+import com.firstapp.hootnholler.Student_AsgmDetails;
 import com.firstapp.hootnholler.entity.Assignment;
 
 public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.MyViewHolder>{
@@ -26,8 +23,6 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
     private Context context;
     private String currentClassCode;
     private String key;
-
-
 
     public Asgm_ArrayAdapter(Context context, ArrayList<Assignment> asgmList,String currentClassCode,String key) {
         this.context = context;
@@ -54,7 +49,7 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
         if (asgm.getDueDate() != null) {
             try {
                 long dueDateTimestamp = Long.parseLong(asgm.getDueDate());
-                holder.asgmDueDate.setText("Due " + Teacher_CreateAss.convertTimestampToDateTime(dueDateTimestamp));
+                holder.asgmDueDate.setText("Due " + Educator_CreateAss.convertTimestampToDateTime(dueDateTimestamp));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 // Handle the exception or log the error
@@ -68,17 +63,18 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
             holder.card.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-//                Intent intent=new Intent(context, Teacher_EditAss.class);
-//                intent.putExtra("assKey",asgm.getAssKey());
-//                intent.putExtra("classCode", currentClassCode);
-//                context.startActivity(intent);
+                    Intent intent = new Intent(context, Student_AsgmDetails.class);
+                    intent.putExtra("classCode", currentClassCode);
+                    intent.putExtra("assID", asgm.getAssKey());
+                    intent.putExtra("studentUID", "");
+                    context.startActivity(intent);
                 }
             });
         }else {
             holder.card.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                Intent intent=new Intent(context, Teacher_Ass_StudentList.class);
+                Intent intent=new Intent(context, Educator_Ass_StudentList.class);
                 intent.putExtra("assKey",asgm.getAssKey());
                 intent.putExtra("classCode", currentClassCode);
                 intent.putExtra("key",key);

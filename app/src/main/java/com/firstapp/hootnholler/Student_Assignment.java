@@ -30,6 +30,7 @@ public class Student_Assignment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Student_Assignment.this, Student_Class.class);
+                intent.putExtra("classCode",currentClassCode);
                 startActivity(intent);
             }
         });

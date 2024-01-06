@@ -3,11 +3,9 @@ package com.firstapp.hootnholler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -38,18 +36,17 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Teacher_CreateAss extends AppCompatActivity {
+public class Educator_CreateAss extends AppCompatActivity {
     EditText dueDate, pdfName, assTitle, assDescription;
     DatabaseReference assDatabase;
     StorageReference storageReference;
     Button btnAssign;
     String currentClassCode;
-    TextView showDueDate,showDueTime, addTime;
-    ImageButton buttonCalendar, backButton, btnAttachFile;
+    TextView showDueDate,showDueTime;
+    ImageButton  addTime,buttonCalendar, backButton, btnAttachFile;
     long dueTimestamp;
 
     @Override
@@ -62,7 +59,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         showDueDate = (TextView) findViewById(R.id.showDate);
         showDueTime = (TextView) findViewById(R.id.showTime);
         buttonCalendar = (ImageButton) findViewById(R.id.btnCalendar);
-        addTime = (TextView) findViewById(R.id.addTime);
+        addTime = (ImageButton) findViewById(R.id.addTime);
         backButton = (ImageButton) findViewById(R.id.backButton);
         btnAssign = (Button) findViewById(R.id.btnAssign);
         pdfName = (EditText) findViewById(R.id.pdfName);
@@ -79,7 +76,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_CreateAss.this, Teacher_Assignment.class);
+                Intent intent = new Intent(Educator_CreateAss.this, Educator_Assignment.class);
                 startActivity(intent);
             }
         });
@@ -144,11 +141,11 @@ public class Teacher_CreateAss extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (TextUtils.isEmpty(assTitle.getText().toString())) {
-                        Toast.makeText(Teacher_CreateAss.this, "Please set assignment title", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_CreateAss.this, "Please set assignment title", Toast.LENGTH_SHORT).show();
                         return;
 
                     } else if (TextUtils.isEmpty(showDueDate.getText().toString()) || TextUtils.isEmpty(showDueTime.getText().toString())) {
-                        Toast.makeText(Teacher_CreateAss.this, "Please set due date and time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_CreateAss.this, "Please set due date and time", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else{
@@ -186,7 +183,7 @@ public class Teacher_CreateAss extends AppCompatActivity {
                         );
                         assDatabase.child(assDatabase.push().getKey()).setValue(assClass);
 
-                        Toast.makeText(Teacher_CreateAss.this, "File Uploaded!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Educator_CreateAss.this, "File Uploaded!", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                         finish();
                     }

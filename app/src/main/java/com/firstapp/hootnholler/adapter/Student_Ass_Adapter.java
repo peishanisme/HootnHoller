@@ -2,6 +2,7 @@ package com.firstapp.hootnholler.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.Student_AsgmDetails;
-import com.firstapp.hootnholler.Teacher_CreateAss;
 import com.firstapp.hootnholler.entity.Assignment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,6 +64,7 @@ public class Student_Ass_Adapter extends RecyclerView.Adapter<Student_Ass_Adapte
                         if (snapshot.exists()) {
                             // Assignment is submitted
                             holder.dueMsg.setText("Submitted");
+                            holder.dueMsg.setTextColor(Color.GREEN);
                             holder.dueMsg.setVisibility(View.VISIBLE);
                         } else {
                             // Assignment is not submitted
@@ -95,39 +96,11 @@ public class Student_Ass_Adapter extends RecyclerView.Adapter<Student_Ass_Adapte
                 Intent intent = new Intent(context, Student_AsgmDetails.class);
                 intent.putExtra("classCode", currentClassCode);
                 intent.putExtra("assID", asgm.getAssKey());
+                intent.putExtra("studentUID", uid);
                 context.startActivity(intent);
             }
         });
     }
-
-//    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        Assignment asgm = asgmList.get(position);
-//        holder.dueMsg.setVisibility(View.GONE);
-//        holder.asgmTitle.setText(asgm.getTitle());
-//
-//        if (asgm.getDueDate() != null) {
-//            try {
-//                long dueDateTimestamp = Long.parseLong(asgm.getDueDate());
-//                holder.asgmDueDate.setText("Due " + convertTimestampToDateTime(dueDateTimestamp));
-//            } catch (NumberFormatException e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            holder.asgmDueDate.setText("No Due Date");
-//        }
-//        holder.card.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(context, Student_AsgmDetails.class);
-//                intent.putExtra("classCode",currentClassCode);
-//                intent.putExtra("assID",asgm.getAssKey());
-//                context.startActivity(intent);
-//            }
-//        });
-//    }
-
-
-
     public int getItemCount() {
         return asgmList.size();
     }

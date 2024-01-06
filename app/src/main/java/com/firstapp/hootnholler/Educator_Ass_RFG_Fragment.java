@@ -158,7 +158,7 @@ import java.util.ArrayList;
 //package com.firstapp.hootnholler;
 
 
-public class Teacher_Ass_RFG_Fragment extends Fragment {
+public class Educator_Ass_RFG_Fragment extends Fragment {
     Asgm_ArrayAdapter adapter;
     ArrayList<Assignment> asgmList = new ArrayList<>();
     RecyclerView recyclerView;

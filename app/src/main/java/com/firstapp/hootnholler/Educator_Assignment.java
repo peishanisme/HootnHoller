@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class Teacher_Assignment extends AppCompatActivity {
+public class Educator_Assignment extends AppCompatActivity {
 
 
     public TextView upcoming,readyForGrading,graded;
@@ -30,7 +30,7 @@ public class Teacher_Assignment extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_Assignment.this, Teacher_Class.class);
+                Intent intent = new Intent(Educator_Assignment.this, Educator_Class.class);
                 intent.putExtra("classCode",currentClassCode);
                 startActivity(intent);
             }
@@ -42,7 +42,7 @@ public class Teacher_Assignment extends AppCompatActivity {
         upcoming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new Teacher_Ass_Upcoming_Fragment(), currentClassCode);
+                loadFragment(new Educator_Ass_Upcoming_Fragment(), currentClassCode);
 
                 // Update text style
                 upcoming.setTypeface(null, Typeface.BOLD);
@@ -59,7 +59,7 @@ public class Teacher_Assignment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Load Past Assignment Fragment
-                loadFragment(new Teacher_Ass_RFG_Fragment(), currentClassCode);
+                loadFragment(new Educator_Ass_RFG_Fragment(), currentClassCode);
 
                 // Update text style
                 readyForGrading.setTypeface(null, Typeface.BOLD);
@@ -75,7 +75,7 @@ public class Teacher_Assignment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Load Past Assignment Fragment
-                loadFragment(new Teacher_Ass_Graded_Fragment(), currentClassCode);
+                loadFragment(new Educator_Ass_Graded_Fragment(), currentClassCode);
 
                 // Update text style
                 graded.setTypeface(null, Typeface.BOLD);

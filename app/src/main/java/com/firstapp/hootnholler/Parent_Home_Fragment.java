@@ -5,23 +5,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Monitored_Student_List;
 import com.firstapp.hootnholler.databinding.FragmentParentHomeBinding;
-import com.firstapp.hootnholler.entity.Assignment;
-import com.firstapp.hootnholler.entity.Quiz;
 import com.firstapp.hootnholler.entity.Student;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,13 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 
 public class Parent_Home_Fragment extends Fragment {
@@ -100,7 +89,7 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the TaskStatusFragment
-                Intent intent=new Intent(getActivity(), TaskStatus_Activity.class);
+                Intent intent=new Intent(getActivity(), Parent_TaskStatus_Activity.class);
                 intent.putExtra("Student_UID", studentUID);
                 startActivity(intent);
             }
@@ -110,7 +99,7 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the QuizScoreFragment
-                Intent intent=new Intent(getActivity(), Quiz_Score_Activity.class);
+                Intent intent=new Intent(getActivity(), Parent_Quiz_Score_Activity.class);
                 intent.putExtra("Student_UID", studentUID);
                 startActivity(intent);
             }

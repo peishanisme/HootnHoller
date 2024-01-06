@@ -6,13 +6,8 @@ import androidx.cardview.widget.CardView;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Teacher_LM_Details extends AppCompatActivity {
+public class Educator_LM_Details extends AppCompatActivity {
 
     public EditText comment;
     private String LMid, currentClassCode;
@@ -54,7 +49,7 @@ public class Teacher_LM_Details extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_LM_Details.this, Teacher_LearningMaterials.class);
+                Intent intent = new Intent(Educator_LM_Details.this, Educator_LearningMaterials.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }

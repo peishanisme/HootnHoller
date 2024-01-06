@@ -27,22 +27,22 @@
             android:label="@string/title_activity_student_assignment"
             android:theme="@style/Theme.HootnHoller" />
         <activity
-            android:name=".Teacher_EditAss"
+            android:name=".Educator_EditAss"
             android:exported="false" />
         <activity
-            android:name=".Teacher_CreateAss"
+            android:name=".Educator_CreateAss"
             android:exported="false" />
         <activity
             android:name=".Feedback_Activity"
             android:exported="false" />
         <activity
-            android:name=".Quiz_Score_Activity"
+            android:name=".Parent_Quiz_Score_Activity"
             android:exported="false" />
         <activity
-            android:name=".TaskStatus_Activity"
+            android:name=".Parent_TaskStatus_Activity"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Assignment"
+            android:name=".Educator_Assignment"
             android:exported="false" />
         <activity
             android:name=".Teacher_PostLM"
@@ -51,13 +51,13 @@
             android:name=".FeedbackList"
             android:exported="false" />
         <activity
-            android:name=".Teacher_FeedbackStudentList"
+            android:name=".Educator_FeedbackStudentList"
             android:exported="false" />
         <activity
-            android:name=".Teacher_CreateFeedback"
+            android:name=".Educator_CreateFeedback"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Upload_LM"
+            android:name=".Educator_Upload_LM"
             android:exported="false" />
         <activity
             android:name=".EditAccount_Activity"
@@ -90,16 +90,16 @@
             android:name=".Login_Activity"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Ass_StudentList"
+            android:name=".Educator_Ass_StudentList"
             android:exported="false" />
         <activity
-            android:name=".Teacher_LM_Details"
+            android:name=".Educator_LM_Details"
             android:exported="false" />
         <activity
-            android:name=".Teacher_LearningMaterials"
+            android:name=".Educator_LearningMaterials"
             android:exported="false" />
         <activity
-            android:name=".Teacher_ViewPeople"
+            android:name=".Educator_ViewPeople"
             android:exported="false" />
         <activity
             android:name=".Teacher_GradedAsgm"
@@ -111,10 +111,10 @@
             android:name=".Teacher_UpcomingAsgm"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Announcement"
+            android:name=".Educator_Announcement"
             android:exported="false" />
         <activity
-            android:name=".Teacher_Class"
+            android:name=".Educator_Class"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

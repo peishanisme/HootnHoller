@@ -1,4 +1,4 @@
-package com.firstapp.hootnholler;
+package com.firstapp.hootnholler.entity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

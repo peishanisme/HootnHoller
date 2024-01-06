@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Teacher_EditAss extends AppCompatActivity {
+public class Educator_EditAss extends AppCompatActivity {
     ImageButton back;
     String assKey, currentClassCode;
     TextView title, description, openDate, dueDate, filename;
@@ -50,7 +50,7 @@ public class Teacher_EditAss extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_EditAss.this, Teacher_Assignment.class);
+                Intent intent = new Intent(Educator_EditAss.this, Educator_Assignment.class);
                 startActivity(intent);
             }
         });

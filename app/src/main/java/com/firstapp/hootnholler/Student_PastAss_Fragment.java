@@ -79,9 +79,11 @@ public class Student_PastAss_Fragment extends Fragment {
                     public int compare(Assignment a1, Assignment a2) {
                         long dueDateA = Long.parseLong(a1.getDueDate());
                         long dueDateB = Long.parseLong(a2.getDueDate());
-                        return Long.compare(dueDateA, dueDateB);
+                        // Swap dueDateA and dueDateB for descending order
+                        return Long.compare(dueDateB, dueDateA);
                     }
                 });
+
 
                 if (asgmList.isEmpty()) {
                     noAss.setVisibility(View.VISIBLE);

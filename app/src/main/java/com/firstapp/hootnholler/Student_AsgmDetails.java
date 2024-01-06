@@ -37,22 +37,25 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.sql.SQLOutput;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class Student_AsgmDetails extends AppCompatActivity {
 
-    private Button addSubmissionButton, uploadButton, cancelButton;
+    private Button addSubmissionButton, uploadButton, cancelButton, dltButton, gradeButton;
     private View backButton;
     private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment;
     private EditText uploadFileName, assComment;
     ImageView addFile;
-    private LinearLayout submitLayout;
+    private LinearLayout submitLayout, studentLayout, teacherGradeLayout, submissionTable;
     String assId, currentClassCode;
     String displayName = null;
-    DatabaseReference assRef;
+    DatabaseReference assRef, databaseReference;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid = auth.getCurrentUser().getUid();
+    String studentUID;
     CardView file;
 
     StorageReference storageReference;
@@ -77,7 +80,6 @@ public class Student_AsgmDetails extends AppCompatActivity {
         submissionTime = findViewById(R.id.timeSubmission);
         submissionComment = findViewById(R.id.submissionComment);
         addSubmissionButton = findViewById(R.id.btnAddSubmission);
-        addSubmissionButton.setVisibility(View.GONE);
 
         submitLayout = findViewById(R.id.submitLayout);
         uploadFileName = findViewById(R.id.submissionTitle);
@@ -85,51 +87,21 @@ public class Student_AsgmDetails extends AppCompatActivity {
         addFile = findViewById(R.id.addFile);
         cancelButton = findViewById(R.id.cancelUpload);
         assComment = findViewById(R.id.Comment);
+        teacherGradeLayout = findViewById(R.id.teacher_grade_layout);
+        studentLayout = findViewById(R.id.student_layout);
+        gradeButton = findViewById(R.id.btnGrade);
+        dltButton = findViewById(R.id.btnDltAssgn);
+        submissionTable = findViewById(R.id.submissionTable);
+
+        addSubmissionButton.setVisibility(View.GONE);
         submitLayout.setVisibility(View.GONE);
+
 
         assId = getIntent().getStringExtra("assID");
         currentClassCode = getIntent().getStringExtra("classCode");
+        studentUID = getIntent().getStringExtra("studentUID");
         storageReference = FirebaseStorage.getInstance().getReference();
-
-        assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
-        assRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                title.setText(snapshot.child("title").getValue(String.class));
-                String openTimestamp = snapshot.child("uploadDate").getValue(String.class);
-                openTime.setText("Opened: " + convertTimestampToDateTime(Long.parseLong(openTimestamp)));
-                String dueTimestamp = snapshot.child("dueDate").getValue(String.class);
-                dueTime.setText("Due: " + convertTimestampToDateTime(Long.parseLong(dueTimestamp)));
-                description.setText(snapshot.child("description").getValue(String.class));
-                fileName.setText(snapshot.child("fileName").getValue(String.class));
-                String fileUri = snapshot.child("fileUri").getValue(String.class);
-
-                long currentTimeMillis = System.currentTimeMillis();
-                long dueTimeMillis = Long.parseLong(dueTimestamp);
-
-                if (dueTimeMillis > currentTimeMillis) {
-                    long timeRemainingMillis = dueTimeMillis - currentTimeMillis;
-                    String timeRemainingString = formatTimeRemaining(timeRemainingMillis);
-                    timeRemaining.setText(timeRemainingString);
-                } else {
-                    timeRemaining.setText("Time's up!");
-                }
-
-                checkSubmissionStatus(snapshot.child("Submission").child(uid));
-
-                file.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        openFile(fileUri);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle onCancelled
-            }
-        });
+        checkRole();
 
         backButton = findViewById(R.id.btnBack);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -321,5 +293,98 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         pd.setMessage("Uploaded : " + (int) percent + "%");
                     }
                 });
+    }
+
+    public void checkRole(){
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String role = snapshot.child("Users").child(uid).child("role").getValue(String.class);
+                if(role.equalsIgnoreCase("Educator")){
+                    DataSnapshot assignmentSnapshot = snapshot.child("Classroom").child(currentClassCode).child("Assignment").child(assId);
+                    int numofcheck = 0;
+                    for (DataSnapshot submissionSnapshot: assignmentSnapshot.child("Submission").getChildren()) {
+                        if(submissionSnapshot.getKey().equals(studentUID)){
+                            submissionTable.setVisibility(View.VISIBLE);
+                            dltButton.setVisibility(View.GONE);
+                            // graded
+                            if(submissionSnapshot.child("score").exists()){
+                                gradeButton.setVisibility(View.GONE);
+                            }
+                            // ready for graded
+                            else{
+                                teacherGradeLayout.setVisibility(View.VISIBLE);
+                                gradeButton.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        }
+                        numofcheck ++;
+                    }
+                    if(studentUID.isEmpty()){
+                        // upcoming
+                        if(numofcheck == assignmentSnapshot.child("Submission").getChildrenCount()){
+                            teacherGradeLayout.setVisibility(View.VISIBLE);
+                            submissionTable.setVisibility(View.GONE);
+                            studentLayout.setVisibility(View.GONE);
+                            dltButton.setVisibility(View.VISIBLE);
+                            gradeButton.setVisibility(View.GONE);
+                        }
+                    }
+                    else{
+
+                    }
+                }
+                else if(role.equalsIgnoreCase("Student")){
+                    submissionTable.setVisibility(View.VISIBLE);
+                    studentLayout.setVisibility(View.VISIBLE);
+                    teacherGradeLayout.setVisibility(View.GONE);
+                    assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
+                    assRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            title.setText(snapshot.child("title").getValue(String.class));
+                            String openTimestamp = snapshot.child("uploadDate").getValue(String.class);
+                            openTime.setText("Opened: " + convertTimestampToDateTime(Long.parseLong(openTimestamp)));
+                            String dueTimestamp = snapshot.child("dueDate").getValue(String.class);
+                            dueTime.setText("Due: " + convertTimestampToDateTime(Long.parseLong(dueTimestamp)));
+                            description.setText(snapshot.child("description").getValue(String.class));
+                            fileName.setText(snapshot.child("fileName").getValue(String.class));
+                            String fileUri = snapshot.child("fileUri").getValue(String.class);
+
+                            long currentTimeMillis = System.currentTimeMillis();
+                            long dueTimeMillis = Long.parseLong(dueTimestamp);
+
+                            if (dueTimeMillis > currentTimeMillis) {
+                                long timeRemainingMillis = dueTimeMillis - currentTimeMillis;
+                                String timeRemainingString = formatTimeRemaining(timeRemainingMillis);
+                                timeRemaining.setText(timeRemainingString);
+                            } else {
+                                timeRemaining.setText("Time's up!");
+                            }
+
+                            checkSubmissionStatus(snapshot.child("Submission").child(uid));
+
+                            file.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    openFile(fileUri);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle onCancelled
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

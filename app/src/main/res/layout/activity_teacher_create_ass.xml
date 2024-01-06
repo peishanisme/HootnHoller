@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_CreateAss">
+    tools:context=".Educator_CreateAss">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -66,9 +66,10 @@
         android:backgroundTint="#5D71C9"
         android:text="Assign"
         android:textSize="16dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="@+id/view4"
-        android:onClick="buttonAssign"/>
+       />
 
     <ImageButton
         android:id="@+id/btnAttachFile"
@@ -162,6 +163,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintStart_toEndOf="@+id/view7" />
 
+
+
     <TextView
         android:id="@+id/showDate"
         android:layout_width="wrap_content"
@@ -177,23 +180,22 @@
         android:id="@+id/showTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:text="HH:MM"
         android:textColor="#A1A1A1"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintStart_toEndOf="@+id/showDate" />
 
-    <TextView
+    <ImageButton
         android:id="@+id/addTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="Add Time"
-        android:textColor="#A1A1A1"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/showDate"
-        app:layout_constraintStart_toEndOf="@+id/btnCalendar" />
+        android:layout_marginStart="36dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/baseline_more_time_24"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/view7" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

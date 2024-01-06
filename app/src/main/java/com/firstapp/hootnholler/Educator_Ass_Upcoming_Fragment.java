@@ -1,5 +1,6 @@
 package com.firstapp.hootnholler;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Asgm_ArrayAdapter;
@@ -26,13 +28,14 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class Teacher_Ass_Upcoming_Fragment extends Fragment {
+public class Educator_Ass_Upcoming_Fragment extends Fragment {
 
     Asgm_ArrayAdapter AssAdapter;
     ArrayList<Assignment> asgmList;
     RecyclerView recyclerView;
     String currentClassCode;
     DatabaseReference database;
+    Button createAss;
     TextView noAss;
     FirebaseAuth mauth=FirebaseAuth.getInstance();
     String uid= mauth.getUid().toString();
@@ -49,6 +52,7 @@ public class Teacher_Ass_Upcoming_Fragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.upcomingAssList);
         noAss = view.findViewById(R.id.TVnoAss);
+        createAss=view.findViewById(R.id.createAss);
 
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -58,6 +62,15 @@ public class Teacher_Ass_Upcoming_Fragment extends Fragment {
         asgmList = new ArrayList<>();
         AssAdapter = new Asgm_ArrayAdapter(getActivity(), asgmList, currentClassCode,key);
         recyclerView.setAdapter(AssAdapter);
+
+        createAss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), Educator_CreateAss.class);
+                intent.putExtra("classCode",currentClassCode);
+                startActivity(intent);
+            }
+        });
 
         database.child("Classroom").child(currentClassCode).child("Assignment").addValueEventListener(new ValueEventListener() {
             @Override

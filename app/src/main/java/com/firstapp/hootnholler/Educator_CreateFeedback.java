@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Teacher_CreateFeedback extends AppCompatActivity {
+public class Educator_CreateFeedback extends AppCompatActivity {
 
     private String studentUID, currentClassCode, userUID;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -105,13 +105,13 @@ public class Teacher_CreateFeedback extends AppCompatActivity {
         }
         else {
             // if user did not click the positive or negative
-            Toast.makeText(Teacher_CreateFeedback.this, "Please select whether positive or negative feedback.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Educator_CreateFeedback.this, "Please select whether positive or negative feedback.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(feedbackMsg.isEmpty()){
             // if user did not tyoe any message
-            Toast.makeText(Teacher_CreateFeedback.this, "Please do not leave the feedback message empty.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Educator_CreateFeedback.this, "Please do not leave the feedback message empty.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -120,13 +120,13 @@ public class Teacher_CreateFeedback extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Teacher_CreateFeedback.this, "Feedback uploaded successfully.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Teacher_CreateFeedback.this, Teacher_FeedbackStudentList.class);
+                            Toast.makeText(Educator_CreateFeedback.this, "Feedback uploaded successfully.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Educator_CreateFeedback.this, Educator_FeedbackStudentList.class);
                             intent.putExtra("classCode",currentClassCode);
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(Teacher_CreateFeedback.this, "Feedback uploaded failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Educator_CreateFeedback.this, "Feedback uploaded failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

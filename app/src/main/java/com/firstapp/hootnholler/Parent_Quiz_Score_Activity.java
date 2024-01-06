@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,8 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class Quiz_Score_Activity extends AppCompatActivity {
+public class Parent_Quiz_Score_Activity extends AppCompatActivity {
 
     private ActivityQuizScoreBinding binding;
     private TextView DateRange, NumOfQuiz, NumOfCompletedQuiz, NumOfIncompletedQuiz;

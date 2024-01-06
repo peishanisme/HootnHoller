@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Teacher_Class extends AppCompatActivity {
+public class Educator_Class extends AppCompatActivity {
     String currentClassCode;
     DatabaseReference classroom;
     TextView className, classSession, classDescription, numberofStudents;
@@ -58,7 +58,7 @@ public class Teacher_Class extends AppCompatActivity {
         overflowMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(Teacher_Class.this, view);
+                PopupMenu popupMenu = new PopupMenu(Educator_Class.this, view);
                 popupMenu.inflate(R.menu.educator_overflow_menu);
 
                 // Set the menu item click listener
@@ -100,7 +100,7 @@ public class Teacher_Class extends AppCompatActivity {
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_Class.this, Teacher_Announcement.class);
+                Intent intent = new Intent(Educator_Class.this, Educator_Announcement.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -109,7 +109,7 @@ public class Teacher_Class extends AppCompatActivity {
         taskAssignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_Class.this, Teacher_Assignment.class);
+                Intent intent = new Intent(Educator_Class.this, Educator_Assignment.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -118,7 +118,7 @@ public class Teacher_Class extends AppCompatActivity {
         learningMaterials.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_Class.this, Teacher_LearningMaterials.class);
+                Intent intent = new Intent(Educator_Class.this, Educator_LearningMaterials.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -127,7 +127,7 @@ public class Teacher_Class extends AppCompatActivity {
         feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_Class.this, Teacher_FeedbackStudentList.class);
+                Intent intent = new Intent(Educator_Class.this, Educator_FeedbackStudentList.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -136,7 +136,7 @@ public class Teacher_Class extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Teacher_Class.this, Educator_Classroom_Fragment.class);
+                Intent intent = new Intent(Educator_Class.this, Educator_Classroom_Fragment.class);
                 startActivity(intent);
             }
         });
@@ -153,13 +153,13 @@ public class Teacher_Class extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.viewPeople) {
-        Intent intent=new Intent(Teacher_Class.this, Teacher_ViewPeople.class);
+        Intent intent=new Intent(Educator_Class.this, Educator_ViewPeople.class);
         intent.putExtra("classCode",currentClassCode);
         startActivity(intent);
 
         } else if (id == R.id.viewClassCode) {
             String classCode = currentClassCode;
-            Dialog dialog=new Dialog(Teacher_Class.this);
+            Dialog dialog=new Dialog(Educator_Class.this);
             dialog.setContentView(R.layout.pop_out_classcode);
 
             TextView ClassCode=dialog.findViewById(R.id.classCode);
@@ -171,12 +171,12 @@ public class Teacher_Class extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Implement the logic to copy the connection key to the clipboard
-                    ClipboardManager clipboard = (ClipboardManager) Teacher_Class.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipboardManager clipboard = (ClipboardManager) Educator_Class.this.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("Class Code", classCode);
                     clipboard.setPrimaryClip(clip);
 
                     // Show a toast indicating that the key has been copied
-                    Toast.makeText(Teacher_Class.this, "Class code copied to clipboard", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Educator_Class.this, "Class code copied to clipboard", Toast.LENGTH_SHORT).show();
                 }
             });
             close_button.setOnClickListener(new View.OnClickListener() {

@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -56,7 +57,8 @@ public class Educator_Classroom_Fragment extends Fragment {
         layoutManager=new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), classroomList);
+        List<String> colorCodes = Arrays.asList("#B3F4DD", "#F4E2B3", "#F4B3EA", "#FDCFD2", "#D8F4B3", "#EBF4B3", "#EECFFD", "#B3F4F4", "#C0B3F4", "#A0C1FF");
+        recyclerViewAdapter = new Classroom_RecyclerViewAdapter(getActivity(), classroomList,colorCodes,uid);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         if (currentUser != null) {

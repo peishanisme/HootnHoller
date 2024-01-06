@@ -30,11 +30,18 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
     private List<Announcement> announcementList;
     private Context context;
     private String currentClassCode;
+    boolean isCurrentUserClassOwner;
 
-    public Announcement_Adapter(Context context,List<Announcement> announcementList,String CurrentClassCode) {
+    public Announcement_Adapter(Context context,List<Announcement> announcementList,String CurrentClassCode,boolean isCurrentUserClassOwner) {
         this.context = context;
         this.announcementList = announcementList;
         this.currentClassCode=CurrentClassCode;
+        this.isCurrentUserClassOwner=isCurrentUserClassOwner;
+    }
+
+    public void checkCurrentUserClassOwner(boolean isCurrentUserClassOwner){
+        this.isCurrentUserClassOwner = isCurrentUserClassOwner;
+
     }
 
     @NonNull
@@ -51,12 +58,13 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnnouncementPopup(view, announcementItem);
+
+                showAnnouncementPopup(view, announcementItem,isCurrentUserClassOwner);
 
             }
         });
     }
-    private void showAnnouncementPopup(View card,Announcement announcementItem) {
+    private void showAnnouncementPopup(View card, Announcement announcementItem, boolean isCurrentUserClassOwner) {
         Dialog dialog = new Dialog(card.getContext());
         dialog.setContentView(R.layout.pop_out_announcement_details);
 
@@ -64,7 +72,7 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
         TextView annTitle = dialog.findViewById(R.id.annTitle);
         TextView annTime = dialog.findViewById(R.id.annTime);
         TextView annContent = dialog.findViewById(R.id.annContent);
-        View closeButton=dialog.findViewById(R.id.close);
+        View closeButton = dialog.findViewById(R.id.close);
         Button editButton = dialog.findViewById(R.id.editButton);
         Button deleteButton = dialog.findViewById(R.id.deleteButton);
 
@@ -73,42 +81,50 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
         annContent.setText(announcementItem.getAnnouncementContent());
 
         // Set up click listeners for buttons in the dialog
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle edit button click
-                // You can implement the edit functionality here
-                // You may want to dismiss the dialog after handling the click
-                dialog.dismiss();
-            }
-        });
+        if (isCurrentUserClassOwner) {
+            // Only show the edit and delete buttons if the current user is the class owner
+            editButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                DatabaseReference announcementRef = FirebaseDatabase.getInstance().getReference("Classroom")
-                                                        .child(currentClassCode)
-                                                        .child("Announcement")
-                                                        .child(String.valueOf(announcementItem.getTimestamp()));
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                                                // Remove the announcement from the database
-                                                announcementRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            // Delete successful
-                                                            Toast.makeText(context, "Announcement deleted", Toast.LENGTH_SHORT).show();
-                                                            // Optionally, you may want to notify your RecyclerView of the change
-                                                            notifyDataSetChanged();
-                                                        } else {
-                                                            // Delete failed
-                                                            Toast.makeText(context, "Failed to delete announcement", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                        dialog.dismiss();
-                                                    }
-                                                });
-                                            }
-                                        });
+                    dialog.dismiss();
+                }
+            });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference announcementRef = FirebaseDatabase.getInstance().getReference("Classroom")
+                            .child(currentClassCode)
+                            .child("Announcement")
+                            .child(String.valueOf(announcementItem.getTimestamp()));
+
+                    // Remove the announcement from the database
+                    announcementRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Delete successful
+                                Toast.makeText(context, "Announcement deleted", Toast.LENGTH_SHORT).show();
+                                // Optionally, you may want to notify your RecyclerView of the change
+                                notifyDataSetChanged();
+                            } else {
+                                // Delete failed
+                                Toast.makeText(context, "Failed to delete announcement", Toast.LENGTH_SHORT).show();
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
+        } else {
+            // Hide the edit and delete buttons if the current user is not the class owner
+            editButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+        }
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override

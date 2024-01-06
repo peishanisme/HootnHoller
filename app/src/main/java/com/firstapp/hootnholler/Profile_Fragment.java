@@ -134,6 +134,7 @@ public class Profile_Fragment extends Fragment {
         Logout_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                auth.signOut();
                 Intent intent = new Intent(getActivity(), Starting_Activity.class);
                 startActivity(intent);
             }

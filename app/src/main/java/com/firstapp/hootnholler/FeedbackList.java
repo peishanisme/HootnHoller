@@ -80,7 +80,7 @@ public class FeedbackList extends AppCompatActivity {
             createFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(FeedbackList.this, Teacher_CreateFeedback.class);
+                    Intent intent = new Intent(FeedbackList.this, Educator_CreateFeedback.class);
                     intent.putExtra("studentUID", studentUID);
                     intent.putExtra("classCode", currentClassCode);
                     startActivity(intent);
@@ -94,7 +94,7 @@ public class FeedbackList extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FeedbackList.this, Teacher_FeedbackStudentList.class);
+                Intent intent = new Intent(FeedbackList.this, Educator_FeedbackStudentList.class);
                 startActivity(intent);
             }
         });

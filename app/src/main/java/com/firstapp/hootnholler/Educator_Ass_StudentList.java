@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Ass_StudentList_Adapter;
-import com.firstapp.hootnholler.adapter.People_RecyclerViewAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Teacher_Ass_StudentList extends AppCompatActivity {
+public class Educator_Ass_StudentList extends AppCompatActivity {
     String key,currentClassCode,assID;
     TextView assTitle,dueTime;
     RecyclerView recylerview;
@@ -44,7 +43,7 @@ public class Teacher_Ass_StudentList extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recylerview.setLayoutManager(layoutManager);
-        Adapter = new Ass_StudentList_Adapter(Teacher_Ass_StudentList.this,studentList,currentClassCode,key,assID);
+        Adapter = new Ass_StudentList_Adapter(Educator_Ass_StudentList.this,studentList,currentClassCode,key,assID);
         recylerview.setAdapter(Adapter);
 
                 DatabaseReference classroomRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode);
@@ -56,7 +55,7 @@ public class Teacher_Ass_StudentList extends AppCompatActivity {
                 if(snapshot.exists()){
                     DataSnapshot assignment=snapshot.child("Assignment").child(assID);
                     assTitle.setText(assignment.child("title").getValue(String.class));
-                    dueTime.setText(Teacher_CreateAss.convertTimestampToDateTime(Long.parseLong(assignment.child("uploadDate").getValue(String.class))));
+                    dueTime.setText(Educator_CreateAss.convertTimestampToDateTime(Long.parseLong(assignment.child("uploadDate").getValue(String.class))));
                 }
             }
 

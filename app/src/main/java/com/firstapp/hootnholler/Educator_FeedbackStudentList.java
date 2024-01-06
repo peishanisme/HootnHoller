@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Feedback_Student_List_Adapter;
 import com.firstapp.hootnholler.entity.Student;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Teacher_FeedbackStudentList extends AppCompatActivity {
+public class Educator_FeedbackStudentList extends AppCompatActivity {
     private String currentClassCode;
     private ImageButton back;
     private TextView classroomName, numOfStudents;
@@ -39,7 +38,7 @@ public class Teacher_FeedbackStudentList extends AppCompatActivity {
         currentClassCode = getIntent().getExtras().get("classCode").toString();
         classroomName = findViewById(R.id.feedback_classroom_name);
         numOfStudents = findViewById(R.id.feedback_classroom_student_num);
-        FeedbackStudentListAdapter = new Feedback_Student_List_Adapter(Teacher_FeedbackStudentList.this, StudentList, currentClassCode);
+        FeedbackStudentListAdapter = new Feedback_Student_List_Adapter(Educator_FeedbackStudentList.this, StudentList, currentClassCode);
         StudentRecycledView = findViewById(R.id.feedback_student_list);
         StudentRecycledView.setAdapter(FeedbackStudentListAdapter);
         StudentRecycledView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,7 +49,7 @@ public class Teacher_FeedbackStudentList extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Teacher_FeedbackStudentList.this, Teacher_Class.class);
+                Intent intent = new Intent(Educator_FeedbackStudentList.this, Educator_Class.class);
                 startActivity(intent);
             }
         });

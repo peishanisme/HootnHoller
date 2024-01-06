@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class TaskStatus_Activity extends AppCompatActivity {
+public class Parent_TaskStatus_Activity extends AppCompatActivity {
 
     private RecyclerView StudentAssignmentList;
     private TextView DateRange, NumOfTask, NumOfCompletedTask, NumOfIncompletedTask, NumOfInProgressTask;
