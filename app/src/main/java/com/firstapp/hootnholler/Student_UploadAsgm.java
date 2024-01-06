@@ -6,20 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.firstapp.hootnholler.databinding.ActivityStudentUploadAsgmBinding;
 
 public class Student_UploadAsgm extends AppCompatActivity {
 
-    public ImageButton backButton;
+    public ImageView backButton;
     //int requestCode = 1;
     //public Button btnChooseFile;
     //public TextView txtResult;
+    ActivityStudentUploadAsgmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_upload_asgm);
+        binding = ActivityStudentUploadAsgmBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        backButton = (ImageButton) findViewById(R.id.btnBack);
+        backButton = binding.back;
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {

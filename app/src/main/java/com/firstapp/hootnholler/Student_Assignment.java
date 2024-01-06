@@ -10,28 +10,34 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.firstapp.hootnholler.databinding.ActivityStudentAsgmBinding;
 
 public class Student_Assignment extends AppCompatActivity {
 
     public TextView past, ongoing;
-    public ImageButton backButton;
+    public ImageView backButton;
     String currentClassCode;
     public FragmentContainerView fragmentContainer;
+    ActivityStudentAsgmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_asgm);
+        binding = ActivityStudentAsgmBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
 
-        backButton = findViewById(R.id.btnBack);
+        backButton = binding.back;
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Student_Assignment.this, Student_Class.class);
                 intent.putExtra("classCode",currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
 

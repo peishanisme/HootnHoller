@@ -14,22 +14,26 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityStudentLearningMaterialsDetailsBinding;
+
 public class Student_LearningMaterialsDetails extends AppCompatActivity {
 
-    public ImageButton btnToast, backButton;
+    public ImageButton btnToast;
     public EditText comment;
+    ActivityStudentLearningMaterialsDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_learning_materials_details);
+        binding = ActivityStudentLearningMaterialsDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        backButton = (ImageButton) findViewById(R.id.btnBack);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Student_LearningMaterialsDetails.this, Student_LearningMaterialsDetails.class);
                 startActivity(intent);
+                finish();
             }
         });
 

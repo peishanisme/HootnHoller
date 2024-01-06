@@ -21,6 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityStudentClassBinding;
 import com.firstapp.hootnholler.entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,15 +33,17 @@ public class Student_Class extends AppCompatActivity {
 
     public CardView announcement, assignment, materials;
     TextView className, classSession, description, educatorName;
-    public ImageButton backButton;
+    public ImageView backButton;
     ImageView overflowMenu;
     String currentClassCode;
     DatabaseReference classroom;
+    ActivityStudentClassBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_class);
+        binding = ActivityStudentClassBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         className = findViewById(R.id.className);
         classSession = findViewById(R.id.classSession);
         description = findViewById(R.id.description);
@@ -52,13 +55,16 @@ public class Student_Class extends AppCompatActivity {
         assignment = (CardView) findViewById(R.id.TasksAssignment);
         materials = (CardView) findViewById(R.id.LearningMaterials);
         overflowMenu = (ImageView) findViewById(R.id.menu);
-        backButton = (ImageButton) findViewById(R.id.btnBack);
+        backButton = binding.back;
 
 
 //        btnPopUp.setOnClickListener(this);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "student_Class_Fragment");
+                startActivity(intent);
                 finish();
             }
         });

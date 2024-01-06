@@ -11,10 +11,9 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="90sp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp" >
+        android:paddingTop="45sp">
 
         <ImageView
             android:id="@+id/back"
@@ -28,11 +27,11 @@
             app:srcCompat="@drawable/back" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:paddingLeft="10sp"
-            android:paddingTop="20sp"
             android:text="Announcement"
             android:textColor="#5269CD"
             android:textSize="32sp"

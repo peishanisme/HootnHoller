@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.firstapp.hootnholler.adapter.LM_ArrayAdapter;
 import com.firstapp.hootnholler.adapter.LM_RecyclerViewAdapter;
+import com.firstapp.hootnholler.databinding.ActivityStudentLearningMaterialsBinding;
 
 import java.util.ArrayList;
 
@@ -19,8 +21,9 @@ public class Student_LearningMaterials extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<LM_ArrayAdapter> arrayList = new ArrayList<LM_ArrayAdapter>();
 
-    public ImageButton backButton;
+    public ImageView backButton;
     public CardView resource1;
+    ActivityStudentLearningMaterialsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +34,16 @@ public class Student_LearningMaterials extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_learning_materials);
+        binding = ActivityStudentLearningMaterialsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        backButton = (ImageButton) findViewById(R.id.btnBack);
+        backButton = binding.back;
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Student_Class.class);
+//                intent.putExtra("classCode", currentClassCode);
+                startActivity(intent);
                 finish();
             }
         });

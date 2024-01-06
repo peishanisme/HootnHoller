@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.TeacherStudentFeedbackPager_Adapter;
+import com.firstapp.hootnholler.databinding.ActivityFeedbackListBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class FeedbackList extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ImageButton back;
+    private ImageView back;
     private ViewPager2 container;
     private TextView studentName;
     private FloatingActionButton createFeedback;
@@ -32,11 +34,13 @@ public class FeedbackList extends AppCompatActivity {
     private boolean isParent;
     private DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users");
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    ActivityFeedbackListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback_list);
+        binding = ActivityFeedbackListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         tabLayout = findViewById(R.id.tabTeacherStudentFeedback);
         container = findViewById(R.id.TeacherStudentFeedbackList);
@@ -48,7 +52,7 @@ public class FeedbackList extends AppCompatActivity {
         pageAdapter = new TeacherStudentFeedbackPager_Adapter(this, currentClassCode, studentUID, isParent);
         container.setAdapter(pageAdapter);
         createFeedback = findViewById(R.id.createFeedback);
-        back = findViewById(R.id.back);
+        back = binding.back;
         getStudentDetails();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -95,7 +99,9 @@ public class FeedbackList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FeedbackList.this, Educator_FeedbackStudentList.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -26,6 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firstapp.hootnholler.databinding.ActivityStudentAsgmBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +48,7 @@ import java.util.Locale;
 public class Student_AsgmDetails extends AppCompatActivity {
 
     private Button addSubmissionButton, uploadButton, cancelButton, dltButton, gradeButton;
-    private View backButton;
+    private ImageView backButton;
     private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment;
     private EditText uploadFileName, assComment;
     ImageView addFile;
@@ -55,21 +56,21 @@ public class Student_AsgmDetails extends AppCompatActivity {
     String assId, currentClassCode;
     String displayName = null;
     DatabaseReference assRef, databaseReference;
-
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String uid = auth.getCurrentUser().getUid();
     String studentUID;
     CardView file;
-
     StorageReference storageReference;
     private Uri selectedFileUri;
     Dialog mdialog;
     private EditText grade, fileInfor;
+    ActivityStudentAsgmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_asgn_details);
+        binding = ActivityStudentAsgmBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         title = findViewById(R.id.assTitle);
         openTime = findViewById(R.id.openTime);
@@ -108,10 +109,13 @@ public class Student_AsgmDetails extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         checkRole();
 
-        backButton = findViewById(R.id.btnBack);
+        backButton = binding.back;
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Student_Assignment.class);
+                intent.putExtra("classCode",currentClassCode);
+                startActivity(intent);
                 finish();
             }
         });

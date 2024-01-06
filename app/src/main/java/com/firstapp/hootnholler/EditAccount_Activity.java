@@ -53,7 +53,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityEditAccountBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_edit_account);
+        setContentView(binding.getRoot());
         // Initialize Firebase authentication, retrieve the current user ID, and get the database reference
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String currentUserID = mAuth.getCurrentUser().getUid();

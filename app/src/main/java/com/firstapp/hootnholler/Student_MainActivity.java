@@ -23,6 +23,12 @@ public class Student_MainActivity extends AppCompatActivity {
 
         if (fragmentToLoad != null && fragmentToLoad.equals("student_Quiz_Fragment")) {
             replaceFragment(new Student_Quiz_Fragment());
+        } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Class_Fragment")) {
+            replaceFragment(new Student_Classroom_Fragment());
+        } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Chat_Fragment")) {
+            replaceFragment(new ChatFragment());
+        } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Profile_Fragment")) {
+            replaceFragment(new Profile_Fragment());
         }
 
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {

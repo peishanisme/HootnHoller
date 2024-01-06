@@ -35,15 +35,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:paddingLeft="20sp"
-                android:paddingTop="20sp"
+                android:paddingLeft="38sp"
+                android:paddingTop="45sp"
                 android:text="Classroom"
                 android:textColor="#5269CD"
                 android:textSize="32sp"
@@ -53,10 +52,10 @@
                 android:id="@+id/classList"
                 android:layout_width="390dp"
                 android:layout_height="813dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:scrollbars="vertical"
-                />
+                android:paddingTop="15dp" />
 
         </LinearLayout>
 

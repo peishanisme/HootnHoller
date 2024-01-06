@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 //import com.firstapp.hootnholler.adapter.Announcement_ArrayAdapter;
 //import com.firstapp.hootnholler.adapter.Announcement_RecyclerViewAdapter;
+
+import com.firstapp.hootnholler.databinding.ActivityStudentAnnouncementsBinding;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,8 @@ public class Student_Announcements extends AppCompatActivity implements View.OnC
     RecyclerView recyclerView;
 //    ArrayList<Announcement_ArrayAdapter> arrayList = new ArrayList<Announcement_ArrayAdapter>();
     public CardView a1;
-    public ImageButton backButton;
+    public ImageView backButton;
+    ActivityStudentAnnouncementsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +35,19 @@ public class Student_Announcements extends AppCompatActivity implements View.OnC
 //
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_announcements);
+        binding = ActivityStudentAnnouncementsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 //        a1 = (CardView) findViewById(R.id.announcement1);
-        backButton = (ImageButton) findViewById(R.id.btnBack);
+        backButton = binding.back;
 
         a1.setOnClickListener(this);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Student_Class.class);
+//                intent.putExtra("classCode", );
+                startActivity(intent);
                 finish();
             }
         });
