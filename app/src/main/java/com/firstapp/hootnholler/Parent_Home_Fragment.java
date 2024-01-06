@@ -198,7 +198,7 @@ public class Parent_Home_Fragment extends Fragment {
                             long timeStamp = Long.parseLong(assignmentSnapshot.child("dueDate").getValue(String.class));
                             if(isThisWeek(new Date(timeStamp))){
                                 totalTask++;
-                                for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
+                                for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("Submission").getChildren()) {
                                     if (submissionSnapShot.getKey().equals(studentUID)) {
                                         totalCompleted++;
                                         break;

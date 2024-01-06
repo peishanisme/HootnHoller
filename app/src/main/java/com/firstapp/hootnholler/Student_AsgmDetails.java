@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -22,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -60,6 +63,8 @@ public class Student_AsgmDetails extends AppCompatActivity {
 
     StorageReference storageReference;
     private Uri selectedFileUri;
+    Dialog mdialog;
+    private EditText grade, fileInfor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +115,47 @@ public class Student_AsgmDetails extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        gradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showGradeDialog();
+            }
+        });
+
+        dltButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    public void showGradeDialog(){
+        mdialog = new Dialog(this);
+        mdialog.setContentView(R.layout.pop_out_ass_grading);
+        ImageView addFile = mdialog.findViewById(R.id.addFile);
+        grade = mdialog.findViewById(R.id.score);
+        fileInfor = mdialog.findViewById(R.id.fileName);
+        addFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("application/pdf");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select PDF Files"), 102);
+            }
+        });
+        Button submitBtn = mdialog.findViewById(R.id.grade);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadGrade();
+            }
+        });
+        // Show the dialog
+        mdialog.show();
     }
 
     private void checkSubmissionStatus(DataSnapshot submissionSnapshot) {
@@ -257,6 +303,34 @@ public class Student_AsgmDetails extends AppCompatActivity {
             uploadButton.setEnabled(true);
             uploadFileName.setText(displayName);
         }
+        else if(requestCode == 102 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            selectedFileUri = data.getData();
+            String uriString = selectedFileUri.toString();
+            File myFile = new File(uriString);
+            String path = myFile.getAbsolutePath();
+
+
+            if (uriString.startsWith("content://")) {
+                Cursor cursor = null;
+                try {
+                    cursor = getContentResolver().query(selectedFileUri, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                        if (displayNameIndex != -1) {
+                            displayName = cursor.getString(displayNameIndex);
+                        }
+                    }
+                } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+            }
+
+            fileInfor.setText(displayName);
+        }
     }
 
     private void uploadPDF(Uri data) {
@@ -281,6 +355,56 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         submissionRef.child("fileUri").setValue(uri.toString());
                         submissionRef.child("comment").setValue(assComment.getText().toString());
 
+
+                        Toast.makeText(Student_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                        finish();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        float percent = (100 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                        pd.setMessage("Uploaded : " + (int) percent + "%");
+                    }
+                });
+    }
+
+    private void uploadGrade(){
+        if(grade.getText().toString().isEmpty()){
+            Toast.makeText(Student_AsgmDetails.this, "Please enter mark.", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            if (selectedFileUri != null) {
+                uploadGradePdf(selectedFileUri);
+            }
+            assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
+            DatabaseReference submissionRef = assRef.child("Submission").child(studentUID);
+            submissionRef.child("score").setValue(grade.getText().toString());
+        }
+    }
+
+    private void uploadGradePdf(Uri data) {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("File Uploading...");
+        pd.show();
+
+        final String timestamp = String.valueOf(System.currentTimeMillis());
+        final StorageReference reference = storageReference.child("grade/" + studentUID + '/' + timestamp + ".pdf");
+
+        reference.putFile(data)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isComplete()) ;
+                        Uri uri = uriTask.getResult();
+
+                        assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
+                        DatabaseReference submissionRef = assRef.child("Submission").child(studentUID);
+                        submissionRef.child("gradeFileName").setValue(displayName);
+                        submissionRef.child("gradedTime").setValue(String.valueOf(System.currentTimeMillis()));
+                        submissionRef.child("gradedFileUri").setValue(uri.toString());
+                        submissionRef.child("gradedFileUri").setValue(uri.toString());
 
                         Toast.makeText(Student_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         pd.dismiss();
@@ -332,7 +456,8 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         }
                     }
                     else{
-
+                        submissionTable.setVisibility(View.VISIBLE);
+                        dltButton.setVisibility(View.GONE);
                     }
                 }
                 else if(role.equalsIgnoreCase("Student")){

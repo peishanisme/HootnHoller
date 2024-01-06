@@ -240,7 +240,6 @@ public class Student_Quiz_Leaderboard_Activity extends AppCompatActivity {
     public void displayRanking() {
         int position = getPosition(currCandidate.getUid()) + 1;
         displayRankingText(position, ranking.getCandidates().size());
-        System.out.println("Ranking Size: " + ranking.getCandidates().size());
 
         if (ranking.getCandidates().size() >= 1) {
             setName(binding.nameFst, ranking.getCandidates().get(0).getUid());
