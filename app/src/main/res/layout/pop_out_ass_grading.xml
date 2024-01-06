@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="330dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/rectangle_4026"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:text="Grade Assignment"
+            android:textColor="#5269CD"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/dell_fill" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/score"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
+        android:background="@drawable/edittext_whitebox"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:inputType="textMultiLine"
+        android:hint="Score (in %)"
+        android:textColor="@color/black"
+
+        />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+    <EditText
+        android:id="@+id/fileName"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="80dp"
+        android:background="@drawable/edittext_whitebox"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:hint="Upload file (optional)"
+        android:textColor="@color/black"
+        android:gravity="top"
+        />
+
+        <ImageView
+            android:id="@+id/addFile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_attach_file"
+            android:layout_alignBottom="@id/fileName"
+            android:layout_alignEnd="@id/fileName"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"></ImageView>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grade"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/button_colour"
+        android:textColor="@color/white"
+        />
+</LinearLayout>
