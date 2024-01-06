@@ -97,7 +97,6 @@
         app:iconSize="50dp"
         android:layout_marginTop="60dp"
         android:textColor="@color/white"
-        android:textAllCaps="true"
         android:layout_gravity="center_horizontal" />
 
     <RelativeLayout

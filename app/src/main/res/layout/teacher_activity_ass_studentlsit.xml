@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="25sp"
             android:layout_height="83sp"
             android:src="@drawable/ic_back" />
@@ -59,14 +60,6 @@
        android:layout_gravity="center_horizontal"
         app:layout_gravity="fill"
         app:layout_rowWeight="1">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_overflow" />
 
         <TextView
             android:id="@+id/assTitle"

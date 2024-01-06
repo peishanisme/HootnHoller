@@ -121,34 +121,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/In_Progress"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    >
-
-                    <TextView
-                        android:id="@+id/Number_In_Progress_Task"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="In Progress"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/Late"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"

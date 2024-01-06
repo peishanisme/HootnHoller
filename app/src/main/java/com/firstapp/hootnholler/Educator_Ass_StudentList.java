@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Ass_StudentList_Adapter;
@@ -23,6 +26,7 @@ public class Educator_Ass_StudentList extends AppCompatActivity {
     RecyclerView recylerview;
     Ass_StudentList_Adapter Adapter;
     ArrayList<String>studentList=new ArrayList<>();
+    ImageView back_button;
 
     DatabaseReference database= FirebaseDatabase.getInstance().getReference();
 
@@ -35,6 +39,7 @@ public class Educator_Ass_StudentList extends AppCompatActivity {
         currentClassCode=getIntent().getStringExtra("classCode");
         assID=getIntent().getStringExtra("assKey");
 
+        back_button=findViewById(R.id.backButton);
         assTitle=findViewById(R.id.assTitle);
         dueTime=findViewById(R.id.dueTime);
         recylerview=findViewById(R.id.studentList);
@@ -84,6 +89,14 @@ public class Educator_Ass_StudentList extends AppCompatActivity {
             }
         });
 
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Educator_Ass_StudentList.this, Educator_Assignment.class);
+                intent.putExtra("classCode",currentClassCode);
+                startActivity(intent);
+            }
+        });
 
 
     }
