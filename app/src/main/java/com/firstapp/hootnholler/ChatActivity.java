@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Chat_ArrayAdapter;
+import com.firstapp.hootnholler.databinding.ActivityChatBinding;
 import com.firstapp.hootnholler.entity.Message;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,11 +39,13 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView sendMsg;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView chatName;
+    private ActivityChatBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        binding = ActivityChatBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         conversationKey = getIntent().getStringExtra("conversationKey");
         adapter = new Chat_ArrayAdapter(messages);
         chatList = findViewById(R.id.chatList);
@@ -77,6 +81,16 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         getMessage();
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "educator_Chat_Fragment");
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void getConversationDetails(){

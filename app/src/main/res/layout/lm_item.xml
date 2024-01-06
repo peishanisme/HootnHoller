@@ -19,7 +19,7 @@
         android:layout_marginLeft="20sp"
         android:layout_marginTop="30sp"
         android:fontFamily="sans-serif-medium"
-        android:text="Chapter 3 - Human Notes"
+        android:text=""
         android:textColor="#000000"
         android:textSize="20sp" />
 
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginTop="58sp"
-        android:text="Posted on 16 Nov 2023, 08:10:28 am"
+        android:text=""
         android:textColor="#3D3D3D"
         android:textSize="14sp" />
 

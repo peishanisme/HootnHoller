@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.LMAdapter;
+import com.firstapp.hootnholler.databinding.TeacherActivityLmDetailsBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,14 +28,14 @@ public class Educator_LM_Details extends AppCompatActivity {
     TextView title, description, time, filename;
     ImageView backButton;
     CardView file;
-
     DatabaseReference LMRef;
-
+    TeacherActivityLmDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_lm_details);
+        binding = TeacherActivityLmDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         LMid = getIntent().getStringExtra("LMid");
         currentClassCode = getIntent().getStringExtra("classCode");
 
@@ -44,7 +45,7 @@ public class Educator_LM_Details extends AppCompatActivity {
         time = findViewById(R.id.lmTime);
         filename = findViewById(R.id.lmFileName);
         file=findViewById(R.id.file);
-        backButton=findViewById(R.id.btnBack);
+        backButton=binding.back;
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,13 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp">
+
             <ImageView
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back_button"
-                android:layout_marginTop="23dp"/>
+                android:id="@+id/back"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:srcCompat="@drawable/back"
+                android:layout_gravity="center"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
@@ -188,142 +195,142 @@
 
 
 
-    <LinearLayout
-        android:id="@+id/student_level_layout"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:id="@+id/TV_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Level:"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-
-        <Spinner
-            android:id="@+id/student_level"
-            android:layout_width="215dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/student_class_layout"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:id="@+id/TV_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class:"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-
-        <EditText
-            android:id="@+id/student_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="@color/black"
-            android:ems="13"
-            android:hint="3 Champion"
-            android:inputType="textImeMultiLine"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/parent_connectionkey_layout"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:id="@+id/TV_connectionKey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardian Connection Key:"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-
-
-
         <LinearLayout
-            android:id="@+id/key_layout"
-            android:layout_width="match_parent"
+            android:id="@+id/student_level_layout"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
-            <Button
-                android:id="@+id/addKey"
+            <TextView
+                android:id="@+id/TV_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Add Connection Key"
-                android:backgroundTint="@color/button_colour"
-                android:textColor="@color/white"
+                android:text="Level:"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
 
-                />
+            <Spinner
+                android:id="@+id/student_level"
+                android:layout_width="215dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp" />
 
         </LinearLayout>
-
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/educator_subject_layout"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:id="@+id/TV_Subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Subject:"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-
-
 
         <LinearLayout
-            android:id="@+id/subject_layout"
-            android:layout_width="match_parent"
+            android:id="@+id/student_class_layout"
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
-            <Button
-                android:id="@+id/addSubject"
+            <TextView
+                android:id="@+id/TV_class"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Add Subject"
-                android:backgroundTint="@color/button_colour"
-                android:textColor="@color/white"
+                android:text="Class:"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
 
-                />
+            <EditText
+                android:id="@+id/student_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/black"
+                android:ems="13"
+                android:hint="3 Champion"
+                android:inputType="textImeMultiLine"
+                android:textColor="@color/black" />
+
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/parent_connectionkey_layout"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/TV_connectionKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardian Connection Key:"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+
+
+            <LinearLayout
+                android:id="@+id/key_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Add Connection Key"
+                    android:backgroundTint="@color/button_colour"
+                    android:textColor="@color/white"
+
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/educator_subject_layout"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/TV_Subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Subject:"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+
+
+            <LinearLayout
+                android:id="@+id/subject_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Add Subject"
+                    android:backgroundTint="@color/button_colour"
+                    android:textColor="@color/white"
+
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/SubmitButton"

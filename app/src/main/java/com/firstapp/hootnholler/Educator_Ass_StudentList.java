@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Ass_StudentList_Adapter;
+import com.firstapp.hootnholler.databinding.TeacherActivityAssStudentlsitBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,24 +28,23 @@ public class Educator_Ass_StudentList extends AppCompatActivity {
     Ass_StudentList_Adapter Adapter;
     ArrayList<String>studentList=new ArrayList<>();
     ImageView back_button;
-
     DatabaseReference database= FirebaseDatabase.getInstance().getReference();
+    TeacherActivityAssStudentlsitBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_ass_studentlsit);
+        binding = TeacherActivityAssStudentlsitBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         key=getIntent().getStringExtra("key");
         currentClassCode=getIntent().getStringExtra("classCode");
         assID=getIntent().getStringExtra("assKey");
 
-        back_button=findViewById(R.id.backButton);
+        back_button=binding.back;
         assTitle=findViewById(R.id.assTitle);
         dueTime=findViewById(R.id.dueTime);
         recylerview=findViewById(R.id.studentList);
-
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recylerview.setLayoutManager(layoutManager);

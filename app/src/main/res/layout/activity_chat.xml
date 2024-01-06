@@ -11,26 +11,30 @@
         android:id="@+id/chatTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp" >
 
         <ImageView
-            android:id="@+id/chatBackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_button"
-            android:layout_gravity="center_vertical"/>
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/back" />
 
         <TextView
             android:id="@+id/chatName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="classRoom Name"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#7486D4"
+            android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="2"
-            android:layout_gravity="center_vertical"/>
+            android:text="classRoom Name"
+            android:textColor="#7486D4"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

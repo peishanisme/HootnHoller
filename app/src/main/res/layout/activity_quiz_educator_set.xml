@@ -14,7 +14,7 @@
         android:layout_marginStart="10dp"
         android:text="Quiz Set"
         android:textColor="@color/primary_color"
-        android:textSize="24sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent" />

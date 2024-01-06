@@ -2,33 +2,44 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/announcementView"
-    android:layout_width="350dp"
-    android:layout_height="110dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
-    app:cardBackgroundColor="#CCD9D9D9"
-    app:cardCornerRadius="10sp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:layout_gravity="center" >
 
-    <TextView
-        android:id="@+id/announcement_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25sp"
-        android:layout_marginTop="15sp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Deepavali on Week 5: \nAsynchronous Class"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp">
 
-    <TextView
-        android:id="@+id/dateTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25sp"
-        android:layout_marginTop="70sp"
-        android:text="Posted on 12 Nov 2023, 17:10:23 pm"
-        android:textColor="#FF504F4F"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/announcement_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Title"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:inputType="textMultiLine"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:layout_marginTop="15sp"
+            android:text="Posted on 12 Nov 2023, 17:10:23 pm"
+            android:textColor="#FF504F4F"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -25,7 +25,7 @@
         android:layout_marginTop="45dp"
         android:text="Quiz Category"
         android:textColor="@color/primary_color"
-        android:textSize="26sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

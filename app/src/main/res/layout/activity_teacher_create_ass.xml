@@ -9,26 +9,27 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="90sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp">
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="25sp"
-            android:layout_height="83sp"
-            android:src="@drawable/ic_back"
-            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/back"
+            android:layout_gravity="center" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingLeft="10sp"
-            android:paddingTop="20sp"
             android:text="Assignment"
             android:textColor="#5269CD"
             android:textSize="32sp"

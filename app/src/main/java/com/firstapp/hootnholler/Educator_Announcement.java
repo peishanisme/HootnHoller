@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firstapp.hootnholler.adapter.Announcement_Adapter;
+import com.firstapp.hootnholler.databinding.TeacherActivityAnnouncementBinding;
 import com.firstapp.hootnholler.entity.Announcement;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class Educator_Announcement extends AppCompatActivity {
     String currentClassCode,classOwner;
     CardView announcement;
-    ImageButton back;
+    ImageView back;
     Dialog mdialog;
     private RecyclerView announcementList;
     private Announcement_Adapter announcementAdapter;
@@ -39,14 +40,16 @@ public class Educator_Announcement extends AppCompatActivity {
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     String uid=mAuth.getUid().toString();
     private boolean isCurrentUserClassOwner;
+    TeacherActivityAnnouncementBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_announcement);
+        binding = TeacherActivityAnnouncementBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
         announcement = findViewById(R.id.AnnouncementWindow);
-        back = findViewById(R.id.back);
+        back = binding.back;
 
         announcement.setVisibility(View.GONE);
         // Initialize UI elements
@@ -122,9 +125,10 @@ public class Educator_Announcement extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Educator_Announcement.this, Educator_Class.class);
-                intent.putExtra("classCode",currentClassCode);
+                Intent intent = new Intent(getApplicationContext(), Educator_Class.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
     }

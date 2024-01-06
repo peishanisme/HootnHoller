@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityTeacherCreateAssBinding;
 import com.firstapp.hootnholler.entity.Assignment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,13 +48,15 @@ public class Educator_CreateAss extends AppCompatActivity {
     Button btnAssign;
     String currentClassCode;
     TextView showDueDate,showDueTime;
-    ImageButton  addTime,buttonCalendar, backButton, btnAttachFile;
+    ImageButton  addTime,buttonCalendar, btnAttachFile;
     long dueTimestamp;
+    ActivityTeacherCreateAssBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_create_ass);
+        binding = ActivityTeacherCreateAssBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         currentClassCode = getIntent().getStringExtra("classCode");
 
@@ -60,7 +64,6 @@ public class Educator_CreateAss extends AppCompatActivity {
         showDueTime = (TextView) findViewById(R.id.showTime);
         buttonCalendar = (ImageButton) findViewById(R.id.btnCalendar);
         addTime = (ImageButton) findViewById(R.id.addTime);
-        backButton = (ImageButton) findViewById(R.id.backButton);
         btnAssign = (Button) findViewById(R.id.btnAssign);
         pdfName = (EditText) findViewById(R.id.pdfName);
         assTitle = (EditText) findViewById(R.id.assTitle);
@@ -72,12 +75,13 @@ public class Educator_CreateAss extends AppCompatActivity {
                 .child(currentClassCode)
                 .child("Assignment");
 
-
-        backButton.setOnClickListener(new View.OnClickListener() {
+        binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Educator_CreateAss.this, Educator_Assignment.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
 

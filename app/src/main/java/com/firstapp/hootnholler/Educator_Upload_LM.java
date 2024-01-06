@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityTeacherUploadLmBinding;
 import com.firstapp.hootnholler.entity.Learning_Materials;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -34,14 +35,15 @@ public class Educator_Upload_LM extends AppCompatActivity {
     Button uploadButton;
     ImageView addFileButton,back_button;
     EditText LMTitle,LMDescription,LMFileName;
-
     StorageReference storageReference;
     DatabaseReference databaseReference;
+    ActivityTeacherUploadLmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_upload_lm);
+        binding = ActivityTeacherUploadLmBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
 
         uploadButton=findViewById(R.id.uploadButton);
@@ -49,7 +51,7 @@ public class Educator_Upload_LM extends AppCompatActivity {
         LMTitle=findViewById(R.id.LMTitle);
         LMDescription=findViewById(R.id.LMDescription);
         LMFileName=findViewById(R.id.LMFileName);
-        back_button=findViewById(R.id.backButton);
+        back_button=binding.back;
 
         storageReference= FirebaseStorage.getInstance().getReference();
         databaseReference= FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Learning Materials");

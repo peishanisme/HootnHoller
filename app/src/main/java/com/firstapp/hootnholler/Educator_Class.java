@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.firstapp.hootnholler.databinding.TeacherActivityClassBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,12 +35,14 @@ public class Educator_Class extends AppCompatActivity {
     TextView className, classSession, classDescription, numberofStudents;
     CardView classDetails, announcement, taskAssignment, learningMaterials, feedback;
     ImageView overflowMenu;
-    ImageButton back;
+    ImageView back;
+    TeacherActivityClassBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_class);
+        binding = TeacherActivityClassBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         currentClassCode = getIntent().getStringExtra("classCode");
         classroom = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode);
@@ -52,7 +56,7 @@ public class Educator_Class extends AppCompatActivity {
         taskAssignment = findViewById(R.id.TasksAssignment);
         learningMaterials = findViewById(R.id.LearningMaterials);
         feedback = findViewById(R.id.Feedback);
-        back = findViewById(R.id.back);
+        back = binding.back;
         overflowMenu = findViewById(R.id.overflow);
 
         overflowMenu.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +140,10 @@ public class Educator_Class extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Educator_Class.this, Educator_Classroom_Fragment.class);
+                Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "educator_Classroom_Fragment");
                 startActivity(intent);
+                finish();
             }
         });
     }

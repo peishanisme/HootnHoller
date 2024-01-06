@@ -79,6 +79,7 @@ public class Student_Quiz_To_Do_Activity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
                 intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
                 startActivity(intent);
+                finish();
             }
         });
     }

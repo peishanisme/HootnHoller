@@ -7,28 +7,29 @@
     tools:context=".Educator_CreateFeedback"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="45dp">
 
         <ImageView
-            android:id="@+id/teacher_feedback_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_button"
-            />
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/back" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/teacher_feedback_back_button"
             android:text="Upload Feedback"
             android:textColor="#5269CD"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/teacher_feedback_form_layout"
@@ -40,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="30dp">
+            android:paddingHorizontal="30dp"
+            android:layout_marginTop="25dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,6 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Upload"
+                android:textSize="18dp"
                 android:backgroundTint="#5D71C9"
                 android:paddingHorizontal="50dp"
                 android:layout_gravity="center_horizontal"/>
@@ -137,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
+                android:textSize="18dp"
                 android:textColor="#909090"
                 android:backgroundTint="#E3E5EE"
                 android:paddingHorizontal="50dp"

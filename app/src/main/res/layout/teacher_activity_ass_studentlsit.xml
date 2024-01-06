@@ -11,25 +11,24 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="90sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="25sp"
-            android:layout_height="83sp"
-            android:src="@drawable/ic_back" />
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/back" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="10sp"
-            android:paddingTop="20sp"
             android:text="Assignment"
             android:textColor="#5269CD"
             android:textSize="32sp"
@@ -52,7 +51,7 @@
         android:id="@+id/ass"
         android:layout_width="385dp"
         android:layout_height="120dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:cardBackgroundColor="#EBF4B3"
         app:cardCornerRadius="10sp"
         app:cardElevation="20dp"

@@ -10,9 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.LMAdapter;
+import com.firstapp.hootnholler.databinding.ActivityTeacherEditAssBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,16 +22,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Educator_EditAss extends AppCompatActivity {
-    ImageButton back;
+    ImageView back;
     String assKey, currentClassCode;
     TextView title, description, openDate, dueDate, filename;
     CardView file;
     DatabaseReference assRef;
+    ActivityTeacherEditAssBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_edit_ass);
+        binding = ActivityTeacherEditAssBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         assKey = getIntent().getStringExtra("assKey");
         currentClassCode = getIntent().getStringExtra("classCode");
@@ -39,7 +43,7 @@ public class Educator_EditAss extends AppCompatActivity {
                 .child("Assignment")
                 .child(assKey);
 
-        back = (ImageButton) findViewById(R.id.backButton);
+        back = binding.back;
         title = (TextView) findViewById(R.id.assTitle);
         openDate = (TextView)findViewById(R.id.openDate);
         dueDate = (TextView)findViewById(R.id.dueDate);
@@ -51,7 +55,9 @@ public class Educator_EditAss extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Educator_EditAss.this, Educator_Assignment.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
 

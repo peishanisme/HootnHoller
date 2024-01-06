@@ -8,24 +8,24 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="90sp"
         android:orientation="horizontal"
         android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="10dp" >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/back"
-            android:layout_width="25sp"
-            android:layout_height="83sp"
-            android:src="@drawable/ic_back"
-            android:background="@android:color/transparent"/>
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -43,15 +43,16 @@
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:rowCount="3"
-        >
+        app:rowCount="3" >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/AnnouncementWindow"
-            android:layout_width="351dp"
-            android:layout_height="94dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             app:cardCornerRadius="10sp"
+            app:cardElevation="15dp"
+            app:cardUseCompatPadding="true"
             app:layout_column="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,25 +60,34 @@
             app:layout_gravity="center_horizontal"
             app:layout_row="0">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                app:srcCompat="@drawable/group_6960" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="5dp" >
 
-            <TextView
-                android:id="@+id/TextAnnouncement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/edittext_no_underline"
-                android:hint="Announce something to the class"
-                android:textSize="16dp"
-                app:layout_column="1"
-                app:layout_row="0" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    app:srcCompat="@drawable/group_6960" />
+
+                <TextView
+                    android:id="@+id/TextAnnouncement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/edittext_no_underline"
+                    android:hint="Announce something to the class"
+                    android:textSize="16dp"
+                    app:layout_column="1"
+                    app:layout_row="0" />
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -99,6 +109,7 @@
             android:id="@+id/announcementList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="15dp"
             app:layout_column="1"
             app:layout_row="2" />
 

@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Feedback_Student_List_Adapter;
+import com.firstapp.hootnholler.databinding.ActivityTeacherFeedbackStudentListBinding;
 import com.firstapp.hootnholler.entity.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 
 public class Educator_FeedbackStudentList extends AppCompatActivity {
     private String currentClassCode;
-    private ImageButton back;
+    private ImageView back;
     private TextView classroomName, numOfStudents;
     private DatabaseReference ClassroomRef = FirebaseDatabase.getInstance().getReference("Classroom");
     private DatabaseReference StudentRef = FirebaseDatabase.getInstance().getReference("Student");
@@ -31,10 +33,13 @@ public class Educator_FeedbackStudentList extends AppCompatActivity {
     private ArrayList<Student> StudentList = new ArrayList<>();
     private RecyclerView StudentRecycledView;
     private Feedback_Student_List_Adapter FeedbackStudentListAdapter;
+    private ActivityTeacherFeedbackStudentListBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_feedback_student_list);
+        binding = ActivityTeacherFeedbackStudentListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getExtras().get("classCode").toString();
         classroomName = findViewById(R.id.feedback_classroom_name);
         numOfStudents = findViewById(R.id.feedback_classroom_student_num);
@@ -44,13 +49,15 @@ public class Educator_FeedbackStudentList extends AppCompatActivity {
         StudentRecycledView.setLayoutManager(new LinearLayoutManager(this));
         getClassroomDetails();
 
-        back = findViewById(R.id.back);
+        back = binding.back;
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Educator_FeedbackStudentList.this, Educator_Class.class);
+                Intent intent = new Intent(getApplicationContext(), Educator_Class.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
+                finish();
             }
         });
     }

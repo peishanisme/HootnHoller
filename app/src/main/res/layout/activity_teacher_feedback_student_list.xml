@@ -7,46 +7,46 @@
     android:orientation="vertical"
     tools:context=".Educator_FeedbackStudentList">
 
-
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="45dp" >
 
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/back" />
 
-        <TextView
-            android:id="@+id/feedback_classroom_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 Champion"
-            android:textColor="#003672"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:id="@+id/feedback_classroom_student_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="35 Students"
-            android:textColor="#003672"
-            android:textSize="16sp"
+            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:id="@+id/feedback_classroom_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 Champion"
+                android:textColor="#003672"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/feedback_classroom_student_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="35 Students"
+                android:textColor="#003672"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-55dp"
-        android:background="@android:color/transparent"
-        android:paddingLeft="10dp"
-        android:src="@drawable/ic_back" />
-
 
     <LinearLayout
         android:layout_width="match_parent"

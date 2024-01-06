@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.LMAdapter;
+import com.firstapp.hootnholler.databinding.TeacherActivityLearningMaterialsBinding;
 import com.firstapp.hootnholler.entity.Learning_Materials;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,25 +29,27 @@ import java.util.List;
 public class Educator_LearningMaterials extends AppCompatActivity {
     TextView noAss;
     Button postButton;
-    ImageButton back;
+    ImageView back;
     String currentClassCode,classOwner;
     private List<Learning_Materials> lmList;
     private LMAdapter LMAdapter;
     private RecyclerView LMList;
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     String uid=mAuth.getUid().toString();
+    TeacherActivityLearningMaterialsBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_learning_materials);
+        binding = TeacherActivityLearningMaterialsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
 
         noAss=findViewById(R.id.noAss);
         LMList=findViewById(R.id.materialList);
         postButton=findViewById(R.id.postbutton);
-        back = findViewById(R.id.back);
+        back = binding.back;
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -125,6 +129,7 @@ public class Educator_LearningMaterials extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Educator_LearningMaterials.this, Educator_Class.class);
+                intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
         });

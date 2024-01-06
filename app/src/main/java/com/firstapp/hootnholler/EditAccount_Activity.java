@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityEditAccountBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,11 +46,13 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
     ArrayList<String> InvalidConnectionKey = new ArrayList<>();
     ArrayList<String> Subject = new ArrayList<>();
     DatabaseReference UserRef, StudentRef, ParentRef, EduRef;
+    ActivityEditAccountBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityEditAccountBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_edit_account);
         // Initialize Firebase authentication, retrieve the current user ID, and get the database reference
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -73,7 +76,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
         //button
         addSubject = findViewById(R.id.addSubject);
         addConnectionKey = findViewById(R.id.addKey);
-        back_button = findViewById(R.id.back_button);
+        back_button = binding.back;
         submit = findViewById(R.id.SubmitButton);
 
         //dynamic view for subject and connection key

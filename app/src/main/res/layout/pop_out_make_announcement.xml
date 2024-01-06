@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="330dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:background="@drawable/rectangle_4026"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="35dp">
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/dell_fill"
+        android:layout_gravity="right"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:layout_gravity="center"
-            android:paddingLeft="16dp"
-            android:text="Make Announcement"
-            android:textColor="#5269CD"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/dell_fill" />
-    </LinearLayout>
+        android:paddingTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Make Announcement"
+        android:textColor="@color/black"
+        android:textSize="27sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/announcementTitle"
@@ -42,8 +35,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:paddingLeft="10dp"
+        android:paddingTop="20dp"
         android:inputType="textMultiLine"
-        android:hint="Announcement Title...."
+        android:hint="Announcement Title"
         android:textColor="@color/black"
 
         />
@@ -71,10 +65,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/button_colour"
         android:textColor="@color/white"
-        />
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="35dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
 </LinearLayout>

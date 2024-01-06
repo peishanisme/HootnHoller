@@ -6,7 +6,9 @@
     android:layout_margin="10dp"
     app:cardBackgroundColor="#EBF4B3"
     app:cardCornerRadius="10sp"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:paddingHorizontal="25dp"
+    android:paddingVertical="25dp" >
 
     <TextView
         android:id="@+id/ClassTitle"
@@ -14,11 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="15sp"
-        android:text="4 Harapan"
+        android:text="ClassName"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType="textMultiLine" />
 
     <TextView
         android:id="@+id/CLassSession"
@@ -26,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="42sp"
-        android:text="Session 2023/2024"
+        android:text="2023/2024"
         android:textColor="#504F4F"
         android:textSize="15sp" />
 
@@ -36,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="62sp"
-        android:text="Tues 8:00-10:00am"
+        android:text="sadfghgsdf"
         android:textColor="#FF504F4F"
         android:textSize="15sp" />
 
@@ -46,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="170sp"
-        android:text="30 students"
+        android:text="2 Students"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />

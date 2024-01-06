@@ -132,12 +132,14 @@ public class Student_Quiz_Leaderboard_Activity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Student_MainActivity.class);
                     intent.putExtra("FRAGMENT_TO_LOAD", "student_Quiz_Fragment"); // Pass the fragment tag or ID here
                     startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(Student_Quiz_Leaderboard_Activity.this, Student_Quiz_Set_Activity.class);
                     intent.putExtra("uid", uid);
                     intent.putExtra("keyCtg", keyCtg);
                     intent.putExtra("keySetList", keySetList);
                     startActivity(intent);
+                    finish();
                 }
 
             }

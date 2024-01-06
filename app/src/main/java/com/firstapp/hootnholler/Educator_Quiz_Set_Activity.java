@@ -145,6 +145,7 @@ public class Educator_Quiz_Set_Activity extends AppCompatActivity implements Rec
                 Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
                 intent.putExtra("FRAGMENT_TO_LOAD", "educator_Quiz_Fragment"); // Pass the fragment tag or ID here
                 startActivity(intent);
+                finish();
             }
         });
 

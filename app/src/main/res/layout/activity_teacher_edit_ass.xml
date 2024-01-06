@@ -9,26 +9,23 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="90sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp" >
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="25sp"
-            android:layout_height="83sp"
-            android:src="@drawable/ic_back"
-            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/back" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="10sp"
-            android:paddingTop="20sp"
             android:text="Assignment"
             android:textColor="#5269CD"
             android:textSize="32sp"
@@ -41,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Upcoming"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -53,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Ready For Grading"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -64,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Graded"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/RFG"

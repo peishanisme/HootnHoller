@@ -133,6 +133,7 @@ public class Student_Quiz_Review_Activity extends AppCompatActivity {
                 intent.putExtra("uid", uid);
 
                 startActivity(intent);
+                finish();
             }
         });
 

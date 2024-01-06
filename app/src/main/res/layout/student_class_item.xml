@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="15sp"
-        android:text="Science For \nFun"
+        android:text=""
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="65sp"
-        android:text="Session 2023/2024"
+        android:text=""
         android:textColor="#504F4F"
         android:textSize="15sp" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="85sp"
-        android:text="Tues 8:00-10:00am"
+        android:text=""
         android:textColor="#FF504F4F"
         android:textSize="15sp" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
         android:layout_marginTop="150sp"
-        android:text="Sir Lee Kok Xiang -\nEducator"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />

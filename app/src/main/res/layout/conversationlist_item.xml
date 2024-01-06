@@ -3,14 +3,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/conversationBackground">
+    android:id="@+id/conversationBackground"
+    android:paddingVertical="10dp">
 
     <ImageView
         android:id="@+id/chatprofile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/user1"
-        android:layout_marginRight="15dp"
         android:layout_weight="1"/>
     
     <LinearLayout
@@ -28,8 +28,7 @@
             android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="16sp"
-            />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="150dp"
@@ -38,8 +37,8 @@
             android:text="Say Hi To start chat"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="14sp"
-            />
+            android:inputType="textMultiLine"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -55,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2 min"
+            android:textSize="15dp"
             android:layout_gravity="center"/>
 
         <LinearLayout

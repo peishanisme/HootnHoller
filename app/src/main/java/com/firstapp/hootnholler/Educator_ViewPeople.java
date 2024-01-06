@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.People_RecyclerViewAdapter;
+import com.firstapp.hootnholler.databinding.TeacherActivityPeopleBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,18 +29,20 @@ public class Educator_ViewPeople extends AppCompatActivity {
     private ArrayList<String> StudentList = new ArrayList<>();
     private RecyclerView People_RecyclerView;
     private People_RecyclerViewAdapter PeopleAdapter;
-    ImageButton back;
+    ImageView back;
+    TeacherActivityPeopleBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_people);
+        binding = TeacherActivityPeopleBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
 
         EducatorName = findViewById(R.id.TeacherName);
         People_RecyclerView = findViewById(R.id.StudentListView);
-        back=findViewById(R.id.ButtonBack);
+        back=binding.back;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         People_RecyclerView.setLayoutManager(layoutManager);
         PeopleAdapter = new People_RecyclerViewAdapter(Educator_ViewPeople.this,StudentList,currentClassCode);
