@@ -13,11 +13,13 @@ import com.firstapp.hootnholler.Student_Positive_Feedback_Fragment;
 
 public class TeacherStudentFeedbackPager_Adapter extends FragmentStateAdapter {
     private String classCode, studentUID;
+    private boolean isParent;
 
-    public TeacherStudentFeedbackPager_Adapter(@NonNull FragmentActivity fragmentActivity, String classCode, String studentUID) {
+    public TeacherStudentFeedbackPager_Adapter(@NonNull FragmentActivity fragmentActivity, String classCode, String studentUID, boolean isParent) {
         super(fragmentActivity);
         this.classCode = classCode;
         this.studentUID = studentUID;
+        this.isParent = isParent;
     }
 
     public TeacherStudentFeedbackPager_Adapter(@NonNull Fragment fragment) {
@@ -33,9 +35,9 @@ public class TeacherStudentFeedbackPager_Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new Student_Positive_Feedback_Fragment(this.classCode, this.studentUID);
+                return new Student_Positive_Feedback_Fragment(this.classCode, this.studentUID, this.isParent);
             case 1:
-                return  new Student_Negative_Feedback_Fragment(this.classCode, this.studentUID);
+                return  new Student_Negative_Feedback_Fragment(this.classCode, this.studentUID, this.isParent);
             default:
                 return null;
         }

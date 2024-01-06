@@ -27,16 +27,18 @@ public class Student_Negative_Feedback_Fragment extends Fragment {
     private Feedback_List_Adapter adapter;
     private ArrayList<Feedback> feedbacks;
     private RecyclerView StudentFeedbackList;
-    public Student_Negative_Feedback_Fragment(String classCode, String studentUID){
+    private boolean isParent;
+    public Student_Negative_Feedback_Fragment(String classCode, String studentUID, boolean isParent){
         this.classCode = classCode;
         this.studentUID = studentUID;
+        this.isParent = isParent;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_student__negative__feedback_, container, false);
         feedbacks = new ArrayList<>();
-        adapter = new Feedback_List_Adapter(getActivity(),  feedbacks);
+        adapter = new Feedback_List_Adapter(getActivity(),  feedbacks, isParent);
         StudentFeedbackList = view.findViewById(R.id.teacher_student_negative_feedback_list);
         StudentFeedbackList.setAdapter(adapter);
         StudentFeedbackList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -47,24 +49,55 @@ public class Student_Negative_Feedback_Fragment extends Fragment {
 
     public void getFeedbacksFromStudent(){
         feedbacks.clear();
-        this.FeedbackRef.child(this.classCode).child(this.studentUID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot feedbackSnapShot: snapshot.getChildren()) {
-                    Feedback feedback = feedbackSnapShot.getValue(Feedback.class);
-                    if(!feedback.isPositive()){
-                        feedback.setTimeStamp(Long.parseLong(feedbackSnapShot.getKey()));
-                        feedback.setClassCode(classCode);
-                        feedbacks.add(feedback);
+        // if it is teacher
+        if(!isParent){
+            this.FeedbackRef.child(this.classCode).child(this.studentUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot feedbackSnapShot: snapshot.getChildren()) {
+                        Feedback feedback = feedbackSnapShot.getValue(Feedback.class);
+                        if(!feedback.isPositive()){
+                            feedback.setTimeStamp(Long.parseLong(feedbackSnapShot.getKey()));
+                            feedback.setClassCode(classCode);
+                            feedbacks.add(feedback);
+                        }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else{
+            // if parent show all feedback
+            this.FeedbackRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot classSnapShot: snapshot.getChildren()) {
+                        String classCode = classSnapShot.getKey();
+                        for (DataSnapshot feedbackSnapShot : classSnapShot.child(studentUID).getChildren()) {
+                            if(feedbackSnapShot.getKey().equals("at-risk status")){
+                                continue;
+                            }
+                            Feedback feedback = feedbackSnapShot.getValue(Feedback.class);
+                            if(!feedback.isPositive()){
+                                feedback.setTimeStamp(Long.parseLong(feedbackSnapShot.getKey()));
+                                feedback.setClassCode(classCode);
+                                feedbacks.add(feedback);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 }

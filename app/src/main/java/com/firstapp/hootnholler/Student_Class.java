@@ -26,9 +26,6 @@ public class Student_Class extends AppCompatActivity implements PopupMenu.OnMenu
         btnPopUp = (ImageButton) findViewById(R.id.menu);
         backButton = (ImageButton) findViewById(R.id.btnBack);
 
-        System.out.println("student_class: "+currentClassCode);
-
-
 //        btnPopUp.setOnClickListener(this);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,7 +9,7 @@
         android:id="@+id/Student_Profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/example_student_profile"/>
+        android:src="@drawable/user1"/>
 
     <TextView
         android:id="@+id/Monitored_Student_Name"

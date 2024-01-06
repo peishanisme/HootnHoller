@@ -63,6 +63,7 @@ public class Feedback_Student_List_Adapter extends RecyclerView.Adapter<Feedback
                         Intent intent = new Intent(context, FeedbackList.class);
                         intent.putExtra("studentUID", student.studentUID);
                         intent.putExtra("classCode", currentClassCode);
+                        intent.putExtra("isParent", false);
                         context.startActivity(intent);
                     }
                 });

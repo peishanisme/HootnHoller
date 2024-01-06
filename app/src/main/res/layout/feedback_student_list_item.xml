@@ -11,7 +11,7 @@
         android:id="@+id/feedback_student_list_item_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/profile_man_photo_profile"
+        android:src="@drawable/user1"
         />
 
     <TextView

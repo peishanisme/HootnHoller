@@ -29,6 +29,7 @@ public class FeedbackList extends AppCompatActivity {
     private FloatingActionButton createFeedback;
     private TeacherStudentFeedbackPager_Adapter pageAdapter;
     private String studentUID, currentClassCode, role, UID;
+    private boolean isParent;
     private DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users");
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -41,8 +42,10 @@ public class FeedbackList extends AppCompatActivity {
         container = findViewById(R.id.TeacherStudentFeedbackList);
         studentName = findViewById(R.id.TeacherStudentNameFeedback);
         studentUID = getIntent().getExtras().get("studentUID").toString();
+        isParent = (boolean) getIntent().getExtras().get("isParent");
         currentClassCode = getIntent().getExtras().get("classCode").toString();
-        pageAdapter = new TeacherStudentFeedbackPager_Adapter(this, currentClassCode, studentUID);
+
+        pageAdapter = new TeacherStudentFeedbackPager_Adapter(this, currentClassCode, studentUID, isParent);
         container.setAdapter(pageAdapter);
         createFeedback = findViewById(R.id.createFeedback);
         back = findViewById(R.id.back);
@@ -72,15 +75,21 @@ public class FeedbackList extends AppCompatActivity {
             }
         });
 
-        createFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FeedbackList.this, Teacher_CreateFeedback.class);
-                intent.putExtra("studentUID", studentUID);
-                intent.putExtra("classCode", currentClassCode);
-                startActivity(intent);
-            }
-        });
+        if(!isParent){
+            createFeedback.setVisibility(View.VISIBLE);
+            createFeedback.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(FeedbackList.this, Teacher_CreateFeedback.class);
+                    intent.putExtra("studentUID", studentUID);
+                    intent.putExtra("classCode", currentClassCode);
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+            createFeedback.setVisibility(View.GONE);
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,27 +105,6 @@ public class FeedbackList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 studentName.setText(snapshot.child("fullname").getValue(String.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    public void checkRole(){
-        UID = mAuth.getUid();
-        UserRef.child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                role = snapshot.child("role").getValue(String.class);
-                if(role.equalsIgnoreCase("Educator")){
-                    createFeedback.setVisibility(View.VISIBLE);
-                }
-                else{
-                    createFeedback.setVisibility(View.GONE);
-                }
             }
 
             @Override

@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/profile_man_photo_profile"/>
+            android:src="@drawable/user1"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,14 +28,14 @@
                 android:id="@+id/feedback_teacher_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lee Kok Xiang"
-                android:textSize="12sp"/>
+                android:text="..."
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/feedback_classroom_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Science 3 champion"
+                android:text="..."
                 android:textColor="#3B1B0D"
                 android:textSize="8sp"/>
 
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:text="18 Aug 2023"
+        android:text="..."
         android:singleLine="false"
         android:maxLines="1"
         android:textSize="10sp"

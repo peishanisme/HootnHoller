@@ -27,13 +27,15 @@ import java.util.Locale;
 public class Feedback_List_Adapter extends RecyclerView.Adapter<Feedback_List_Adapter.ViewHolder> {
     private List<Feedback> feedbacks;
     private Context context;
+    private boolean isParent;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
     private DatabaseReference ClassroomRef = FirebaseDatabase.getInstance().getReference("Classroom");
     private DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users");
 
-    public Feedback_List_Adapter(Context context, List<Feedback> feedbacks){
+    public Feedback_List_Adapter(Context context, List<Feedback> feedbacks, boolean isParent){
         this.feedbacks = feedbacks;
         this.context = context;
+        this.isParent = isParent;
     }
 
     @NonNull
