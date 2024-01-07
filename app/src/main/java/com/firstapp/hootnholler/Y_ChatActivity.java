@@ -78,7 +78,8 @@ public class Y_ChatActivity extends AppCompatActivity {
         sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage();
+                String filteredMessage = filterMessage(msg.getText().toString());
+                sendMessage(filteredMessage);
             }
         });
         getMessage();
@@ -91,6 +92,24 @@ public class Y_ChatActivity extends AppCompatActivity {
         });
     }
 
+    private String filterMessage(String originalMessage) {
+        // Define your list of sensitive/rude words
+        String[] rudeWords = {"fork", "shat", "badword"};
+
+        // Replace rude words with asterisks
+        String filteredMessage = originalMessage.toLowerCase();
+        for (String rudeWord : rudeWords) {
+            if (filteredMessage.contains(rudeWord)) {
+                StringBuilder asterisks = new StringBuilder();
+                for (int i = 0; i < rudeWord.length(); i++) {
+                    asterisks.append('*');
+                }
+                filteredMessage = filteredMessage.replace(rudeWord, asterisks.toString());
+            }
+        }
+
+        return filteredMessage;
+    }
     public void getConversationDetails(){
         databaseReference.child("GroupChat").child(conversationKey).addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,14 +125,14 @@ public class Y_ChatActivity extends AppCompatActivity {
         });
     }
 
-    public void sendMessage(){
+    public void sendMessage(String filteredMessage){
         long currentTime = System.currentTimeMillis();
         databaseReference.child("GroupChat")
                 .child(conversationKey)
                 .child("message")
                 .child(String.valueOf(currentTime))
                 .child("content")
-                .setValue(msg.getText().toString());
+                .setValue(filteredMessage);
         databaseReference.child("GroupChat")
                 .child(conversationKey)
                 .child("message")
