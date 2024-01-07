@@ -105,7 +105,7 @@ public class Educator_Quiz_Question_Activity extends AppCompatActivity implement
                                 });
                                 builder.show();
                             } else {
-                                Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
+                                Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Add_Question_Activity.class);
                                 intent.putExtra("uid", uid);
                                 intent.putExtra("key", keyCtg);
                                 intent.putExtra("keySet", keySet);

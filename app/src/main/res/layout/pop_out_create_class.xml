@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:layout_gravity="center"
-            android:paddingLeft="26dp"
             android:text="Create Classroom"
             android:textColor="@color/black"
             android:textSize="27sp"
