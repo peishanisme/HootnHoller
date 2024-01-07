@@ -11,12 +11,13 @@
         android:id="@+id/createClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginTop="670dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#7DC8FE" >
+        app:backgroundTint="#7DC8FE">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -36,11 +37,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:paddingLeft="38sp"
-                android:paddingTop="45sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="45dp"
                 android:text="Classroom"
                 android:textColor="#5269CD"
                 android:textSize="32sp"
@@ -50,10 +50,9 @@
                 android:id="@+id/classList"
                 android:layout_width="390dp"
                 android:layout_height="813dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:scrollbars="vertical"
-                android:paddingTop="15dp" />
+                android:paddingHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                android:scrollbars="vertical" />
 
         </LinearLayout>
 

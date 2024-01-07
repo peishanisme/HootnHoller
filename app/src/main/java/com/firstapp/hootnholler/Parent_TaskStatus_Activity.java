@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.Student_Assignment;
+import com.firstapp.hootnholler.databinding.ActivityTaskStatusBinding;
 import com.firstapp.hootnholler.entity.Assignment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,11 +43,13 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
     private ArrayList<Assignment> Assignment;
     private ArrayList<String> Submissions;
     private Student_Assignment Student_Assignment_Adapter;
+    private ActivityTaskStatusBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_status);
+        binding = ActivityTaskStatusBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Bundle data = getIntent().getExtras();
 //        if (data != null) {
 //            StudentUid = data.getString("Student_UID");
@@ -86,6 +90,17 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
                 formDate(WeekFromToday);
             }
         });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Parent_MainActivity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "home_Fragment");
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void formDate(int selectedWeekFromToday){

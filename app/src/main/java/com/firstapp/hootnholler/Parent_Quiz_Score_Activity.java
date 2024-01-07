@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -99,6 +100,17 @@ public class Parent_Quiz_Score_Activity extends AppCompatActivity {
                 Student_Quiz_Adapter.notifyDataSetChanged();
             }
         });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Parent_MainActivity.class);
+                intent.putExtra("FRAGMENT_TO_LOAD", "home_Fragment");
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void formDate(int selectedWeekFromToday) {

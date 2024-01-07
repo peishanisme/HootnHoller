@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="45sp">
+        android:layout_marginTop="45sp">
 
         <ImageView
             android:id="@+id/back"
