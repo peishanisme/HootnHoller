@@ -114,7 +114,7 @@ public class Educator_Quiz_Question_Activity extends AppCompatActivity implement
                                 startActivity(intent);
                             }
                         } else {
-                            Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
+                            Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Add_Question_Activity.class);
                             intent.putExtra("uid", uid);
                             intent.putExtra("key", keyCtg);
                             intent.putExtra("keySet", keySet);
@@ -249,7 +249,7 @@ public class Educator_Quiz_Question_Activity extends AppCompatActivity implement
 
                     if(postedSet != null && postedSet.contains(keySet)) {
                         QuestionModel model = list.get(position);
-                        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
+                        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Add_Question_Activity.class);
                         intent.putExtra("uid", uid);
                         intent.putExtra("key", keyCtg);
                         intent.putExtra("keySet", keySet);
@@ -277,7 +277,7 @@ public class Educator_Quiz_Question_Activity extends AppCompatActivity implement
 
     private void proceedWithIntent(int position) {
         QuestionModel model = list.get(position);
-        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Question_Activity.class);
+        Intent intent = new Intent(Educator_Quiz_Question_Activity.this, Educator_Quiz_Add_Question_Activity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("key", keyCtg);
         intent.putExtra("keySet", keySet);
