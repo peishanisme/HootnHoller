@@ -45,9 +45,6 @@
             android:name=".Educator_Assignment"
             android:exported="false" />
         <activity
-            android:name=".Teacher_PostLM"
-            android:exported="false" />
-        <activity
             android:name=".FeedbackList"
             android:exported="false" />
         <activity
@@ -102,15 +99,6 @@
             android:name=".Educator_ViewPeople"
             android:exported="false" />
         <activity
-            android:name=".Teacher_GradedAsgm"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_ReadyForGrading_Asgm"
-            android:exported="false" />
-        <activity
-            android:name=".Teacher_UpcomingAsgm"
-            android:exported="false" />
-        <activity
             android:name=".Educator_Announcement"
             android:exported="false" />
         <activity
@@ -140,9 +128,7 @@
         <activity
             android:name=".Student_Quiz_Set_Activity"
             android:exported="false" />
-        <activity
-            android:name=".QuizStudentCategoryActivity"
-            android:exported="false"/>
+
         <activity
             android:name=".Educator_Quiz_Question_Activity"
             android:exported="false" />
@@ -161,18 +147,14 @@
         <activity
             android:name=".Student_LearningMaterialsDetails"
             android:exported="false" />
-        <activity
-            android:name=".Student_CompletedAssignment"
-            android:exported="false" />
+
         <activity
             android:name=".Student_Assignment"
             android:exported="false" />
         <activity
             android:name=".Student_AnnouncementDetails"
             android:exported="false" />
-        <activity
-            android:name=".Student_UpcomingAssignment"
-            android:exported="false" />
+
         <activity
             android:name=".Student_LearningMaterials"
             android:exported="false" />
