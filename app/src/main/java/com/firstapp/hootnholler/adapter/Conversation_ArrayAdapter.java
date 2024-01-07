@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation_ArrayAdapter.ViewHolder>{
 
-    int[] profilePictures = { R.drawable.user1, R.drawable.user2, R.drawable.user3 };
+    int[] profilePictures = { R.drawable.user1, R.drawable.user2, R.drawable.user3, R.drawable.user4, R.drawable.user5, R.drawable.user6, R.drawable.user7, R.drawable.user8};
     private ArrayList<Conversation> conversations;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String uid = mAuth.getUid();
@@ -75,11 +75,9 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
         holder.ChatProfile.setImageResource(randomDrawableId);
         Log.d("Adapter", "Contact Name: " + conversation.getName());
         holder.ContactName.setText(conversation.getName());
-        // Check if a profile image is already assigned for this user
         int profileImageResId = getAssignedProfileImage(conversation.getConversationID());
 
         if (profileImageResId == 0) {
-            // If not assigned, assign a random profile image and save it
             profileImageResId = assignRandomProfileImage(conversation.getConversationID());
         }
 
