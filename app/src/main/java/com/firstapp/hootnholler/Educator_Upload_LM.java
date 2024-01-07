@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,7 +121,13 @@ public class Educator_Upload_LM extends AppCompatActivity {
             uploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    uploadPDF(data.getData());
+                    if (TextUtils.isEmpty(LMTitle.getText().toString())) {
+                        Toast.makeText(Educator_Upload_LM.this, "Please enter learning materials title", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    }else {
+                        uploadPDF(data.getData());
+                    }
                 }
             });
         }
