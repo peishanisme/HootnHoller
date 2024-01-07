@@ -24,14 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Login_Activity extends AppCompatActivity {
+public class Y_Login_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button LoginButton;
     private EditText UserEmail, UserPassword;
     private ImageView back_button;
     private ProgressDialog loadingBar;
     private DatabaseReference userRef;
-    Register_Activity object=new Register_Activity();
+    Y_Register_Activity object=new Y_Register_Activity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class Login_Activity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login_Activity.this, "You can reset your password now!.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), ForgotPassword_Activity.class);
+                Toast.makeText(Y_Login_Activity.this, "You can reset your password now!.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Y_ForgotPassword_Activity.class);
                 startActivity(intent);
                 finish();
             }
@@ -73,7 +73,7 @@ public class Login_Activity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Register_Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Y_Register_Activity.class);
                 startActivity(intent);
                 finish();
             }
@@ -113,7 +113,7 @@ public class Login_Activity extends AppCompatActivity {
                         checkRole(userId);
                     } else {
                         String message = task.getException().getMessage();
-                        Toast.makeText(Login_Activity.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_Login_Activity.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
                         if (!isFinishing()) {
                             loadingBar.dismiss();
                         }
@@ -135,25 +135,25 @@ public class Login_Activity extends AppCompatActivity {
 
                         // Redirect based on user role
                         if ("Student".equals(role)) {
-                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login_Activity.this, Student_MainActivity.class);
+                            Toast.makeText(Y_Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Y_Login_Activity.this, Student_MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else if ("Educator".equals(role)) {
-                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login_Activity.this, Educator_Main_Activity.class);
+                            Toast.makeText(Y_Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Y_Login_Activity.this, Educator_Main_Activity.class);
                             startActivity(intent);
                             finish();
                         } else if ("Parent".equals(role)) {
-                            Toast.makeText(Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login_Activity.this, Parent_MainActivity.class);
+                            Toast.makeText(Y_Login_Activity.this,"You are logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Y_Login_Activity.this, Parent_MainActivity.class);
                             startActivity(intent);
                             finish();
 
                         }
                     } else {
 //                     User does not exist in the "Users" node
-                        Toast.makeText(Login_Activity.this, "User not found. Login failed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_Login_Activity.this, "User not found. Login failed.", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();                    }
                 }
 

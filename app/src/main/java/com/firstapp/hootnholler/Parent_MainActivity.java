@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 
 import com.firstapp.hootnholler.databinding.ActivityParentMainBinding;
 
@@ -36,9 +35,9 @@ public class Parent_MainActivity extends AppCompatActivity {
             else if (id == R.id.statistic) {
                 replaceFragment(new Parent_Statistic_Fragment(studentUID));
             }else if (id == R.id.chat) {
-                replaceFragment(new ChatFragment());
+                replaceFragment(new Y_ChatFragment());
             }else if (id == R.id.profile) {
-                replaceFragment(new Profile_Fragment());}
+                replaceFragment(new Y_Profile_Fragment());}
 
         });
 

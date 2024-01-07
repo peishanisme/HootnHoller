@@ -60,7 +60,7 @@ public class Educator_Upload_LM extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Educator_Upload_LM.this, Educator_LearningMaterials.class);
+                Intent intent=new Intent(Educator_Upload_LM.this, Y_LearningMaterials.class);
                 startActivity(intent);
             }
         });

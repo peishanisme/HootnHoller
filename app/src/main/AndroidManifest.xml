@@ -13,7 +13,7 @@
         android:theme="@style/Theme.HootnHoller"
         tools:targetApi="31">
         <activity
-            android:name=".ChatActivity"
+            android:name=".Y_ChatActivity"
             android:exported="false" />
         <activity
             android:name=".Student_ConnectionKey_Activity"
@@ -45,7 +45,7 @@
             android:name=".Educator_Assignment"
             android:exported="false" />
         <activity
-            android:name=".FeedbackList"
+            android:name=".Y_FeedbackList"
             android:exported="false" />
         <activity
             android:name=".Educator_FeedbackStudentList"
@@ -57,7 +57,7 @@
             android:name=".Educator_Upload_LM"
             android:exported="false" />
         <activity
-            android:name=".EditAccount_Activity"
+            android:name=".Y_EditAccount_Activity"
             android:exported="false" />
         <activity
             android:name=".Parent_MainActivity"
@@ -78,34 +78,34 @@
             android:name=".Student_Setup_Activity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPassword_Activity"
+            android:name=".Y_ForgotPassword_Activity"
             android:exported="false" />
         <activity
-            android:name=".Register_Activity"
+            android:name=".Y_Register_Activity"
             android:exported="false" />
         <activity
-            android:name=".Login_Activity"
+            android:name=".Y_Login_Activity"
             android:exported="false" />
         <activity
             android:name=".Educator_Ass_StudentList"
             android:exported="false" />
         <activity
-            android:name=".Educator_LM_Details"
+            android:name=".Y_LM_Details"
             android:exported="false" />
         <activity
-            android:name=".Educator_LearningMaterials"
+            android:name=".Y_LearningMaterials"
             android:exported="false" />
         <activity
-            android:name=".Educator_ViewPeople"
+            android:name=".Y_View_People"
             android:exported="false" />
         <activity
-            android:name=".Educator_Announcement"
+            android:name=".Y_Announcement"
             android:exported="false" />
         <activity
             android:name=".Educator_Class"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Y_MainActivity"
             android:exported="false" />
         <activity
             android:name=".Educator_Quiz_Review_Activity"
@@ -141,7 +141,7 @@
             android:name=".Student_UploadAsgm"
             android:exported="false" />
         <activity
-            android:name=".Student_AsgmDetails"
+            android:name=".Y_AsgmDetails"
             android:exported="false" />
         <activity
             android:name=".Student_People"
@@ -167,7 +167,7 @@
             android:name=".Student_Class"
             android:exported="false" />
         <activity
-            android:name=".Starting_Activity"
+            android:name=".Y_Starting_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

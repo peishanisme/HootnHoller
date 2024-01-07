@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".Login_Activity">
+    tools:context=".Y_Login_Activity">
 
     <ImageView
         android:id="@+id/back_button"

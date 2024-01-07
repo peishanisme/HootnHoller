@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity"
+    tools:context=".Y_ChatActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -30,10 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="classRoom Name"
             android:textColor="#7486D4"
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -53,7 +53,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chatList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="15dp"/>
 
         </LinearLayout>

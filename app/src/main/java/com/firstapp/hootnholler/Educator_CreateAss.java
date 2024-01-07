@@ -237,22 +237,6 @@ public class Educator_CreateAss extends AppCompatActivity {
         dateDialog.show();
     }
 
-//        public static long convertDateTimeToTimestamp(String inputDateTime) {
-//            try {
-//                // Define the format of your input date and time
-//                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MM-yyyy, HH:mm:ss a", java.util.Locale.getDefault());
-//
-//                // Parse the input date and time string to get a Date object
-//                Date date = sdf.parse(inputDateTime);
-//
-//                // Convert the Date object to a timestamp
-//                return date.getTime();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//                // Handle the ParseException (invalid date format)
-//                return -1; // Return an error value
-//            }
-//        }
 public static long convertDateTimeToTimestamp(String inputDateTime) {
     try {
         // Define the format of your input date and time
@@ -284,9 +268,6 @@ public static long convertDateTimeToTimestamp(String inputDateTime) {
 
     private void updateDueTimestamp() {
         String dueDateTimeString = showDueDate.getText().toString() + " " + showDueTime.getText().toString();
-        System.out.println("yoyoy");
-        System.out.println(showDueDate.getText().toString());
-        System.out.println(showDueTime.getText().toString());
         dueTimestamp = convertDateTimeToTimestamp(dueDateTimeString);
     }
 }

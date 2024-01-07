@@ -24,17 +24,18 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/contactName"
-            android:text="Mandy Tan"
             android:textStyle="bold"
             android:ellipsize="end"
+            android:text="Mandy Tan"
             android:maxLines="1"
+            android:layout_weight="1"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/content"
-            android:text="Say Hi To start chat"
+            android:text="Say Hi to start chat"
             android:ellipsize="end"
             android:maxLines="1"
             android:inputType="textMultiLine"

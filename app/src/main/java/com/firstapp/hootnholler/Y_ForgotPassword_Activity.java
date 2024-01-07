@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,10 +17,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
-public class ForgotPassword_Activity extends AppCompatActivity {
+public class Y_ForgotPassword_Activity extends AppCompatActivity {
     private Button buttonPwdReset;
     private ImageView back_button;
 
@@ -44,7 +42,7 @@ public class ForgotPassword_Activity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(ForgotPassword_Activity.this, Login_Activity.class);
+                Intent intent= new Intent(Y_ForgotPassword_Activity.this, Y_Login_Activity.class);
                 startActivity(intent);
             }
         });
@@ -79,7 +77,7 @@ public class ForgotPassword_Activity extends AppCompatActivity {
                     SignInMethodQueryResult result = task.getResult();
                     if (result.getSignInMethods().isEmpty()) {
                         // Email is not registered
-                        Toast.makeText(ForgotPassword_Activity.this, "Email is not registered. Please register first.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_ForgotPassword_Activity.this, "Email is not registered. Please register first.", Toast.LENGTH_SHORT).show();
                     } else {
                         // Email is registered, proceed with password reset
                         authProfile.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -87,17 +85,17 @@ public class ForgotPassword_Activity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     // Password reset email sent successfully
-                                    Toast.makeText(ForgotPassword_Activity.this, "Please check your email for the password reset link", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Y_ForgotPassword_Activity.this, "Please check your email for the password reset link", Toast.LENGTH_SHORT).show();
 
                                     // Redirect to the starting activity
-                                    Intent intent = new Intent(ForgotPassword_Activity.this, Login_Activity.class);
+                                    Intent intent = new Intent(Y_ForgotPassword_Activity.this, Y_Login_Activity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     // Handle other exceptions
                                     Log.e(TAG, task.getException().getMessage());
-                                    Toast.makeText(ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Y_ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -105,7 +103,7 @@ public class ForgotPassword_Activity extends AppCompatActivity {
                 } else {
                     // Handle other exceptions
                     Log.e(TAG, task.getException().getMessage());
-                    Toast.makeText(ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Y_ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

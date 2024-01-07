@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstapp.hootnholler.adapter.People_RecyclerViewAdapter;
 import com.firstapp.hootnholler.databinding.TeacherActivityPeopleBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Educator_ViewPeople extends AppCompatActivity {
+public class Y_View_People extends AppCompatActivity {
     TextView EducatorName;
     private String currentClassCode;
     private DatabaseReference ClassroomRef,User;
@@ -31,6 +31,10 @@ public class Educator_ViewPeople extends AppCompatActivity {
     private People_RecyclerViewAdapter PeopleAdapter;
     ImageView back;
     TeacherActivityPeopleBinding binding;
+    boolean isCurrentUserClassOwner;
+    FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    String uid=mAuth.getUid().toString();
+    String classOwner;
 
 
     @Override
@@ -45,21 +49,46 @@ public class Educator_ViewPeople extends AppCompatActivity {
         back=binding.back;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         People_RecyclerView.setLayoutManager(layoutManager);
-        PeopleAdapter = new People_RecyclerViewAdapter(Educator_ViewPeople.this,StudentList,currentClassCode);
+        PeopleAdapter = new People_RecyclerViewAdapter(Y_View_People.this,StudentList,currentClassCode);
         People_RecyclerView.setAdapter(PeopleAdapter);
 
 
         DatabaseReference classroomRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode);
         DatabaseReference User=FirebaseDatabase.getInstance().getReference("Users");
 
-        back.setOnClickListener(new View.OnClickListener() {
+        classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Educator_ViewPeople.this, Educator_Class.class);
-                intent.putExtra("classCode", currentClassCode);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 classOwner = snapshot.child("classOwner").getValue(String.class);
+                if (uid.equals(classOwner)) {
+                    isCurrentUserClassOwner = true;}
+                if (isCurrentUserClassOwner) {
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_View_People.this, Educator_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_View_People.this, Student_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
         classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

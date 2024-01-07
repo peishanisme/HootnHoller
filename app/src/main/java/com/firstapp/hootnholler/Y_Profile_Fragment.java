@@ -13,11 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Profile_Fragment extends Fragment {
+public class Y_Profile_Fragment extends Fragment {
 
     // Declare view
     private TextView Fullname, Role, Gender, Birthday, PhoneNumber, School, Level, Class, EmptyListMessage;
@@ -116,7 +114,7 @@ public class Profile_Fragment extends Fragment {
                     EditAccount_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getActivity(), EditAccount_Activity.class);
+                            Intent intent = new Intent(getActivity(), Y_EditAccount_Activity.class);
                             startActivity(intent);
                         }
                     });
@@ -135,7 +133,7 @@ public class Profile_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                Intent intent = new Intent(getActivity(), Starting_Activity.class);
+                Intent intent = new Intent(getActivity(), Y_Starting_Activity.class);
                 startActivity(intent);
             }
         });

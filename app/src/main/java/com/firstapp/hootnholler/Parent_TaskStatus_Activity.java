@@ -51,12 +51,7 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
         binding = ActivityTaskStatusBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Bundle data = getIntent().getExtras();
-//        if (data != null) {
-//            StudentUid = data.getString("Student_UID");
-//            if (StudentUid != null) {
-//                StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
-//            }
-//        }
+
         StudentUid = data.getString("Student_UID");
         StudentRef = FirebaseDatabase.getInstance().getReference("Student").child(StudentUid);
         DateRange = findViewById(R.id.dateRange);

@@ -189,7 +189,7 @@ public class Student_Setup_Activity extends AppCompatActivity {
 
     //after setting up the account, users will be sent to main activity
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(Student_Setup_Activity.this, Starting_Activity.class);
+        Intent mainIntent = new Intent(Student_Setup_Activity.this, Y_Starting_Activity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

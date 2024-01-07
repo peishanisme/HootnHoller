@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.Educator_LM_Details;
+import com.firstapp.hootnholler.Y_LM_Details;
 import com.firstapp.hootnholler.entity.Learning_Materials;
 
 import java.text.SimpleDateFormat;
@@ -47,7 +47,7 @@ public class LMAdapter extends RecyclerView.Adapter<LMAdapter.ViewHolder>{
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, Educator_LM_Details.class);
+                Intent intent=new Intent(context, Y_LM_Details.class);
                 intent.putExtra("LMid",LMItem.getLMid());
                 intent.putExtra("classCode", currentClassCode);
                 context.startActivity(intent);
