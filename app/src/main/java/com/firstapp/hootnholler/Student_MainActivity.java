@@ -26,9 +26,9 @@ public class Student_MainActivity extends AppCompatActivity {
         } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Class_Fragment")) {
             replaceFragment(new Student_Classroom_Fragment());
         } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Chat_Fragment")) {
-            replaceFragment(new ChatFragment());
+            replaceFragment(new Y_ChatFragment());
         } else if (fragmentToLoad != null && fragmentToLoad.equals("student_Profile_Fragment")) {
-            replaceFragment(new Profile_Fragment());
+            replaceFragment(new Y_Profile_Fragment());
         }
 
         binding.BottomNavigationView.setOnItemReselectedListener(item -> {
@@ -38,9 +38,9 @@ public class Student_MainActivity extends AppCompatActivity {
             else if (id == R.id.quiz) {
                 replaceFragment(new Student_Quiz_Fragment());
             }else if (id == R.id.chat) {
-                replaceFragment(new ChatFragment());
+                replaceFragment(new Y_ChatFragment());
             }else if (id == R.id.profile) {
-                replaceFragment(new Profile_Fragment());}
+                replaceFragment(new Y_Profile_Fragment());}
 
         });
 

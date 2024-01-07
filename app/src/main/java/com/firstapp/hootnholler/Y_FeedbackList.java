@@ -7,7 +7,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class FeedbackList extends AppCompatActivity {
+public class Y_FeedbackList extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ImageView back;
@@ -84,7 +83,7 @@ public class FeedbackList extends AppCompatActivity {
             createFeedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(FeedbackList.this, Educator_CreateFeedback.class);
+                    Intent intent = new Intent(Y_FeedbackList.this, Educator_CreateFeedback.class);
                     intent.putExtra("studentUID", studentUID);
                     intent.putExtra("classCode", currentClassCode);
                     startActivity(intent);

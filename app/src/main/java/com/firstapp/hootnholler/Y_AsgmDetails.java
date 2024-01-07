@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -23,10 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.firstapp.hootnholler.databinding.ActivityStudentAsgmBinding;
 import com.firstapp.hootnholler.databinding.ActivityStudentAsgnDetailsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -42,11 +38,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.sql.SQLOutput;
-import java.util.HashMap;
 import java.util.Locale;
 
-public class Student_AsgmDetails extends AppCompatActivity {
+public class Y_AsgmDetails extends AppCompatActivity {
 
     private Button addSubmissionButton, uploadButton, cancelButton, dltButton, gradeButton;
     private ImageView backButton;
@@ -142,12 +136,12 @@ public class Student_AsgmDetails extends AppCompatActivity {
     private void handleBackButtonClick() {
         if (isEducator) {
             // User is an educator, navigate to Educator_Assignment activity
-            Intent intent = new Intent(Student_AsgmDetails.this, Educator_Assignment.class);
+            Intent intent = new Intent(Y_AsgmDetails.this, Educator_Assignment.class);
             intent.putExtra("classCode", currentClassCode);
             startActivity(intent);
         } else {
             // User is a student, navigate to Student_Assignment activity
-            Intent intent = new Intent(Student_AsgmDetails.this, Student_Assignment.class);
+            Intent intent = new Intent(Y_AsgmDetails.this, Student_Assignment.class);
             intent.putExtra("classCode", currentClassCode);
             startActivity(intent);
         }
@@ -297,7 +291,7 @@ public class Student_AsgmDetails extends AppCompatActivity {
                 if (selectedFileUri != null) {
                     uploadPDF(selectedFileUri);
                 } else {
-                    Toast.makeText(Student_AsgmDetails.this, "Please select a file", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Y_AsgmDetails.this, "Please select a file", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -413,7 +407,7 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         submissionRef.child("comment").setValue(assComment.getText().toString());
 
 
-                        Toast.makeText(Student_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                         finish();
                     }
@@ -428,7 +422,7 @@ public class Student_AsgmDetails extends AppCompatActivity {
 
     private void uploadGrade(){
         if(grade.getText().toString().isEmpty()){
-            Toast.makeText(Student_AsgmDetails.this, "Please enter mark.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Y_AsgmDetails.this, "Please enter mark.", Toast.LENGTH_SHORT).show();
         }
         else{
             if (selectedFileUri != null) {
@@ -463,7 +457,7 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         submissionRef.child("gradedFileUri").setValue(uri.toString());
                         submissionRef.child("gradedFileUri").setValue(uri.toString());
 
-                        Toast.makeText(Student_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                         finish();
                     }

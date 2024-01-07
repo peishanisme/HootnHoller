@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.FeedbackList;
+import com.firstapp.hootnholler.Y_FeedbackList;
 import com.firstapp.hootnholler.entity.Student;
 import com.firstapp.hootnholler.entity.User;
 import com.google.firebase.database.DataSnapshot;
@@ -60,7 +60,7 @@ public class Feedback_Student_List_Adapter extends RecyclerView.Adapter<Feedback
                     @Override
                     public void onClick(View view) {
                         //Intent intent = new Intent(context, Teacher_Feedback.class);
-                        Intent intent = new Intent(context, FeedbackList.class);
+                        Intent intent = new Intent(context, Y_FeedbackList.class);
                         intent.putExtra("studentUID", student.studentUID);
                         intent.putExtra("classCode", currentClassCode);
                         intent.putExtra("isParent", false);

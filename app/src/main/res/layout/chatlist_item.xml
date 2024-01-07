@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
+    android:padding="10dp"
     android:id="@+id/message_container">
 
     <TextView
@@ -21,7 +21,7 @@
         android:orientation="vertical"
         android:background="@drawable/other_chat"
         android:gravity="center_vertical"
-        android:padding="15dp">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/msg"

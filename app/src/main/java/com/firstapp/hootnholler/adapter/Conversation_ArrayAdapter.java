@@ -2,17 +2,19 @@ package com.firstapp.hootnholler.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.firstapp.hootnholler.ChatActivity;
+import com.firstapp.hootnholler.Y_ChatActivity;
 import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.entity.Conversation;
 import com.firstapp.hootnholler.entity.Message;
@@ -25,19 +27,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation_ArrayAdapter.ViewHolder>{
 
+    int[] profilePictures = { R.drawable.user1, R.drawable.user2, R.drawable.user3 };
     private ArrayList<Conversation> conversations;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String uid = mAuth.getUid();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private Context context;
+    private SharedPreferences sharedPreferences;
     public Conversation_ArrayAdapter(Context context, ArrayList<Conversation> conversations){
         this.conversations = conversations;
         this.context = context;
+        this.sharedPreferences = context.getSharedPreferences("ProfileImages", Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -54,7 +60,18 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
     @Override
     public void onBindViewHolder(@NonNull Conversation_ArrayAdapter.ViewHolder holder, int position) {
         Conversation conversation = conversations.get(position);
+        Log.d("Adapter", "Contact Name: " + conversation.getName());
         holder.ContactName.setText(conversation.getName());
+        // Check if a profile image is already assigned for this user
+        int profileImageResId = getAssignedProfileImage(conversation.getConversationID());
+
+        if (profileImageResId == 0) {
+            // If not assigned, assign a random profile image and save it
+            profileImageResId = assignRandomProfileImage(conversation.getConversationID());
+        }
+
+        holder.ChatProfile.setImageResource(profileImageResId);
+
         int numOfUnread = 0;
         String content = "";
         Message message;
@@ -94,11 +111,30 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
         holder.ConversationBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ChatActivity.class);
+                Intent intent = new Intent(context, Y_ChatActivity.class);
                 intent.putExtra("conversationKey", conversation.getConversationID());
                 context.startActivity(intent);
             }
         });
+    }
+
+    private int getAssignedProfileImage(String userId) {
+        // Retrieve assigned profile image for the given user ID
+        return sharedPreferences.getInt(userId, 0);
+    }
+    private int assignRandomProfileImage(String userId) {
+        // Assign a random profile image to the user
+        int[] profilePictures = {R.drawable.user1, R.drawable.user2, R.drawable.user3};
+        Random random = new Random();
+        int randomIndex = random.nextInt(profilePictures.length);
+        int selectedProfileImage = profilePictures[randomIndex];
+
+        // Save the assigned profile image for the user
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(userId, selectedProfileImage);
+        editor.apply();
+
+        return selectedProfileImage;
     }
 
     public String getInterval(long lastMsgTime){
@@ -134,9 +170,10 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView ContactName, Content, NumOfUnread, LastMsgTime;
         private LinearLayout ConversationBackground, UnreadMsgContainer;
-
+        private ImageView ChatProfile;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ChatProfile = itemView.findViewById(R.id.chatprofile);
             ContactName = itemView.findViewById(R.id.contactName);
             Content = itemView.findViewById(R.id.content);
             NumOfUnread = itemView.findViewById(R.id.num_of_unread);
