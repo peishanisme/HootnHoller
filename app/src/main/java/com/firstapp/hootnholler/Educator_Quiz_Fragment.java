@@ -148,7 +148,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
         binding.recyCategory.setAdapter(adapter);
 
         referenceEducator = database.getReference().child("Educator").child(uid).child("quizCategory");
-        referenceEducator.addValueEventListener(new ValueEventListener() {
+        referenceEducator.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (isAdded() && snapshot.exists()) {
@@ -156,10 +156,10 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                     quizCategory = (ArrayList<String>) snapshot.getValue();
 
                     if (quizCategory != null && !quizCategory.isEmpty()) {
-                        database.getReference().child("Categories").addValueEventListener(new ValueEventListener() {
+                        database.getReference().child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
+                                if (isAdded() && snapshot.exists()) {
                                     list.clear();
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                         CategoryModel model = dataSnapshot.getValue(CategoryModel.class);
@@ -167,22 +167,18 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                                         for (String ctgKey : quizCategory) {
                                             if (model != null && model.getCtgKey().equals(ctgKey)) {
                                                 list.add(model);
-                                                adapter.notifyItemInserted(list.size());
                                             }
                                         }
                                     }
-                                    requireActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            adapter.notifyDataSetChanged();
-                                        }
-                                    });
+                                    if (isAdded()) {
+                                        adapter.notifyDataSetChanged();
+                                    }
                                 }
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                if(isAdded()) {
+                                if (isAdded()) {
                                     Toast.makeText(getContext(), "Category not exist", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -190,6 +186,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                     }
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -279,12 +276,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                         categoryModel.setCtgKey(key);
 
                         quizCategory.add(key);
-                        referenceEducator.setValue(quizCategory).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                System.out.println("Fail to update quiz category at educator session");
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        referenceEducator.setValue(quizCategory).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 databaseReference.child(key).setValue(categoryModel).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -292,7 +284,9 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                                     public void onSuccess(Void unused) {
                                         progressDialog.dismiss();
                                         dialog.dismiss();
-                                        Toast.makeText(getContext(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                                        list.add(categoryModel);
+                                        adapter.notifyItemInserted(list.size());
+                                        Toast.makeText(getContext(), "Category created", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -367,23 +361,29 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
     }
 
     private void deleteCategoryFromFirebase(CategoryModel categoryModel, int position) {
-        String key = categoryModel.getCtgKey();
+        if (position >= 0 && position < list.size()) {
+            String key = categoryModel.getCtgKey();
 
-        quizCategory.remove(position);
-        referenceEducator.setValue(quizCategory);
+            quizCategory.remove(position);
+            referenceEducator.setValue(quizCategory);
 
-        database.getReference().child("Categories").child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getContext(), "Category '" + categoryModel.getCategoryName() + "' is deleted", Toast.LENGTH_SHORT).show();
-                list.remove(position);
-                adapter.notifyItemRemoved(position);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Fail to delete category", Toast.LENGTH_SHORT).show();
-            }
-        });
+            database.getReference().child("Categories").child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(getContext(), "Category '" + categoryModel.getCategoryName() + "' is deleted", Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    adapter.notifyItemRemoved(position);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Fail to delete category", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Log an error or handle the situation where the position is invalid
+            Toast.makeText(getContext(), "Invalid position to delete", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

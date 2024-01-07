@@ -8,31 +8,31 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        >
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="right"
+            android:src="@drawable/dell_fill" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:layout_gravity="center"
-            android:paddingLeft="20dp"
             android:text="Grade Assignment"
-            android:textColor="#5269CD"
+            android:textColor="@color/black"
             android:textSize="27sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/dell_fill" />
     </LinearLayout>
 
     <EditText
@@ -46,9 +46,7 @@
         android:paddingLeft="10dp"
         android:inputType="textMultiLine"
         android:hint="Score (in %)"
-        android:textColor="@color/black"
-
-        />
+        android:textColor="@color/black" />
 
 
     <RelativeLayout
@@ -85,15 +83,19 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"></ImageView>
     </RelativeLayout>
+
     <Button
         android:id="@+id/grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Grade"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
+        android:textSize="18dp"
         android:backgroundTint="@color/button_colour"
         android:textColor="@color/white"
-        />
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="15dp" />
+
 </LinearLayout>

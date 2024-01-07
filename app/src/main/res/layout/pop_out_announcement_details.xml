@@ -7,10 +7,8 @@
     android:layout_gravity="center"
     android:background="@drawable/rectangle_4026" >
 
-
     <LinearLayout
         android:id="@+id/title"
-        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
