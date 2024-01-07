@@ -40,6 +40,15 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private Context context;
     private SharedPreferences sharedPreferences;
+    private int[] drawableResources = {
+            R.drawable.user1,
+            R.drawable.user2,
+            R.drawable.user3,
+            R.drawable.user4,
+            R.drawable.user5,
+            R.drawable.user6,
+            R.drawable.user7,
+    };
     public Conversation_ArrayAdapter(Context context, ArrayList<Conversation> conversations){
         this.conversations = conversations;
         this.context = context;
@@ -60,6 +69,10 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
     @Override
     public void onBindViewHolder(@NonNull Conversation_ArrayAdapter.ViewHolder holder, int position) {
         Conversation conversation = conversations.get(position);
+
+        int randomIndex = new Random().nextInt(drawableResources.length);
+        int randomDrawableId = drawableResources[randomIndex];
+        holder.ChatProfile.setImageResource(randomDrawableId);
         Log.d("Adapter", "Contact Name: " + conversation.getName());
         holder.ContactName.setText(conversation.getName());
         // Check if a profile image is already assigned for this user
