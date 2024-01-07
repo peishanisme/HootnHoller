@@ -26,7 +26,7 @@
             android:paddingTop="5dp"
             android:layout_gravity="center"
             android:text="Create Classroom"
-            android:textColor="@color/black"
+            android:textColor="#5269CD"
             android:textSize="27sp"
             android:textStyle="bold" />
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Conversation {
-    private String name, conversationID;
+    private String Name, conversationID;
     private long unreadMessage;
     private Map<String, Message> message;
 
@@ -13,16 +13,16 @@ public class Conversation {
     }
 
     public Conversation(String name, Map<String, Message> message) {
-        this.name = name;
+        this.Name = name;
         this.message = message;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public long getUnreadMessage() {

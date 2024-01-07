@@ -95,7 +95,7 @@ public class Y_ChatActivity extends AppCompatActivity {
         databaseReference.child("GroupChat").child(conversationKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String conversationName = snapshot.child("name").getValue(String.class);
+                String conversationName = snapshot.child("Name").getValue(String.class);
                 chatName.setText(conversationName != null ? conversationName : "Chat");
             }
 

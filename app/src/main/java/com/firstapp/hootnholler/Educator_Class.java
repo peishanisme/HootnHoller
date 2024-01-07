@@ -140,7 +140,6 @@ public class Educator_Class extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
-                intent.putExtra("FRAGMENT_TO_LOAD", "educator_Classroom_Fragment");
                 startActivity(intent);
                 finish();
             }
