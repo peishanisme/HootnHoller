@@ -10,20 +10,20 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="45dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/back"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView"
-            app:srcCompat="@drawable/back"
-            android:layout_gravity="center" />
+            app:srcCompat="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,11 +65,10 @@
         android:layout_marginBottom="5dp"
         android:backgroundTint="#5D71C9"
         android:text="Assign"
-        android:textSize="16dp"
         android:textColor="@color/white"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-       />
+        app:layout_constraintEnd_toEndOf="@+id/view4" />
 
     <ImageButton
         android:id="@+id/btnAttachFile"
@@ -88,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="16dp"
         android:background="@drawable/edittext_no_underline"
         android:hint="Assignment Title"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
@@ -109,9 +108,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="16dp"
         android:background="@drawable/edittext_no_underline"
         android:hint="Description (optional)"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -139,10 +138,10 @@
         android:id="@+id/pdfName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edittext_no_underline"
         android:textSize="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="@+id/view3"
         app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
@@ -154,44 +153,47 @@
         app:layout_constraintBottom_toBottomOf="@+id/editText3"
         app:layout_constraintStart_toEndOf="@+id/editText3" />
 
+
     <ImageButton
         android:id="@+id/btnCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintStart_toEndOf="@+id/view7" />
 
-
-
-    <TextView
+    <EditText
         android:id="@+id/showDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="48dp"
         android:text="dd/mm/yyyy"
         android:textColor="#A1A1A1"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/view7"
-        app:layout_constraintStart_toStartOf="@+id/view7" />
 
-    <TextView
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintStart_toEndOf="@+id/editText3" />
+
+    <EditText
         android:id="@+id/showTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="48dp"
         android:text="HH:MM"
         android:textColor="#A1A1A1"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/showDate" />
 
     <ImageButton
         android:id="@+id/addTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="48dp"
         android:background="@android:color/transparent"
         android:src="@drawable/baseline_more_time_24"
         app:layout_constraintBottom_toBottomOf="@+id/view7"

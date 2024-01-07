@@ -23,13 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Educator_LM_Details extends AppCompatActivity {
 
-    public EditText comment;
     private String LMid, currentClassCode;
     TextView title, description, time, filename;
     ImageView backButton;
     CardView file;
     DatabaseReference LMRef;
     TeacherActivityLmDetailsBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
