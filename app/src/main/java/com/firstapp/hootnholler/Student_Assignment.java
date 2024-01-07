@@ -31,6 +31,7 @@ public class Student_Assignment extends AppCompatActivity {
         currentClassCode = getIntent().getStringExtra("classCode");
 
         backButton = binding.back;
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +43,7 @@ public class Student_Assignment extends AppCompatActivity {
         });
 
         fragmentContainer = findViewById(R.id.assList);
+        loadFragment(new Student_OngoingAss_Fragment(), currentClassCode);
 
         ongoing = findViewById(R.id.TVongoing);
         ongoing.setOnClickListener(new View.OnClickListener() {

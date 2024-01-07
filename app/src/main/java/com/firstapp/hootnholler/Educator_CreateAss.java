@@ -42,15 +42,16 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Educator_CreateAss extends AppCompatActivity {
-    EditText dueDate, pdfName, assTitle, assDescription;
+    EditText dueDate, pdfName, assTitle, assDescription,showDueDate,showDueTime;
     DatabaseReference assDatabase;
     StorageReference storageReference;
     Button btnAssign;
     String currentClassCode;
-    TextView showDueDate,showDueTime;
-    ImageButton  addTime,buttonCalendar, btnAttachFile;
+    ImageButton addTime,buttonCalendar, btnAttachFile;
     long dueTimestamp;
+    String date,time;
     ActivityTeacherCreateAssBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class Educator_CreateAss extends AppCompatActivity {
 
         currentClassCode = getIntent().getStringExtra("classCode");
 
-        showDueDate = (TextView) findViewById(R.id.showDate);
-        showDueTime = (TextView) findViewById(R.id.showTime);
+        showDueDate = findViewById(R.id.showDate);
+        showDueTime = findViewById(R.id.showTime);
         buttonCalendar = (ImageButton) findViewById(R.id.btnCalendar);
         addTime = (ImageButton) findViewById(R.id.addTime);
         btnAssign = (Button) findViewById(R.id.btnAssign);
@@ -236,24 +237,41 @@ public class Educator_CreateAss extends AppCompatActivity {
         dateDialog.show();
     }
 
-        public static long convertDateTimeToTimestamp(String inputDateTime) {
-            try {
-                // Define the format of your input date and time
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MM-yyyy, HH:mm:ss a", java.util.Locale.getDefault());
+//        public static long convertDateTimeToTimestamp(String inputDateTime) {
+//            try {
+//                // Define the format of your input date and time
+//                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MM-yyyy, HH:mm:ss a", java.util.Locale.getDefault());
+//
+//                // Parse the input date and time string to get a Date object
+//                Date date = sdf.parse(inputDateTime);
+//
+//                // Convert the Date object to a timestamp
+//                return date.getTime();
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//                // Handle the ParseException (invalid date format)
+//                return -1; // Return an error value
+//            }
+//        }
+public static long convertDateTimeToTimestamp(String inputDateTime) {
+    try {
+        // Define the format of your input date and time
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
-                // Parse the input date and time string to get a Date object
-                Date date = sdf.parse(inputDateTime);
+        // Parse the input date and time string to get a Date object
+        Date date = sdf.parse(inputDateTime);
 
-                // Convert the Date object to a timestamp
-                return date.getTime();
-            } catch (ParseException e) {
-                e.printStackTrace();
-                // Handle the ParseException (invalid date format)
-                return -1; // Return an error value
-            }
-        }
+        // Convert the Date object to a timestamp
+        return date.getTime();
+    } catch (ParseException e) {
+        e.printStackTrace();
+        // Handle the ParseException (invalid date format)
+        return -1; // Return an error value
+    }
+}
 
-        public static String convertTimestampToDateTime(long timestamp){
+
+    public static String convertTimestampToDateTime(long timestamp){
             try{
                 Date currentDate = (new Date(timestamp));
                 SimpleDateFormat sfd = new SimpleDateFormat("EEE, dd MM yyyy, HH:mm:ss a", Locale.getDefault());
@@ -266,6 +284,9 @@ public class Educator_CreateAss extends AppCompatActivity {
 
     private void updateDueTimestamp() {
         String dueDateTimeString = showDueDate.getText().toString() + " " + showDueTime.getText().toString();
+        System.out.println("yoyoy");
+        System.out.println(showDueDate.getText().toString());
+        System.out.println(showDueTime.getText().toString());
         dueTimestamp = convertDateTimeToTimestamp(dueDateTimeString);
     }
 }

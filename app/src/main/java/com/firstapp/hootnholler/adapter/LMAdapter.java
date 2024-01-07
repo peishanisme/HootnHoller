@@ -90,7 +90,7 @@ public class LMAdapter extends RecyclerView.Adapter<LMAdapter.ViewHolder>{
         }
 
     public static String convertTimestampToDateTime(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy, HH:mm:ss a", Locale.getDefault());
         return sdf.format(new Date(timestamp));
     }
 
