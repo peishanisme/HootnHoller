@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="45sp">
+        android:layout_marginTop="45sp">
 
         <ImageView
             android:id="@+id/back"
@@ -30,8 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:paddingLeft="10sp"
             android:text="Announcement"
             android:textColor="#5269CD"
             android:textSize="32sp"

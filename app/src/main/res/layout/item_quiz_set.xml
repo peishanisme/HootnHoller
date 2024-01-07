@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/setQuizTitle"
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:inputType="textMultiLine"

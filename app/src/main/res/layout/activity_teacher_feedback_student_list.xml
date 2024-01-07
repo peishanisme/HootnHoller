@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3 Champion"
-                android:textColor="#003672"
+                android:textColor="#5269CD"
                 android:textSize="32sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="35 Students"
-                android:textColor="#003672"
+                android:textColor="#5269CD"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -72,6 +72,5 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
 
 </LinearLayout>

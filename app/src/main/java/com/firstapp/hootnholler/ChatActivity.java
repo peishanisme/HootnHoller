@@ -1,5 +1,7 @@
 package com.firstapp.hootnholler;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,9 +87,6 @@ public class ChatActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Educator_Main_Activity.class);
-                intent.putExtra("FRAGMENT_TO_LOAD", "educator_Chat_Fragment");
-                startActivity(intent);
                 finish();
             }
         });

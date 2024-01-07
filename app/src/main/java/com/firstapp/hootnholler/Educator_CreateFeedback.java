@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firstapp.hootnholler.databinding.ActivityCreateFeedbackBinding;
 import com.firstapp.hootnholler.entity.Feedback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,11 +34,13 @@ public class Educator_CreateFeedback extends AppCompatActivity {
     private DatabaseReference StudentRef = FirebaseDatabase.getInstance().getReference("Student");
     private DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Users");
     private DatabaseReference FeedbackRef = FirebaseDatabase.getInstance().getReference("Feedback");
+    ActivityCreateFeedbackBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_feedback);
+        binding = ActivityCreateFeedbackBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         studentUID = getIntent().getExtras().get("studentUID").toString();
         currentClassCode = getIntent().getExtras().get("classCode").toString();
@@ -76,6 +79,13 @@ public class Educator_CreateFeedback extends AppCompatActivity {
                 positiveFeedbackBtn.setBackgroundColor(Color.parseColor("#CDFB9F"));
                 positiveFeedbackBtn.setEnabled(true);
                 isPositive = 0;
+            }
+        });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

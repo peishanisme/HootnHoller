@@ -98,9 +98,6 @@ public class FeedbackList extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FeedbackList.this, Educator_FeedbackStudentList.class);
-                intent.putExtra("classCode", currentClassCode);
-                startActivity(intent);
                 finish();
             }
         });

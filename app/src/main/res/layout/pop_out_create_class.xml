@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="350dp"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
-
-    android:background="@drawable/rectangle_4026">
+    android:background="@drawable/rectangle_4026"
+    android:padding="10dp" >
 
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/dell_fill"
+            android:layout_gravity="right"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,19 +27,11 @@
             android:layout_gravity="center"
             android:paddingLeft="26dp"
             android:text="Create Classroom"
-            android:textColor="#5269CD"
+            android:textColor="@color/black"
             android:textSize="27sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/dell_fill" />
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -48,9 +46,8 @@
 
         <EditText
             android:id="@+id/className"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:ems="13"
             android:hint="Class Name"
             android:textColor="@color/black"
@@ -58,7 +55,7 @@
 
         <EditText
                 android:id="@+id/classSession"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:ems="13"
@@ -68,7 +65,7 @@
 
         <EditText
                 android:id="@+id/classDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:ems="13"
@@ -87,7 +84,8 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:layout_marginBottom="30dp"
-        />
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp" />
 
 
 </LinearLayout>
