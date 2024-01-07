@@ -7,25 +7,31 @@
     android:background="@drawable/rectangle_4026"
     android:orientation="vertical"
     android:paddingHorizontal="35dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/dell_fill"
-        android:layout_gravity="right"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
+        android:paddingTop="20dp"
         android:layout_gravity="center_horizontal"
+        android:textColor="#5269CD"
         android:text="Make Announcement"
-        android:textColor="@color/black"
         android:textSize="27sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" >
 
+    </TextView>
+        <ImageView
+        android:id="@+id/close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/dell_fill"
+            android:layout_marginTop="5dp"
+        android:layout_gravity="right|center_vertical"/>
+</LinearLayout>
     <EditText
         android:id="@+id/announcementTitle"
         android:layout_width="280dp"
