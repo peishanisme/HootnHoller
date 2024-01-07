@@ -18,6 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Y_ForgotPassword_Activity extends AppCompatActivity {
     private Button buttonPwdReset;
@@ -68,46 +73,47 @@ public class Y_ForgotPassword_Activity extends AppCompatActivity {
     // Method to reset the user's password
     private void resetPassword(String email) {
         authProfile = FirebaseAuth.getInstance();
-
-        // Check if the email is registered
-        authProfile.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users");
+        userReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                if (task.isSuccessful()) {
-                    SignInMethodQueryResult result = task.getResult();
-                    if (result.getSignInMethods().isEmpty()) {
-                        // Email is not registered
-                        Toast.makeText(Y_ForgotPassword_Activity.this, "Email is not registered. Please register first.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Email is registered, proceed with password reset
-                        authProfile.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    // Password reset email sent successfully
-                                    Toast.makeText(Y_ForgotPassword_Activity.this, "Please check your email for the password reset link", Toast.LENGTH_SHORT).show();
-
-                                    // Redirect to the starting activity
-                                    Intent intent = new Intent(Y_ForgotPassword_Activity.this, Y_Login_Activity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // Handle other exceptions
-                                    Log.e(TAG, task.getException().getMessage());
-                                    Toast.makeText(Y_ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long totalUsers = 0;
+                for (DataSnapshot userSnapshot:snapshot.getChildren()) {
+                    if(userSnapshot.child("email").getValue(String.class).equals(email)){
+                        break;
                     }
-                } else {
-                    // Handle other exceptions
-                    Log.e(TAG, task.getException().getMessage());
-                    Toast.makeText(Y_ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    totalUsers ++;
                 }
+                if(totalUsers != snapshot.getChildrenCount()){
+                    authProfile.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Password reset email sent successfully
+                                Toast.makeText(Y_ForgotPassword_Activity.this, "Please check your email for the password reset link", Toast.LENGTH_SHORT).show();
+
+                                // Redirect to the starting activity
+                                Intent intent = new Intent(Y_ForgotPassword_Activity.this, Y_Login_Activity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // Handle other exceptions
+                                Log.e(TAG, task.getException().getMessage());
+                                Toast.makeText(Y_ForgotPassword_Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(Y_ForgotPassword_Activity.this, "Email is not registered. Please register first.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
-
-
 }
