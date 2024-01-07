@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,7 +152,7 @@ public class Educator_Announcement extends AppCompatActivity {
                         String AnnouncementTitle = announcementTitle.getText().toString();
 
                         // Add a null check for AnnouncementRef
-                        if (AnnouncementRef != null) {
+                        if (AnnouncementRef != null && !(TextUtils.isEmpty(AnnouncementTitle)) && !(TextUtils.isEmpty(AnnoucementContent))) {
                             DatabaseReference newAnnouncementRef = AnnouncementRef.child(String.valueOf(timestamp));
                             newAnnouncementRef.child("announcementTitle").setValue(AnnouncementTitle);
                             newAnnouncementRef.child("announcementContent").setValue(AnnoucementContent);
@@ -160,6 +161,14 @@ public class Educator_Announcement extends AppCompatActivity {
 
                             mdialog.dismiss();
                         } else {
+                            if (TextUtils.isEmpty(AnnouncementTitle)) {
+                                Toast.makeText(Educator_Announcement.this, "Please set announcement title", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (TextUtils.isEmpty(AnnoucementContent)) {
+                                Toast.makeText(Educator_Announcement.this, "Please enter announcement description", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Toast.makeText(Educator_Announcement.this, "Error creating announcement", Toast.LENGTH_SHORT).show();
                         }
                     }
