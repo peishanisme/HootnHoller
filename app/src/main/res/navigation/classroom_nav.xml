@@ -17,7 +17,7 @@
         tools:layout="@layout/activity_student_class" />
     <activity
         android:id="@+id/DestHome"
-        android:name="com.firstapp.hootnholler.MainActivity"
+        android:name="com.firstapp.hootnholler.Y_MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <activity

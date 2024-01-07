@@ -247,7 +247,7 @@ public class Parent_Setup_Activity extends AppCompatActivity implements View.OnC
 
     //after setting up the account, users will be sent to main activity
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(Parent_Setup_Activity.this, Starting_Activity.class);
+        Intent mainIntent = new Intent(Parent_Setup_Activity.this, Y_Starting_Activity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();

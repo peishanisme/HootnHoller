@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.Student_AsgmDetails;
+import com.firstapp.hootnholler.Y_AsgmDetails;
 import com.firstapp.hootnholler.entity.Assignment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,7 +93,7 @@ public class Student_Ass_Adapter extends RecyclerView.Adapter<Student_Ass_Adapte
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Student_AsgmDetails.class);
+                Intent intent = new Intent(context, Y_AsgmDetails.class);
                 intent.putExtra("classCode", currentClassCode);
                 intent.putExtra("assID", asgm.getAssKey());
                 intent.putExtra("studentUID", uid);

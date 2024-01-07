@@ -11,8 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.firstapp.hootnholler.ChatActivity;
+import com.firstapp.hootnholler.Y_ChatActivity;
 import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.entity.Conversation;
 import com.firstapp.hootnholler.entity.Message;
@@ -94,7 +93,7 @@ public class Conversation_ArrayAdapter extends RecyclerView.Adapter<Conversation
         holder.ConversationBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ChatActivity.class);
+                Intent intent = new Intent(context, Y_ChatActivity.class);
                 intent.putExtra("conversationKey", conversation.getConversationID());
                 context.startActivity(intent);
             }

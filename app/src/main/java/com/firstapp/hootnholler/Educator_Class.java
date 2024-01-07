@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -104,7 +103,7 @@ public class Educator_Class extends AppCompatActivity {
         announcement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Educator_Class.this, Educator_Announcement.class);
+                Intent intent = new Intent(Educator_Class.this, Y_Announcement.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -122,7 +121,7 @@ public class Educator_Class extends AppCompatActivity {
         learningMaterials.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Educator_Class.this, Educator_LearningMaterials.class);
+                Intent intent = new Intent(Educator_Class.this, Y_LearningMaterials.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }
@@ -159,7 +158,7 @@ public class Educator_Class extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.viewPeople) {
-        Intent intent=new Intent(Educator_Class.this, Educator_ViewPeople.class);
+        Intent intent=new Intent(Educator_Class.this, Y_View_People.class);
         intent.putExtra("classCode",currentClassCode);
         startActivity(intent);
 

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firstapp.hootnholler.R;
 import com.firstapp.hootnholler.Educator_Ass_StudentList;
 import com.firstapp.hootnholler.Educator_CreateAss;
-import com.firstapp.hootnholler.Student_AsgmDetails;
+import com.firstapp.hootnholler.Y_AsgmDetails;
 import com.firstapp.hootnholler.entity.Assignment;
 
 public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.MyViewHolder>{
@@ -63,7 +63,7 @@ public class Asgm_ArrayAdapter extends RecyclerView.Adapter <Asgm_ArrayAdapter.M
             holder.card.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Student_AsgmDetails.class);
+                    Intent intent = new Intent(context, Y_AsgmDetails.class);
                     intent.putExtra("classCode", currentClassCode);
                     intent.putExtra("assID", asgm.getAssKey());
                     intent.putExtra("studentUID", "");

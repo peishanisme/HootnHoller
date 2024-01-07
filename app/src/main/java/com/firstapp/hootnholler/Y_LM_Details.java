@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Educator_LM_Details extends AppCompatActivity {
+public class Y_LM_Details extends AppCompatActivity {
 
     private String LMid, currentClassCode;
     TextView title, description, time, filename;
@@ -50,7 +49,7 @@ public class Educator_LM_Details extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Educator_LM_Details.this, Educator_LearningMaterials.class);
+                Intent intent = new Intent(Y_LM_Details.this, Y_LearningMaterials.class);
                 intent.putExtra("classCode", currentClassCode);
                 startActivity(intent);
             }

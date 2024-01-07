@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.R;
-import com.firstapp.hootnholler.Student_AsgmDetails;
+import com.firstapp.hootnholler.Y_AsgmDetails;
 import com.firstapp.hootnholler.entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -121,7 +121,7 @@ public class Ass_StudentList_Adapter extends RecyclerView.Adapter<Ass_StudentLis
         holder.peopleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Student_AsgmDetails.class);
+                Intent intent = new Intent(context, Y_AsgmDetails.class);
                 intent.putExtra("classCode", currentClassCode);
                 intent.putExtra("assID", assID);
                 intent.putExtra("studentUID", studentUID);

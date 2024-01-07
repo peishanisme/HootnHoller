@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
-public class Starting_Activity extends AppCompatActivity {
+public class Y_Starting_Activity extends AppCompatActivity {
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     @Override
@@ -25,7 +25,7 @@ public class Starting_Activity extends AppCompatActivity {
 
                 view.startAnimation(buttonClick);
                 //from main activity to login page
-                Intent intent = new Intent(Starting_Activity.this, Login_Activity.class);
+                Intent intent = new Intent(Y_Starting_Activity.this, Y_Login_Activity.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +34,7 @@ public class Starting_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(buttonClick);
                 //from main page to register page
-                Intent intent = new Intent(Starting_Activity.this, Register_Activity.class);
+                Intent intent = new Intent(Y_Starting_Activity.this, Y_Register_Activity.class);
                 startActivity(intent);
             }
         });

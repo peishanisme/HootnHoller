@@ -23,7 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Register_Activity extends AppCompatActivity {
+public class Y_Register_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText UserFullname,UserEmail,UserPassword,UserConfirmPassword;
     private ImageView back_button;
@@ -80,7 +80,7 @@ public class Register_Activity extends AppCompatActivity {
 
         //prompt user to key in the information if the column is still empty
         if(TextUtils.isEmpty(fullname)){
-            Toast.makeText(Register_Activity.this,"Please insert your fullname...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Y_Register_Activity.this,"Please insert your fullname...",Toast.LENGTH_SHORT).show();
 
         }else if(TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please insert your email...", Toast.LENGTH_SHORT).show();
@@ -117,7 +117,7 @@ public class Register_Activity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     // Tell the user whether they were successful in creating an account or not
                     if (task.isSuccessful()) {
-                        Toast.makeText(Register_Activity.this, "You are authenticated successfully...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_Register_Activity.this, "You are authenticated successfully...", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
 
                         // Create a new User object with the provided information
@@ -128,25 +128,25 @@ public class Register_Activity extends AppCompatActivity {
 
                         if(role.equalsIgnoreCase("student")) {
                             // Start the Setup_Activity
-                            Intent mainIntent = new Intent(Register_Activity.this, Student_Setup_Activity.class);
+                            Intent mainIntent = new Intent(Y_Register_Activity.this, Student_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();
                         } else if (role.equalsIgnoreCase("parent")) {
-                            Intent mainIntent = new Intent(Register_Activity.this, Parent_Setup_Activity.class);
+                            Intent mainIntent = new Intent(Y_Register_Activity.this, Parent_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();
 
                         }else if (role.equalsIgnoreCase("educator")) {
-                            Intent mainIntent = new Intent(Register_Activity.this, Educator_Setup_Activity.class);
+                            Intent mainIntent = new Intent(Y_Register_Activity.this, Educator_Setup_Activity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainIntent);
                             finish();}
                     } else {
                         // Display the error message to the user
                         String message = task.getException().getMessage();
-                        Toast.makeText(Register_Activity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Y_Register_Activity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     }
                 }

@@ -109,7 +109,7 @@ public class Parent_Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to the FeedbackFragment
-                Intent intent=new Intent(getActivity(), FeedbackList.class);
+                Intent intent=new Intent(getActivity(), Y_FeedbackList.class);
                 intent.putExtra("studentUID", studentUID);
                 intent.putExtra("classCode", "");
                 intent.putExtra("isParent", true);

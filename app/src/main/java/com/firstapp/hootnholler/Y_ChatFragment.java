@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.firstapp.hootnholler.adapter.Conversation_ArrayAdapter;
 import com.firstapp.hootnholler.entity.Conversation;
-import com.firstapp.hootnholler.entity.Message;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ChatFragment extends Fragment {
+public class Y_ChatFragment extends Fragment {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     private RecyclerView conversationList;
@@ -33,7 +31,7 @@ public class ChatFragment extends Fragment {
     private String userUID;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public ChatFragment() {
+    public Y_ChatFragment() {
         // Required empty public constructor
     }
 

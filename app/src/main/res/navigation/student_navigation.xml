@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_student__quiz_" />
     <fragment
         android:id="@+id/profile_Fragment"
-        android:name="com.firstapp.hootnholler.Profile_Fragment"
+        android:name="com.firstapp.hootnholler.Y_Profile_Fragment"
         android:label="fragment_profile_"
         tools:layout="@layout/fragment_profile_" />
 </navigation>

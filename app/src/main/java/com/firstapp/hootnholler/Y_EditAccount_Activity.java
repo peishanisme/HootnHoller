@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EditAccount_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Y_EditAccount_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView back_button;
     EditText fullname, birthday, phonenumber, school, student_class;
@@ -136,13 +136,13 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                 genderSelection = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
 
                 if (TextUtils.isEmpty(Fullname) || TextUtils.isEmpty(Birthday) || TextUtils.isEmpty(PhoneNumber)) {
-                    Toast.makeText(EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Y_EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // Validate the birthday format
                 if (!isValidBirthdayFormat(Birthday)) {
-                    Toast.makeText(EditAccount_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Y_EditAccount_Activity.this, "Invalid birthday format. Please use DD/MM/YYYY.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -164,7 +164,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
             String School = school.getText().toString();
             String Class = student_class.getText().toString();
             if (TextUtils.isEmpty(student_level) || TextUtils.isEmpty(School) || TextUtils.isEmpty(Class)) {
-                Toast.makeText(EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Y_EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
             } else {
                 StudentRef.child("school").setValue(School);
                 StudentRef.child("student_class").setValue(Class);
@@ -219,7 +219,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
                             for (String key: InvalidConnectionKey){
                                 InvalidConnectionKeyList += (key + "\n");
                             }
-                            Toast.makeText(EditAccount_Activity.this, "Invalid Connection Key: \n" + InvalidConnectionKeyList, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Y_EditAccount_Activity.this, "Invalid Connection Key: \n" + InvalidConnectionKeyList, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -230,7 +230,7 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
             } else {
                 String School = school.getText().toString();
                 if (TextUtils.isEmpty(School)) {
-                    Toast.makeText(EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Y_EditAccount_Activity.this, "Please fill in all the required information....", Toast.LENGTH_SHORT).show();
 
                 } else {
                     EduRef.child("school").setValue(School);
@@ -281,17 +281,17 @@ public class EditAccount_Activity extends AppCompatActivity implements View.OnCl
 
     public void uploadSuccess(){
         if(role.equalsIgnoreCase("student")){
-            Intent mainIntent = new Intent(EditAccount_Activity.this, Student_MainActivity.class);
+            Intent mainIntent = new Intent(Y_EditAccount_Activity.this, Student_MainActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mainIntent);
         }
         else if(role.equalsIgnoreCase("educator")){
-            Intent mainIntent = new Intent(EditAccount_Activity.this, Educator_Main_Activity.class);
+            Intent mainIntent = new Intent(Y_EditAccount_Activity.this, Educator_Main_Activity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mainIntent);
         }
         else if(role.equalsIgnoreCase("parent")){
-            Intent mainIntent = new Intent(EditAccount_Activity.this, Parent_MainActivity.class);
+            Intent mainIntent = new Intent(Y_EditAccount_Activity.this, Parent_MainActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mainIntent);
         }
