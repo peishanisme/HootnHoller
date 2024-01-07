@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Y_Profile_Fragment"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
