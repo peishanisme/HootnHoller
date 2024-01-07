@@ -152,6 +152,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (isAdded() && snapshot.exists()) {
+                    list.clear();
                     quizCategory = (ArrayList<String>) snapshot.getValue();
 
                     if (quizCategory != null && !quizCategory.isEmpty()) {
@@ -170,13 +171,12 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                                             }
                                         }
                                     }
-
-                                    /*requireActivity().runOnUiThread(new Runnable() {
+                                    requireActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             adapter.notifyDataSetChanged();
                                         }
-                                    });*/
+                                    });
                                 }
                             }
 
@@ -340,7 +340,6 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            list.remove(position);
                             deleteCategoryFromFirebase(selectedCategory, position);
                         }
                     }).setNegativeButton("No", null);
@@ -377,6 +376,7 @@ public class Educator_Quiz_Fragment extends Fragment implements RecyViewInterfac
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(), "Category '" + categoryModel.getCategoryName() + "' is deleted", Toast.LENGTH_SHORT).show();
+                list.remove(position);
                 adapter.notifyItemRemoved(position);
             }
         }).addOnFailureListener(new OnFailureListener() {
