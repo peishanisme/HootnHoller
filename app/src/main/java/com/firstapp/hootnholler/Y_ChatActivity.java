@@ -145,6 +145,8 @@ public class Y_ChatActivity extends AppCompatActivity {
                     chatList.smoothScrollToPosition(adapter.getItemCount() - 1);
                     readMessage(message);
                 }
+                adapter.notifyDataSetChanged();
+                chatList.scrollToPosition(messages.size()-1);
             }
 
             @Override
