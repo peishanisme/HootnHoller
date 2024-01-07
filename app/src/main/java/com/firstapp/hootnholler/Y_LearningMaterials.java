@@ -69,6 +69,14 @@ public class Y_LearningMaterials extends AppCompatActivity {
 
                 if (uid.equals(classOwner)) {
                     isCurrentUserClassOwner = true;
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_LearningMaterials.this, Educator_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
                     postButton.setVisibility(View.VISIBLE);
                     postButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -80,7 +88,14 @@ public class Y_LearningMaterials extends AppCompatActivity {
                         }
                     });
                 } else {
-
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_LearningMaterials.this, Student_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
                     postButton.setVisibility(View.GONE);
                 }
 
@@ -117,26 +132,6 @@ public class Y_LearningMaterials extends AppCompatActivity {
                     }
                 });
 
-
-                if (isCurrentUserClassOwner) {
-                    back.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Y_LearningMaterials.this, Educator_Class.class);
-                            intent.putExtra("classCode", currentClassCode);
-                            startActivity(intent);
-                        }
-                    });
-                } else {
-                    back.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Y_LearningMaterials.this, Student_Class.class);
-                            intent.putExtra("classCode", currentClassCode);
-                            startActivity(intent);
-                        }
-                    });
-                }
             }
 
             @Override

@@ -102,11 +102,11 @@ public class Y_LM_Details extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             // Delete successful
-                            Toast.makeText(Educator_LM_Details.this, "Learning Material deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Y_LM_Details.this, "Learning Material deleted", Toast.LENGTH_SHORT).show();
                             // Optionally, you may want to notify your RecyclerView of the change
                         } else {
                             // Delete failed
-                            Toast.makeText(Educator_LM_Details.this, "Failed to delete learning material", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Y_LM_Details.this, "Failed to delete learning material", Toast.LENGTH_SHORT).show();
                         }
                         finish();
                     }

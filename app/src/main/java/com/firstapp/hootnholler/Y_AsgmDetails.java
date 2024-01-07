@@ -523,11 +523,11 @@ public class Y_AsgmDetails extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 // Delete successful
-                                                Toast.makeText(Student_AsgmDetails.this, "Assignment deleted", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Y_AsgmDetails.this, "Assignment deleted", Toast.LENGTH_SHORT).show();
                                                 // Optionally, you may want to notify your RecyclerView of the change
                                             } else {
                                                 // Delete failed
-                                                Toast.makeText(Student_AsgmDetails.this, "Failed to delete assignment", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Y_AsgmDetails.this, "Failed to delete assignment", Toast.LENGTH_SHORT).show();
                                             }
                                             finish();
                                         }

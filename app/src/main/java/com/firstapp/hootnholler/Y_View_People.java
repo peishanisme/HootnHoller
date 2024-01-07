@@ -61,8 +61,7 @@ public class Y_View_People extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                  classOwner = snapshot.child("classOwner").getValue(String.class);
                 if (uid.equals(classOwner)) {
-                    isCurrentUserClassOwner = true;}
-                if (isCurrentUserClassOwner) {
+                    isCurrentUserClassOwner = true;
                     back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -70,8 +69,8 @@ public class Y_View_People extends AppCompatActivity {
                             intent.putExtra("classCode", currentClassCode);
                             startActivity(intent);
                         }
-                    });
-                } else {
+                    });}
+                 else {
                     back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
