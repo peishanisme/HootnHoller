@@ -95,6 +95,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
+                classKeyList.clear();
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
@@ -104,6 +105,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
 
                             ClassroomModel model = new ClassroomModel(classKey, className);
                             list.add(model);
+                            classKeyList.add(classKey);
                             adapter.notifyItemInserted(list.size());
 
                             referencePostedClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -114,7 +116,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
 
                                         if(postedClassroom != null && postedClassroom.contains(classKey)) {
                                             int pos = classKeyList.indexOf(classKey);
-                                            adapter.setSelectedItems(pos - 1);
+                                            adapter.setSelectedItems(pos);
                                         }
                                     }
                                 }
@@ -313,6 +315,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
                 if (snapshot.exists()) {
                     int totalStudents = (int) snapshot.getChildrenCount();
                     final int[] processedStudents = {0};
+                    classKeyList.remove(classroomKey);
 
                     for (DataSnapshot studentSnapshot : snapshot.getChildren()) {
                         String studentKey = studentSnapshot.getKey();

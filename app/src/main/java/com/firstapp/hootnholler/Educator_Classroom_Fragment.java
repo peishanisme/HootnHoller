@@ -157,6 +157,14 @@ public class Educator_Classroom_Fragment extends Fragment {
                     classReference.child("classOwner").setValue(uid);
                     classReference.child("groupChat").child("student").setValue(grpChatWifStudentKey);
                     classReference.child("groupChat").child("parent").setValue(grpChatWifParentKey);
+                    Classroom classroom1 = new Classroom();
+                    classroom1.setClassCode(classCode);
+                    classroom1.setClassName(ClassName);
+                    classroom1.setClassDescription(ClassDescription);
+                    classroom1.setClassOwner(uid);
+                    classroom1.setClassSession(ClassSession);
+                    classroomList.add(classroom1);
+                    recyclerViewAdapter.notifyItemInserted(classroomList.size());
 
                     database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifStudentKey).setValue(true);
                     database.child("Users").child(uid).child("joinedGrpChatKey").child(grpChatWifParentKey).setValue(true);
