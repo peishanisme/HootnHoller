@@ -62,6 +62,25 @@ public class Y_View_People extends AppCompatActivity {
                  classOwner = snapshot.child("classOwner").getValue(String.class);
                 if (uid.equals(classOwner)) {
                     isCurrentUserClassOwner = true;}
+                if (isCurrentUserClassOwner) {
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_View_People.this, Educator_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Y_View_People.this, Student_Class.class);
+                            intent.putExtra("classCode", currentClassCode);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -69,25 +88,7 @@ public class Y_View_People extends AppCompatActivity {
 
             }
         });
-        if (isCurrentUserClassOwner) {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_View_People.this, Educator_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_View_People.this, Student_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        }
+
         classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

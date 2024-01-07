@@ -76,6 +76,25 @@ public class Y_Announcement extends AppCompatActivity {
                 if (uid.equals(classOwner)) {
                     isCurrentUserClassOwner = true;
                     announcement.setVisibility(View.VISIBLE);
+                    if (isCurrentUserClassOwner) {
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                                intent.putExtra("classCode", currentClassCode);
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Y_Announcement.this, Student_Class.class);
+                                intent.putExtra("classCode", currentClassCode);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     announcement.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -122,25 +141,7 @@ public class Y_Announcement extends AppCompatActivity {
 
             }
         });
-        if (isCurrentUserClassOwner) {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_Announcement.this, Student_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        }
+
     }
 
     private void showAnnouncementPopup() {
