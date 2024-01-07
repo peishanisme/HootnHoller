@@ -118,7 +118,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btnDeleteAnnouncement"
+        android:id="@+id/btnDeleteLM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

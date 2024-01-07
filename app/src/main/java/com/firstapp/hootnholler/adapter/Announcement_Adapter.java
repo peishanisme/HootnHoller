@@ -73,7 +73,6 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
         TextView annTime = dialog.findViewById(R.id.annTime);
         TextView annContent = dialog.findViewById(R.id.annContent);
         View closeButton = dialog.findViewById(R.id.close);
-        Button editButton = dialog.findViewById(R.id.editButton);
         Button deleteButton = dialog.findViewById(R.id.deleteButton);
 
         annTitle.setText(announcementItem.getAnnouncementTitle());
@@ -83,17 +82,7 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
         // Set up click listeners for buttons in the dialog
         if (isCurrentUserClassOwner) {
             // Only show the edit and delete buttons if the current user is the class owner
-            editButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
-
-            editButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    dialog.dismiss();
-                }
-            });
-
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -122,7 +111,6 @@ public class Announcement_Adapter extends RecyclerView.Adapter<Announcement_Adap
             });
         } else {
             // Hide the edit and delete buttons if the current user is not the class owner
-            editButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
         }
 

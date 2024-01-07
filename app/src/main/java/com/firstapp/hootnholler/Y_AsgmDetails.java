@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.firstapp.hootnholler.databinding.ActivityStudentAsgnDetailsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +46,7 @@ public class Y_AsgmDetails extends AppCompatActivity {
 
     private Button addSubmissionButton, uploadButton, cancelButton, dltButton, gradeButton;
     private ImageView backButton;
-    private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment;
+    private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment,gradingFile;
     private EditText uploadFileName, assComment;
     ImageView addFile;
     private LinearLayout submitLayout, studentLayout, teacherGradeLayout, submissionTable;
@@ -78,6 +80,7 @@ public class Y_AsgmDetails extends AppCompatActivity {
         file = findViewById(R.id.file);
 
         submissionStatus = findViewById(R.id.submissionStatus);
+        gradingFile=findViewById(R.id.gradingAttachment);
         gradingStatus = findViewById(R.id.gradingStatus);
         timeRemaining = findViewById(R.id.timeLeft);
         fileSubmission = findViewById(R.id.fileSubmission);
@@ -452,9 +455,8 @@ public class Y_AsgmDetails extends AppCompatActivity {
 
                         assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
                         DatabaseReference submissionRef = assRef.child("Submission").child(studentUID);
-                        submissionRef.child("gradeFileName").setValue(displayName);
+                        submissionRef.child("gradedFileName").setValue(displayName);
                         submissionRef.child("gradedTime").setValue(String.valueOf(System.currentTimeMillis()));
-                        submissionRef.child("gradedFileUri").setValue(uri.toString());
                         submissionRef.child("gradedFileUri").setValue(uri.toString());
 
                         Toast.makeText(Y_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
@@ -490,6 +492,17 @@ public class Y_AsgmDetails extends AppCompatActivity {
                             if(submissionSnapshot.child("score").exists()){
                                 gradeButton.setVisibility(View.GONE);
                                 gradingStatus.setText(submissionSnapshot.child("score").getValue(String.class));
+                                if(submissionSnapshot.child("gradedFileUri").exists()){
+                                    gradingFile.setText(submissionSnapshot.child("gradedFileName").getValue(String.class));
+                                    gradingFile.setPaintFlags(gradingFile.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+                                    gradingFile.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            openFile(submissionSnapshot.child("gradedFileUri").getValue(String.class));
+                                        }
+                                    });
+                                }
                             }
                             // ready for graded
                             else{
@@ -500,6 +513,7 @@ public class Y_AsgmDetails extends AppCompatActivity {
                         }
                         numofcheck ++;
                     }
+                    // upcoming
                     if(numofcheck == assignmentSnapshot.child("Submission").getChildrenCount()){
                         if(studentUID.isEmpty()){
                             teacherGradeLayout.setVisibility(View.VISIBLE);
@@ -507,6 +521,31 @@ public class Y_AsgmDetails extends AppCompatActivity {
                             studentLayout.setVisibility(View.GONE);
                             dltButton.setVisibility(View.VISIBLE);
                             gradeButton.setVisibility(View.GONE);
+                            dltButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    DatabaseReference asgmRef = FirebaseDatabase.getInstance().getReference("Classroom")
+                                            .child(currentClassCode)
+                                            .child("Assignment")
+                                            .child(assId);
+
+                                    // Remove the assignment from the database
+                                    asgmRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Delete successful
+                                                Toast.makeText(Y_AsgmDetails.this, "Assignment deleted", Toast.LENGTH_SHORT).show();
+                                                // Optionally, you may want to notify your RecyclerView of the change
+                                            } else {
+                                                // Delete failed
+                                                Toast.makeText(Y_AsgmDetails.this, "Failed to delete assignment", Toast.LENGTH_SHORT).show();
+                                            }
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
                         }
                         else{
                             submissionTable.setVisibility(View.VISIBLE);
