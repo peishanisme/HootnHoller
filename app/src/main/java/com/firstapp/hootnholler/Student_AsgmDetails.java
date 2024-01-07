@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firstapp.hootnholler.databinding.ActivityStudentAsgmBinding;
 import com.firstapp.hootnholler.databinding.ActivityStudentAsgnDetailsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -506,6 +507,7 @@ public class Student_AsgmDetails extends AppCompatActivity {
                         }
                         numofcheck ++;
                     }
+                    // upcoming
                     if(numofcheck == assignmentSnapshot.child("Submission").getChildrenCount()){
                         if(studentUID.isEmpty()){
                             teacherGradeLayout.setVisibility(View.VISIBLE);
@@ -513,6 +515,31 @@ public class Student_AsgmDetails extends AppCompatActivity {
                             studentLayout.setVisibility(View.GONE);
                             dltButton.setVisibility(View.VISIBLE);
                             gradeButton.setVisibility(View.GONE);
+                            dltButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    DatabaseReference asgmRef = FirebaseDatabase.getInstance().getReference("Classroom")
+                                            .child(currentClassCode)
+                                            .child("Assignment")
+                                            .child(assId);
+
+                                    // Remove the assignment from the database
+                                    asgmRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Delete successful
+                                                Toast.makeText(Student_AsgmDetails.this, "Assignment deleted", Toast.LENGTH_SHORT).show();
+                                                // Optionally, you may want to notify your RecyclerView of the change
+                                            } else {
+                                                // Delete failed
+                                                Toast.makeText(Student_AsgmDetails.this, "Failed to delete assignment", Toast.LENGTH_SHORT).show();
+                                            }
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
                         }
                         else{
                             submissionTable.setVisibility(View.VISIBLE);
