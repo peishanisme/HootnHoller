@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firstapp.hootnholler.adapter.Announcement_Adapter;
@@ -40,6 +41,7 @@ public class Y_Announcement extends AppCompatActivity {
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
     String uid=mAuth.getUid().toString();
     private boolean isCurrentUserClassOwner;
+    private TextView noannouncement;
     TeacherActivityAnnouncementBinding binding;
 
     @Override
@@ -49,6 +51,7 @@ public class Y_Announcement extends AppCompatActivity {
         setContentView(binding.getRoot());
         currentClassCode = getIntent().getStringExtra("classCode");
         announcement = findViewById(R.id.AnnouncementWindow);
+        noannouncement = findViewById(R.id.noannouncement);
         back = binding.back;
 
         announcement.setVisibility(View.GONE);
@@ -132,6 +135,14 @@ public class Y_Announcement extends AppCompatActivity {
                 }
                 announcementDataList.sort((announcement1, announcement2) -> Long.compare(announcement2.getTimestamp(), announcement1.getTimestamp()));
                 announcementAdapter.notifyDataSetChanged();
+                if(announcementDataList.isEmpty()){
+                    noannouncement.setVisibility(View.VISIBLE);
+                    announcementList.setVisibility(View.GONE);
+                }
+                else{
+                    noannouncement.setVisibility(View.GONE);
+                    announcementList.setVisibility(View.VISIBLE);
+                }
 
             }
 

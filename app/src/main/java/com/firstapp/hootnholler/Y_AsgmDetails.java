@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -45,7 +46,7 @@ public class Y_AsgmDetails extends AppCompatActivity {
 
     private Button addSubmissionButton, uploadButton, cancelButton, dltButton, gradeButton;
     private ImageView backButton;
-    private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment;
+    private TextView title, openTime, dueTime, description, fileName, submissionStatus, timeRemaining, fileSubmission, gradingStatus, submissionTime, submissionComment,gradingFile;
     private EditText uploadFileName, assComment;
     ImageView addFile;
     private LinearLayout submitLayout, studentLayout, teacherGradeLayout, submissionTable;
@@ -79,6 +80,7 @@ public class Y_AsgmDetails extends AppCompatActivity {
         file = findViewById(R.id.file);
 
         submissionStatus = findViewById(R.id.submissionStatus);
+        gradingFile=findViewById(R.id.gradingAttachment);
         gradingStatus = findViewById(R.id.gradingStatus);
         timeRemaining = findViewById(R.id.timeLeft);
         fileSubmission = findViewById(R.id.fileSubmission);
@@ -453,9 +455,8 @@ public class Y_AsgmDetails extends AppCompatActivity {
 
                         assRef = FirebaseDatabase.getInstance().getReference("Classroom").child(currentClassCode).child("Assignment").child(assId);
                         DatabaseReference submissionRef = assRef.child("Submission").child(studentUID);
-                        submissionRef.child("gradeFileName").setValue(displayName);
+                        submissionRef.child("gradedFileName").setValue(displayName);
                         submissionRef.child("gradedTime").setValue(String.valueOf(System.currentTimeMillis()));
-                        submissionRef.child("gradedFileUri").setValue(uri.toString());
                         submissionRef.child("gradedFileUri").setValue(uri.toString());
 
                         Toast.makeText(Y_AsgmDetails.this, "File Uploaded Successfully!!", Toast.LENGTH_SHORT).show();
@@ -491,6 +492,17 @@ public class Y_AsgmDetails extends AppCompatActivity {
                             if(submissionSnapshot.child("score").exists()){
                                 gradeButton.setVisibility(View.GONE);
                                 gradingStatus.setText(submissionSnapshot.child("score").getValue(String.class));
+                                if(submissionSnapshot.child("gradedFileUri").exists()){
+                                    gradingFile.setText(submissionSnapshot.child("gradedFileName").getValue(String.class));
+                                    gradingFile.setPaintFlags(gradingFile.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+                                    gradingFile.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            openFile(submissionSnapshot.child("gradedFileUri").getValue(String.class));
+                                        }
+                                    });
+                                }
                             }
                             // ready for graded
                             else{

@@ -5,30 +5,30 @@
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/rectangle_4026" >
+    android:background="@drawable/rectangle_4026">
 
 
     <LinearLayout
         android:id="@+id/title"
-        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_marginTop="0dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/close"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="right"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_gravity="right"
             android:src="@drawable/dell_fill" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
             android:layout_gravity="center"
+            android:paddingTop="15dp"
             android:text="Announcement"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -72,103 +72,24 @@
             android:id="@+id/annContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:inputType="textMultiLine"
             android:paddingBottom="30dp"
-            android:text="dfghjkuytrertyuiiuhgfdsaertyuiiouyftdsaATYUIEDFGHJKHGFDADFGHJJHGFDFGHVB"
+            android:text="-"
             android:textColor="#000000"
             android:textSize="15sp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/button_colour"
-                android:paddingHorizontal="35dp"
-                android:paddingVertical="15dp"
-                android:text="Edit"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/deleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:backgroundTint="@color/button_colour"
-                android:paddingHorizontal="25dp"
-                android:paddingVertical="15dp"
-                android:text="Delete"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/button_colour"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="15dp"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
     </LinearLayout>
-
-
-    <!--        <ImageButton-->
-<!--            android:id="@+id/boldButton"-->
-<!--            android:layout_width="12dp"-->
-<!--            android:layout_height="16dp"-->
-<!--            android:layout_marginStart="15dp"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            app:srcCompat="@drawable/ic_bold"-->
-<!--            android:layout_below="@+id/editTextText2"-->
-<!--            android:layout_marginTop="-15dp"-->
-<!--            android:layout_marginEnd="20dp"/>-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/italicButton"-->
-<!--            android:layout_width="14dp"-->
-<!--            android:layout_height="16dp"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            app:srcCompat="@drawable/ic_italic"-->
-<!--            android:layout_below="@+id/editTextText2"-->
-<!--            android:layout_toRightOf="@+id/boldButton"-->
-<!--            android:layout_marginTop="-15dp"/>-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/underlineButton"-->
-<!--            android:layout_width="15dp"-->
-<!--            android:layout_height="16dp"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            app:srcCompat="@drawable/ic_underline"-->
-<!--            android:layout_below="@+id/editTextText2"-->
-<!--            android:layout_toRightOf="@+id/italicButton"-->
-<!--            android:layout_marginTop="-15dp"/>-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/sendButton"-->
-<!--            android:layout_width="17dp"-->
-<!--            android:layout_height="18dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:layout_marginBottom="7dp"-->
-<!--            app:srcCompat="@drawable/ic_send"-->
-<!--            android:layout_below="@+id/editTextText2"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_toRightOf="@id/editTextText2"/>-->
-
-<!--    </RelativeLayout>-->
-
-
-
-
 </RelativeLayout>
