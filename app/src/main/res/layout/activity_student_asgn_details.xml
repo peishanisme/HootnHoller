@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Science Tutorial 6"
+            android:text="-"
             android:textColor="#000000"
             android:textSize="24sp"
             android:layout_marginTop="25dp"/>
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
-            android:text="Opened: 6 November 2023, 12:00PM"
+            android:text="Opened: -"
             android:textColor="#545353"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView16"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:text="Due: 13 November 2023, 11:59PM"
+            android:text="Due: -"
             android:textColor="#545353"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView20"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="Dear students, this is the notes for tmr’s lesson. Kindly go through before class tmr."
+            android:text="-"
             android:textColor="#000000"
             android:textSize="15sp" />
 
@@ -115,7 +115,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="15dp"
                     android:layout_toRightOf="@id/pdfIcon"
-                    android:text="Chapter 3 - Human"
+                    android:text="-"
                     android:textColor="#000000"
                     android:textStyle="bold" />
 
@@ -282,7 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="Tuto5 by lalala"
+                            android:text="-"
                             android:textAlignment="textStart"
                             android:textColor="@color/black"
                             android:textSize="18dp"
@@ -293,7 +293,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="2023/03/02 12pm"
+                            android:text="-"
                             android:textAlignment="textStart"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
@@ -321,7 +321,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="8"
-                        android:text="--"
+                        android:text="-"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
