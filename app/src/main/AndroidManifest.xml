@@ -128,7 +128,9 @@
         <activity
             android:name=".Student_Quiz_Set_Activity"
             android:exported="false" />
-
+        <activity
+            android:name=".Educator_Quiz_Add_Question_Activity"
+            android:exported="false" />
         <activity
             android:name=".Educator_Quiz_Question_Activity"
             android:exported="false" />

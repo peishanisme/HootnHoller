@@ -22,6 +22,7 @@ import com.firstapp.hootnholler.Models.ClassroomModel;
 import com.firstapp.hootnholler.Models.PostedQuizModel;
 import com.firstapp.hootnholler.Models.QuizCandidate;
 import com.firstapp.hootnholler.databinding.ActivityQuizEducatorPostBinding;
+import com.firstapp.hootnholler.entity.Classroom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +42,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
 
     ActivityQuizEducatorPostBinding binding;
     FirebaseDatabase database;
-    DatabaseReference referenceEducatorClassroom, referencePostedClassroom, referencePostedSet, referenceAnswers, referenceRanking;
+    DatabaseReference referenceClassroom, referenceEducatorClassroom, referencePostedClassroom, referencePostedSet, referenceAnswers, referenceRanking;
     String uid, keyCtg, keySet, imageUrl;
     ArrayList<String> classKeyList;
     ArrayList<ClassroomModel> list;
@@ -88,64 +89,51 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
         referencePostedSet = database.getReference().child("Categories").child(keyCtg).child("postedSet");
         referenceRanking = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Ranking");
         referenceAnswers = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Answers");
+        referenceClassroom = database.getReference().child("Classroom");
 
-        referenceEducatorClassroom.addValueEventListener(new ValueEventListener() {
+        referenceClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    classKeyList = (ArrayList<String>) snapshot.getValue();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
 
-                    if(classKeyList != null && classKeyList.size()>0) {
-                        list.clear();
-                        database.getReference().child("Classroom").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    for(DataSnapshot classDataSnapshot : snapshot.getChildren()) {
-                                        if(classKeyList.contains(classDataSnapshot.getKey())) {
-                                            String name = classDataSnapshot.child("className").getValue(String.class);
-                                            ClassroomModel model = new ClassroomModel(classDataSnapshot.getKey(), name);
-                                            if(!list.contains(model)) {
-                                                list.add(model);
-                                                adapter.notifyItemInserted(list.size());
+                            String className = snapshot.child("className").getValue(String.class);
+                            String classKey = snapshot.getKey();
 
-                                                referencePostedClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        if(snapshot.exists()) {
-                                                            ArrayList<String> postedClassroom = (ArrayList<String>) snapshot.getValue();
+                            ClassroomModel model = new ClassroomModel(classKey, className);
+                            list.add(model);
+                            adapter.notifyItemInserted(list.size());
 
-                                                            if(postedClassroom != null && postedClassroom.contains(classDataSnapshot.getKey())) {
-                                                                int pos = classKeyList.indexOf(classDataSnapshot.getKey());
-                                                                adapter.setSelectedItems(pos - 1);
-                                                            }
-                                                        }
-                                                    }
+                            referencePostedClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        ArrayList<String> postedClassroom = (ArrayList<String>) snapshot.getValue();
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-                                            }
-
+                                        if(postedClassroom != null && postedClassroom.contains(classKey)) {
+                                            int pos = classKeyList.indexOf(classKey);
+                                            adapter.setSelectedItems(pos - 1);
                                         }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(Educator_Quiz_Post_Activity.this, "Fail to access classroom name", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                        }
                     }
                 }
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Educator_Quiz_Post_Activity.this, "Fail to access classroom ID", Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
             }
         });
 
