@@ -152,7 +152,7 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
                                         firstDayOfWeek, lastDayOfWeek)){
 
                                     // iterate submission inside the assignment
-                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
+                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("Submission").getChildren()){
                                         if(submissionSnapShot.getKey().equals(StudentUid)){
                                             TaskStatus = checkTaskStatus(assignment, true);
                                             break;

@@ -95,9 +95,9 @@ public class Y_Register_Activity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(confirmPassword)) {
             Toast.makeText(this,  "Please insert your password...", Toast.LENGTH_SHORT).show();
 
-//        }else if (!password.matches(passwordPattern)) {
-//                UserPassword.setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special characters.");
-//                UserPassword.requestFocus();
+        }else if (!password.matches(passwordPattern)) {
+                UserPassword.setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special characters.");
+                UserPassword.requestFocus();
 
         }else if(!(password.equals(confirmPassword))) {
             Toast.makeText(this, "Your password do not match with your confirm password...", Toast.LENGTH_SHORT).show();
