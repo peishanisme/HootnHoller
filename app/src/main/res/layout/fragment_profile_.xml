@@ -148,7 +148,7 @@
             <ImageView
                 android:id="@+id/school_icon"
                 android:layout_width="30dp"
-                android:layout_height="match_parent"
+                android:layout_height="25dp"
                 android:src="@drawable/school_svgrepo_com__1__1"
                 android:layout_marginStart="55dp"/>
             <TextView
