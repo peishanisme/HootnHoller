@@ -134,7 +134,7 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
         TotalInProgress = 0;
         Submissions = new ArrayList<>();
         // get the list of class code from student
-        this.StudentRef.child("classroom").addListenerForSingleValueEvent(new ValueEventListener() {
+        this.StudentRef.child("Classroom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 final int[] numOfTask = {0};
