@@ -75,10 +75,29 @@ public class Student_Classroom_Fragment extends Fragment {
                     for (DataSnapshot classCodeSnapshot:snapshot.child("Student").child(uid).child("JoinedClass").getChildren()) {
                         if(classCodeSnapshot.exists()){
                             classcode = classCodeSnapshot.getKey();
-                            Classroom classroom = snapshot.child("Classroom").child(classcode).getValue(Classroom.class);
-                            classroom.setClassCode(classcode);
-                            classroomList.add(classroom);
-                            recyclerViewAdapter.notifyDataSetChanged();
+                            FirebaseDatabase.getInstance().getReference().child("Classroom").child(classcode).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()) {
+                                        String className = snapshot.child("className").getValue(String.class);
+                                        String classDescription = snapshot.child("classDescription").getValue(String.class);
+                                        String classSession = snapshot.child("classDescription").getValue(String.class);
+                                        Classroom classroom = new Classroom();
+                                        classroom.setClassName(className);
+                                        classroom.setClassDescription(classDescription);
+                                        classroom.setClassSession(classSession);
+                                        classroom.setClassCode(classcode);
+                                        classroomList.add(classroom);
+                                        recyclerViewAdapter.notifyItemInserted(classroomList.size());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                         }
                     }
                 }
@@ -135,6 +154,10 @@ public class Student_Classroom_Fragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         DataSnapshot classCodeSnapshot = snapshot.child("Classroom").child(ClassCode);
                         if (classCodeSnapshot.exists()) {
+                            Classroom classroom = classCodeSnapshot.getValue(Classroom.class);
+                            classroom.setClassCode(ClassCode);
+                            classroomList.add(classroom);
+                            recyclerViewAdapter.notifyItemInserted(classroomList.size());
                             DatabaseReference classroomReference= classroomRef.child(ClassCode).child("StudentsJoined").child(uid);
                             classroomReference.setValue(true);
                             DatabaseReference studentReference = student.child(uid).child("JoinedClass").child(ClassCode);
