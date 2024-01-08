@@ -3,6 +3,7 @@ package com.firstapp.hootnholler;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,8 +47,35 @@ public class Y_ChatFragment extends Fragment {
         adapter = new Conversation_ArrayAdapter(getActivity(), conversations);
         conversationList.setAdapter(adapter);
         userUID = mAuth.getUid();
+        SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Handle search submission if needed
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Handle search text change
+                filterConversations(newText);
+                return true;
+            }
+        });
         getConversation();
         return view;
+    }
+
+    private void filterConversations(String searchText) {
+        ArrayList<Conversation> filteredList = new ArrayList<>();
+        for (Conversation conversation : conversations) {
+            // Add your search logic here, for example, by checking conversation name
+            if (conversation.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(conversation);
+            }
+        }
+        adapter.updateConversation(filteredList);
+        adapter.notifyDataSetChanged();
     }
 
     public void getConversation(){
