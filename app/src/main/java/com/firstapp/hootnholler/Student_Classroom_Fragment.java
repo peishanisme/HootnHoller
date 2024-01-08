@@ -135,6 +135,10 @@ public class Student_Classroom_Fragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         DataSnapshot classCodeSnapshot = snapshot.child("Classroom").child(ClassCode);
                         if (classCodeSnapshot.exists()) {
+                            Classroom classroom = classCodeSnapshot.getValue(Classroom.class);
+                            classroom.setClassCode(ClassCode);
+                            classroomList.add(classroom);
+                            recyclerViewAdapter.notifyItemInserted(classroomList.size());
                             DatabaseReference classroomReference= classroomRef.child(ClassCode).child("StudentsJoined").child(uid);
                             classroomReference.setValue(true);
                             DatabaseReference studentReference = student.child(uid).child("JoinedClass").child(ClassCode);

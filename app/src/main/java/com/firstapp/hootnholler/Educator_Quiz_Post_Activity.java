@@ -78,6 +78,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
             setDateDialog.setCancelable(true);
             setDateDialog.setCanceledOnTouchOutside(true);
         }
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String currentDate = dateFormat.format(calendar.getTime());
@@ -91,53 +92,88 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
         referenceAnswers = database.getReference().child("Categories").child(keyCtg).child("Sets").child(keySet).child("Answers");
         referenceClassroom = database.getReference().child("Classroom");
 
-        referenceClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
+        referencePostedClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list.clear();
-                classKeyList.clear();
-                if(dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    ArrayList<String> postedClassroom = (ArrayList<String>) snapshot.getValue();
 
-                            String className = snapshot.child("className").getValue(String.class);
-                            String classKey = snapshot.getKey();
+                    referenceClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            list.clear();
+                            classKeyList.clear();
+                            if(dataSnapshot.exists()) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
 
-                            ClassroomModel model = new ClassroomModel(classKey, className);
-                            list.add(model);
-                            classKeyList.add(classKey);
-                            adapter.notifyItemInserted(list.size());
+                                        String className = snapshot.child("className").getValue(String.class);
+                                        String classKey = snapshot.getKey();
+                                        classKeyList.add(classKey);
 
-                            referencePostedClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if(snapshot.exists()) {
-                                        ArrayList<String> postedClassroom = (ArrayList<String>) snapshot.getValue();
+                                        ClassroomModel model = new ClassroomModel(classKey, className);
+                                        list.add(model);
+
+                                        adapter.notifyItemInserted(list.size());
 
                                         if(postedClassroom != null && postedClassroom.contains(classKey)) {
-                                            int pos = classKeyList.indexOf(classKey);
+                                            int pos = list.size() - 1;
                                             adapter.setSelectedItems(pos);
                                         }
+
                                     }
                                 }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                            }
 
                         }
-                    }
-                }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                        }
+                    });
+
+
+                } else {
+                    referenceClassroom.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            list.clear();
+                            classKeyList.clear();
+                            if(dataSnapshot.exists()) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    if (snapshot.child("classOwner").getValue(String.class).equals(uid)) {
+
+                                        String className = snapshot.child("className").getValue(String.class);
+                                        String classKey = snapshot.getKey();
+                                        classKeyList.add(classKey);
+
+                                        ClassroomModel model = new ClassroomModel(classKey, className);
+                                        list.add(model);
+
+                                        adapter.notifyItemInserted(list.size());
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                        }
+                    });
+                }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+
 
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,9 +268,8 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
                     ArrayList<String> studentsLeft = students;
                     int cntProgress = 0;
                     int ttlStudent = students.size();
-                    for (DataSnapshot studentSnapshot : snapshot.getChildren()) {
+                    for (String studentKey : students) {
                         cntProgress++;
-                        String studentKey = studentSnapshot.getValue(String.class);
                         if (studentKey != null) {
                             for(String otherClass : postedClassroom) {
                                 int finalCntProgress = cntProgress;
@@ -316,6 +351,7 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
                     int totalStudents = (int) snapshot.getChildrenCount();
                     final int[] processedStudents = {0};
                     classKeyList.remove(classroomKey);
+                    adapter.deleteSelectedItems(position);
 
                     for (DataSnapshot studentSnapshot : snapshot.getChildren()) {
                         String studentKey = studentSnapshot.getKey();
@@ -342,19 +378,19 @@ public class Educator_Quiz_Post_Activity extends AppCompatActivity implements Re
                                             studentQuizReference.setValue(setKeyInfo);
                                         }
 
-                                        processedStudents[0]++;
-                                        if (processedStudents[0] == totalStudents) {
-                                            adapter.deleteSelectedItems(position);
-                                        }
+//                                        processedStudents[0]++;
+//                                        if (processedStudents[0] == totalStudents) {
+//                                            adapter.deleteSelectedItems(position);
+//                                        }
                                     }
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-                                    processedStudents[0]++;
-                                    if (processedStudents[0] == totalStudents) {
-                                        adapter.deleteSelectedItems(position);
-                                    }
+//                                    processedStudents[0]++;
+//                                    if (processedStudents[0] == totalStudents) {
+//                                        adapter.deleteSelectedItems(position);
+//                                    }
                                 }
                             });
                         }

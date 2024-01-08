@@ -84,9 +84,12 @@ public class Educator_Ass_Graded_Fragment extends Fragment {
                                 }
                             }
 
-                            if (allGraded) {
-                                asgmList.add(assignment);
-                            }
+                            asgmList.add(assignment);
+
+//
+//                            if (allGraded) {
+//                                asgmList.add(assignment);
+//                            }
                         }
                     }
                 }

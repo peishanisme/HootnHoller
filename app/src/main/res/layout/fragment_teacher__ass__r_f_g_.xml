@@ -10,7 +10,8 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/rfgAssList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingHorizontal="10dp"/>
 
     <TextView
         android:id="@+id/TVnoAss"
