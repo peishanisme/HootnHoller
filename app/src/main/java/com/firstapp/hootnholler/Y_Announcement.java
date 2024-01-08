@@ -70,6 +70,43 @@ public class Y_Announcement extends AppCompatActivity {
         DatabaseReference ClassroomRef = FirebaseDatabase.getInstance().getReference("Classroom")
                 .child(currentClassCode);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isCurrentUserClassOwner) {
+                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                    intent.putExtra("classCode", currentClassCode);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                    intent.putExtra("classCode", currentClassCode);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        if (isCurrentUserClassOwner) {
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                    intent.putExtra("classCode", currentClassCode);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                    intent.putExtra("classCode", currentClassCode);
+                    startActivity(intent);
+                }
+            });
+        }
+
         ClassroomRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
