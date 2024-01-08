@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Educator_Ass_Upcoming_Fragment">
+    tools:context=".Educator_Ass_Upcoming_Fragment"
+    android:layout_gravity="center_horizontal">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_gravity="center_horizontal"
         android:id="@+id/upcomingAssList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:foregroundGravity="center_horizontal"
+        android:paddingHorizontal="10dp"/>
 
     <TextView
         android:id="@+id/TVnoAss"

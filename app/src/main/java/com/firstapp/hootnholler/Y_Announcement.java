@@ -79,7 +79,7 @@ public class Y_Announcement extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
+                    Intent intent = new Intent(Y_Announcement.this, Student_Class.class);
                     intent.putExtra("classCode", currentClassCode);
                     startActivity(intent);
                     finish();
@@ -87,25 +87,6 @@ public class Y_Announcement extends AppCompatActivity {
             }
         });
 
-        if (isCurrentUserClassOwner) {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Y_Announcement.this, Educator_Class.class);
-                    intent.putExtra("classCode", currentClassCode);
-                    startActivity(intent);
-                }
-            });
-        }
 
         ClassroomRef.addValueEventListener(new ValueEventListener() {
             @Override
