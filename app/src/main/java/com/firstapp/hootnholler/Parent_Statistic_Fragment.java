@@ -82,8 +82,11 @@ public class Parent_Statistic_Fragment extends Fragment {
         this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot joinedClassSnapshot : snapshot.child("Student").child(studentUID).child("JoinedClass").getChildren()) {
-                    Classroom classroom = snapshot.child("Classroom").child(joinedClassSnapshot.getKey()).getValue(Classroom.class);
+                for (DataSnapshot joinedClassSnapshot : snapshot.child("Student")
+                        .child(studentUID).
+                        child("JoinedClass").getChildren()) {
+                    Classroom classroom = snapshot.child("Classroom")
+                            .child(joinedClassSnapshot.getKey()).getValue(Classroom.class);
                     classroom.classCode = joinedClassSnapshot.getKey();
                     classroomList.add(classroom);
                     adapter.notifyDataSetChanged();
@@ -103,13 +106,17 @@ public class Parent_Statistic_Fragment extends Fragment {
         WeeklyAveragePerformanceScore = 0;
         this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            //calculate number of task and completed task
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> setKey = new ArrayList<>();
                 double totalSetNum = 0, totalTask = 0, totalCompleted = 0, totalMarkSet = 0;
 
-                for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(selectedClassroom.getClassCode()).child("Assignment").getChildren()) {
+                for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom")
+                        .child(selectedClassroom.getClassCode())
+                        .child("Assignment").getChildren()) {
                     totalTask++;
-                    for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
+                    for (DataSnapshot submissionSnapShot : assignmentSnapshot.
+                            child("submission").getChildren()) {
                         if (submissionSnapShot.getKey().equals(studentUID)) {
                             totalCompleted++;
                             break;
@@ -123,12 +130,17 @@ public class Parent_Statistic_Fragment extends Fragment {
 
                 // loop subject (quiz score)
 
-                for (DataSnapshot subjectSnapshot : snapshot.child("Student").child(studentUID).child("quiz").child(selectedClassroom.getClassCode()).getChildren()) {
+                for (DataSnapshot subjectSnapshot : snapshot.child("Student")
+                        .child(studentUID)
+                        .child("quiz")
+                        .child(selectedClassroom.getClassCode()).getChildren()) {
                     setKey.clear();
-                    for(DataSnapshot setSubjectSnapshot : subjectSnapshot.child("setKeyInfo").getChildren()){
+                    for(DataSnapshot setSubjectSnapshot : subjectSnapshot
+                            .child("setKeyInfo").getChildren()){
                         setKey.add(setSubjectSnapshot.getKey());
                     }
-                    for (DataSnapshot setSnapshot : snapshot.child("Categories").child(subjectSnapshot.getKey()).child("Sets").getChildren()) {
+                    for (DataSnapshot setSnapshot : snapshot.child("Categories")
+                            .child(subjectSnapshot.getKey()).child("Sets").getChildren()) {
                         if(!setKey.contains(setSnapshot.getKey())){
                             continue;
                         }

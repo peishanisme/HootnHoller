@@ -137,12 +137,16 @@ public class TaskStatus_Activity extends AppCompatActivity {
                                         firstDayOfWeek, lastDayOfWeek)){
 
                                     // iterate submission inside the assignment
-                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
+                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot
+                                            .child("submission").getChildren()){
+                                        //If a submission is found for the current student (StudentUid),
+                                        // the task is completed.
                                         if(submissionSnapShot.getKey().equals(StudentUid)){
                                             TaskStatus = checkTaskStatus(assignment, true);
                                             break;
                                         }
                                         else{
+                                        //If no submission is found for the current student, the task is not completed.
                                             TaskStatus = checkTaskStatus(assignment, false);
                                         }
                                     }
@@ -161,6 +165,8 @@ public class TaskStatus_Activity extends AppCompatActivity {
                                     }
                                 }
                             }
+
+                            //update UI and display task status
                             if(Student_Assignment_Adapter != null){
                                 Student_Assignment_Adapter.notifyDataSetChanged();
                             }

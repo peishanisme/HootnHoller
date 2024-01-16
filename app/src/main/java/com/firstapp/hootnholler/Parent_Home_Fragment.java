@@ -193,57 +193,77 @@ public class Parent_Home_Fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList <String> setKey = new ArrayList<>();
                 double totalSetNum = 0, totalTask = 0, totalCompleted = 0, totalMarkSet = 0;
+                //If the assignment from database has a due date within the current week，
+                // it increments totalTask (total number of tasks for the week)
                 // loop clsssroom (assignment score)
-                for (DataSnapshot classSnapshot : snapshot.child("Student").child(studentUID).child("JoinedClass").getChildren()) {
+                for (DataSnapshot classSnapshot : snapshot.child("Student")
+                        .child(studentUID).child("JoinedClass").getChildren()) {
                     // if classroom exists
                     if (classSnapshot.getValue(Boolean.class) == true) {
-                        for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(classSnapshot.getKey()).child("Assignment").getChildren()) {
+                        for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom")
+                                .child(classSnapshot.getKey())
+                                .child("Assignment").getChildren()) {
                             if(!assignmentSnapshot.child("dueDate").exists()){
                                 continue;
                             }
                             long timeStamp = Long.parseLong(assignmentSnapshot.child("dueDate").getValue(String.class));
                             if(isThisWeek(new Date(timeStamp))){
                                 totalTask++;
+<<<<<<< Updated upstream
                                 for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
                                     if (submissionSnapShot.getKey().equals(studentUID)) {
                                         totalCompleted++;
                                         break;
                                     }
+=======
+                                //checks if the student has submitted it.
+                                for (DataSnapshot submissionSnapShot : assignmentSnapshot
+                                        .child("Submission").getChildren()) {
+                                    //if submitted, it increments the number of completed task.
+                                        if (submissionSnapShot.getKey().equals(studentUID)) {
+                                            totalCompleted++;
+                                            break;
+                                        }
+>>>>>>> Stashed changes
                                 }
                             }
                         }
                     }
                 }
-
+                //calculate assignment score in percentage first
                 if(totalTask != 0){
                     WeeklyAverageAssignmentScore = totalCompleted / totalTask * 100;
                 }
 
                 // loop subject (quiz score)
-                for (DataSnapshot quizSnapshot : snapshot.child("Student").child(studentUID).child("quiz").getChildren()) {
+                for (DataSnapshot quizSnapshot : snapshot.child("Student").child(studentUID)
+                        .child("quiz").getChildren()) {
                     // get classCode
                     for (DataSnapshot subjectSnapshot : quizSnapshot.getChildren()) {
                         setKey.clear();
-                        for(DataSnapshot setSubjectSnapshot : subjectSnapshot.child("setKeyInfo").getChildren()){
-                            if(isThisWeek(new Date(setSubjectSnapshot.child("dueDate").getValue(Long.class)))){
-                                setKey.add(setSubjectSnapshot.getKey());
+                        for(DataSnapshot setSubjectSnapshot : subjectSnapshot
+                                .child("setKeyInfo").getChildren()){
+                                if(isThisWeek(new Date(setSubjectSnapshot.child("dueDate").getValue(Long.class)))){
+                                    setKey.add(setSubjectSnapshot.getKey());
                             }
                         }
-                        for (DataSnapshot setSnapshot : snapshot.child("Categories").child(subjectSnapshot.getKey()).child("Sets").getChildren()) {
-                            if(!setKey.contains(setSnapshot.getKey())){
-                                continue;
-                            }
-                            for (DataSnapshot rankingSnapshot : setSnapshot.child("Ranking").getChildren()) {
-                                if (rankingSnapshot.child("uid").getValue(String.class).equals(studentUID)) {
-                                    totalMarkSet += rankingSnapshot.child("score").getValue(Double.class);
-                                    break;
+                        for (DataSnapshot setSnapshot : snapshot.child("Categories")
+                                .child(subjectSnapshot.getKey())
+                                .child("Sets").getChildren()) {
+                                if(!setKey.contains(setSnapshot.getKey())){
+                                    continue;
                                 }
+                                for (DataSnapshot rankingSnapshot : setSnapshot.child("Ranking").getChildren()) {
+                                    if (rankingSnapshot.child("uid").getValue(String.class).equals(studentUID)) {
+                                        totalMarkSet += rankingSnapshot.child("score").getValue(Double.class);
+                                        break;
+                                    }
                             }
                             totalSetNum ++;
                         }
                     }
                 }
-
+                //calculate weekly average quiz score
                 if(totalSetNum != 0){
                     WeeklyAverageQuizScore = totalMarkSet / totalSetNum;
                 }
@@ -275,14 +295,22 @@ public class Parent_Home_Fragment extends Fragment {
         return false;
     }
 
+
     public void calculateRiskLevelStudent(double WeeklyAveragePerformanceScore){
+        //check if weekly average performance more or equal 50%
+        //if yes, will display green box in home page
         if(WeeklyAveragePerformanceScore >= 50){
             RiskStatusLayout.setBackgroundResource(R.drawable.green_rectangle);
-            RiskStatus.setText("Not an at-risk student");
+            //Get the string resource using its ID
+            String notRiskStudentString = getString(R.string.not_risk_student);
+            RiskStatus.setText(notRiskStudentString);
         }
+        //if no, will display red box in home page
         else{
             RiskStatusLayout.setBackgroundResource(R.drawable.red_reactangle);
-            RiskStatus.setText("Is an at-risk student");
+            //Get the string resource using its ID
+            String RiskStudentString = getString(R.string.risk_student);
+            RiskStatus.setText(RiskStudentString);
         }
     }
 }
