@@ -121,6 +121,7 @@ public class Student_Classroom_Fragment extends Fragment {
             }
         });
 
+        //set onClickListener
         JoinClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +160,7 @@ public class Student_Classroom_Fragment extends Fragment {
                         }
                     }
 
+                    //
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(getActivity(), "Error checking class code. Please try again.", Toast.LENGTH_LONG).show();
