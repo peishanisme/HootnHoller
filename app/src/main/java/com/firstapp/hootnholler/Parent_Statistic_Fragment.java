@@ -54,7 +54,6 @@ public class Parent_Statistic_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_parent__statistic_, container, false);
         classroomSpinner = view.findViewById(R.id.classroom_list);
         AvgPerformance = view.findViewById(R.id.avgPerformance);
-        AvgAtRisk = view.findViewById(R.id.avgAtRisk);
         AvgPositive = view.findViewById(R.id.avg_positive);
         AvgNegative = view.findViewById(R.id.avg_negative);
 
@@ -67,7 +66,7 @@ public class Parent_Statistic_Fragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedClassroom = classroomList.get(i);
                 getWeeklyAveragePerformance();
-                getAtRiskAndFeedback();
+                getFeedback();
             }
 
             @Override
@@ -110,7 +109,7 @@ public class Parent_Statistic_Fragment extends Fragment {
 
                 for (DataSnapshot assignmentSnapshot : snapshot.child("Classroom").child(selectedClassroom.getClassCode()).child("Assignment").getChildren()) {
                     totalTask++;
-                    for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("submission").getChildren()) {
+                    for (DataSnapshot submissionSnapShot : assignmentSnapshot.child("Submission").getChildren()) {
                         if (submissionSnapShot.getKey().equals(studentUID)) {
                             totalCompleted++;
                             break;
@@ -157,21 +156,11 @@ public class Parent_Statistic_Fragment extends Fragment {
         });
     }
 
-    public void getAtRiskAndFeedback(){
+    public void getFeedback(){
         this.Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int numAtRisk = 0, numPositive = 0, numNegative = 0;
-                for(DataSnapshot riskSnapshot : snapshot.child("Feedback")
-                        .child(selectedClassroom.getClassCode())
-                        .child(studentUID)
-                        .child("at-risk status")
-                        .getChildren()){
-                    if(riskSnapshot.exists()){
-                        numAtRisk += riskSnapshot.getValue(Integer.class);
-                    }
-                }
-                AvgAtRisk.setText(String.valueOf(numAtRisk));
+                int numPositive = 0, numNegative = 0;
 
                 // feedback
                 for(DataSnapshot feedbackSnapshot : snapshot.child("Feedback")
