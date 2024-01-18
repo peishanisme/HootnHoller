@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,8 +114,8 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
     }
 
     public void notifyWeekChange(){
-       checkWeek();
-       loadTaskData();
+        checkWeek();
+        loadTaskData();
     }
 
     public void checkWeek(){
@@ -127,32 +128,42 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
     }
 
     public void loadTaskData(){
-        // initialise all data
+        // Initialise all data
         TotalTask = 0;
         TotalIncompleted = 0;
         TotalCompleted = 0;
         TotalInProgress = 0;
         Submissions = new ArrayList<>();
-        // get the list of class code from student
-        this.StudentRef.child("classroom").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        // Get the list of class code from student
+        this.StudentRef.child("JoinedClass").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 final int[] numOfTask = {0};
                 Assignment.clear();
+
+                // Iterate through the classes the student has joined
                 for (DataSnapshot dataSnapShot : snapshot.getChildren()) {
                     String classCode = dataSnapShot.getKey();
+                    System.out.println(classCode);
+
+                    // Retrieve assignments for each class
                     ClassroomRef.child(classCode).child("Assignment").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot classRoomSnapshot) {
+                            // Iterate through assignments in the current class
                             for (DataSnapshot assignmentSnapShot: classRoomSnapshot.getChildren()) {
                                 int TaskStatus = 0;
                                 Assignment assignment = assignmentSnapShot.getValue(Assignment.class);
-                                if(isBetween(new Date(assignment.getUploadDate())
-                                        ,new Date(assignment.getDueDate()),
+                                System.out.println(assignment.getDescription());
+
+                                // Check if assignment falls within the current week
+                                if(isBetween(new Date(Long.parseLong(assignment.getUploadDate())),
+                                        new Date(Long.parseLong(assignment.getDueDate())),
                                         firstDayOfWeek, lastDayOfWeek)){
 
-                                    // iterate submission inside the assignment
-                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("submission").getChildren()){
+                                    // Iterate through submissions inside the assignment
+                                    for (DataSnapshot submissionSnapShot : assignmentSnapShot.child("Submission").getChildren()){
                                         if(submissionSnapShot.getKey().equals(StudentUid)){
                                             TaskStatus = checkTaskStatus(assignment, true);
                                             break;
@@ -161,30 +172,33 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
                                             TaskStatus = checkTaskStatus(assignment, false);
                                         }
                                     }
+
+                                    // Set task status and class code for the assignment
                                     assignment.setTaskStatus(TaskStatus);
                                     assignment.setClassCode(classCode);
                                     Assignment.add(assignment);
                                     numOfTask[0]++;
+
+                                    // Update total completed and incompleted tasks
                                     if(TaskStatus == 0){
                                         TotalCompleted++;
-                                    }
-                                    else if(TaskStatus == 1){
-                                        TotalInProgress++;
                                     }
                                     else{
                                         TotalIncompleted++;
                                     }
                                 }
                             }
+
+                            // Notify the adapter of data changes
                             if(Student_Assignment_Adapter != null){
                                 Student_Assignment_Adapter.notifyDataSetChanged();
                             }
 
+                            // Update UI with total task counts
                             TotalTask = numOfTask[0];
                             NumOfTask.setText(String.valueOf(Assignment.size()));
                             NumOfCompletedTask.setText(String.valueOf(TotalCompleted));
                             NumOfIncompletedTask.setText(String.valueOf(TotalIncompleted));
-                            NumOfInProgressTask.setText(String.valueOf(TotalInProgress));
                         }
 
                         @Override
@@ -202,6 +216,7 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
         });
     }
 
+
     public static boolean isBetween(Date uploadDate, Date dueDate, Date startDate, Date endDate){
         if(uploadDate.before(new Date())){
             if(dueDate.after(startDate) && dueDate.before(endDate)){
@@ -212,8 +227,9 @@ public class Parent_TaskStatus_Activity extends AppCompatActivity {
         return false;
     }
 
+    //check whether the task is within the current week
     public int checkTaskStatus(Assignment assignment, boolean isSubmit){
-        Date dueDate = new Date(assignment.getDueDate());
+        Date dueDate = new Date(Long.parseLong(assignment.getDueDate()));
         Date currentDate = new Date();
 
         // if due
